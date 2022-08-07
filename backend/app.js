@@ -7,7 +7,7 @@ app.use(express.json()); //allows us to access request body as req.body
 app.use(morgan("dev")); //enable incoming request logging in dev mode
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello Node World!");
 });
 
 app.listen(PORT, () => {
