@@ -11,6 +11,7 @@ import DashboardLayout from "../layouts/Dashboard";
 import AuthLayout from "../layouts/Auth";
 import PresentationLayout from "../layouts/Presentation";
 import Page404 from "../pages/auth/Page404";
+import Login from "../Dashboard";
 
 const childRoutes = (Layout, routes) =>
   routes.map(({ component: Component, guard, children, path }, index) => {
@@ -54,7 +55,7 @@ const childRoutes = (Layout, routes) =>
 
 const Routes = () => (
   <Router>
-    <Switch>
+    {/* <Switch>
       {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
       {childRoutes(DashboardLayout, protectedRoutes)}
       {childRoutes(AuthLayout, authLayoutRoutes)}
@@ -66,7 +67,8 @@ const Routes = () => (
           </AuthLayout>
         )}
       />
-    </Switch>
+    </Switch> */}
+    <Login />
   </Router>
 );
 
