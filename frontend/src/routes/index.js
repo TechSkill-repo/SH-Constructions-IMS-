@@ -118,10 +118,9 @@ const dashboardsRoutes = {
   children: [
     {
       path: "/",
-       name: "Home",
+      name: "Home",
       component: Default,
     },
-
   ],
   component: null,
 };
@@ -142,22 +141,26 @@ const orderRoutes = {
 };
 
 const authRoutes = {
-  id: "Profile",
-  path: "/auth",
+  id: "Form",
+  path: "/form",
   icon: <Users />,
-children: null,
-  component: null,
+  children: null,
+  component: TextFields,
 };
 
 const componentsRoutes = {
-  id: "Upgraded Plans",
-  path: "/components",
+  id: "Tables",
+  path: "/tables",
   icon: <Grid />,
-  children: null,
+  children: [
+    {
+      path: "/simpleTables",
+      name: "Simple Tables",
+      component: SimpleTable,
+    },
+  ],
   component: null,
 };
-
-
 
 const chartRoutes = {
   id: "Settings",
@@ -176,9 +179,6 @@ const landingRoutes = {
   children: null,
 };
 
-
-
-
 // This route is only visible while signed in
 const protectedPageRoutes = {
   id: "Private",
@@ -196,8 +196,6 @@ export const dashboardLayoutRoutes = [
 
   componentsRoutes,
   chartRoutes,
- 
-
 ];
 
 // Routes using the Auth layout
@@ -218,6 +216,4 @@ export const sidebarRoutes = [
   authRoutes,
   componentsRoutes,
   chartRoutes,
-
-
 ];
