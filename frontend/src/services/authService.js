@@ -3,7 +3,7 @@ import axios from "../utils/axios";
 export function signIn(credentials) {
   return new Promise((resolve, reject) => {
     axios
-      .post("/api/auth/sign-in", credentials)
+      .post("http://localhost:9090/users/login", credentials)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -19,7 +19,7 @@ export function signIn(credentials) {
 export function signUp(credentials) {
   return new Promise((resolve, reject) => {
     axios
-      .post("/api/auth/sign-up", credentials)
+      .post("http://localhost:9090/users/signup", credentials)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
