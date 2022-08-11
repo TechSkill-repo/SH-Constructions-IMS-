@@ -55,9 +55,12 @@ const childRoutes = (Layout, routes) =>
     ) : null;
   });
 
-const Routes = () => (
-  <Router>
-    {/* <Switch>
+const Routes = () => {
+  const sessionData = window.sessionStorage.getItem("user");
+
+  return (
+    <Router>
+      {/* <Switch>
       {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
       {childRoutes(DashboardLayout, protectedRoutes)}
       {childRoutes(AuthLayout, authLayoutRoutes)}
@@ -70,10 +73,13 @@ const Routes = () => (
         )}
       />
     </Switch> */}
-    <Provider store={store}>
-      <Login />
-    </Provider>
-  </Router>
-);
+      {sessionData ? (
+        <h1>Welcome, {JSON.parse(sessionData).role}</h1>
+      ) : (
+        <Login />
+      )}
+    </Router>
+  );
+};
 
 export default Routes;

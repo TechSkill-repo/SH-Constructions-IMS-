@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { signIn } from "../../../redux/actions/authActions";
+import React, { useState, useEffect } from "react";
+import { signIn } from "../../../services/authService";
 
 export const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const count = useSelector();
-  const dispatch = useDispatch();
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const signInAction = signIn({ username, password });
-    signInAction(dispatch);
+    signIn({ username, password }).then(data => {
+      window.sessionStorage.setItem("user", JSON.stringify(data));
+    }).catch(err => console.log(err));
   }
 
   return (

@@ -1,10 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require('cors');
 const userRoute = require("./routes/user.routes");
 
 const app = express();
 const PORT = process.env.PORT || 9090;
 
+app.use(cors());
 app.use(express.json()); //allows us to access request body as req.body
 app.use(morgan("dev")); //enable incoming request logging in dev mode
 app.use("/users", userRoute);
