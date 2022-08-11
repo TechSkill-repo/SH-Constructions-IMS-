@@ -7,8 +7,8 @@ export default function reducer(state = {}, actions) {
         ...state,
         user: {
           id: actions.id,
-          email: actions.email,
-          name: actions.name,
+          username: actions.username,
+          role: actions.role,
         },
       };
 

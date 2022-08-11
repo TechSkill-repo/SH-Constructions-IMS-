@@ -1,41 +1,45 @@
-import React, { Component } from "react";
-import LoginForm from "./LoginForm";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { signIn } from "../../../redux/actions/authActions";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "" };
+export const Login = (props) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  // const count = useSelector();
+  const dispatch = useDispatch();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.value);
+    const signInAction = signIn({ username, password });
+    signInAction(dispatch);
   }
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          username:
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => { setUsername(e.target.value) }}
+          />
+        </label>
 
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
-  }
+        <label>
+          password:
+          <input
+            type="text"
+            name="password"
+            value={password}
+            onChange={(e) => { setPassword(e.target.value) }}
+          />
+        </label>
+
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  );
 }
-export { Login };

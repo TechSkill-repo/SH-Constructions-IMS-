@@ -12,6 +12,8 @@ import AuthLayout from "../layouts/Auth";
 import PresentationLayout from "../layouts/Presentation";
 import Page404 from "../pages/auth/Page404";
 import Login from "../Dashboard";
+import { Provider } from "react-redux";
+import store from "../redux/store/index";
 
 const childRoutes = (Layout, routes) =>
   routes.map(({ component: Component, guard, children, path }, index) => {
@@ -68,7 +70,9 @@ const Routes = () => (
         )}
       />
     </Switch> */}
-    <Login />
+    <Provider store={store}>
+      <Login />
+    </Provider>
   </Router>
 );
 

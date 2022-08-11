@@ -30,7 +30,7 @@ const getUser = (req, res) => {
                 req.status(404).json({ "message": "User not found" });
             } else {
                 if (password == doc.data().password) {
-                    res.status(200).json({ "message": "Login successful", "role": doc.data().role });
+                    res.status(200).json({ "message": "Login successful", "username": username, "id": doc.id, "role": doc.data().role });
                 } else {
                     res.status(401).json({ "message": "Incorrect password" });
                 }

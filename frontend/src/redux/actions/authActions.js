@@ -11,11 +11,12 @@ export function signIn(credentials) {
 
     return authSignIn(credentials)
       .then((response) => {
+        console.log("Success");
         dispatch({
           type: types.AUTH_SIGN_IN_SUCCESS,
           id: response.id,
-          email: response.email,
-          name: response.name,
+          username: response.username,
+          role: response.name,
         });
       })
       .catch((error) => {
