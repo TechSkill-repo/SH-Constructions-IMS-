@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import DateFnsUtils from "@date-io/date-fns";
+import "./App.css";
 
 import { ThemeProvider } from "styled-components/macro";
 import { create } from "jss";
