@@ -10,7 +10,7 @@ import {
 
 import { spacing } from "@material-ui/system";
 
-import "../../../vendor/roundedBarCharts";
+import "../../../../vendor/roundedBarCharts";
 import { Bar } from "react-chartjs-2";
 
 import { MoreVertical } from "react-feather";

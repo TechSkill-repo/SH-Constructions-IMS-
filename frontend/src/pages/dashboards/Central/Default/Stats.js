@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 
 import {
   Box,
-  Card,
+  Card as MuiCard,
   CardContent as MuiCardContent,
   Chip as MuiChip,
   Typography as MuiTypography,
@@ -12,6 +12,8 @@ import {
 import { rgba } from "polished";
 
 import { spacing } from "@material-ui/system";
+
+const Card = styled(MuiCard)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
@@ -53,17 +55,17 @@ const Percentage = styled(MuiTypography)`
 
 const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
   return (
-    <Card>
+    <Card mb={3}>
       <CardContent>
-        <Typography variant="h6" mb={6}>
+        <Typography variant="h6" mb={4}>
           {title}
         </Typography>
-        <Typography variant="h3" mb={6}>
+        <Typography variant="h3" mb={3}>
           <Box fontWeight="fontWeightRegular">{amount}</Box>
         </Typography>
         <Percentage
           variant="subtitle2"
-          mb={6}
+          mb={4}
           color="textSecondary"
           percentagecolor={percentagecolor}
         >

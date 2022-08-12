@@ -50,8 +50,8 @@ import Snackbars from "../pages/components/Snackbars";
 import Tooltips from "../pages/components/Tooltips";
 
 // Dashboards components
-const Default = async(() => import("../pages/dashboards/Default"));
-const Analytics = async(() => import("../pages/dashboards/Analytics"));
+const Default = async(() => import("../pages/dashboards/Admin/Default"));
+const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 
 // Forms components

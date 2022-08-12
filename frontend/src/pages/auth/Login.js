@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { signIn } from "../../../services/authService";
+import { signIn } from "../../services/authService";
 
 export const Login = (props) => {
   const [username, setUsername] = useState("");
@@ -10,6 +10,7 @@ export const Login = (props) => {
     event.preventDefault();
     signIn({ username, password }).then(data => {
       window.sessionStorage.setItem("user", JSON.stringify(data));
+      window.location.href = "/"
     }).catch(err => console.log(err));
   }
 
