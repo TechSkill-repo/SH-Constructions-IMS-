@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { signIn } from "../../../services/authService";
+import { signIn } from "../../services/authService";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
