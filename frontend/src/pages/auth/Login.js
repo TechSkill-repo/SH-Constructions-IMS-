@@ -1,38 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { signIn } from "../../services/authService";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FilledInput from '@mui/material/FilledInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Link from '@mui/material/Link';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import InputAdornment from "@mui/material/InputAdornment";
+
 import {
   Container,
-  Form
+  Form,
+  FormContainer,
+  Head,
+  Head1,
+  ImageContainer,
+  Paragraph,
 } from "./Login.style";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import logo from "../../vendor/logo.png";
 
 export const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const [values, setValues] = useState({
+    password: "",
+    showPassword: false,
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    signIn({ username, password }).then(data => {
-      window.sessionStorage.setItem("user", JSON.stringify(data));
-      window.location.href = "/"
-    }).catch(err => console.log(err));
-  }
+    signIn({ username, password })
+      .then((data) => {
+        window.sessionStorage.setItem("user", JSON.stringify(data));
+        window.location.href = "/";
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleChange = (prop) => (event) => {
+    setPassword(event.target.value);
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
   const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
   };
 
   const handleMouseDownPassword = (event) => {
@@ -41,60 +61,92 @@ export const Login = (props) => {
 
   return (
     <Container>
-      <div className="wrapper">
-        <div className="formContainer">
-          <div className="formWrapper">
-            <div className="header">
-              <h1 className="logo">
-                SH Constructions
-              </h1>
-              <h1 className="title">Login</h1>
-            </div>
-            <Form onSubmit={handleSubmit}>
-              <TextField id="username" name="username" label="Username" variant="filled" value={username} onChange={(e) => { setUsername(e.target.value) }} />
-              <FormControl sx={{ my: 1.5 }} variant="filled">
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <FilledInput
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => { setPassword(e.target.value) }}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <div className="links">
-                <Box>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me" />
-                </Box>
-                <Link
-                  component="button"
-                  variant="body2"
-                  onClick={() => {
-                    console.info("I'm a button.");
-                  }}
-                >
-                  Forget Password
-                </Link>
-              </div>
-              <button type="submit" className="logInBtn">Login</button>
-              <p>For creating your account contact your IT admin.</p>
-            </Form>
-          </div>
-        </div>
-        <div className="formBg"></div>
-      </div>
+      <FormContainer>
+        <Head>
+          <img
+            style={{ height: "25vh", width: "100%", objectFit: "contain" }}
+            src={logo}
+          />
+        </Head>
+        <Head1>Hello! Please Login</Head1>
+        <Paragraph>
+          Please Login to your respective Dashboard using your given userEmail
+          and Password.
+        </Paragraph>
+        <form onSubmit={handleSubmit} method="post">
+          <Form>
+            <FormControl label="User Email" variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                User Email
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-weight"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                endAdornment={<AccountCircle position="end" />}
+                aria-described-by="outlined-weight-helper-text"
+                inputProps={{
+                  "aria-label": "weight",
+                }}
+                label="User Email"
+              />
+            </FormControl>
+          </Form>
+          <Form>
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={values.showPassword ? "text" : "password"}
+                value={values.password}
+                onChange={handleChange("password")}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+          </Form>
+          <Form>
+            <FormControlLabel
+              control={<Checkbox size="small" />}
+              label="If you want to remember your Login Panel ! "
+              size="small"
+            />
+          </Form>
+          <Form>
+            <Button
+              type="submit"
+              size="large"
+              variant="contained"
+              disableElevation
+            >
+              Login
+            </Button>
+          </Form>
+        </form>
+      </FormContainer>
+      <ImageContainer>
+        <img
+          style={{ height: "100vh", width: "100%", objectFit: "cover" }}
+          src="https://img.freepik.com/free-vector/multitasking-concept-with-man-computer_23-2148404692.jpg?w=2000"
+          // src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
+          // src="https://img.freepik.com/free-vector/computer-login-concept-illustration_114360-7962.jpg?w=2000"
+        />
+      </ImageContainer>
     </Container>
   );
-}
+};
