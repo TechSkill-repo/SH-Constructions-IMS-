@@ -14,6 +14,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -21,6 +25,9 @@ export const FormContainer = styled.div`
   text-align: center;
   height: 100vh;
   width: 50%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const Head = styled.h1`
@@ -59,4 +66,8 @@ export const Form = styled.div`
 export const ImageContainer = styled.div`
   width: 50%;
   background: rgb(255, 255, 255);
+  @media (max-width: 768px) {
+    display: none;
+    width: 0%;
+  }
 `;

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { signIn } from "../../services/authService";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import InputAdornment from "@mui/material/InputAdornment";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 import {
   Container,
@@ -23,10 +25,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import logo from "../../vendor/logo.png";
 
-export const Login = (props) => {
+export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const [values, setValues] = useState({
     password: "",
@@ -35,12 +36,21 @@ export const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!username && !password) {
+      alert("Please enter the valid details");
+    }
+
     signIn({ username, password })
       .then((data) => {
         window.sessionStorage.setItem("user", JSON.stringify(data));
         window.location.href = "/";
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response?.status === 404) alert("Email is Incorrect");
+        else if (err.response?.status === 401) alert("Password is Incorrect");
+        console.log(err);
+      });
   };
 
   const handleChange = (prop) => (event) => {
@@ -68,12 +78,13 @@ export const Login = (props) => {
             src={logo}
           />
         </Head>
-        <Head1>Hello! Please Login</Head1>
+        <Head1>Hi 👋 Please Login</Head1>
         <Paragraph>
           Please Login to your respective Dashboard using your given userEmail
           and Password.
         </Paragraph>
         <form onSubmit={handleSubmit} method="post">
+          {handleSubmit.alertMes}
           <Form>
             <FormControl label="User Email" variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">
@@ -128,12 +139,7 @@ export const Login = (props) => {
             />
           </Form>
           <Form>
-            <Button
-              type="submit"
-              size="large"
-              variant="contained"
-              disableElevation
-            >
+            <Button type="submit" size="large" variant="contained">
               Login
             </Button>
           </Form>
@@ -141,8 +147,8 @@ export const Login = (props) => {
       </FormContainer>
       <ImageContainer>
         <img
-          style={{ height: "100vh", width: "100%", objectFit: "cover" }}
-          src="https://img.freepik.com/free-vector/multitasking-concept-with-man-computer_23-2148404692.jpg?w=2000"
+          style={{ height: "100vh", width: "100%", objectFit: "contain" }}
+          src="https://media.istockphoto.com/vectors/team-of-builders-and-industrial-workers-vector-id1312320486?b=1&k=20&m=1312320486&s=612x612&w=0&h=GRFuDujVEQOs1I2UI5DI7UaPtrM860hPNXP8sZCN2c8="
           // src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
           // src="https://img.freepik.com/free-vector/computer-login-concept-illustration_114360-7962.jpg?w=2000"
         />

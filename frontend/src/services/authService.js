@@ -5,14 +5,12 @@ export function signIn(credentials) {
     axios
       .post("http://localhost:9090/users/login", credentials)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           resolve(response.data);
         }
-        reject(response.data);
       })
-      .catch((error) => {
-        reject(error);
+      .catch((err) => {
+        reject(err);
       });
   });
 }
