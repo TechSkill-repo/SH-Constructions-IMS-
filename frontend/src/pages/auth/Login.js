@@ -28,6 +28,9 @@ import logo from "../../vendor/logo.png";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [invalidDetails, setInvalidDetails] = useState(false);
+  const [invalidUserName, setInvalidUserName] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
 
   const [values, setValues] = useState({
     password: "",
@@ -38,7 +41,7 @@ export const Login = () => {
     event.preventDefault();
 
     if (!username && !password) {
-      alert("Please enter the valid details");
+      setInvalidDetails(true);
     }
 
     signIn({ username, password })
@@ -47,8 +50,8 @@ export const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
-        if (err.response?.status === 404) alert("Email is Incorrect");
-        else if (err.response?.status === 401) alert("Password is Incorrect");
+        if (err.response?.status === 404) setInvalidUserName(true);
+        else if (err.response?.status === 401) setInvalidPassword(true);
         console.log(err);
       });
   };
@@ -84,8 +87,28 @@ export const Login = () => {
           and Password.
         </Paragraph>
         <form onSubmit={handleSubmit} method="post">
-          {handleSubmit.alertMes}
           <Form>
+            {invalidDetails && (
+              <div style={{ marginBottom: "20px", marginTop: "-20px" }}>
+                <Alert severity="info">
+                  Please enter the user email and password 😕
+                </Alert>
+              </div>
+            )}
+            {invalidUserName && (
+              <div style={{ marginBottom: "20px", marginTop: "-20px" }}>
+                <Alert severity="warning">
+                  User Email doesn't exists 🚫 — check it out!
+                </Alert>
+              </div>
+            )}
+            {invalidPassword && (
+              <div style={{ marginBottom: "25px" }}>
+                <Alert severity="error">
+                  Please enter the correct password 😬
+                </Alert>
+              </div>
+            )}
             <FormControl label="User Email" variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">
                 User Email

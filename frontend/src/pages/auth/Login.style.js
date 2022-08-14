@@ -1,12 +1,4 @@
 import styled from "styled-components";
-import formBg from "./formBg.jpg";
-
-const media = {
-  desktop: "@media (max-width: 1024px)",
-  tablet: "@media (max-width: 920px)",
-  tabletSmall: "@media (max-width: 768px)",
-  mobile: "@media (max-width: 425px)",
-};
 
 export const Container = styled.div`
   height: 100%;
@@ -38,6 +30,7 @@ export const Head = styled.h1`
 `;
 export const Head1 = styled.h1`
   padding: 0 0 0 12%;
+  margin-top: -20px;
   color: #1769aa;
   font-size: 35px;
   font-weight: 900 !important;
