@@ -15,20 +15,22 @@ import { green, red } from "@material-ui/core/colors";
 
 import Actions from "./Actions";
 import Stats from "./Stats";
-import Table from "./Table";
 
 const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
+  const userDetails = window.sessionStorage.getItem("user");
+  const userRole = JSON.parse(userDetails);
+
   return (
     <React.Fragment>
       <Helmet title="S.H Construction" />
       <Grid justify="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            S.H Construction
+            S.H Construction {`${userRole.role}`} Dashboard
           </Typography>
           <Typography variant="h7" gutterBottom>
             Welcome back, Lucy! We've missed you. 👋
