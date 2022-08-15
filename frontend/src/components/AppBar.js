@@ -98,10 +98,27 @@ const AppBarComponent = ({ onDrawerToggle }) => (
             </Search>
           </Grid>
           <Grid item xs />
+          <Grid>
+            <MessagesDropdown />
+          </Grid>
+          <Grid>
+            <NotificationsDropdown />
+          </Grid>
+          <Grid>
+            <LanguagesDropdown />
+          </Grid>
+
           <Grid item>
-            <Button style={{
-              backgroundColor: "#4782da", color: "#fff"
-            ,paddingLeft:"25px",paddingRight:"25px"}}>Contact</Button>
+            <Button
+              style={{
+                backgroundColor: "#4782da",
+                color: "#fff",
+                paddingLeft: "25px",
+                paddingRight: "25px",
+              }}
+            >
+              Contact
+            </Button>
             <UserDropdown />
           </Grid>
         </Grid>

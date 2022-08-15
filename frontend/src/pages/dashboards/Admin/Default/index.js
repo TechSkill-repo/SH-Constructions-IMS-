@@ -29,13 +29,15 @@ function Default() {
   return (
     <React.Fragment>
       <Helmet title="S.H Construction" />
-      {/* <Grid justify="space-between" container spacing={6}>
+      <Grid justify="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom>
             S.H Construction
           </Typography>
+          <Typography variant="h7" gutterBottom>
+            Welcome back, Lucy! We've missed you. 👋
+          </Typography>
         </Grid>
-
         <Grid item>
           <Actions />
         </Grid>
@@ -46,26 +48,26 @@ function Default() {
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
-            title="Past Order"
-            amount="2532"
+            title="Gloves"
+            amount="200"
             chip="Today"
-            percentageText="+26%"
+            percentageText="Good Stock"
             percentagecolor={green[500]}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
-            title="Ongoing Order"
+            title="Gloves"
             amount="1702"
             chip="Annual"
-            percentageText="-14%"
+            percentageText="Low Stock"
             percentagecolor={red[500]}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
             title="Order Compleated"
-            amount="$ 24300"
+            amount="24300"
             chip="Yearly"
             percentageText="+18%"
             percentagecolor={green[500]}
@@ -80,7 +82,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-      </Grid> */}
+      </Grid>
       <div
         style={{
           textAlign: "center",

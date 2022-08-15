@@ -57,7 +57,7 @@ const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
   return (
     <Card mb={3}>
       <CardContent>
-        <Typography variant="h6" mb={4}>
+        <Typography variant="h5" mb={4}>
           {title}
         </Typography>
         <Typography variant="h3" mb={3}>
@@ -69,7 +69,7 @@ const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
           color="textSecondary"
           percentagecolor={percentagecolor}
         >
-          <span>{percentageText}</span> Since last week
+          <span>{percentageText}</span> current stock
         </Percentage>
         <Chip label={chip} />
       </CardContent>

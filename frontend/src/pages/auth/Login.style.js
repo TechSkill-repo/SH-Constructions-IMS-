@@ -10,7 +10,7 @@ export const FormContainer = styled.div`
   height: 100%;
   width: 100%;
   text-align: center;
-  
+  margin-top: 8vh;
   @media (min-width: 768px) {
     width: 50%;
   }
@@ -34,7 +34,7 @@ export const Head = styled.h1`
   font-size: 1.7em;
   font-weight: 900 !important;
   font-family: Arial, Helvetica, sans-serif;
-  
+
   @media (min-width: 330px) {
     font-size: 2em;
   }
@@ -61,7 +61,7 @@ export const Form = styled.div`
   margin: 1em auto;
 
   & > * {
-    width:100%;
+    width: 100%;
   }
 `;
 

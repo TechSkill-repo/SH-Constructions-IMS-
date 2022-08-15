@@ -5,7 +5,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import InputAdornment from "@mui/material/InputAdornment";
 import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
 
 import {
   Container,
@@ -83,23 +82,23 @@ export const Login = () => {
             Please Login to your respective Dashboard using your given userEmail
             and Password.
           </Paragraph>
-          <form onSubmit={handleSubmit} method="post" style={{ width: "100%" }}>
+          <form onSubmit={handleSubmit} method="post" style={{ width: "62%" }}>
             {invalidDetails && (
-              <Form style={{ marginBottom: '1.5em' }}>
+              <Form style={{ marginBottom: "1.3em" }}>
                 <Alert severity="info">
                   Please enter the user email and password 😕
                 </Alert>
               </Form>
             )}
             {invalidUserName && (
-              <Form style={{ marginBottom: '1.5em' }}>
+              <Form style={{ marginBottom: "1.3em" }}>
                 <Alert severity="warning">
                   User Email doesn't exists 🚫 — check it out!
                 </Alert>
               </Form>
             )}
             {invalidPassword && (
-              <Form style={{ marginBottom: '1.5em' }}>
+              <Form style={{ marginBottom: "1.3em" }}>
                 <Alert severity="error">
                   Please enter the correct password 😬
                 </Alert>
@@ -143,7 +142,11 @@ export const Login = () => {
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
-                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                        {values.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
                       </IconButton>
                     </InputAdornment>
                   }
@@ -155,7 +158,7 @@ export const Login = () => {
               <FormControlLabel
                 control={<Checkbox size="small" />}
                 // label="If you want to remember your Login Panel ! "
-                label="Keep me logged in"
+                label="Keep me logged in 👇"
                 size="small"
               />
             </Form>
@@ -169,10 +172,10 @@ export const Login = () => {
       </FormContainer>
       <ImageContainer>
         <img
-          style={{ height: "100vh", width: "100%", objectFit: "contain" }}
-          src="https://media.istockphoto.com/vectors/team-of-builders-and-industrial-workers-vector-id1312320486?b=1&k=20&m=1312320486&s=612x612&w=0&h=GRFuDujVEQOs1I2UI5DI7UaPtrM860hPNXP8sZCN2c8="
-        // src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
-        // src="https://img.freepik.com/free-vector/computer-login-concept-illustration_114360-7962.jpg?w=2000"
+          style={{ height: "100vh", width: "100%", objectFit: "none" }}
+          // src="https://media.istockphoto.com/vectors/team-of-builders-and-industrial-workers-vector-id1312320486?b=1&k=20&m=1312320486&s=612x612&w=0&h=GRFuDujVEQOs1I2UI5DI7UaPtrM860hPNXP8sZCN2c8="
+          // src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
+          src="https://img.freepik.com/free-vector/engineers-standing-near-big-monitor-with-buildings-project-crane-screen-flat-vector-illustration-construction-engineering_74855-8349.jpg?w=2000"
         />
       </ImageContainer>
     </Container>

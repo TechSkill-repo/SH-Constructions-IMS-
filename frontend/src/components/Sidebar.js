@@ -5,7 +5,7 @@ import { NavLink, withRouter } from "react-router-dom";
 import { darken } from "polished";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "../vendor/perfect-scrollbar.css";
-
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { spacing } from "@material-ui/system";
 
 import {
@@ -28,7 +28,38 @@ import { green } from "@material-ui/core/colors";
 
 import { sidebarRoutes as routes } from "../routes/admin";
 
-import { ReactComponent as Logo } from "../vendor/logo.svg";
+// import { ReactComponent as Logo } from "../vendor/logo.svg";
+
+import Logo from "../vendor/logo1.png";
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "$ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}))(Badge);
 
 const Box = styled(MuiBox)(spacing);
 
@@ -75,29 +106,29 @@ const Brand = styled(ListItem)`
   }
 `;
 
-// const BrandIcon = styled(Logo)`
-//   margin-right: ${(props) => props.theme.spacing(2)}px;
-//   color: ${(props) => props.theme.sidebar.header.brand.color};
-//   fill: ${(props) => props.theme.sidebar.header.brand.color};
-//   width: 60px;
-//   height: 60px;
-// `;
-
-const BrandChip = styled(Chip)`
-  background-color: ${green[700]};
-  border-radius: 5px;
-  color: ${(props) => props.theme.palette.common.white};
-  font-size: 55%;
-  height: 18px;
-  margin-left: 2px;
-  margin-top: -16px;
-  padding: 3px 0;
-
-  span {
-    padding-left: ${(props) => props.theme.spacing(1.375)}px;
-    padding-right: ${(props) => props.theme.spacing(1.375)}px;
-  }
+const BrandIcon = styled(Logo)`
+  margin-right: ${(props) => props.theme.spacing(2)}px;
+  color: ${(props) => props.theme.sidebar.header.brand.color};
+  fill: ${(props) => props.theme.sidebar.header.brand.color};
+  width: 60px;
+  height: 60px;
 `;
+
+// const BrandChip = styled(Chip)`
+//   background-color: ${green[700]};
+//   border-radius: 5px;
+//   color: ${(props) => props.theme.palette.common.white};
+//   font-size: 55%;
+//   height: 18px;
+//   margin-left: 2px;
+//   margin-top: -16px;
+//   padding: 3px 0;
+
+//   span {
+//     padding-left: ${(props) => props.theme.spacing(1.375)}px;
+//     padding-right: ${(props) => props.theme.spacing(1.375)}px;
+//   }
+// `;
 
 const Category = styled(ListItem)`
   padding-top: ${(props) => props.theme.spacing(3)}px;
@@ -120,7 +151,7 @@ const Category = styled(ListItem)`
 
   &.${(props) => props.activeClassName} {
     background-color: ${(props) =>
-    darken(0.03, props.theme.sidebar.background)};
+      darken(0.03, props.theme.sidebar.background)};
 
     span {
       color: ${(props) => props.theme.sidebar.color};
@@ -160,12 +191,12 @@ const Link = styled(ListItem)`
 
   &:hover {
     background-color: ${(props) =>
-    darken(0.015, props.theme.sidebar.background)};
+      darken(0.015, props.theme.sidebar.background)};
   }
 
   &.${(props) => props.activeClassName} {
     background-color: ${(props) =>
-    darken(0.03, props.theme.sidebar.background)};
+      darken(0.03, props.theme.sidebar.background)};
 
     span {
       color: ${(props) => props.theme.sidebar.color};
@@ -216,7 +247,7 @@ const SidebarSection = styled(Typography)`
 const SidebarFooter = styled.div`
   background-color: ${(props) =>
     props.theme.sidebar.footer.background} !important;
-  padding: ${(props) => props.theme.spacing(2.75)}px
+  padding: ${(props) => props.theme.spacing(3)}px
     ${(props) => props.theme.spacing(4)}px;
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 `;
@@ -236,7 +267,7 @@ const SidebarFooterBadge = styled(Badge)`
   margin-right: ${(props) => props.theme.spacing(1)}px;
   span {
     background-color: ${(props) =>
-    props.theme.sidebar.footer.online.background};
+      props.theme.sidebar.footer.online.background};
     border: 1.5px solid ${(props) => props.theme.palette.common.white};
     height: 12px;
     width: 12px;
@@ -326,10 +357,20 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
   return (
     <Drawer variant="permanent" {...rest}>
       <Brand component={NavLink} to="/" button>
-        {/* <BrandIcon  /> */}
-        <h4>SH Constructions</h4>
-        <Box ml={1}>
-        </Box>
+        {/* <BrandIcon /> */}
+        {/* <div style={{ objectFit: "cover" }}> */}
+        <img
+          src={Logo}
+          style={{
+            height: "20vh",
+            width: "100%",
+            objectFit: "cover",
+            margin: 0,
+          }}
+        />
+        {/* </div> */}
+        {/* <h4>SH Constructions</h4> */}
+        <Box ml={1}></Box>
       </Brand>
       <Scrollbar>
         <List disablePadding>
@@ -384,8 +425,33 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
             ))}
           </Items>
         </List>
+        <Grid
+          style={{
+            position: "fixed",
+            bottom: "0px",
+            left: "0px",
+            width: "auto",
+            // display: "flex",
+          }}
+        >
+          <SidebarFooter>
+            <SidebarFooterBadge
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
+              <SidebarFooterText>
+                Hey Central Store Dashboard
+                <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
+              </SidebarFooterText>
+            </SidebarFooterBadge>
+          </SidebarFooter>
+        </Grid>
       </Scrollbar>
-
     </Drawer>
   );
 };

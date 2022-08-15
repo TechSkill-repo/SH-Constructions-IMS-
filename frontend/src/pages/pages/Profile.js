@@ -572,6 +572,9 @@ function Profile() {
               <Revenue />
             </Grid>
           </Grid>
+          {/* <Grid item xs={12} lg={4}>
+            <Revenue />
+          </Grid> */}
           <Products />
         </Grid>
       </Grid>

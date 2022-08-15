@@ -125,7 +125,7 @@ const dashboardsRoutes = {
   component: null,
 };
 const projectsRoutes = {
-  id: "Analytics",
+  id: "Inventory",
   path: "/analytics",
   icon: <Briefcase />,
   component: Analytics,
@@ -133,29 +133,55 @@ const projectsRoutes = {
 };
 
 const orderRoutes = {
-  id: "Orders",
-  path: "/orders",
+  id: "Material request",
+  path: "/materialRequest",
   icon: <ShoppingCart />,
   component: Orders,
   children: null,
 };
 
 const authRoutes = {
-  id: "Form",
-  path: "/form",
+  id: "Material Issue",
+  path: "/material-issue",
+  icon: <Users />,
+  children: null,
+  component: TextFields,
+};
+
+const consumables = {
+  id: "Consumables Items",
+  path: "/material-issue",
+  icon: <Users />,
+  children: null,
+  component: TextFields,
+};
+
+const non_consumables = {
+  id: "Non-Consumables Items",
+  path: "/material-issue",
   icon: <Users />,
   children: null,
   component: TextFields,
 };
 
 const componentsRoutes = {
-  id: "Tables",
-  path: "/tables",
+  id: "Critical Tools",
+  path: "/critical-tools",
   icon: <Grid />,
   children: [
     {
       path: "/simpleTables",
-      name: "Simple Tables",
+      name: "Tool 1",
+      component: SimpleTable,
+    },
+    {
+      path: "/simpleTables",
+      name: "Tool 2",
+      component: SimpleTable,
+    },
+    {
+      path: "/simpleTables",
+      name: "Tool 3",
       component: SimpleTable,
     },
   ],
@@ -163,8 +189,40 @@ const componentsRoutes = {
 };
 
 const chartRoutes = {
-  id: "Settings",
-  path: "/charts",
+  id: "Monitor Inventory",
+  path: "/monitorInventory",
+  icon: <PieChart />,
+  component: Chartjs,
+  children: null,
+};
+
+const monitorInventory = {
+  id: "Store Inventory",
+  path: "/monitorInventory",
+  icon: <PieChart />,
+  component: Chartjs,
+  children: null,
+};
+
+const monitorStoreLone = {
+  id: "Monitor Store Lone",
+  path: "/monitorInventory",
+  icon: <PieChart />,
+  component: Chartjs,
+  children: null,
+};
+
+const profile = {
+  id: "Material Request",
+  path: "/monitorInventory",
+  icon: <PieChart />,
+  component: Chartjs,
+  children: null,
+};
+
+const notes = {
+  id: "Notes",
+  path: "/monitorInventory",
   icon: <PieChart />,
   component: Chartjs,
   children: null,
@@ -212,8 +270,13 @@ export const sidebarRoutes = [
   dashboardsRoutes,
   projectsRoutes,
   orderRoutes,
-
+  consumables,
+  non_consumables,
+  monitorInventory,
   authRoutes,
   componentsRoutes,
   chartRoutes,
+  monitorStoreLone,
+  profile,
+  notes,
 ];

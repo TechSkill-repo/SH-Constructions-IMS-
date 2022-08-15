@@ -41,7 +41,11 @@ function LanguagesDropdown() {
           onClick={toggleMenu}
           color="inherit"
         >
-          <Flag src="/static/img/flags/us.png" alt="English" />
+          <Flag
+            style={{ objectFit: "" }}
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png"
+            alt="Indian English"
+          />
         </IconButton>
       </Tooltip>
       <Menu
