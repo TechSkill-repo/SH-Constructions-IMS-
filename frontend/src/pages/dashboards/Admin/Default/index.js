@@ -14,12 +14,8 @@ import { spacing } from "@material-ui/system";
 import { green, red } from "@material-ui/core/colors";
 
 import Actions from "./Actions";
-import BarChart from "./BarChart";
-import LineChart from "./LineChart";
-import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
-import WorkspacesIcon from "@mui/icons-material/Workspaces";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -58,7 +54,7 @@ function Default() {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
             title="Gloves"
-            amount="1702"
+            amount="2"
             chip="Annual"
             percentageText="Low Stock"
             percentagecolor={red[500]}

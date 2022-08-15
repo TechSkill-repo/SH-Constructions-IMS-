@@ -25,10 +25,10 @@ const getUser = (req, res) => {
 
   const query = db.collection("users").where("username", "==", username);
   query.get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      if (querySnapshot.empty) {
-        req.status(404).json({ message: "User not found" });
-      } else {
+    if (querySnapshot.empty) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      querySnapshot.forEach((doc) => {
         if (password == doc.data().password) {
           res.status(200).json({
             message: "Login successful",
@@ -39,8 +39,8 @@ const getUser = (req, res) => {
         } else {
           res.status(401).json({ message: "Incorrect password" });
         }
-      }
-    });
+      });
+    }
   });
 };
 module.exports = { addUser, getUser };
