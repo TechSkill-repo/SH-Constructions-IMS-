@@ -19,7 +19,6 @@ import {
 // Guards
 import AuthGuard from "../components/AuthGuard";
 
-
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Central/Default"));
 const Analytics = async(() => import("../pages/dashboards/Central/Analytics"));
@@ -35,7 +34,6 @@ import SimpleTable from "../pages/tables/SimpleTable";
 
 // Chart components
 const Chartjs = async(() => import("../pages/charts/Chartjs"));
-
 
 // Landing
 import Landing from "../pages/presentation/Landing";

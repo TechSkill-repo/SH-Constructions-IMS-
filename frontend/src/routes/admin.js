@@ -108,6 +108,8 @@ import Landing from "../pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
+import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
+import Inventory from "../pages/dashboards/Central/Inventory/Inventory";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -133,10 +135,10 @@ const projectsRoutes = {
 };
 
 const orderRoutes = {
-  id: "Material request",
-  path: "/materialRequest",
+  id: "Material requests",
+  path: "/orders",
   icon: <ShoppingCart />,
-  component: Orders,
+  component: Inventory,
   children: null,
 };
 
