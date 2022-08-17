@@ -52,7 +52,7 @@ function Default() {
             title="Gloves"
             amount="200"
             chip="Today"
-            percentageText="Good Stock"
+            percentageText="On Stock"
             percentagecolor={green[500]}
           />
         </Grid>

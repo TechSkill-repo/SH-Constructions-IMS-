@@ -127,7 +127,7 @@ const dashboardsRoutes = {
   component: null,
 };
 const projectsRoutes = {
-  id: "Inventory",
+  id: "Admin Inventory",
   path: "/analytics",
   icon: <Briefcase />,
   component: Analytics,

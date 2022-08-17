@@ -26,7 +26,8 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
 import { green } from "@material-ui/core/colors";
 
-import { sidebarRoutes as routes } from "../routes/admin";
+import { sidebarRoutes as routes1 } from "../routes/admin";
+import { sidebarRoutes as routes2 } from "../routes/centralStore";
 
 // import { ReactComponent as Logo } from "../vendor/logo.svg";
 
@@ -316,6 +317,313 @@ const SidebarLink = ({ name, to, badge, icon }) => {
   );
 };
 
+const getSideBarContent = (user, rest, openRoutes, toggle) => {
+  if (user?.role === "Admin") {
+    return (
+      <Drawer variant="permanent" {...rest}>
+        <Brand component={NavLink} to="/" button>
+          {/* <BrandIcon /> */}
+          {/* <div style={{ objectFit: "cover" }}> */}
+          <img
+            src={Logo}
+            style={{
+              height: "20vh",
+              width: "100%",
+              objectFit: "cover",
+              margin: 0,
+            }}
+          />
+          {/* </div> */}
+          {/* <h4>SH Constructions</h4> */}
+          <Box ml={1}></Box>
+        </Brand>
+        <Scrollbar>
+          <List disablePadding>
+            <Items>
+              {routes1.map((category, index) => (
+                <React.Fragment key={index}>
+                  {category.header ? (
+                    <SidebarSection>{category.header}</SidebarSection>
+                  ) : null}
+
+                  {category.children && category.icon ? (
+                    <React.Fragment key={index}>
+                      <SidebarCategory
+                        isOpen={!openRoutes[index]}
+                        isCollapsable={true}
+                        name={category.id}
+                        icon={category.icon}
+                        button={true}
+                        onClick={() => toggle(index)}
+                      />
+
+                      <Collapse
+                        in={openRoutes[index]}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        {category.children.map((route, index) => (
+                          <SidebarLink
+                            key={index}
+                            name={route.name}
+                            to={route.path}
+                            icon={route.icon}
+                            badge={route.badge}
+                          />
+                        ))}
+                      </Collapse>
+                    </React.Fragment>
+                  ) : category.icon ? (
+                    <SidebarCategory
+                      isCollapsable={false}
+                      name={category.id}
+                      to={category.path}
+                      activeClassName="active"
+                      component={NavLink}
+                      icon={category.icon}
+                      exact
+                      button
+                      badge={category.badge}
+                    />
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </Items>
+          </List>
+          <Grid
+            style={{
+              position: "fixed",
+              bottom: "0px",
+              left: "0px",
+              width: "auto",
+              // display: "flex",
+            }}
+          >
+            <SidebarFooter>
+              <SidebarFooterBadge
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
+                <SidebarFooterText>
+                  Hey Central Store Dashboard
+                  <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
+                </SidebarFooterText>
+              </SidebarFooterBadge>
+            </SidebarFooter>
+          </Grid>
+        </Scrollbar>
+      </Drawer>
+    );
+  } else if (user?.role === "Central Store") {
+    return (
+      <Drawer variant="permanent" {...rest}>
+        <Brand component={NavLink} to="/" button>
+          {/* <BrandIcon /> */}
+          {/* <div style={{ objectFit: "cover" }}> */}
+          <img
+            src={Logo}
+            style={{
+              height: "20vh",
+              width: "100%",
+              objectFit: "cover",
+              margin: 0,
+            }}
+          />
+          {/* </div> */}
+          {/* <h4>SH Constructions</h4> */}
+          <Box ml={1}></Box>
+        </Brand>
+        <Scrollbar>
+          <List disablePadding>
+            <Items>
+              {routes2.map((category, index) => (
+                <React.Fragment key={index}>
+                  {category.header ? (
+                    <SidebarSection>{category.header}</SidebarSection>
+                  ) : null}
+
+                  {category.children && category.icon ? (
+                    <React.Fragment key={index}>
+                      <SidebarCategory
+                        isOpen={!openRoutes[index]}
+                        isCollapsable={true}
+                        name={category.id}
+                        icon={category.icon}
+                        button={true}
+                        onClick={() => toggle(index)}
+                      />
+
+                      <Collapse
+                        in={openRoutes[index]}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        {category.children.map((route, index) => (
+                          <SidebarLink
+                            key={index}
+                            name={route.name}
+                            to={route.path}
+                            icon={route.icon}
+                            badge={route.badge}
+                          />
+                        ))}
+                      </Collapse>
+                    </React.Fragment>
+                  ) : category.icon ? (
+                    <SidebarCategory
+                      isCollapsable={false}
+                      name={category.id}
+                      to={category.path}
+                      activeClassName="active"
+                      component={NavLink}
+                      icon={category.icon}
+                      exact
+                      button
+                      badge={category.badge}
+                    />
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </Items>
+          </List>
+          <Grid
+            style={{
+              position: "fixed",
+              bottom: "0px",
+              left: "0px",
+              width: "auto",
+              // display: "flex",
+            }}
+          >
+            <SidebarFooter>
+              <SidebarFooterBadge
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
+                <SidebarFooterText>
+                  Hey Central Store Dashboard
+                  <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
+                </SidebarFooterText>
+              </SidebarFooterBadge>
+            </SidebarFooter>
+          </Grid>
+        </Scrollbar>
+      </Drawer>
+    );
+  } else {
+    return (
+      <Drawer variant="permanent" {...rest}>
+        <Brand component={NavLink} to="/" button>
+          {/* <BrandIcon /> */}
+          {/* <div style={{ objectFit: "cover" }}> */}
+          <img
+            src={Logo}
+            style={{
+              height: "20vh",
+              width: "100%",
+              objectFit: "cover",
+              margin: 0,
+            }}
+          />
+          {/* </div> */}
+          {/* <h4>SH Constructions</h4> */}
+          <Box ml={1}></Box>
+        </Brand>
+        <Scrollbar>
+          <List disablePadding>
+            <Items>
+              {routes1.map((category, index) => (
+                <React.Fragment key={index}>
+                  {category.header ? (
+                    <SidebarSection>{category.header}</SidebarSection>
+                  ) : null}
+
+                  {category.children && category.icon ? (
+                    <React.Fragment key={index}>
+                      <SidebarCategory
+                        isOpen={!openRoutes[index]}
+                        isCollapsable={true}
+                        name={category.id}
+                        icon={category.icon}
+                        button={true}
+                        onClick={() => toggle(index)}
+                      />
+
+                      <Collapse
+                        in={openRoutes[index]}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        {category.children.map((route, index) => (
+                          <SidebarLink
+                            key={index}
+                            name={route.name}
+                            to={route.path}
+                            icon={route.icon}
+                            badge={route.badge}
+                          />
+                        ))}
+                      </Collapse>
+                    </React.Fragment>
+                  ) : category.icon ? (
+                    <SidebarCategory
+                      isCollapsable={false}
+                      name={category.id}
+                      to={category.path}
+                      activeClassName="active"
+                      component={NavLink}
+                      icon={category.icon}
+                      exact
+                      button
+                      badge={category.badge}
+                    />
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </Items>
+          </List>
+          <Grid
+            style={{
+              position: "fixed",
+              bottom: "0px",
+              left: "0px",
+              width: "auto",
+              // display: "flex",
+            }}
+          >
+            <SidebarFooter>
+              <SidebarFooterBadge
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
+                <SidebarFooterText>
+                  Hey Central Store Dashboard
+                  <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
+                </SidebarFooterText>
+              </SidebarFooterBadge>
+            </SidebarFooter>
+          </Grid>
+        </Scrollbar>
+      </Drawer>
+    );
+  }
+};
+
 const Sidebar = ({ classes, staticContext, location, ...rest }) => {
   const initOpenRoutes = () => {
     /* Open collapse element that matches current url */
@@ -323,15 +631,27 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
 
     let _routes = {};
 
-    routes.forEach((route, index) => {
-      const isActive = pathName.indexOf(route.path) === 0;
-      const isOpen = route.open;
-      const isHome = route.containsHome && pathName === "/";
+    if (routes1) {
+      routes1.forEach((route, index) => {
+        const isActive = pathName.indexOf(route.path) === 0;
+        const isOpen = route.open;
+        const isHome = route.containsHome && pathName === "/";
 
-      _routes = Object.assign({}, _routes, {
-        [index]: isActive || isOpen || isHome,
+        _routes = Object.assign({}, _routes, {
+          [index]: isActive || isOpen || isHome,
+        });
       });
-    });
+    } else if (routes2) {
+      routes2.forEach((route, index) => {
+        const isActive = pathName.indexOf(route.path) === 0;
+        const isOpen = route.open;
+        const isHome = route.containsHome && pathName === "/";
+
+        _routes = Object.assign({}, _routes, {
+          [index]: isActive || isOpen || isHome,
+        });
+      });
+    }
 
     return _routes;
   };
@@ -354,106 +674,9 @@ const Sidebar = ({ classes, staticContext, location, ...rest }) => {
     );
   };
 
-  return (
-    <Drawer variant="permanent" {...rest}>
-      <Brand component={NavLink} to="/" button>
-        {/* <BrandIcon /> */}
-        {/* <div style={{ objectFit: "cover" }}> */}
-        <img
-          src={Logo}
-          style={{
-            height: "20vh",
-            width: "100%",
-            objectFit: "cover",
-            margin: 0,
-          }}
-        />
-        {/* </div> */}
-        {/* <h4>SH Constructions</h4> */}
-        <Box ml={1}></Box>
-      </Brand>
-      <Scrollbar>
-        <List disablePadding>
-          <Items>
-            {routes.map((category, index) => (
-              <React.Fragment key={index}>
-                {category.header ? (
-                  <SidebarSection>{category.header}</SidebarSection>
-                ) : null}
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
 
-                {category.children && category.icon ? (
-                  <React.Fragment key={index}>
-                    <SidebarCategory
-                      isOpen={!openRoutes[index]}
-                      isCollapsable={true}
-                      name={category.id}
-                      icon={category.icon}
-                      button={true}
-                      onClick={() => toggle(index)}
-                    />
-
-                    <Collapse
-                      in={openRoutes[index]}
-                      timeout="auto"
-                      unmountOnExit
-                    >
-                      {category.children.map((route, index) => (
-                        <SidebarLink
-                          key={index}
-                          name={route.name}
-                          to={route.path}
-                          icon={route.icon}
-                          badge={route.badge}
-                        />
-                      ))}
-                    </Collapse>
-                  </React.Fragment>
-                ) : category.icon ? (
-                  <SidebarCategory
-                    isCollapsable={false}
-                    name={category.id}
-                    to={category.path}
-                    activeClassName="active"
-                    component={NavLink}
-                    icon={category.icon}
-                    exact
-                    button
-                    badge={category.badge}
-                  />
-                ) : null}
-              </React.Fragment>
-            ))}
-          </Items>
-        </List>
-        <Grid
-          style={{
-            position: "fixed",
-            bottom: "0px",
-            left: "0px",
-            width: "auto",
-            // display: "flex",
-          }}
-        >
-          <SidebarFooter>
-            <SidebarFooterBadge
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
-              <SidebarFooterText>
-                Hey Central Store Dashboard
-                <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
-              </SidebarFooterText>
-            </SidebarFooterBadge>
-          </SidebarFooter>
-        </Grid>
-      </Scrollbar>
-    </Drawer>
-  );
+  return getSideBarContent(user, rest, openRoutes, toggle);
 };
 
 export default withRouter(Sidebar);
