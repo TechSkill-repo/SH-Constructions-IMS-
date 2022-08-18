@@ -14,6 +14,13 @@ import {
   protectedRoutes as pR2,
 } from "./centralStore";
 
+import {
+  dashboardLayoutRoutes as dL3,
+  authLayoutRoutes as aL3,
+  presentationLayoutRoutes as pL3,
+  protectedRoutes as pR3
+} from "./siteStore";
+
 import DashboardLayout from "../layouts/Dashboard";
 import AuthLayout from "../layouts/Auth";
 import PresentationLayout from "../layouts/Presentation";
@@ -100,7 +107,22 @@ const checkUserType = (sessionData) => {
         </Switch>
       );
     else if (role === "Site Store")
-      return null;
+      return (
+        <Switch>
+          Site Store
+          {childRoutes(DashboardLayout, dL3)}
+          {childRoutes(DashboardLayout, pR3)}
+          {childRoutes(AuthLayout, aL3)}
+          {childRoutes(PresentationLayout, pL3)}
+          {/* <Route
+            render={() => (
+              <AuthLayout>
+                <Page404 />
+              </AuthLayout>
+            )}
+          /> */}
+        </Switch>
+      )
   } else {
     return <Login />;
   }
