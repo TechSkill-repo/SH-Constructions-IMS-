@@ -15,6 +15,10 @@ import { green, red } from "@material-ui/core/colors";
 
 import Actions from "./Actions";
 import Stats from "./Stats";
+import LineChart from "./LineChart";
+import DoughnutChart from "./DoughnutChart";
+import BarChart from "./BarChart";
+import Table from "./Table";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -43,13 +47,13 @@ function Default() {
 
       <Divider my={6} />
 
-      <Grid container spacing={6}>
+      {/* <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
             title="Gloves"
             amount="200"
             chip="Today"
-            percentageText="Good Stock"
+            percentageText="On Stock"
             percentagecolor={green[500]}
           />
         </Grid>
@@ -80,7 +84,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
       <div
         style={{
           textAlign: "center",
@@ -95,7 +99,7 @@ function Default() {
         <h1>Admin Dashboard Under Construction 🛠</h1>
       </div>
 
-      {/* <Grid container spacing={6}>
+      <Grid container spacing={6}>
         <Grid item xs={12} lg={8}>
           <LineChart />
         </Grid>
@@ -110,7 +114,7 @@ function Default() {
         <Grid item xs={12} lg={8}>
           <Table />
         </Grid>
-      </Grid> */}
+      </Grid>
     </React.Fragment>
   );
 }

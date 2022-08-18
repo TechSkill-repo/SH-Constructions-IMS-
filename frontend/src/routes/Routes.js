@@ -78,7 +78,7 @@ const checkUserType = (sessionData) => {
         <Switch>
           {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
           {childRoutes(DashboardLayout, protectedRoutes)}
-          {childRoutes(AuthLayout, authLayoutRoutes)}
+          {/* {childRoutes(AuthLayout, authLayoutRoutes)} */}
           {childRoutes(PresentationLayout, presentationLayoutRoutes)}
           {/* <Route
             render={() => (
@@ -95,7 +95,7 @@ const checkUserType = (sessionData) => {
           Central Store
           {childRoutes(DashboardLayout, dL2)}
           {childRoutes(DashboardLayout, pR2)}
-          {childRoutes(AuthLayout, aL2)}
+          {/* {childRoutes(AuthLayout, aL2)} */}
           {childRoutes(PresentationLayout, pL2)}
           {/* <Route
             render={() => (
@@ -126,16 +126,12 @@ const checkUserType = (sessionData) => {
   } else {
     return <Login />;
   }
-}
+};
 
 const Routes = () => {
   const sessionData = window.sessionStorage.getItem("user");
 
-  return (
-    <Router>
-      {checkUserType(sessionData)}
-    </Router>
-  );
+  return <Router>{checkUserType(sessionData)}</Router>;
 };
 
 export default Routes;

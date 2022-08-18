@@ -174,8 +174,8 @@ export const Login = () => {
         <img
           style={{ height: "100vh", width: "100%", objectFit: "none" }}
           // src="https://media.istockphoto.com/vectors/team-of-builders-and-industrial-workers-vector-id1312320486?b=1&k=20&m=1312320486&s=612x612&w=0&h=GRFuDujVEQOs1I2UI5DI7UaPtrM860hPNXP8sZCN2c8="
-          // src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
-          src="https://img.freepik.com/free-vector/engineers-standing-near-big-monitor-with-buildings-project-crane-screen-flat-vector-illustration-construction-engineering_74855-8349.jpg?w=2000"
+          src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
+          // src="https://img.freepik.com/free-vector/engineers-standing-near-big-monitor-with-buildings-project-crane-screen-flat-vector-illustration-construction-engineering_74855-8349.jpg?w=2000"
         />
       </ImageContainer>
     </Container>

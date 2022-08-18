@@ -13,12 +13,18 @@ import {
   Users,
 } from "react-feather";
 
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import FireplaceIcon from "@mui/icons-material/Fireplace";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
 // Guards
 import AuthGuard from "../components/AuthGuard";
-
+import Inventory from "../pages/dashboards/Central/Inventory/Inventory";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Central/Default"));
@@ -35,7 +41,6 @@ import SimpleTable from "../pages/tables/SimpleTable";
 
 // Chart components
 const Chartjs = async(() => import("../pages/charts/Chartjs"));
-
 
 // Landing
 import Landing from "../pages/presentation/Landing";
@@ -59,7 +64,7 @@ const dashboardsRoutes = {
   component: null,
 };
 const projectsRoutes = {
-  id: "Analytics",
+  id: "Inventory",
   path: "/analytics",
   icon: <Briefcase />,
   component: Analytics,
@@ -67,29 +72,55 @@ const projectsRoutes = {
 };
 
 const orderRoutes = {
-  id: "Orders",
+  id: "Material Requests",
   path: "/orders",
   icon: <ShoppingCart />,
-  component: Orders,
+  component: Inventory,
   children: null,
 };
 
 const authRoutes = {
-  id: "Form",
-  path: "/form",
+  id: "Material Issue",
+  path: "/material-issue",
   icon: <Users />,
   children: null,
   component: TextFields,
 };
 
+const consumables = {
+  id: "Consumables Items",
+  path: "/material-issue",
+  icon: <ConstructionIcon />,
+  children: null,
+  component: TextFields,
+};
+
+const non_consumables = {
+  id: "Non-Consumables Items",
+  path: "/material-issue",
+  icon: <EngineeringIcon />,
+  children: null,
+  component: TextFields,
+};
+
 const componentsRoutes = {
-  id: "Tables",
-  path: "/tables",
-  icon: <Grid />,
+  id: "Critical Tools",
+  path: "/critical-tools",
+  icon: <FireplaceIcon />,
   children: [
     {
       path: "/simpleTables",
-      name: "Simple Tables",
+      name: "Tool 1",
+      component: SimpleTable,
+    },
+    {
+      path: "/simpleTables",
+      name: "Tool 2",
+      component: SimpleTable,
+    },
+    {
+      path: "/simpleTables",
+      name: "Tool 3",
       component: SimpleTable,
     },
   ],
@@ -97,9 +128,41 @@ const componentsRoutes = {
 };
 
 const chartRoutes = {
-  id: "Settings",
-  path: "/charts",
+  id: "Monitor Inventory",
+  path: "/monitorInventory",
   icon: <PieChart />,
+  component: Chartjs,
+  children: null,
+};
+
+// const monitorInventory = {
+//   id: "Store Inventory",
+//   path: "/monitorInventory",
+//   icon: <PieChart />,
+//   component: Chartjs,
+//   children: null,
+// };
+
+const monitorStoreLone = {
+  id: "Monitor Store Lone",
+  path: "/monitorInventory",
+  icon: <VolunteerActivismIcon />,
+  component: Chartjs,
+  children: null,
+};
+
+const profile = {
+  id: "Requisition Form",
+  path: "/monitorInventory",
+  icon: <InsertDriveFileIcon />,
+  component: Chartjs,
+  children: null,
+};
+
+const notes = {
+  id: "Remarks",
+  path: "/monitorInventory",
+  icon: <ImportContactsIcon />,
   component: Chartjs,
   children: null,
 };
@@ -146,8 +209,13 @@ export const sidebarRoutes = [
   dashboardsRoutes,
   projectsRoutes,
   orderRoutes,
-
+  consumables,
+  non_consumables,
+  // monitorInventory,
   authRoutes,
   componentsRoutes,
   chartRoutes,
+  monitorStoreLone,
+  profile,
+  notes,
 ];
