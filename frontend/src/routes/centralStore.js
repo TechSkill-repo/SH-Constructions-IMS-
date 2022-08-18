@@ -5,7 +5,6 @@ import async from "../components/Async";
 import {
   Briefcase,
   Calendar as CalendarIcon,
-  Grid,
   Monitor,
   ShoppingCart,
   PieChart,
@@ -19,12 +18,12 @@ import FireplaceIcon from "@mui/icons-material/Fireplace";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
 // Guards
 import AuthGuard from "../components/AuthGuard";
-import Inventory from "../pages/dashboards/Central/Inventory/Inventory";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Central/Default"));
@@ -47,6 +46,15 @@ import Landing from "../pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
+import Inventory from "../pages/dashboards/Central/Inventory/Inventory";
+import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
+import MaterialIssue from "../pages/dashboards/Central/MaterialIssue/MaterialIssue";
+import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
+import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
+import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
+import MaterialReqForm from "../pages/dashboards/Central/MaterialReqForm/MaterialReqForm";
+import Remarks from "../pages/dashboards/Central/Remarks/Remarks";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -63,68 +71,72 @@ const dashboardsRoutes = {
   ],
   component: null,
 };
-const projectsRoutes = {
+const inventory = {
   id: "Inventory",
-  path: "/analytics",
+  path: "/inventory",
   icon: <Briefcase />,
-  component: Analytics,
-  children: null,
-};
-
-const orderRoutes = {
-  id: "Material Requests",
-  path: "/orders",
-  icon: <ShoppingCart />,
   component: Inventory,
   children: null,
 };
 
-const authRoutes = {
+const materialRequest = {
+  id: "Material Requests",
+  path: "/materialRequest",
+  icon: <ShoppingCart />,
+  children: [
+    {
+      path: "/consumables",
+      name: "Consumables",
+      component: MaterialRequest,
+    },
+    {
+      path: "/non-consumables",
+      name: "Non-Consumables",
+      component: MaterialRequest,
+    },
+  ],
+};
+
+const materialIssue = {
   id: "Material Issue",
   path: "/material-issue",
-  icon: <Users />,
-  children: null,
-  component: TextFields,
+  icon: <AssignmentTurnedInRoundedIcon />,
+  children: [
+    {
+      path: "/consumables",
+      name: "Consumables",
+      component: MaterialIssue,
+    },
+    {
+      path: "/non-consumables",
+      name: "Non-Consumables",
+      component: MaterialIssue,
+    },
+  ],
 };
 
 const consumables = {
   id: "Consumables Items",
-  path: "/material-issue",
+  path: "/consumables-items",
   icon: <ConstructionIcon />,
   children: null,
-  component: TextFields,
+  component: ConsumablesItems,
 };
 
 const non_consumables = {
   id: "Non-Consumables Items",
-  path: "/material-issue",
+  path: "/non-consumables-items",
   icon: <EngineeringIcon />,
   children: null,
-  component: TextFields,
+  component: NonConsumable,
 };
 
-const componentsRoutes = {
+const criticalTools = {
   id: "Critical Tools",
   path: "/critical-tools",
   icon: <FireplaceIcon />,
-  children: [
-    {
-      path: "/simpleTables",
-      name: "Tool 1",
-      component: SimpleTable,
-    },
-    {
-      path: "/simpleTables",
-      name: "Tool 2",
-      component: SimpleTable,
-    },
-    {
-      path: "/simpleTables",
-      name: "Tool 3",
-      component: SimpleTable,
-    },
-  ],
   component: null,
+  component: CriticalTools,
 };
 
 const chartRoutes = {
@@ -135,35 +147,27 @@ const chartRoutes = {
   children: null,
 };
 
-// const monitorInventory = {
-//   id: "Store Inventory",
-//   path: "/monitorInventory",
-//   icon: <PieChart />,
-//   component: Chartjs,
-//   children: null,
-// };
-
 const monitorStoreLone = {
   id: "Monitor Store Lone",
-  path: "/monitorInventory",
+  path: "/monitor-lone",
   icon: <VolunteerActivismIcon />,
-  component: Chartjs,
   children: null,
+  component: MonitorLone,
 };
 
-const profile = {
+const requisitionForm = {
   id: "Requisition Form",
-  path: "/monitorInventory",
+  path: "/requisition-form",
   icon: <InsertDriveFileIcon />,
-  component: Chartjs,
+  component: MaterialReqForm,
   children: null,
 };
 
 const notes = {
   id: "Remarks",
-  path: "/monitorInventory",
+  path: "/remarks",
   icon: <ImportContactsIcon />,
-  component: Chartjs,
+  component: Remarks,
   children: null,
 };
 
@@ -188,15 +192,20 @@ const protectedPageRoutes = {
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
-  orderRoutes,
-
-  componentsRoutes,
+  inventory,
+  materialRequest,
+  consumables,
+  materialIssue,
+  criticalTools,
+  non_consumables,
+  monitorStoreLone,
+  requisitionForm,
   chartRoutes,
+  notes,
 ];
 
 // Routes using the Auth layout
-export const authLayoutRoutes = [authRoutes];
+export const authLayoutRoutes = [materialIssue];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
@@ -207,15 +216,15 @@ export const protectedRoutes = [protectedPageRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
-  orderRoutes,
+  inventory,
+  materialRequest,
   consumables,
   non_consumables,
   // monitorInventory,
-  authRoutes,
-  componentsRoutes,
+  materialIssue,
+  criticalTools,
   chartRoutes,
   monitorStoreLone,
-  profile,
+  requisitionForm,
   notes,
 ];
