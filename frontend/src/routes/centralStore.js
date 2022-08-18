@@ -14,7 +14,11 @@ import {
 } from "react-feather";
 
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
-
+import ConstructionIcon from "@mui/icons-material/Construction";
+import FireplaceIcon from "@mui/icons-material/Fireplace";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
@@ -68,7 +72,7 @@ const projectsRoutes = {
 };
 
 const orderRoutes = {
-  id: "Material requests",
+  id: "Material Requests",
   path: "/orders",
   icon: <ShoppingCart />,
   component: Inventory,
@@ -86,7 +90,7 @@ const authRoutes = {
 const consumables = {
   id: "Consumables Items",
   path: "/material-issue",
-  icon: <Users />,
+  icon: <ConstructionIcon />,
   children: null,
   component: TextFields,
 };
@@ -94,7 +98,7 @@ const consumables = {
 const non_consumables = {
   id: "Non-Consumables Items",
   path: "/material-issue",
-  icon: <Users />,
+  icon: <EngineeringIcon />,
   children: null,
   component: TextFields,
 };
@@ -102,7 +106,7 @@ const non_consumables = {
 const componentsRoutes = {
   id: "Critical Tools",
   path: "/critical-tools",
-  icon: <Grid />,
+  icon: <FireplaceIcon />,
   children: [
     {
       path: "/simpleTables",
@@ -142,15 +146,15 @@ const chartRoutes = {
 const monitorStoreLone = {
   id: "Monitor Store Lone",
   path: "/monitorInventory",
-  icon: <PieChart />,
+  icon: <VolunteerActivismIcon />,
   component: Chartjs,
   children: null,
 };
 
 const profile = {
-  id: "Material Request",
+  id: "Requisition Form",
   path: "/monitorInventory",
-  icon: <PieChart />,
+  icon: <InsertDriveFileIcon />,
   component: Chartjs,
   children: null,
 };
