@@ -10,7 +10,7 @@ const requisition = async (req, res) => {
 };
 
 const getMaterial = (req, res) => {
-  const slip_no = req.body.slip_no;
+  const slip_no = req.query.slip_no;
 
   const query = db.collection("materials").where("slip_no", "==", slip_no);
   query.get().then((querySnapshot) => {
