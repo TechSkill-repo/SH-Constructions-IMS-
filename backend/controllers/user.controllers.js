@@ -1,4 +1,3 @@
-const e = require("express");
 const db = require("./db.controllers");
 
 const addUser = async (req, res) => {
@@ -17,7 +16,7 @@ const addUser = async (req, res) => {
       else
         await docRef.set({ username, role, password });
 
-      res.status(200).json({ message: "User successfully Signed Up" });
+      res.status(201).json({ message: "User successfully Signed Up" });
     } else {
       res.status(403).json({ message: "user already exists" });
     }
