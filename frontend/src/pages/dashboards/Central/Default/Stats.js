@@ -69,7 +69,7 @@ const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
           color="textSecondary"
           percentagecolor={percentagecolor}
         >
-          <span>{percentageText}</span> Since last week
+          <span>{percentageText}</span>
         </Percentage>
         <Chip label={chip} />
       </CardContent>

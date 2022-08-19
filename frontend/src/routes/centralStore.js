@@ -55,6 +55,8 @@ import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalToo
 import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
 import MaterialReqForm from "../pages/dashboards/Central/MaterialReqForm/MaterialReqForm";
 import Remarks from "../pages/dashboards/Central/Remarks/Remarks";
+import MRConsumable from "../pages/dashboards/Central/MaterialRequest/Consumable";
+import MRNonConsumable from "../pages/dashboards/Central/MaterialRequest/NonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -82,17 +84,18 @@ const inventory = {
 const materialRequest = {
   id: "Material Requests",
   path: "/materialRequest",
+  component: MaterialRequest,
   icon: <ShoppingCart />,
   children: [
     {
       path: "/consumables",
       name: "Consumables",
-      component: MaterialRequest,
+      component: MRConsumable,
     },
     {
       path: "/non-consumables",
       name: "Non-Consumables",
-      component: MaterialRequest,
+      component: MRNonConsumable,
     },
   ],
 };
