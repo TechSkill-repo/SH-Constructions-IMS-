@@ -45,7 +45,7 @@ function Consumable(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link
             style={{ textDecoration: "none" }}
-            to="/materialRequest?store-id=123"
+            to="/consumables-items/123"
           >
             <Stats
               title="EC01"
@@ -58,13 +58,18 @@ function Consumable(props) {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Stats
-            title="E22"
-            amount="RMM"
-            chip="Site Store"
-            percentageText="E22"
-            percentagecolor={red[500]}
-          />
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/consumables-items/125"
+          >
+            <Stats
+              title="E22"
+              amount="RMM"
+              chip="Site Store"
+              percentageText="E22"
+              percentagecolor={red[500]}
+            />
+          </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats

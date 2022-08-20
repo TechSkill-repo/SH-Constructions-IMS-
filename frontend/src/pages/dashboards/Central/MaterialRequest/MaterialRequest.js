@@ -1,6 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import Consumable from "./Consumable";
 
 function MaterialRequest() {
   return (

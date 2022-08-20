@@ -120,7 +120,7 @@ const materialIssue = {
 
 const consumables = {
   id: "Consumables Items",
-  path: "/consumables-items",
+  path: "/consumables-items/:storeId",
   icon: <ConstructionIcon />,
   children: null,
   component: ConsumablesItems,
