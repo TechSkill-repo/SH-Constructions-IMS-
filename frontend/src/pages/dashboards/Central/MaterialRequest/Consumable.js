@@ -43,10 +43,7 @@ function Consumable(props) {
 
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link
-            style={{ textDecoration: "none" }}
-            to="/consumables-items/123"
-          >
+          <Link style={{ textDecoration: "none" }} to="/consumables-items/ec01">
             <Stats
               title="EC01"
               amount="Coke Plant"
@@ -58,10 +55,7 @@ function Consumable(props) {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link
-            style={{ textDecoration: "none" }}
-            to="/consumables-items/125"
-          >
+          <Link style={{ textDecoration: "none" }} to="/consumables-items/e22">
             <Stats
               title="E22"
               amount="RMM"
