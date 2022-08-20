@@ -1,27 +1,30 @@
 const db = require('./db.controllers');
 
 const requisition = async (req, res) => {
-  const { slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
+  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
 
   const docRef = db.collection("materials").doc();
-  await docRef.set({ slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location });
+  await docRef.set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location });
 
   res.status(201).json({ "message": "Requisition successful" });
 };
 
 const getMaterial = (req, res) => {
-  const slip_no = req.query.slip_no;
+  const storeId = req.query.storeId;
+  let items = [];
 
-  const query = db.collection("materials").where("slip_no", "==", slip_no);
+  const query = db.collection("materials").where("storeId", "==", storeId);
   query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach((doc) => {
-        res.status(200).json({
-          message: "Material Fetched",
-          ...doc.data()
-        });
+        items.push(doc.data());
+      });
+
+      res.status(200).json({
+        message: "Material Fetched",
+        items
       });
     }
   });
