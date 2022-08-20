@@ -19,7 +19,6 @@ import {
 // Guards
 import AuthGuard from "../components/AuthGuard";
 
-
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Site/Default"));
 const Analytics = async(() => import("../pages/dashboards/Site/Analytics"));
@@ -36,12 +35,12 @@ import SimpleTable from "../pages/tables/SimpleTable";
 // Chart components
 const Chartjs = async(() => import("../pages/charts/Chartjs"));
 
-
 // Landing
 import Landing from "../pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
+import ReqForm from "../pages/dashboards/Site/Requisition/ReqForm";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -75,11 +74,11 @@ const orderRoutes = {
 };
 
 const authRoutes = {
-  id: "Form",
-  path: "/form",
+  id: "Req Form",
+  path: "/reqForm",
   icon: <Users />,
   children: null,
-  component: TextFields,
+  component: ReqForm,
 };
 
 const componentsRoutes = {
