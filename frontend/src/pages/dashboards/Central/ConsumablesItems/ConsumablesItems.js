@@ -9,7 +9,7 @@ function ConsumablesItems() {
 
   useEffect(() => {
     getMaterial(storeId).then(data => {
-      setItems(data);
+      setItems(data.items);
     }).catch(err => {
       console.log(err);
     });
@@ -18,7 +18,7 @@ function ConsumablesItems() {
   return (
     <div>
       <div>Consumable Item {storeId}</div>
-      {items.map((index, item) => <div key={index}>{item.mname}</div>)}
+      {items.map((item, index) => <div key={index}>{item.mname}</div>)}
     </div>
   );
 }
