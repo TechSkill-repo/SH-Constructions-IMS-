@@ -57,6 +57,8 @@ import MaterialReqForm from "../pages/dashboards/Central/MaterialReqForm/Materia
 import Remarks from "../pages/dashboards/Central/Remarks/Remarks";
 import MRConsumable from "../pages/dashboards/Central/MaterialRequest/Consumable";
 import MRNonConsumable from "../pages/dashboards/Central/MaterialRequest/NonConsumable";
+import ConsumableTable from "../pages/dashboards/Central/MaterialRequest/ConsumableTable";
+import NonConsumableTable from "../pages/dashboards/Central/MaterialRequest/NonConsumableTable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -120,7 +122,7 @@ const materialIssue = {
 
 const consumables = {
   id: "Consumables Items",
-  path: "/consumables-items/:storeId",
+  path: "/consumables-items",
   icon: <ConstructionIcon />,
   children: null,
   component: ConsumablesItems,
@@ -128,11 +130,25 @@ const consumables = {
 
 const non_consumables = {
   id: "Non-Consumables Items",
-  path: "/non-consumables-items/:storeId",
+  path: "/non-consumables-items",
   icon: <EngineeringIcon />,
   children: null,
   component: NonConsumable,
 };
+
+const consumableTable = {
+  id: "Consumable Table",
+  path: "/consumables-table/:storeId",
+  children: null,
+  component: ConsumableTable
+}
+
+const non_consumableTable = {
+  id: "Non-Consumable Table",
+  path: "/non-consumables-table/:storeId",
+  children: null,
+  component: NonConsumableTable
+}
 
 const criticalTools = {
   id: "Critical Tools",
@@ -204,6 +220,8 @@ export const dashboardLayoutRoutes = [
   monitorStoreLone,
   requisitionForm,
   chartRoutes,
+  consumableTable,
+  non_consumableTable,
   notes,
 ];
 
