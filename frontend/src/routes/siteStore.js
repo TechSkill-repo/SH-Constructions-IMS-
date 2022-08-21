@@ -66,19 +66,19 @@ const projectsRoutes = {
 };
 
 const orderRoutes = {
-  id: "Orders",
-  path: "/orders",
+  id: "Req Form",
+  path: "/reqForm",
   icon: <ShoppingCart />,
-  component: Orders,
+  component: ReqForm,
   children: null,
 };
 
 const authRoutes = {
-  id: "Req Form",
-  path: "/reqForm",
+  id: "auth",
+  path: "/auth",
   icon: <Users />,
   children: null,
-  component: ReqForm,
+  component: null,
 };
 
 const componentsRoutes = {

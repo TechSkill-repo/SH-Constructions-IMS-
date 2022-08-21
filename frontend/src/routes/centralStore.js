@@ -128,7 +128,7 @@ const consumables = {
 
 const non_consumables = {
   id: "Non-Consumables Items",
-  path: "/non-consumables-items",
+  path: "/non-consumables-items/:storeId",
   icon: <EngineeringIcon />,
   children: null,
   component: NonConsumable,

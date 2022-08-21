@@ -6,9 +6,10 @@ import { getMaterial } from "../../../../services/materialService";
 function ConsumablesItems() {
   const [items, setItems] = useState([]);
   const { storeId } = useParams();
+  const category = "consumable";
 
   useEffect(() => {
-    getMaterial(storeId).then(data => {
+    getMaterial(storeId, category).then(data => {
       setItems(data.items);
     }).catch(err => {
       console.log(err);

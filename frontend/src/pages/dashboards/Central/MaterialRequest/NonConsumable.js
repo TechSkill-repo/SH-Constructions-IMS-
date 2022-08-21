@@ -8,6 +8,7 @@ import Actions from "../Default/Actions";
 import styled from "styled-components";
 import { spacing } from "@material-ui/system";
 import { Divider as MuiDivider } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -30,13 +31,15 @@ function NonConsumable() {
 
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Stats
-            title="EC01"
-            amount="Coke Plant"
-            chip="Site Store"
-            percentageText="EC01"
-            percentagecolor={green[500]}
-          />
+          <Link style={{ textDecoration: "none" }} to="/non-consumables-items/125">
+            <Stats
+              title="EC01"
+              amount="Coke Plant"
+              chip="Site Store"
+              percentageText="EC01"
+              percentagecolor={green[500]}
+            />
+          </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
