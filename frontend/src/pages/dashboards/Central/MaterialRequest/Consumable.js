@@ -47,7 +47,7 @@ function Consumable(props) {
             <Stats
               title="EC01"
               amount="Coke Plant"
-              chip="Site Store"
+              chip="Muzaffar Iqbal"
               percentageText="EC01"
               percentagecolor={green[500]}
             />
@@ -59,7 +59,7 @@ function Consumable(props) {
             <Stats
               title="E22"
               amount="RMM"
-              chip="Site Store"
+              chip="Anurag"
               percentageText="E22"
               percentagecolor={red[500]}
             />
@@ -70,7 +70,7 @@ function Consumable(props) {
             <Stats
               title="E13"
               amount="RMBB"
-              chip="Site Store"
+              chip="Ramesh Sharma"
               percentageText="E13"
               percentagecolor={green[500]}
             />
@@ -81,7 +81,7 @@ function Consumable(props) {
             <Stats
               title="E17"
               amount="RMBB2"
-              chip="Site Store"
+              chip="Love Gope"
               percentageText="E17"
               percentagecolor={red[500]}
             />
@@ -94,7 +94,7 @@ function Consumable(props) {
             <Stats
               title="E27"
               amount="GBF"
-              chip="Site Store"
+              chip="RK Srivastava"
               percentageText="E27"
               percentagecolor={green[500]}
             />
@@ -105,7 +105,7 @@ function Consumable(props) {
             <Stats
               title="E15"
               amount="SP#3,4"
-              chip="Site Store"
+              chip="Manoj Mishra"
               percentageText="E15"
               percentagecolor={red[500]}
             />
@@ -116,7 +116,7 @@ function Consumable(props) {
             <Stats
               title="E23"
               amount="SP#1,2"
-              chip="Site Store"
+              chip="Chandan Singh"
               percentageText="E23"
               percentagecolor={green[500]}
             />
@@ -127,7 +127,7 @@ function Consumable(props) {
             <Stats
               title="E24"
               amount="MM"
-              chip="Site Store"
+              chip="Hashim Khan"
               percentageText="E25"
               percentagecolor={red[500]}
             />
@@ -140,7 +140,7 @@ function Consumable(props) {
             <Stats
               title="E20"
               amount="LD#01"
-              chip="Site Store"
+              chip="Prabhat Singh"
               percentageText="E20"
               percentagecolor={green[500]}
             />
@@ -151,7 +151,7 @@ function Consumable(props) {
             <Stats
               title="E30"
               amount="PALLET PLANT"
-              chip="Site Store"
+              chip="Bablu Panday"
               percentageText="E30"
               percentagecolor={red[500]}
             />
@@ -162,7 +162,7 @@ function Consumable(props) {
             <Stats
               title="E28"
               amount="MRSPP"
-              chip="Site Store"
+              chip="Santosh Panday"
               percentageText="E28"
               percentagecolor={green[500]}
             />
@@ -173,8 +173,8 @@ function Consumable(props) {
             <Stats
               title="I11"
               amount="LINE PLANT"
-              chip="Site Store"
-              percentageText=""
+              chip="Imteyaz Ahmed"
+              percentageText="I11"
               percentagecolor={red[500]}
             />
           </Link>

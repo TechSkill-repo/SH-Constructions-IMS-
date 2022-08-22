@@ -45,7 +45,7 @@ function ConsumableTable() {
       <div>
         <Grid item>
           <Typography variant="h5" gutterBottom>
-            Consumable Items{" "}
+            Consumable Items StoreId:{" "}
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}

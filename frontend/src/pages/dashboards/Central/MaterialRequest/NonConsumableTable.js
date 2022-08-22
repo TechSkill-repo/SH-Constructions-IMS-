@@ -4,7 +4,7 @@ import { getMaterial } from "../../../../services/materialService";
 import MaterialTable from "material-table";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
@@ -41,10 +41,17 @@ function NonConsumableTable() {
 
   return (
     <>
-      <Typography variant="h3" gutterBottom>
-        Non-Consumable Items{" "}
-        <span style={{ fontWeight: "900", color: "#376fd0" }}> {storeId} </span>
-      </Typography>
+      <div>
+        <Grid item>
+          <Typography variant="h3" gutterBottom>
+            Non-Consumable Items StoreId{" "}
+            <span style={{ fontWeight: "900", color: "#376fd0" }}>
+              {" "}
+              {storeId}{" "}
+            </span>
+          </Typography>
+        </Grid>
+      </div>
       <MaterialTable
         columns={columns}
         data={items}
