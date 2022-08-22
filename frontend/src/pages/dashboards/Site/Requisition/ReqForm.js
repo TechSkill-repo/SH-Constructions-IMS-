@@ -12,7 +12,8 @@ import Grid from "@mui/material/Grid";
 import { Typography } from "@material-ui/core";
 
 function ReqForm() {
-  const [storeId, setStoreId] = useState("");
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const [storeId, setStoreId] = useState(user ? user.storeId : "");
   const [slip_no, setSlipNo] = useState("");
   const [mcode, setMcode] = useState("");
   const [mname, setMname] = useState("");
@@ -22,7 +23,7 @@ function ReqForm() {
   const [category, setCategory] = useState("");
   const [quantity_req, setQuantityReq] = useState("");
   const [incharge_name, setInchargeName] = useState("");
-  const [site_location, setSiteLocation] = useState("");
+  const [site_location, setSiteLocation] = useState(user ? user.site_location : "");
   const [showSuccess, setShowSuccess] = useState(false);
 
   function getCurrentDate() {

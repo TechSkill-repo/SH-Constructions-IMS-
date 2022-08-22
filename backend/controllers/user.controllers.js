@@ -5,14 +5,16 @@ const addUser = async (req, res) => {
   const role = req.body.role;
   const password = req.body.password; // TODO: make password encrypted
   const sub_role = req.body.sub_role;
+  const storeId = req.body.storeId;
+  const site_location = req.body.site_location;
 
   // check if user already exists
   const query = db.collection("users").where("username", "==", username);
   query.get().then(async (querySnapshot) => {
     if (querySnapshot.empty) {
       const docRef = db.collection("users").doc();
-      if (sub_role)
-        await docRef.set({ username, role, sub_role, password });
+      if (sub_role && storeId && site_location)
+        await docRef.set({ username, role, sub_role, storeId, site_location, password });
       else
         await docRef.set({ username, role, password });
 
@@ -39,7 +41,9 @@ const getUser = (req, res) => {
             username: username,
             id: doc.id,
             role: doc.data().role,
-            sub_role: doc.data().sub_role ? doc.data().sub_role : null
+            sub_role: doc.data().sub_role ? doc.data().sub_role : null,
+            site_location: doc.data().site_location ? doc.data().site_location : null,
+            storeId: doc.data().storeId ? doc.data().storeId : null
           });
         } else {
           res.status(401).json({ message: "Incorrect password" });
