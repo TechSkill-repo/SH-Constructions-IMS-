@@ -140,15 +140,15 @@ const consumableTable = {
   id: "Consumable Table",
   path: "/consumables-table/:storeId",
   children: null,
-  component: ConsumableTable
-}
+  component: ConsumableTable,
+};
 
 const non_consumableTable = {
   id: "Non-Consumable Table",
   path: "/non-consumables-table/:storeId",
   children: null,
-  component: NonConsumableTable
-}
+  component: NonConsumableTable,
+};
 
 const criticalTools = {
   id: "Critical Tools",
@@ -238,9 +238,9 @@ export const protectedRoutes = [protectedPageRoutes];
 export const sidebarRoutes = [
   dashboardsRoutes,
   inventory,
-  materialRequest,
   consumables,
   non_consumables,
+  materialRequest,
   // monitorInventory,
   materialIssue,
   criticalTools,

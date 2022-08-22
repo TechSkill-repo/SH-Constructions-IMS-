@@ -13,6 +13,8 @@ import {
   Users,
 } from "react-feather";
 
+import AssignmentIcon from "@material-ui/icons/Assignment";
+
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
@@ -66,9 +68,9 @@ const projectsRoutes = {
 };
 
 const orderRoutes = {
-  id: "Req Form",
+  id: "Requisition Form",
   path: "/reqForm",
-  icon: <ShoppingCart />,
+  icon: <AssignmentIcon />,
   component: ReqForm,
   children: null,
 };

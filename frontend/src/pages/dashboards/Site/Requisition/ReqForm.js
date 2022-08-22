@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { requisition } from "../../../../services/materialService";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Alert from '@mui/material/Alert';
-import Grid from '@mui/material/Grid';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
+import Grid from "@mui/material/Grid";
+import { Typography } from "@material-ui/core";
 
 function ReqForm() {
   const [storeId, setStoreId] = useState("");
@@ -25,23 +26,35 @@ function ReqForm() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   function getCurrentDate() {
-
-    let newDate = new Date()
+    let newDate = new Date();
     let date = newDate.getDate();
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
 
-    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`
+    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
 
-    requisition({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location })
-      .then(resp => {
+    requisition({
+      storeId,
+      slip_no,
+      mcode,
+      mname,
+      mdescription,
+      date,
+      uom,
+      category,
+      quantity_req,
+      incharge_name,
+      site_location,
+    })
+      .then((resp) => {
         console.log(resp.data);
-      }).catch(err => {
+      })
+      .catch((err) => {
         console.log(err);
       });
 
@@ -57,25 +70,29 @@ function ReqForm() {
       setInchargeName("");
       setSiteLocation("");
       setShowSuccess("");
-    }, 2000)
+    }, 2000);
   };
 
   return (
-    <div >
-      <h2 style={{ marginBottom: '0.8em' }}>ReqForm</h2>
+    <div>
       {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }} >This is a success alert — check it out!</Alert>
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
       )}
       <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '100%' },
-          '&.MuiBox-root': { background: "#fff", p: 3, borderRadius: 3 }
+          "& .MuiTextField-root": { m: 1, width: "100%" },
+          "&.MuiBox-root": { background: "#fff", p: 3, borderRadius: 3 },
         }}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit}
       >
+        <Typography variant="h3" gutterBottom gutterLeft>
+          Requisition Form
+        </Typography>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={12} md={4}>
             <TextField
@@ -83,7 +100,9 @@ function ReqForm() {
               label="Store ID"
               type="text"
               value={storeId}
-              onChange={(e) => { setStoreId(e.target.value) }}
+              onChange={(e) => {
+                setStoreId(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -92,7 +111,9 @@ function ReqForm() {
               label="Slip Number"
               type="text"
               value={slip_no}
-              onChange={(e) => { setSlipNo(e.target.value) }}
+              onChange={(e) => {
+                setSlipNo(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -101,7 +122,9 @@ function ReqForm() {
               label="Material Code"
               type="text"
               value={mcode}
-              onChange={(e) => { setMcode(e.target.value) }}
+              onChange={(e) => {
+                setMcode(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -110,7 +133,9 @@ function ReqForm() {
               label="Material Name"
               type="text"
               value={mname}
-              onChange={(e) => { setMname(e.target.value) }}
+              onChange={(e) => {
+                setMname(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -119,7 +144,9 @@ function ReqForm() {
               label="Unit of Measurement"
               type="text"
               value={uom}
-              onChange={(e) => { setUom(e.target.value) }}
+              onChange={(e) => {
+                setUom(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -128,7 +155,9 @@ function ReqForm() {
               label="Material Description"
               type="text"
               value={mdescription}
-              onChange={(e) => { setMdescription(e.target.value) }}
+              onChange={(e) => {
+                setMdescription(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -137,18 +166,22 @@ function ReqForm() {
               label="Date"
               type="text"
               value={date}
-              onChange={(e) => { setDate(e.target.value) }}
+              onChange={(e) => {
+                setDate(e.target.value);
+              }}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <FormControl sx={{ m: 1, width: '100%' }} size="medium">
+            <FormControl sx={{ m: 1, width: "100%" }} size="medium">
               <InputLabel id="category-label">Category</InputLabel>
               <Select
                 labelId="category-label"
                 id="category"
                 value={category}
                 label="Category"
-                onChange={(e) => { setCategory(e.target.value) }}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
               >
                 <MenuItem value={"consumable"}>Consumable</MenuItem>
                 <MenuItem value={"non-consumable"}>Non-Consumable</MenuItem>
@@ -161,7 +194,9 @@ function ReqForm() {
               label="Quantity Request"
               type="text"
               value={quantity_req}
-              onChange={(e) => { setQuantityReq(e.target.value) }}
+              onChange={(e) => {
+                setQuantityReq(e.target.value);
+              }}
             />
           </Grid>
           <TextField
@@ -169,23 +204,34 @@ function ReqForm() {
             label="Incharge Name"
             type="text"
             value={incharge_name}
-            onChange={(e) => { setInchargeName(e.target.value) }}
-            sx={{ display: 'none' }}
+            onChange={(e) => {
+              setInchargeName(e.target.value);
+            }}
+            sx={{ display: "none" }}
           />
           <TextField
             id="siteLocation"
             label="Site Location"
             type="text"
             value={site_location}
-            onChange={(e) => { setSiteLocation(e.target.value) }}
-            sx={{ display: 'none' }}
+            onChange={(e) => {
+              setSiteLocation(e.target.value);
+            }}
+            sx={{ display: "none" }}
           />
-          <Grid item xs={12} md={2}>
-            <Button variant="contained" type="submit" sx={{ mt: 1, width: '100%' }}>Submit</Button>
+          <Grid item xs={12} md={3}>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              sx={{ mt: 1, width: "100%" }}
+            >
+              Submit
+            </Button>
           </Grid>
         </Grid>
       </Box>
-    </div >
+    </div>
   );
 }
 
