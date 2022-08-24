@@ -19,6 +19,7 @@ const postNonConsumableItem = async (req, res) => {
 }
 
 const getConsumableItem = (req, res) => {
+  const items = [];
   const query = db.collection("consumable-inv");
   query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
@@ -37,6 +38,7 @@ const getConsumableItem = (req, res) => {
 };
 
 const getNonConsumableItem = (req, res) => {
+  const items = [];
   const query = db.collection("non-consumable-inv");
   query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {

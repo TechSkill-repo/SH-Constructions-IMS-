@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getConsumableItem } from "../../../../services/inventoryService";
+import { getNonConsumableItem } from "../../../../services/inventoryService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 
-function ConsumablesTable() {
+function NonConsumablesTable() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    getConsumableItem()
+    getNonConsumableItem()
     .then(data => {
       setItems(data.items);
     }).catch(err => {
@@ -73,4 +73,4 @@ function ConsumablesTable() {
   );
 }
 
-export default ConsumablesTable;
+export default NonConsumablesTable;

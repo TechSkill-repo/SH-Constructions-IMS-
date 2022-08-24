@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@material-ui/core";
-import { postConsumableItem } from "../../../../services/inventoryService";
+import { postNonConsumableItem } from "../../../../services/inventoryService";
 
-function ConsumablesForm() {
+function NonConsumablesForm() {
   const [mcode, setMcode] = useState("");
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
@@ -31,7 +31,7 @@ function ConsumablesForm() {
     e.preventDefault();
     setShowSuccess(true);
 
-    postConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
+    postNonConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
     .then(resp => {
       console.log(resp.data);
     }).catch(err => {
@@ -40,7 +40,7 @@ function ConsumablesForm() {
 
     setTimeout(() => {
       setShowSuccess(false);
-      window.location.href = "/consumables-items";
+      window.location.href = "/non-consumables-items";
     }, 3000);
   };
 
@@ -56,7 +56,7 @@ function ConsumablesForm() {
       onSubmit={handleSubmit}
     >
       <Typography variant="h3" gutterBottom gutterLeft>
-        Consumable Form
+        Non-Consumable Form
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>
@@ -167,4 +167,4 @@ function ConsumablesForm() {
   );
 }
 
-export default ConsumablesForm;
+export default NonConsumablesForm;
