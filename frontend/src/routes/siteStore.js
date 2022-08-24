@@ -43,6 +43,7 @@ import Landing from "../pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
 import ReqForm from "../pages/dashboards/Site/Requisition/ReqForm";
+import MaterialLone from "../pages/dashboards/Site/MaterialLone/MaterialLone";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -64,7 +65,18 @@ const projectsRoutes = {
   path: "/analytics",
   icon: <Briefcase />,
   component: Analytics,
-  children: null,
+  children: [
+    {
+      path: "/simpleTables",
+      name: "Consumable",
+      component: SimpleTable,
+    },
+    {
+      path: "/simpleTables",
+      name: "Non-Consumable",
+      component: SimpleTable,
+    },
+  ],
 };
 
 const orderRoutes = {
@@ -75,22 +87,19 @@ const orderRoutes = {
   children: null,
 };
 
-const authRoutes = {
-  id: "auth",
-  path: "/auth",
-  icon: <Users />,
-  children: null,
-  component: null,
-};
-
 const componentsRoutes = {
-  id: "Tables",
+  id: "Material Issue",
   path: "/tables",
   icon: <Grid />,
   children: [
     {
       path: "/simpleTables",
-      name: "Simple Tables",
+      name: "Consumable",
+      component: SimpleTable,
+    },
+    {
+      path: "/simpleTables",
+      name: "Non-Consumable",
       component: SimpleTable,
     },
   ],
@@ -98,10 +107,10 @@ const componentsRoutes = {
 };
 
 const chartRoutes = {
-  id: "Settings",
+  id: "Material Lone",
   path: "/charts",
   icon: <PieChart />,
-  component: Chartjs,
+  component: MaterialLone,
   children: null,
 };
 
@@ -134,7 +143,7 @@ export const dashboardLayoutRoutes = [
 ];
 
 // Routes using the Auth layout
-export const authLayoutRoutes = [authRoutes];
+export const authLayoutRoutes = [];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
@@ -148,7 +157,6 @@ export const sidebarRoutes = [
   projectsRoutes,
   orderRoutes,
 
-  authRoutes,
   componentsRoutes,
   chartRoutes,
 ];
