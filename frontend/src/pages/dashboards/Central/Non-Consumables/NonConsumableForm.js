@@ -32,11 +32,11 @@ function NonConsumablesForm() {
     setShowSuccess(true);
 
     postNonConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
-    .then(resp => {
-      console.log(resp.data);
-    }).catch(err => {
-      console.log(err);
-    });
+      .then(resp => {
+        console.log(resp.data);
+      }).catch(err => {
+        console.log(err);
+      });
 
     setTimeout(() => {
       setShowSuccess(false);
@@ -77,6 +77,7 @@ function NonConsumablesForm() {
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
+            required
             id="mname"
             label="Material Name"
             type="text"
@@ -110,6 +111,7 @@ function NonConsumablesForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            required
             id="uom"
             label="Unit of Measurement"
             type="text"
@@ -121,12 +123,13 @@ function NonConsumablesForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            required
             id="totalReceived"
             label="Total Received"
-            type="text"
+            type="number"
             value={totalReceived}
             onChange={(e) => {
-              setTotalReceived(e.target.value);
+              e.target.value >= 0 ? setTotalReceived(e.target.value) : 0;
             }}
           />
         </Grid>
@@ -134,21 +137,22 @@ function NonConsumablesForm() {
           <TextField
             id="openingStock"
             label="Opening Stock"
-            type="text"
+            type="number"
             value={openingStock}
             onChange={(e) => {
-              setOpeningStock(e.target.value);
+              e.target.value >= 0 ? setOpeningStock(e.target.value) : 0;
             }}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            required
             id="currStock"
             label="Current Stock"
-            type="text"
+            type="number"
             value={currStock}
             onChange={(e) => {
-              setCurrStock(e.target.value);
+              e.target.value >= 0 ? setCurrStock(e.target.value) : 0;
             }}
           />
         </Grid>

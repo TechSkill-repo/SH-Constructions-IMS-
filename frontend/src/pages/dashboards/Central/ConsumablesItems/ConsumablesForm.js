@@ -6,6 +6,7 @@ import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@material-ui/core";
 import { postConsumableItem } from "../../../../services/inventoryService";
+import { number } from "prop-types";
 
 function ConsumablesForm() {
   const [mcode, setMcode] = useState("");
@@ -27,16 +28,29 @@ function ConsumablesForm() {
     return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
   }
 
+  const handleChange = (e, setState) => {
+    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    if (onlyNums.length < 10) {
+      setState({ value: onlyNums });
+    } else if (onlyNums.length === 10) {
+      const number = onlyNums.replace(
+        /(\d{3})(\d{3})(\d{4})/,
+        '($1) $2-$3'
+      );
+      setState({ value: number });
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
 
     postConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
-    .then(resp => {
-      console.log(resp.data);
-    }).catch(err => {
-      console.log(err);
-    });
+      .then(resp => {
+        console.log(resp.data);
+      }).catch(err => {
+        console.log(err);
+      });
 
     setTimeout(() => {
       setShowSuccess(false);
@@ -77,6 +91,7 @@ function ConsumablesForm() {
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
+            required
             id="mname"
             label="Material Name"
             type="text"
@@ -110,6 +125,7 @@ function ConsumablesForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            required
             id="uom"
             label="Unit of Measurement"
             type="text"
@@ -121,12 +137,13 @@ function ConsumablesForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            required
             id="totalReceived"
             label="Total Received"
-            type="text"
+            type="number"
             value={totalReceived}
             onChange={(e) => {
-              setTotalReceived(e.target.value);
+              e.target.value >= 0 ? setTotalReceived(e.target.value) : 0;
             }}
           />
         </Grid>
@@ -134,21 +151,22 @@ function ConsumablesForm() {
           <TextField
             id="openingStock"
             label="Opening Stock"
-            type="text"
+            type="number"
             value={openingStock}
             onChange={(e) => {
-              setOpeningStock(e.target.value);
+              e.target.value >= 0 ? setOpeningStock(e.target.value) : 0;
             }}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            required
             id="currStock"
             label="Current Stock"
-            type="text"
+            type="number"
             value={currStock}
             onChange={(e) => {
-              setCurrStock(e.target.value);
+              e.target.value >= 0 ? setCurrStock(e.target.value) : 0;
             }}
           />
         </Grid>
