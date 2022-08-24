@@ -46,7 +46,6 @@ import Landing from "../pages/presentation/Landing";
 
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
-import Inventory from "../pages/dashboards/Central/Inventory/Inventory";
 import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
 import MaterialIssue from "../pages/dashboards/Central/MaterialIssue/MaterialIssue";
 import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
@@ -75,14 +74,6 @@ const dashboardsRoutes = {
   ],
   component: null,
 };
-const inventory = {
-  id: "Inventory",
-  path: "/inventory",
-  icon: <Briefcase />,
-  component: Inventory,
-  children: null,
-};
-
 const materialRequest = {
   id: "Material Requests",
   path: "/materialRequest",
@@ -211,7 +202,6 @@ const protectedPageRoutes = {
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
-  inventory,
   materialRequest,
   consumables,
   materialIssue,
@@ -237,7 +227,6 @@ export const protectedRoutes = [protectedPageRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
-  inventory,
   consumables,
   non_consumables,
   materialRequest,
