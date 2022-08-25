@@ -1,6 +1,30 @@
-import React from 'react';
+import { Grid, Typography } from "@material-ui/core";
+import React from "react";
+import Stats from "../Default/Stats";
+// import Stats from "./Stats";
+import { green, red } from "@material-ui/core/colors";
+import { Helmet } from "react-helmet-async";
+import Actions from "../Default/Actions";
+import styled from "styled-components";
+import { spacing } from "@material-ui/system";
+import { Divider as MuiDivider } from "@material-ui/core";
+import { Link, Router, useLocation } from "react-router-dom";
+
+const Divider = styled(MuiDivider)(spacing);
+
+function useQuery() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
 
 function MIConsumable(props) {
+  let query = useQuery();
+
+  let childProps = query.get("store-id");
+
+  console.log(props.title);
+  console.log(childProps);
   return (
     <div>
       <Helmet title="S.H Construction" />
