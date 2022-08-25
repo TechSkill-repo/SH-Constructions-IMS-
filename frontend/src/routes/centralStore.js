@@ -99,12 +99,12 @@ const materialIssue = {
   icon: <AssignmentTurnedInRoundedIcon />,
   children: [
     {
-      path: "/consumables",
+      path: "/mi-consumables",
       name: "Consumables",
       component: MaterialIssue,
     },
     {
-      path: "/non-consumables",
+      path: "/mi-non-consumables",
       name: "Non-Consumables",
       component: MaterialIssue,
     },
