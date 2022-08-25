@@ -17,6 +17,7 @@ function NonConsumablesForm() {
   const [currStock, setCurrStock] = useState("");
   const [totalReceived, setTotalReceived] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [error, showError] = useState(false);
 
   function getCurrentDate() {
     let newDate = new Date();
@@ -29,19 +30,24 @@ function NonConsumablesForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowSuccess(true);
 
-    postNonConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
-      .then(resp => {
-        console.log(resp.data);
-      }).catch(err => {
-        console.log(err);
-      });
+    if (mname !== "" && uom != "" && currStock !== "" && totalReceived !== "") {
+      setShowSuccess(true);
 
-    setTimeout(() => {
-      setShowSuccess(false);
-      window.location.href = "/non-consumables-items";
-    }, 3000);
+      postNonConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
+        .then(resp => {
+          console.log(resp.data);
+        }).catch(err => {
+          console.log(err);
+        });
+
+      setTimeout(() => {
+        setShowSuccess(false);
+        window.location.href = "/non-consumables-items";
+      }, 3000);
+    } else {
+      showError(true);
+    }
   };
 
   return (
@@ -82,6 +88,7 @@ function NonConsumablesForm() {
             label="Material Name"
             type="text"
             value={mname}
+            error={error && mname == "" ? true : false}
             onChange={(e) => {
               setMname(e.target.value);
             }}
@@ -116,6 +123,7 @@ function NonConsumablesForm() {
             label="Unit of Measurement"
             type="text"
             value={uom}
+            error={error && uom == "" ? true : false}
             onChange={(e) => {
               setUom(e.target.value);
             }}
@@ -128,6 +136,7 @@ function NonConsumablesForm() {
             label="Total Received"
             type="number"
             value={totalReceived}
+            error={error && totalReceived == "" ? true : false}
             onChange={(e) => {
               e.target.value >= 0 ? setTotalReceived(e.target.value) : 0;
             }}
@@ -151,6 +160,7 @@ function NonConsumablesForm() {
             label="Current Stock"
             type="number"
             value={currStock}
+            error={error && currStock == "" ? true : false}
             onChange={(e) => {
               e.target.value >= 0 ? setCurrStock(e.target.value) : 0;
             }}
