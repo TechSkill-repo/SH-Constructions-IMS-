@@ -18,6 +18,7 @@ function ConsumablesForm() {
   const [currStock, setCurrStock] = useState("");
   const [totalReceived, setTotalReceived] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [error, showError] = useState(false);
 
   function getCurrentDate() {
     let newDate = new Date();
@@ -29,33 +30,44 @@ function ConsumablesForm() {
   }
 
   const handleChange = (e, setState) => {
-    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    const onlyNums = e.target.value.replace(/[^0-9]/g, "");
     if (onlyNums.length < 10) {
       setState({ value: onlyNums });
     } else if (onlyNums.length === 10) {
-      const number = onlyNums.replace(
-        /(\d{3})(\d{3})(\d{4})/,
-        '($1) $2-$3'
-      );
+      const number = onlyNums.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
       setState({ value: number });
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowSuccess(true);
+    if (mname !== "" && uom != "" && currStock !== "" && totalReceived !== "") {
+      setShowSuccess(true);
 
-    postConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
-      .then(resp => {
-        console.log(resp.data);
-      }).catch(err => {
-        console.log(err);
-      });
+      postConsumableItem({
+        mcode,
+        mname,
+        mdescription,
+        opening_stock: openingStock,
+        current_stock: currStock,
+        total_received: totalReceived,
+        uom,
+        date,
+      })
+        .then((resp) => {
+          console.log(resp.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-    setTimeout(() => {
-      setShowSuccess(false);
-      window.location.href = "/consumables-items";
-    }, 3000);
+      setTimeout(() => {
+        setShowSuccess(false);
+        window.location.href = "/consumables-items";
+      }, 3000);
+    } else {
+      showError(true);
+    }
   };
 
   return (
@@ -74,7 +86,7 @@ function ConsumablesForm() {
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
+          Item successfully Added — check it out!
         </Alert>
       )}
       <Grid container spacing={2} alignItems="center" justifyContent="center">
@@ -96,6 +108,7 @@ function ConsumablesForm() {
             label="Material Name"
             type="text"
             value={mname}
+            error={error && mname == "" ? true : false}
             onChange={(e) => {
               setMname(e.target.value);
             }}
@@ -130,6 +143,7 @@ function ConsumablesForm() {
             label="Unit of Measurement"
             type="text"
             value={uom}
+            error={error && uom == "" ? true : false}
             onChange={(e) => {
               setUom(e.target.value);
             }}
@@ -142,6 +156,7 @@ function ConsumablesForm() {
             label="Total Received"
             type="number"
             value={totalReceived}
+            error={error && totalReceived == "" ? true : false}
             onChange={(e) => {
               e.target.value >= 0 ? setTotalReceived(e.target.value) : 0;
             }}
@@ -165,6 +180,7 @@ function ConsumablesForm() {
             label="Current Stock"
             type="number"
             value={currStock}
+            error={error && currStock == "" ? true : false}
             onChange={(e) => {
               e.target.value >= 0 ? setCurrStock(e.target.value) : 0;
             }}
