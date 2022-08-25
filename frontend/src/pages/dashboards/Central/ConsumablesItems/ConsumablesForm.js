@@ -60,22 +60,6 @@ function ConsumablesForm() {
         .catch((err) => {
           console.log(err);
         });
-      postConsumableItem({
-        mcode,
-        mname,
-        mdescription,
-        opening_stock: openingStock,
-        current_stock: currStock,
-        total_received: totalReceived,
-        uom,
-        date,
-      })
-        .then((resp) => {
-          console.log(resp.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
 
       setTimeout(() => {
         setShowSuccess(false);
