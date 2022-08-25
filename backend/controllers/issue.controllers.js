@@ -1,7 +1,7 @@
 const db = require('./db.controllers');
 
 const issueConsumableMaterial = async (req, res) => {
-  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity } = req.body;
+  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId } = req.body;
 
   const query = db.collection("consumable-inv").where("mcode", "==", mcode);
   query.get().then((querySnapshot) => {
@@ -26,11 +26,14 @@ const issueConsumableMaterial = async (req, res) => {
   const docRef = db.collection("materials-issue").doc();
   await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "consumable" });
 
+  const docRef2 = db.collection(storeId).doc();
+  await docRef2.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "consumable" });
+
   res.status(201).json({ "message": "Issue successful" });
 };
 
 const issueNonConsumableMaterial = async (req, res) => {
-  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity } = req.body;
+  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId } = req.body;
 
   const query = db.collection("non-consumable-inv").where("mcode", "==", mcode);
   query.get().then((querySnapshot) => {
@@ -54,6 +57,9 @@ const issueNonConsumableMaterial = async (req, res) => {
 
   const docRef = db.collection("materials-issue").doc();
   await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "non-consumable" });
+
+  const docRef2 = db.collection(storeId).doc();
+  await docRef2.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "consumable" });
 
   res.status(201).json({ "message": "Issue successful" });
 };
