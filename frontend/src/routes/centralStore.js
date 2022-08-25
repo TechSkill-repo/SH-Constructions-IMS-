@@ -60,6 +60,8 @@ import ConsumableTable from "../pages/dashboards/Central/MaterialRequest/Consuma
 import NonConsumableTable from "../pages/dashboards/Central/MaterialRequest/NonConsumableTable";
 import MIConsumable from "../pages/dashboards/Central/MaterialIssue/MIConsumable";
 import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonConsumable";
+import MIConsumbaleTable from "../pages/dashboards/Central/MaterialIssue/MIConsumableTable";
+import MINonConsumableTable from "../pages/dashboards/Central/MaterialIssue/MINonConsumableTable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -143,6 +145,20 @@ const non_consumableTable = {
   component: NonConsumableTable,
 };
 
+const mi_consumableTable = {
+  id: "Consumable Table",
+  path: "/mi-consumables-table/:storeId",
+  children: null,
+  component: MIConsumbaleTable,
+};
+
+const mi_non_consumableTable = {
+  id: "Non-Consumable Table",
+  path: "/mi-non-consumables-table/:storeId",
+  children: null,
+  component: MINonConsumableTable,
+};
+
 const criticalTools = {
   id: "Critical Tools",
   path: "/critical-tools",
@@ -214,6 +230,8 @@ export const dashboardLayoutRoutes = [
   chartRoutes,
   consumableTable,
   non_consumableTable,
+  mi_consumableTable,
+  mi_non_consumableTable,
   notes,
 ];
 

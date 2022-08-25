@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-function ConsumableForm() {
+function MIConsumableForm() {
     const [date, setDate] = useState(getCurrentDate());
     const [issue_slip_no, setIssue_slip_no] = useState("");
     const [mname, setMname] = useState("");
@@ -52,8 +52,8 @@ function ConsumableForm() {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-            <Typography variant="h2" gutterBottom gutterLeft>
-                Consumable Form
+            <Typography variant="h5" gutterBottom gutterLeft>
+                Non-Consumable Form
             </Typography>
             {showSuccess && (
                 <Alert severity="success" sx={{ my: 3 }}>
@@ -142,4 +142,4 @@ function ConsumableForm() {
     );
 }
 
-export default ConsumableForm;
+export default MIConsumableForm;
