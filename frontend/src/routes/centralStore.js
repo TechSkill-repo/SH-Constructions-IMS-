@@ -58,6 +58,8 @@ import MRConsumable from "../pages/dashboards/Central/MaterialRequest/Consumable
 import MRNonConsumable from "../pages/dashboards/Central/MaterialRequest/NonConsumable";
 import ConsumableTable from "../pages/dashboards/Central/MaterialRequest/ConsumableTable";
 import NonConsumableTable from "../pages/dashboards/Central/MaterialRequest/NonConsumableTable";
+import MIConsumable from "../pages/dashboards/Central/MaterialIssue/MIConsumable";
+import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -101,12 +103,12 @@ const materialIssue = {
     {
       path: "/mi-consumables",
       name: "Consumables",
-      component: MaterialIssue,
+      component: MIConsumable,
     },
     {
       path: "/mi-non-consumables",
       name: "Non-Consumables",
-      component: MaterialIssue,
+      component: MINonConsumable,
     },
   ],
 };

@@ -7,14 +7,12 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
 function ConsumableForm() {
-    const [mcode, setMcode] = useState("");
+    const [date, setDate] = useState(getCurrentDate());
+    const [issue_slip_no, setIssue_slip_no] = useState("");
     const [mname, setMname] = useState("");
     const [mdescription, setMdescription] = useState("");
-    const [openingStock, setOpeningStock] = useState("");
     const [uom, setUom] = useState("");
-    const [date, setDate] = useState(getCurrentDate());
-    const [currStock, setCurrStock] = useState("");
-    const [totalReceived, setTotalReceived] = useState("");
+    const [mquantity, setMquantity] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
 
     function getCurrentDate() {
@@ -54,7 +52,7 @@ function ConsumableForm() {
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-            <Typography variant="h3" gutterBottom gutterLeft>
+            <Typography variant="h2" gutterBottom gutterLeft>
                 Consumable Form
             </Typography>
             {showSuccess && (
@@ -63,14 +61,36 @@ function ConsumableForm() {
                 </Alert>
             )}
             <Grid container spacing={2} alignItems="center" justifyContent="center">
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={6}>
                     <TextField
-                        id="mcode"
-                        label="Material Code"
+                        id="date"
+                        label="Date"
                         type="text"
-                        value={mcode}
+                        value={date}
                         onChange={(e) => {
-                            setMcode(e.target.value);
+                            setDate(e.target.value);
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="issue_slip_no"
+                        label="Issue Slip No."
+                        type="text"
+                        value={issue_slip_no}
+                        onChange={(e) => {
+                            setIssue_slip_no(e.target.value);
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        id="mdescription"
+                        label="Material Description"
+                        type="text"
+                        value={mdescription}
+                        onChange={(e) => {
+                            setMdescription(e.target.value);
                         }}
                     />
                 </Grid>
@@ -87,28 +107,6 @@ function ConsumableForm() {
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <TextField
-                        id="date"
-                        label="Date"
-                        type="text"
-                        value={date}
-                        onChange={(e) => {
-                            setDate(e.target.value);
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        id="mdescription"
-                        label="Material Description"
-                        type="text"
-                        value={mdescription}
-                        onChange={(e) => {
-                            setMdescription(e.target.value);
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
                         id="uom"
                         label="Unit of Measurement"
                         type="text"
@@ -118,36 +116,14 @@ function ConsumableForm() {
                         }}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                     <TextField
-                        id="totalReceived"
-                        label="Total Received"
+                        id="mquantity"
+                        label="M. Quantity"
                         type="text"
-                        value={totalReceived}
+                        value={mquantity}
                         onChange={(e) => {
-                            setTotalReceived(e.target.value);
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        id="openingStock"
-                        label="Opening Stock"
-                        type="text"
-                        value={openingStock}
-                        onChange={(e) => {
-                            setOpeningStock(e.target.value);
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        id="currStock"
-                        label="Current Stock"
-                        type="text"
-                        value={currStock}
-                        onChange={(e) => {
-                            setCurrStock(e.target.value);
+                            setMquantity(e.target.value);
                         }}
                     />
                 </Grid>
