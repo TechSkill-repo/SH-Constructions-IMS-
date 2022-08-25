@@ -29,26 +29,33 @@ function ConsumablesForm() {
   }
 
   const handleChange = (e, setState) => {
-    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    const onlyNums = e.target.value.replace(/[^0-9]/g, "");
     if (onlyNums.length < 10) {
       setState({ value: onlyNums });
     } else if (onlyNums.length === 10) {
-      const number = onlyNums.replace(
-        /(\d{3})(\d{3})(\d{4})/,
-        '($1) $2-$3'
-      );
+      const number = onlyNums.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
       setState({ value: number });
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
 
-    postConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
-      .then(resp => {
+    postConsumableItem({
+      mcode,
+      mname,
+      mdescription,
+      opening_stock: openingStock,
+      current_stock: currStock,
+      total_received: totalReceived,
+      uom,
+      date,
+    })
+      .then((resp) => {
         console.log(resp.data);
-      }).catch(err => {
+      })
+      .catch((err) => {
         console.log(err);
       });
 
@@ -74,7 +81,7 @@ function ConsumablesForm() {
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
+          Item successfully Added — check it out!
         </Alert>
       )}
       <Grid container spacing={2} alignItems="center" justifyContent="center">
