@@ -5,10 +5,12 @@ import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { issueConsumableMaterial } from "../../../../services/issueService";
 
-function MIConsumableForm() {
+function MIConsumableForm({ storeId }) {
     const [date, setDate] = useState(getCurrentDate());
     const [issue_slip_no, setIssue_slip_no] = useState("");
+    const [mcode, setMcode] = useState("");
     const [mname, setMname] = useState("");
     const [mdescription, setMdescription] = useState("");
     const [uom, setUom] = useState("");
@@ -28,16 +30,16 @@ function MIConsumableForm() {
         e.preventDefault();
         setShowSuccess(true);
 
-        postConsumableItem({ mcode, mname, mdescription, opening_stock: openingStock, current_stock: currStock, total_received: totalReceived, uom, date })
+        issueConsumableMaterial({ mcode, issue_slip_no, mname, mdescription, uom, date, mquantity, storeId })
             .then(resp => {
-                console.log(resp.data);
+                console.log(resp);
             }).catch(err => {
                 console.log(err);
             });
 
         setTimeout(() => {
             setShowSuccess(false);
-            window.location.href = "/consumables-items";
+            window.location.href = "/mi-consumables-table/" + storeId;
         }, 3000);
     };
 
@@ -83,6 +85,28 @@ function MIConsumableForm() {
                         }}
                     />
                 </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="mcode"
+                        label="Material Code"
+                        type="text"
+                        value={mcode}
+                        onChange={(e) => {
+                            setMcode(e.target.value);
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="mname"
+                        label="Material Name"
+                        type="text"
+                        value={mname}
+                        onChange={(e) => {
+                            setMname(e.target.value);
+                        }}
+                    />
+                </Grid>
                 <Grid item xs={12}>
                     <TextField
                         id="mdescription"
@@ -94,18 +118,7 @@ function MIConsumableForm() {
                         }}
                     />
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <TextField
-                        id="mname"
-                        label="Material Name"
-                        type="text"
-                        value={mname}
-                        onChange={(e) => {
-                            setMname(e.target.value);
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={6}>
                     <TextField
                         id="uom"
                         label="Unit of Measurement"
@@ -116,7 +129,7 @@ function MIConsumableForm() {
                         }}
                     />
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={6}>
                     <TextField
                         id="mquantity"
                         label="M. Quantity"

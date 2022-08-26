@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMaterial } from "../../../../services/materialService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -9,15 +8,16 @@ import Button from "@mui/material/Button";
 import CloseIcon from '@mui/icons-material/Close';
 import MINonConsumableForm from "./MINonConsumableForm";
 import { Box } from "@material-ui/core";
+import { getNonConsumbaleIssue } from "../../../../services/issueService";
 
 function MINonConsumableTable() {
   const [showForm, setShowForm] = useState(false);
   const [items, setItems] = useState([]);
   const { storeId } = useParams();
-  const category = "consumable";
+  const category = "non-consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
+    getNonConsumbaleIssue(storeId)
       .then((data) => {
         setItems(data.items);
       })
@@ -38,7 +38,7 @@ function MINonConsumableTable() {
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
       title: "Qty.Req",
-      field: "quantity_req",
+      field: "mquantity",
       filterPlaceholder: "filter",
     },
   ];
@@ -69,7 +69,7 @@ function MINonConsumableTable() {
       </Grid>
       <Grid container spacing={2} alignItems="center" style={{ justifyContent: "center" }}>
         <Grid item xs={9} justifyContent="center">
-          {showForm && <MINonConsumableForm />}
+          {showForm && <MINonConsumableForm storeId={storeId} />}
         </Grid>
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>

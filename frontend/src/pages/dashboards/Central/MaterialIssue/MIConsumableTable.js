@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import CloseIcon from '@mui/icons-material/Close';
 import MIConsumableForm from "./MIConsumableForm";
 import { Box } from "@material-ui/core";
+import { getConsumableIssue } from "../../../../services/issueService";
 
 function MIConsumableTable() {
   const [showForm, setShowForm] = useState(false);
@@ -17,7 +18,7 @@ function MIConsumableTable() {
   const category = "consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
+    getConsumableIssue(storeId)
       .then((data) => {
         setItems(data.items);
       })
@@ -38,7 +39,7 @@ function MIConsumableTable() {
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
       title: "Qty.Req",
-      field: "quantity_req",
+      field: "mquantity",
       filterPlaceholder: "filter",
     },
   ];
@@ -69,7 +70,7 @@ function MIConsumableTable() {
       </Grid>
       <Grid container spacing={2} alignItems="center" style={{ justifyContent: "center" }}>
         <Grid item xs={9} justifyContent="center">
-          {showForm && <MIConsumableForm />}
+          {showForm && <MIConsumableForm storeId={storeId} />}
         </Grid>
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
