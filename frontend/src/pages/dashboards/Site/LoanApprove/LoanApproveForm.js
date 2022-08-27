@@ -22,7 +22,6 @@ function LoanApproveForm() {
   const [uom, setUom] = useState("");
   const [category, setCategory] = useState("");
   const [condition, setCondition] = useState("");
-  const [requestedStoreId, setRequestedStoreId] = useState("");
   const [returnCondition, setReturnCondition] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -98,6 +97,28 @@ function LoanApproveForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            id="storeId"
+            label="Site Location"
+            type="text"
+            value={storeId}
+            onChange={(e) => {
+              setStoreId(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            id="receiverStoreId"
+            label="Reciever Store Id"
+            type="text"
+            value={receiverStoreId}
+            onChange={(e) => {
+              setReceiverStoreId(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
             id="mcode"
             label="Material Code"
             type="text"
@@ -137,17 +158,6 @@ function LoanApproveForm() {
             value={lendQuantity}
             onChange={(e) => {
               setLendQuantity(e.target.value);
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            id="storeId"
-            label="Site Location"
-            type="text"
-            value={storeId}
-            onChange={(e) => {
-              setStoreId(e.target.value);
             }}
           />
         </Grid>

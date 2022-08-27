@@ -26,23 +26,23 @@ const lendMaterial = async (req, res) => {
         } else {
           let data = doc.data();
           data.mquantity = "" + (mquantity - parseInt(lendQuantity));
-          db.collection(requestedStoreId).doc(doc.id).delete();
-          await db.collection(requestedStoreId).doc(doc.id).set(data);
+          await db.collection(storeId).doc(doc.id).delete();
+          await db.collection(storeId).doc(doc.id).set(data);
 
           // add the material quantity to receiver store
           const query = db.collection(receiverStoreId).where("mcode", "==", mcode);
           query.get().then(async (querySnapshot) => {
             if (querySnapshot.empty) {
               const docRef = db.collection(receiverStoreId).doc();
-              await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category });
+              await docRef.set({ mcode, date: lendDate, issue_slip_no: "", mname, mdescription: "", uom, mquantity: lendQuantity, category });
             } else {
-              querySnapshot.forEach((doc) => {
+              querySnapshot.forEach(async (doc) => {
                 const mquantity = parseInt(doc.data().mquantity);
 
                 let data = doc.data();
                 data.mquantity = "" + (mquantity + parseInt(lendQuantity));
-                db.collection(requestedStoreId).doc(doc.id).delete();
-                db.collection(requestedStoreId).doc(doc.id).set(data);
+                await db.collection(receiverStoreId).doc(doc.id).delete();
+                await db.collection(receiverStoreId).doc(doc.id).set(data);
               });
             }
 
