@@ -44,6 +44,8 @@ import Landing from "../pages/presentation/Landing";
 import ProtectedPage from "../pages/protected/ProtectedPage";
 import ReqForm from "../pages/dashboards/Site/Requisition/ReqForm";
 import MaterialLone from "../pages/dashboards/Site/MaterialLone/MaterialLone";
+import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
+import NonConsumable from "../pages/dashboards/Site/Inventory/NonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -60,21 +62,21 @@ const dashboardsRoutes = {
   ],
   component: null,
 };
-const projectsRoutes = {
+const siteInventoryRoute = {
   id: "Site Inventory",
-  path: "/analytics",
+  path: "/inventory",
   icon: <Briefcase />,
   component: Analytics,
   children: [
     {
-      path: "/simpleTables",
+      path: "/consumable",
       name: "Consumable",
-      component: SimpleTable,
+      component: Consumable,
     },
     {
-      path: "/simpleTables",
+      path: "/non-consumable",
       name: "Non-Consumable",
-      component: SimpleTable,
+      component: NonConsumable,
     },
   ],
 };
@@ -135,7 +137,7 @@ const protectedPageRoutes = {
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
+  siteInventoryRoute,
   orderRoutes,
 
   componentsRoutes,
@@ -154,7 +156,7 @@ export const protectedRoutes = [protectedPageRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
+  siteInventoryRoute,
   orderRoutes,
 
   componentsRoutes,
