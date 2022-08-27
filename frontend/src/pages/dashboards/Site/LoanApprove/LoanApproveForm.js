@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { issueConsumableMaterial } from "../../../../services/issueService";
 import { lendMaterial } from "../../../../services/loanService";
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 function LoanApproveForm() {
   const [lendDate, setLendDate] = useState(getCurrentDate());
@@ -38,10 +39,23 @@ function LoanApproveForm() {
     e.preventDefault();
     setShowSuccess(true);
 
-    lendMaterial({ mcode, mname, uom, lendDate, lendQuantity, returnDate, storeId, receiverStoreId, condition, returnCondition, category })
-      .then(resp => {
+    lendMaterial({
+      mcode,
+      mname,
+      uom,
+      lendDate,
+      lendQuantity,
+      returnDate,
+      storeId,
+      receiverStoreId,
+      condition,
+      returnCondition,
+      category,
+    })
+      .then((resp) => {
         console.log(resp);
-      }).catch(err => {
+      })
+      .catch((err) => {
         console.log(err);
       });
 
@@ -74,7 +88,7 @@ function LoanApproveForm() {
         <Grid item xs={12} md={6}>
           <TextField
             id="rqDate"
-            label="Req Date"
+            label="Approve Date"
             type="text"
             value={rqDate}
             onChange={(e) => {
@@ -118,13 +132,55 @@ function LoanApproveForm() {
         <Grid item xs={12} md={6}>
           <TextField
             id="lendQuantity"
-            label="Lend Qty"
+            label="Approve Qty"
             type="text"
             value={lendQuantity}
             onChange={(e) => {
               setLendQuantity(e.target.value);
             }}
           />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            id="storeId"
+            label="Site Location"
+            type="text"
+            value={storeId}
+            onChange={(e) => {
+              setStoreId(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            id="condition"
+            select
+            label="Condition"
+            value={condition}
+            onChange={(e) => {
+              setCondition(e.target.value);
+            }}
+            helperText="Please select current condition"
+          >
+            <MenuItem value={"good"}>Good</MenuItem>
+            <MenuItem value={"moderate"}>Moderate</MenuItem>
+            <MenuItem value={"bad"}>Bad</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            id="category"
+            select
+            label="Category"
+            value={category}
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+            helperText="Please select your category"
+          >
+            <MenuItem value={"consumable"}>Consumable</MenuItem>
+            <MenuItem value={"non-consumable"}>Non-Consumable</MenuItem>
+          </TextField>
         </Grid>
         <Grid item xs={12} md={3}>
           <Button
