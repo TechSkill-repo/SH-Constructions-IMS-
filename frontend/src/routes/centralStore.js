@@ -13,6 +13,7 @@ import {
 } from "react-feather";
 
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import GridViewIcon from "@mui/icons-material/GridView";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import FireplaceIcon from "@mui/icons-material/Fireplace";
 import EngineeringIcon from "@mui/icons-material/Engineering";
@@ -47,7 +48,6 @@ import Landing from "../pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
 import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
-import MaterialIssue from "../pages/dashboards/Central/MaterialIssue/MaterialIssue";
 import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
 import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
 import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
@@ -100,7 +100,7 @@ const materialRequest = {
 const materialIssue = {
   id: "Material Issue",
   path: "/material-issue",
-  icon: <AssignmentTurnedInRoundedIcon />,
+  icon: <GridViewIcon />,
   children: [
     {
       path: "/mi-consumables",

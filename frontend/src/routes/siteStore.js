@@ -14,12 +14,16 @@ import {
 } from "react-feather";
 
 import AssignmentIcon from "@material-ui/icons/Assignment";
-
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import VerifiedIcon from "@mui/icons-material/Verified";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
 // Guards
 import AuthGuard from "../components/AuthGuard";
+
+import ConstructionIcon from "@mui/icons-material/Construction";
+import EngineeringIcon from "@mui/icons-material/Engineering";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Site/Default"));
@@ -46,6 +50,8 @@ import ReqForm from "../pages/dashboards/Site/Requisition/ReqForm";
 import MaterialLone from "../pages/dashboards/Site/MaterialLone/MaterialLone";
 import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
 import NonConsumable from "../pages/dashboards/Site/Inventory/NonConsumable";
+import LoneRequest from "../pages/dashboards/Site/LoneRequest/LoneRequest";
+import LoneApprove from "../pages/dashboards/Site/LoneApprove/LoneApprove";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -62,26 +68,24 @@ const dashboardsRoutes = {
   ],
   component: null,
 };
-const siteInventoryRoute = {
-  id: "Site Inventory",
-  path: "/inventory",
-  icon: <Briefcase />,
-  component: Analytics,
-  children: [
-    {
-      path: "/consumable",
-      name: "Consumable",
-      component: Consumable,
-    },
-    {
-      path: "/non-consumable",
-      name: "Non-Consumable",
-      component: NonConsumable,
-    },
-  ],
+
+const consumableRoute = {
+  id: "Consumable",
+  path: "/consumable",
+  name: "Consumable",
+  icon: <ConstructionIcon />,
+  component: Consumable,
 };
 
-const orderRoutes = {
+const non_consumablesRoute = {
+  id: "Non-Consumable",
+  path: "/non-consumable",
+  name: "Non-Consumable",
+  icon: <EngineeringIcon />,
+  component: NonConsumable,
+};
+
+const requsitionForm = {
   id: "Requisition Form",
   path: "/reqForm",
   icon: <AssignmentIcon />,
@@ -108,14 +112,21 @@ const componentsRoutes = {
   component: null,
 };
 
-const chartRoutes = {
-  id: "Material Lone",
-  path: "/charts",
-  icon: <PieChart />,
-  component: MaterialLone,
+const loneRequest = {
+  id: "Request Lone",
+  path: "/lone-request",
+  icon: <ShoppingCartIcon />,
+  component: LoneRequest,
   children: null,
 };
 
+const approveLone = {
+  id: "Lone Approval",
+  path: "/lone-approval",
+  icon: <VerifiedIcon />,
+  component: LoneApprove,
+  children: null,
+};
 const landingRoutes = {
   id: "Landing Page",
   path: "/",
@@ -137,11 +148,13 @@ const protectedPageRoutes = {
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
-  siteInventoryRoute,
-  orderRoutes,
-
+  // siteInventoryRoute,
+  requsitionForm,
+  consumableRoute,
+  non_consumablesRoute,
   componentsRoutes,
-  chartRoutes,
+  loneRequest,
+  approveLone,
 ];
 
 // Routes using the Auth layout
@@ -156,9 +169,11 @@ export const protectedRoutes = [protectedPageRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
-  siteInventoryRoute,
-  orderRoutes,
-
+  // siteInventoryRoute,
+  consumableRoute,
+  non_consumablesRoute,
+  requsitionForm,
   componentsRoutes,
-  chartRoutes,
+  loneRequest,
+  approveLone,
 ];
