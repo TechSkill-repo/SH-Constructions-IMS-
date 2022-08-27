@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function MaterialIssue() {
-  return <div>MaterialIssue</div>;
+  return <div>Material Issue</div>
 }
 
 export default MaterialIssue;

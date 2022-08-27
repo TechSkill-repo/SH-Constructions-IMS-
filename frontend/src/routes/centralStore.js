@@ -58,6 +58,10 @@ import MRConsumable from "../pages/dashboards/Central/MaterialRequest/Consumable
 import MRNonConsumable from "../pages/dashboards/Central/MaterialRequest/NonConsumable";
 import ConsumableTable from "../pages/dashboards/Central/MaterialRequest/ConsumableTable";
 import NonConsumableTable from "../pages/dashboards/Central/MaterialRequest/NonConsumableTable";
+import MIConsumable from "../pages/dashboards/Central/MaterialIssue/MIConsumable";
+import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonConsumable";
+import MIConsumbaleTable from "../pages/dashboards/Central/MaterialIssue/MIConsumableTable";
+import MINonConsumableTable from "../pages/dashboards/Central/MaterialIssue/MINonConsumableTable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -99,14 +103,14 @@ const materialIssue = {
   icon: <AssignmentTurnedInRoundedIcon />,
   children: [
     {
-      path: "/consumables",
+      path: "/mi-consumables",
       name: "Consumables",
-      component: MaterialIssue,
+      component: MIConsumable,
     },
     {
-      path: "/non-consumables",
+      path: "/mi-non-consumables",
       name: "Non-Consumables",
-      component: MaterialIssue,
+      component: MINonConsumable,
     },
   ],
 };
@@ -139,6 +143,20 @@ const non_consumableTable = {
   path: "/non-consumables-table/:storeId",
   children: null,
   component: NonConsumableTable,
+};
+
+const mi_consumableTable = {
+  id: "Consumable Table",
+  path: "/mi-consumables-table/:storeId",
+  children: null,
+  component: MIConsumbaleTable,
+};
+
+const mi_non_consumableTable = {
+  id: "Non-Consumable Table",
+  path: "/mi-non-consumables-table/:storeId",
+  children: null,
+  component: MINonConsumableTable,
 };
 
 const criticalTools = {
@@ -212,6 +230,8 @@ export const dashboardLayoutRoutes = [
   chartRoutes,
   consumableTable,
   non_consumableTable,
+  mi_consumableTable,
+  mi_non_consumableTable,
   notes,
 ];
 
