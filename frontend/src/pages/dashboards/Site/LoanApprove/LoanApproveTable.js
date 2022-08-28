@@ -29,7 +29,6 @@ function LoanApproveTable() {
     { title: "Lend Date", field: "lendDate", filterPlaceholder: "filter" },
     { title: "Lend Qty", field: "lendQuantity", filterPlaceholder: "filter" },
     { title: "Receiver", field: "receiverStoreId", filterPlaceholder: "filter" },
-    { title: "Request Date", field: "rqDate", filterPlaceholder: "filter" },
     { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
     { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
@@ -37,7 +36,6 @@ function LoanApproveTable() {
     { title: "Category", field: "category", filterPlaceholder: "filter" },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-    { title: "Req Qty", field: "mquantity", filterPlaceholder: "filter" },
   ];
 
   return (
