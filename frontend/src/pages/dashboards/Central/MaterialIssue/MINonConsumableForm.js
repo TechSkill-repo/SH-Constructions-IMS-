@@ -16,6 +16,7 @@ function MIConsumableForm({ storeId }) {
     const [mquantity, setMquantity] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
     const [mcode, setMcode] = useState("");
+    const [error, showError] = useState(false);
 
     function getCurrentDate() {
         let newDate = new Date();
@@ -28,19 +29,23 @@ function MIConsumableForm({ storeId }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setShowSuccess(true);
+        if (issue_slip_no !== "" && uom != "" && mcode !== "" && mname !== "" && mquantity !== "") {
+            setShowSuccess(true);
 
-        issueNonConsumableMaterial({ mcode, mname, mdescription, uom, date, storeId, issue_slip_no, mquantity })
-            .then(resp => {
-                console.log(resp.data);
-            }).catch(err => {
-                console.log(err);
-            });
+            issueNonConsumableMaterial({ mcode, mname, mdescription, uom, date, storeId, issue_slip_no, mquantity })
+                .then(resp => {
+                    console.log(resp.data);
+                }).catch(err => {
+                    console.log(err);
+                });
 
-        setTimeout(() => {
-            setShowSuccess(false);
-            window.location.href = "/mi-non-consumables-table/" + storeId;
-        }, 3000);
+            setTimeout(() => {
+                setShowSuccess(false);
+                window.location.href = "/mi-non-consumables-table/" + storeId;
+            }, 3000);
+        } else {
+            showError(true);
+        }
     };
 
     return (
@@ -76,10 +81,12 @@ function MIConsumableForm({ storeId }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
+                        required
                         id="issue_slip_no"
                         label="Issue Slip No."
                         type="text"
                         value={issue_slip_no}
+                        error={error && issue_slip_no == "" ? true : false}
                         onChange={(e) => {
                             setIssue_slip_no(e.target.value);
                         }}
@@ -87,10 +94,12 @@ function MIConsumableForm({ storeId }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
+                        required
                         id="mcode"
                         label="Material Code"
                         type="text"
                         value={mcode}
+                        error={error && mcode == "" ? true : false}
                         onChange={(e) => {
                             setMcode(e.target.value);
                         }}
@@ -98,10 +107,12 @@ function MIConsumableForm({ storeId }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
+                        required
                         id="mname"
                         label="Material Name"
                         type="text"
                         value={mname}
+                        error={error && mname == "" ? true : false}
                         onChange={(e) => {
                             setMname(e.target.value);
                         }}
@@ -120,10 +131,12 @@ function MIConsumableForm({ storeId }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
+                        required
                         id="uom"
                         label="Unit of Measurement"
                         type="text"
                         value={uom}
+                        error={error && uom == "" ? true : false}
                         onChange={(e) => {
                             setUom(e.target.value);
                         }}
@@ -131,10 +144,12 @@ function MIConsumableForm({ storeId }) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
+                        required
                         id="mquantity"
                         label="M. Quantity"
                         type="text"
                         value={mquantity}
+                        error={error && mquantity == "" ? true : false}
                         onChange={(e) => {
                             setMquantity(e.target.value);
                         }}
