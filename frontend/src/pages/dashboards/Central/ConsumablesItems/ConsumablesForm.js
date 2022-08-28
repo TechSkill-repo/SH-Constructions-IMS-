@@ -72,7 +72,7 @@ function ConsumablesForm() {
       onSubmit={handleSubmit}
     >
       <Typography variant="h3" gutterBottom gutterLeft>
-        Consumable Form
+        Add Consumable Item
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>

@@ -67,7 +67,7 @@ function NonConsumablesTable() {
           index % 2 === 0 ? { background: "#f5f5f5" } : null,
         headerStyle: { background: "#376fd0", color: "#fff" },
       }}
-      title="Material Requests"
+      title="Non-Consumable Items"
       icons={{ Add: () => <AddIcon /> }}
     />
   );

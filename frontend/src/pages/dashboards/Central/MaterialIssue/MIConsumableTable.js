@@ -106,7 +106,7 @@ function MIConsumableTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Material Issue"
+          title="Material Issues For Consumable Item"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

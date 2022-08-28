@@ -60,7 +60,7 @@ function MIConsumableForm({ storeId }) {
             onSubmit={handleSubmit}
         >
             <Typography variant="h5" gutterBottom gutterLeft>
-                Non-Consumable Form
+            Add Material Issue For Non-Consumable Item
             </Typography>
             {showSuccess && (
                 <Alert severity="success" sx={{ my: 3 }}>

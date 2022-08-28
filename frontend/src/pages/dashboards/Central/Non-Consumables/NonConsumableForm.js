@@ -62,7 +62,7 @@ function NonConsumablesForm() {
       onSubmit={handleSubmit}
     >
       <Typography variant="h3" gutterBottom gutterLeft>
-        Non-Consumable Form
+        Add Non-Consumable Items
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>
