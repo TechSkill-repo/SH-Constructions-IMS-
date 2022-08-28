@@ -54,6 +54,7 @@ import NonConsumable from "../pages/dashboards/Site/Inventory/NonConsumable";
 import LoanRequest from "../pages/dashboards/Site/LoanRequest/LoanRequest";
 import LoanApprove from "../pages/dashboards/Site/LoanApprove/LoanApprove";
 import LoanReqTable from "../pages/dashboards/Site/LoanReqTable/LoanReqTable";
+import ApprovedLone from "../pages/dashboards/Site/LoanApprove/ApprovedLone/ApprovedLone";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -126,8 +127,18 @@ const approveLoan = {
   id: "Loan Approval",
   path: "/loan-approval",
   icon: <VerifiedIcon />,
-  component: LoanApprove,
-  children: null,
+  children: [
+    {
+      path: "/approve-loan",
+      name: "Approve Lone",
+      component: ApprovedLone,
+    },
+    {
+      path: "/loan-approval",
+      name: "Loan Approval",
+      component: LoanApprove,
+    },
+  ],
 };
 
 const loanReqTable = {
@@ -135,7 +146,6 @@ const loanReqTable = {
   path: "/loan-request-Table",
   icon: <ArchiveIcon />,
   component: LoanReqTable,
-  children: null,
 };
 
 const landingRoutes = {
