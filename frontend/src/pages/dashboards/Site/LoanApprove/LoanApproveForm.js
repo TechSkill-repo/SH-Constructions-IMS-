@@ -24,6 +24,7 @@ function LoanApproveForm() {
   const [condition, setCondition] = useState("");
   const [returnCondition, setReturnCondition] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [mdescription, setMdescription] = useState("");
 
   function getCurrentDate() {
     let newDate = new Date();
@@ -50,6 +51,7 @@ function LoanApproveForm() {
       condition,
       returnCondition,
       category,
+      mdescription,
     })
       .then((resp) => {
         console.log(resp);
@@ -163,6 +165,17 @@ function LoanApproveForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            id="lendQuantity"
+            label="Approve Qty"
+            type="text"
+            value={mdescription}
+            onChange={(e) => {
+              setMdescription(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
             id="condition"
             select
             label="Condition"
@@ -192,7 +205,7 @@ function LoanApproveForm() {
             <MenuItem value={"non-consumable"}>Non-Consumable</MenuItem>
           </TextField>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Button
             variant="contained"
             size="large"
