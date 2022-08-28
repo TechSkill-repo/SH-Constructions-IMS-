@@ -16,6 +16,7 @@ import {
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import ArchiveIcon from "@mui/icons-material/Archive";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
@@ -52,6 +53,7 @@ import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
 import NonConsumable from "../pages/dashboards/Site/Inventory/NonConsumable";
 import LoanRequest from "../pages/dashboards/Site/LoanRequest/LoanRequest";
 import LoanApprove from "../pages/dashboards/Site/LoanApprove/LoanApprove";
+import LoanReqTable from "../pages/dashboards/Site/LoanReqTable/LoanReqTable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -128,6 +130,14 @@ const approveLoan = {
   children: null,
 };
 
+const loanReqTable = {
+  id: "Loan Approval",
+  path: "/loan-request-Table",
+  icon: <ArchiveIcon />,
+  component: LoanReqTable,
+  children: null,
+};
+
 const landingRoutes = {
   id: "Landing Page",
   path: "/",
@@ -156,6 +166,7 @@ export const dashboardLayoutRoutes = [
   componentsRoutes,
   loanRequest,
   approveLoan,
+  loanReqTable,
 ];
 
 // Routes using the Auth layout
@@ -177,4 +188,5 @@ export const sidebarRoutes = [
   componentsRoutes,
   loanRequest,
   approveLoan,
+  loanReqTable,
 ];
