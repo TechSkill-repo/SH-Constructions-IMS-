@@ -17,7 +17,7 @@ function LoanReqTable() {
         setItems(resp.items);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   }, []);
 

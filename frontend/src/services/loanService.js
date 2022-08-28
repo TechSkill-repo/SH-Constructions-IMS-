@@ -33,7 +33,7 @@ export function lendMaterial(material) {
 export function getLoans(storeId) {
   return new Promise((resolve, reject) => {
     axios
-      .get("http://localhost:9090/loan" + storeId ? `?storeId=${storeId}` : "")
+      .get("http://localhost:9090/loan" + (storeId ? `?storeId=${storeId}` : ""))
       .then((response) => {
         if (response.status === 200)
           resolve(response.data);
@@ -44,10 +44,10 @@ export function getLoans(storeId) {
   });
 }
 
-export function getApprovedLoans(storeId) {
+export function getApprovedLoans(storeId, reverse = false) {
   return new Promise((resolve, reject) => {
     axios
-      .get("http://localhost:9090/loan/approved" + storeId ? `?storeId=${storeId}` : "")
+      .get("http://localhost:9090/loan/approved" + (storeId ? `?storeId=${storeId}` : "") + (reverse ? `&reverse=true` : ""))
       .then((response) => {
         if (response.status === 200)
           resolve(response.data);

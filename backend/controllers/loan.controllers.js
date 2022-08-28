@@ -90,12 +90,17 @@ const getLoans = (req, res) => {
 
 const getApprovedLoans = (req, res) => {
   const storeId = req.query.storeId;
+  const reverse = req.query.reverse;
   let items = [];
 
   let query;
 
-  if (storeId)
-    query = db.collection("approved-loans").where("requestedStoreId", "==", storeId);
+  if (storeId) {
+    if (reverse)
+      query = db.collection("approved-loans").where("receiverStoreId", "==", storeId);
+    else
+      query = db.collection("approved-loans").where("storeId", "==", storeId);
+  }
   else
     query = db.collection("approved-loans");
 

@@ -165,8 +165,8 @@ function LoanApproveForm() {
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            id="lendQuantity"
-            label="Approve Qty"
+            id="mdescription"
+            label="Material Description"
             type="text"
             value={mdescription}
             onChange={(e) => {

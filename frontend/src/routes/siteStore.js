@@ -116,7 +116,7 @@ const componentsRoutes = {
 };
 
 const loanRequest = {
-  id: "Request Lone",
+  id: "Request A Lone",
   path: "/loan-request",
   icon: <ShoppingCartIcon />,
   component: LoanRequest,
@@ -130,20 +130,20 @@ const approveLoan = {
   children: [
     {
       path: "/approve-loan",
-      name: "Approve Lone",
-      component: ApprovedLone,
+      name: "Approve A Lone",
+      component: LoanApprove,
     },
     {
       path: "/loan-approval",
-      name: "Loan Approval",
-      component: LoanApprove,
+      name: "Loan Approvals",
+      component: ApprovedLone,
     },
   ],
 };
 
 const loanReqTable = {
-  id: "Loan Approval",
-  path: "/loan-request-Table",
+  id: "Loan Requests Received",
+  path: "/loan-request-table",
   icon: <ArchiveIcon />,
   component: LoanReqTable,
 };
