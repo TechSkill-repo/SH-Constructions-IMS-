@@ -29,16 +29,6 @@ function ConsumablesForm() {
     return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
   }
 
-  const handleChange = (e, setState) => {
-    const onlyNums = e.target.value.replace(/[^0-9]/g, "");
-    if (onlyNums.length < 10) {
-      setState({ value: onlyNums });
-    } else if (onlyNums.length === 10) {
-      const number = onlyNums.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
-      setState({ value: number });
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (mname !== "" && uom != "" && currStock !== "" && totalReceived !== "") {
