@@ -60,7 +60,6 @@ function ReqForm() {
       });
 
     setTimeout(() => {
-      setStoreId("");
       setSlipNo("");
       setMcode("");
       setMname("");
@@ -70,8 +69,8 @@ function ReqForm() {
       setQuantityReq("");
       setInchargeName("");
       setSiteLocation("");
-      setShowSuccess("");
-    }, 2000);
+      setShowSuccess(false);
+    }, 3000);
   };
 
   return (
