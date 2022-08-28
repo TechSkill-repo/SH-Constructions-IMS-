@@ -7,6 +7,7 @@ import { Grid } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@material-ui/core";
+import LoanApproveForm from "../LoanApproveForm";
 
 function ApprovedLone() {
   const [showForm, setShowForm] = useState(false);
@@ -27,10 +28,10 @@ function ApprovedLone() {
   const columns = [
     { title: "Lend Date", field: "lendDate", filterPlaceholder: "filter" },
     { title: "Lend Qty", field: "lendQuantity", filterPlaceholder: "filter" },
-    { title: "Sender", field: "storeId", filterPlaceholder: "filter" },
+    { title: "Sender", field: "storeId", filterPlaceholder: "filter", render: rowData => <span style={{ color: "green", fontWeight: '600' }}>{rowData.storeId}</span> },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
-    { title: "Category", field: "category", filterPlaceholder: "filter" },
+    { title: "Category", field: "category", filterPlaceholder: "filter", render: rowData => <span style={{ color: `${rowData.category == 'consumable' ? 'red' : 'green'}`, fontWeight: '600' }}>{rowData.category}</span> },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     { title: "Condition", field: "condition", filterPlaceholder: "filter" },
     { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
@@ -98,6 +99,7 @@ function ApprovedLone() {
             rowStyle: (data, index) =>
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
+
           }}
           title="Material Issue"
           icons={{ Add: () => <AddIcon /> }}

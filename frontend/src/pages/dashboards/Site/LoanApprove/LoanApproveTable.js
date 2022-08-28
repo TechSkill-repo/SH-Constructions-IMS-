@@ -28,15 +28,15 @@ function LoanApproveTable() {
   const columns = [
     { title: "Lend Date", field: "lendDate", filterPlaceholder: "filter" },
     { title: "Lend Qty", field: "lendQuantity", filterPlaceholder: "filter" },
-    { title: "Receiver", field: "receiverStoreId", filterPlaceholder: "filter" },
+    { title: "Receiver", field: "receiverStoreId", filterPlaceholder: "filter", render: rowData => <span style={{ color: "green", fontWeight: '600' }}>{rowData.storeId}</span> },
     { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
     { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
-    { title: "Category", field: "category", filterPlaceholder: "filter" },
+    { title: "Category", field: "category", filterPlaceholder: "filter", render: rowData => <span style={{ color: `${rowData.category == 'consumable' ? 'red' : 'green'}`, fontWeight: '600' }}>{rowData.category}</span> },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-  ];
+  ]
 
   return (
     <>
