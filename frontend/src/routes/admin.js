@@ -28,14 +28,6 @@ const Default = async(() => import("../pages/dashboards/Admin/Default"));
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 
-
-// Maps components
-const GoogleMaps = async(() => import("../pages/maps/GoogleMaps"));
-const VectorMaps = async(() => import("../pages/maps/VectorMaps"));
-
-// Landing
-// import Landing from "../pages/presentation/Landing";
-
 // Protected routes
 import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
 
