@@ -4,7 +4,8 @@ import { getMaterial } from "../../../../services/materialService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
+import { Save, Delete } from "@material-ui/icons";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
@@ -53,7 +54,33 @@ function ConsumableTable() {
         </Grid>
       </div>
       <MaterialTable
+        actions={[
+          {
+            icon: "checkbox",
+            tooltip: "Approve",
+            onClick: (event, rowData) => {
+              // Do save operation
+            },
+            color: "blue",
+          },
+          {
+            icon: "edit",
+            tooltip: "Save User",
+            onClick: (event, rowData) => {
+              // Do save operation
+            },
+          },
+        ]}
         columns={columns}
+        editable={{
+          onRowDelete: (selectedRow) =>
+            new Promise((resolve, reject) => {
+              const updatedData = [...tableData];
+              updatedData.splice(selectedRow.tableData.id, 1);
+              setTableData(updatedData);
+              setTimeout(() => resolve(), 1000);
+            }),
+        }}
         data={items}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
