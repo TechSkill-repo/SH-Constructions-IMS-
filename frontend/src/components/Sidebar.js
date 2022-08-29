@@ -277,6 +277,10 @@ const SidebarFooterBadge = styled(Badge)`
   }
 `;
 
+const userDetails = window.sessionStorage.getItem("user");
+const userRole = JSON.parse(userDetails);
+console.log(userRole);
+
 const SidebarCategory = ({
   name,
   icon,
@@ -411,7 +415,7 @@ const getSideBarContent = (user, rest, openRoutes, toggle) => {
               >
                 <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
                 <SidebarFooterText>
-                  Hey Central Store Dashboard
+                  Hey {userRole.role} Dashboard
                   <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
                 </SidebarFooterText>
               </SidebarFooterBadge>
@@ -512,7 +516,7 @@ const getSideBarContent = (user, rest, openRoutes, toggle) => {
               >
                 <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
                 <SidebarFooterText>
-                  Hey Central Store Dashboard
+                  Hey {userRole.role} Dashboard
                   <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
                 </SidebarFooterText>
               </SidebarFooterBadge>
@@ -613,7 +617,7 @@ const getSideBarContent = (user, rest, openRoutes, toggle) => {
               >
                 <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
                 <SidebarFooterText>
-                  Hey Central Store Dashboard
+                  Hey {userRole.role} Dashboard
                   <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
                 </SidebarFooterText>
               </SidebarFooterBadge>
