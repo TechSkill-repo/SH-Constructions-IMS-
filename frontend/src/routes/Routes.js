@@ -4,30 +4,24 @@ import {
   dashboardLayoutRoutes,
   authLayoutRoutes,
   presentationLayoutRoutes,
-  protectedRoutes,
 } from "./admin";
 
 import {
   dashboardLayoutRoutes as dL2,
   authLayoutRoutes as aL2,
   presentationLayoutRoutes as pL2,
-  protectedRoutes as pR2,
 } from "./centralStore";
 
 import {
   dashboardLayoutRoutes as dL3,
   authLayoutRoutes as aL3,
   presentationLayoutRoutes as pL3,
-  protectedRoutes as pR3
 } from "./siteStore";
 
 import DashboardLayout from "../layouts/Dashboard";
 import AuthLayout from "../layouts/Auth";
 import PresentationLayout from "../layouts/Presentation";
-import Page404 from "../pages/auth/Page404";
 import { Login } from "../pages/auth/Login";
-import { Provider } from "react-redux";
-import store from "../redux/store/index";
 
 const childRoutes = (Layout, routes) =>
   routes.map(({ component: Component, guard, children, path }, index) => {
@@ -77,7 +71,6 @@ const checkUserType = (sessionData) => {
       return (
         <Switch>
           {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
-          {childRoutes(DashboardLayout, protectedRoutes)}
           {/* {childRoutes(AuthLayout, authLayoutRoutes)} */}
           {childRoutes(PresentationLayout, presentationLayoutRoutes)}
           {/* <Route
@@ -94,7 +87,6 @@ const checkUserType = (sessionData) => {
         <Switch>
           Central Store
           {childRoutes(DashboardLayout, dL2)}
-          {childRoutes(DashboardLayout, pR2)}
           {/* {childRoutes(AuthLayout, aL2)} */}
           {childRoutes(PresentationLayout, pL2)}
           {/* <Route
@@ -111,7 +103,6 @@ const checkUserType = (sessionData) => {
         <Switch>
           Site Store
           {childRoutes(DashboardLayout, dL3)}
-          {childRoutes(DashboardLayout, pR3)}
           {childRoutes(AuthLayout, aL3)}
           {childRoutes(PresentationLayout, pL3)}
           {/* <Route

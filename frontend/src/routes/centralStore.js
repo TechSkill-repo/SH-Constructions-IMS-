@@ -23,30 +23,11 @@ import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedI
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
-// Guards
-import AuthGuard from "../components/AuthGuard";
-
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Central/Default"));
 const Analytics = async(() => import("../pages/dashboards/Central/Analytics"));
 
-// Forms components
-import TextFields from "../pages/forms/TextFields";
-
-// Pages components
-import Orders from "../pages/pages/Orders";
-
-// Tables components
-import SimpleTable from "../pages/tables/SimpleTable";
-
-// Chart components
-const Chartjs = async(() => import("../pages/charts/Chartjs"));
-
-// Landing
-import Landing from "../pages/presentation/Landing";
-
 // Protected routes
-import ProtectedPage from "../pages/protected/ProtectedPage";
 import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
 import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
 import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
@@ -167,14 +148,6 @@ const criticalTools = {
   component: CriticalTools,
 };
 
-const chartRoutes = {
-  id: "Monitor Inventory",
-  path: "/monitorInventory",
-  icon: <PieChart />,
-  component: Chartjs,
-  children: null,
-};
-
 const monitorStoreLone = {
   id: "Monitor Store Lone",
   path: "/monitor-lone",
@@ -204,18 +177,10 @@ const landingRoutes = {
   path: "/",
   header: "Docs",
   icon: <Monitor />,
-  component: Landing,
+  component: null,
   children: null,
 };
 
-// This route is only visible while signed in
-const protectedPageRoutes = {
-  id: "Private",
-  path: "/private",
-  component: ProtectedPage,
-  children: null,
-  guard: AuthGuard,
-};
 
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
@@ -227,12 +192,10 @@ export const dashboardLayoutRoutes = [
   non_consumables,
   monitorStoreLone,
   requisitionForm,
-  chartRoutes,
   consumableTable,
   non_consumableTable,
   mi_consumableTable,
   mi_non_consumableTable,
-  notes,
 ];
 
 // Routes using the Auth layout
@@ -240,9 +203,6 @@ export const authLayoutRoutes = [materialIssue];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
-
-// Routes that are protected
-export const protectedRoutes = [protectedPageRoutes];
 
 // Routes visible in the sidebar
 export const sidebarRoutes = [
@@ -253,8 +213,6 @@ export const sidebarRoutes = [
   // monitorInventory,
   materialIssue,
   criticalTools,
-  chartRoutes,
   monitorStoreLone,
   requisitionForm,
-  notes,
 ];
