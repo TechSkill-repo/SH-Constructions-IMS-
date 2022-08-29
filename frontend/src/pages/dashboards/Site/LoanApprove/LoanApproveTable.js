@@ -5,7 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import LoanApproveForm from "./LoanApproveForm";
 import { Box } from "@material-ui/core";
 
@@ -26,21 +26,53 @@ function LoanApproveTable() {
   }, []);
 
   const columns = [
-    { title: "Lend Date", field: "lendDate", filterPlaceholder: "filter" },
-    { title: "Lend Qty", field: "lendQuantity", filterPlaceholder: "filter" },
-    { title: "Receiver", field: "receiverStoreId", filterPlaceholder: "filter", render: rowData => <span style={{ color: "green", fontWeight: '600' }}>{rowData.storeId}</span> },
-    { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
-    { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
+    { title: "Date", field: "lendDate", filterPlaceholder: "filter" },
+    { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
+    {
+      title: "Location",
+      field: "receiverStoreId",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span style={{ color: "green", fontWeight: "600" }}>
+          {rowData.storeId}
+        </span>
+      ),
+    },
+    { title: "R.Date", field: "returnDate", filterPlaceholder: "filter" },
+    // {
+    //   title: "Rtrn Cond",
+    //   field: "returnCondition",
+    //   filterPlaceholder: "filter",
+    // },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
-    { title: "Category", field: "category", filterPlaceholder: "filter", render: rowData => <span style={{ color: `${rowData.category == 'consumable' ? 'red' : 'green'}`, fontWeight: '600' }}>{rowData.category}</span> },
+    {
+      title: "Category",
+      field: "category",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span
+          style={{
+            color: `${rowData.category == "consumable" ? "red" : "green"}`,
+            fontWeight: "600",
+          }}
+        >
+          {rowData.category}
+        </span>
+      ),
+    },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-  ]
+  ];
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center" style={{ marginBottom: "0.8em" }}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginBottom: "0.8em" }}
+      >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
             Approved Loan StoreId:{" "}
@@ -62,7 +94,12 @@ function LoanApproveTable() {
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} alignItems="center" style={{ justifyContent: "center" }}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ justifyContent: "center" }}
+      >
         <Grid item xs={9} justifyContent="center">
           {showForm && <LoanApproveForm storeId={storeId} />}
         </Grid>

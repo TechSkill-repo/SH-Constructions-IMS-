@@ -153,7 +153,7 @@ const Category = styled(ListItem)`
 
   &.${(props) => props.activeClassName} {
     background-color: ${(props) =>
-    darken(0.03, props.theme.sidebar.background)};
+      darken(0.03, props.theme.sidebar.background)};
 
     span {
       color: ${(props) => props.theme.sidebar.color};
@@ -193,12 +193,12 @@ const Link = styled(ListItem)`
 
   &:hover {
     background-color: ${(props) =>
-    darken(0.015, props.theme.sidebar.background)};
+      darken(0.015, props.theme.sidebar.background)};
   }
 
   &.${(props) => props.activeClassName} {
     background-color: ${(props) =>
-    darken(0.03, props.theme.sidebar.background)};
+      darken(0.03, props.theme.sidebar.background)};
 
     span {
       color: ${(props) => props.theme.sidebar.color};
@@ -269,7 +269,7 @@ const SidebarFooterBadge = styled(Badge)`
   margin-right: ${(props) => props.theme.spacing(1)}px;
   span {
     background-color: ${(props) =>
-    props.theme.sidebar.footer.online.background};
+      props.theme.sidebar.footer.online.background};
     border: 1.5px solid ${(props) => props.theme.palette.common.white};
     height: 12px;
     width: 12px;
