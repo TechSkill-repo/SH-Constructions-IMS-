@@ -34,7 +34,7 @@ function LoanApproveTable() {
       filterPlaceholder: "filter",
       render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.storeId}
+          {rowData.receiverStoreId}
         </span>
       ),
     },

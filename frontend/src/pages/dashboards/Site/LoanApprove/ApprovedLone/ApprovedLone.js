@@ -29,7 +29,7 @@ function ApprovedLone() {
     { title: "Date", field: "lendDate", filterPlaceholder: "filter" },
     { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
     {
-      title: "Sender",
+      title: "Location",
       field: "storeId",
       filterPlaceholder: "filter",
       render: (rowData) => (
