@@ -8,30 +8,35 @@ function NonConsumablesTable() {
 
   useEffect(() => {
     getNonConsumableItem()
-    .then(data => {
-      setItems(data.items);
-    }).catch(err => {
-      console.log(err);
-    });
+      .then((data) => {
+        setItems(data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const columns = [
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
-      title: "M.Description",
+      title: "M.Desc",
       field: "mdescription",
       filterPlaceholder: "filter",
     },
-    { title: "Opening Stock", field: "opening_stock", filterPlaceholder: "filter" },
+    { title: "Ope.Stock", field: "opening_stock", filterPlaceholder: "filter" },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     { title: "Date", field: "date", filterPlaceholder: "filter" },
     {
-      title: "Total Received",
+      title: "ToT.Received",
       field: "total_received",
       filterPlaceholder: "filter",
     },
-    { title: "Curr. Stock", field: "current_stock", filterPlaceholder: "filter" },
+    {
+      title: "Curr.Stock",
+      field: "current_stock",
+      filterPlaceholder: "filter",
+    },
   ];
 
   return (

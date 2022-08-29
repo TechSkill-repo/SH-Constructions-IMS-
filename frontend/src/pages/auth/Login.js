@@ -23,7 +23,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import logo from "../../vendor/logo.png";
+import logo from "../../vendor/shlogo.png";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -75,14 +75,14 @@ export const Login = () => {
   return (
     <Container>
       <FormContainer>
-        <Logo src={logo} />
+        <Logo src={logo} style={{ height: "15vh", marginTop: "80px" }} />
         <Wrapper>
           <Head>Hi 👋 Please Login</Head>
           <Paragraph>
             Please Login to your respective Dashboard using your given userEmail
             and Password.
           </Paragraph>
-          <form onSubmit={handleSubmit} method="post" style={{ width: "62%" }}>
+          <form onSubmit={handleSubmit} method="post" style={{ width: "100%" }}>
             {invalidDetails && (
               <Form style={{ marginBottom: "1.3em" }}>
                 <Alert severity="info">
@@ -172,9 +172,9 @@ export const Login = () => {
       </FormContainer>
       <ImageContainer>
         <img
-          style={{ height: "100vh", width: "100%", objectFit: "none" }}
+          style={{ height: "100vh", width: "100%", objectFit: "contain" }}
           // src="https://media.istockphoto.com/vectors/team-of-builders-and-industrial-workers-vector-id1312320486?b=1&k=20&m=1312320486&s=612x612&w=0&h=GRFuDujVEQOs1I2UI5DI7UaPtrM860hPNXP8sZCN2c8="
-          src="https://prod-upp-image-read.ft.com/e94129d6-2c41-11e3-8b20-00144feab7de"
+          src="https://img.freepik.com/free-vector/factory-workers-robotic-arm-removing-packages-from-conveyor-line-engineer-using-computer-operating-process-vector-illustration-business-production-machine-technology-concepts_74855-9859.jpg"
           // src="https://img.freepik.com/free-vector/engineers-standing-near-big-monitor-with-buildings-project-crane-screen-flat-vector-illustration-construction-engineering_74855-8349.jpg?w=2000"
         />
       </ImageContainer>

@@ -116,7 +116,7 @@ const materialIssue = {
 };
 
 const consumables = {
-  id: "Consumables Items",
+  id: "Consumables",
   path: "/consumables-items",
   icon: <ConstructionIcon />,
   children: null,
@@ -124,7 +124,7 @@ const consumables = {
 };
 
 const non_consumables = {
-  id: "Non-Consumables Items",
+  id: "Non-Consumables",
   path: "/non-consumables-items",
   icon: <EngineeringIcon />,
   children: null,

@@ -16,6 +16,7 @@ import {
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import ArchiveIcon from "@mui/icons-material/Archive";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
@@ -47,11 +48,13 @@ import Landing from "../pages/presentation/Landing";
 // Protected routes
 import ProtectedPage from "../pages/protected/ProtectedPage";
 import ReqForm from "../pages/dashboards/Site/Requisition/ReqForm";
-import MaterialLone from "../pages/dashboards/Site/MaterialLone/MaterialLone";
+import MaterialLoan from "../pages/dashboards/Site/MaterialLoan/MaterialLoan";
 import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
 import NonConsumable from "../pages/dashboards/Site/Inventory/NonConsumable";
-import LoneRequest from "../pages/dashboards/Site/LoneRequest/LoneRequest";
-import LoneApprove from "../pages/dashboards/Site/LoneApprove/LoneApprove";
+import LoanRequest from "../pages/dashboards/Site/LoanRequest/LoanRequest";
+import LoanApprove from "../pages/dashboards/Site/LoanApprove/LoanApprove";
+import LoanReqTable from "../pages/dashboards/Site/LoanReqTable/LoanReqTable";
+import ApprovedLone from "../pages/dashboards/Site/LoanApprove/ApprovedLone/ApprovedLone";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -112,21 +115,39 @@ const componentsRoutes = {
   component: null,
 };
 
-const loneRequest = {
-  id: "Request Lone",
-  path: "/lone-request",
+const loanRequest = {
+  id: "Request A Lone",
+  path: "/loan-request",
   icon: <ShoppingCartIcon />,
-  component: LoneRequest,
+  component: LoanRequest,
   children: null,
 };
 
-const approveLone = {
-  id: "Lone Approval",
-  path: "/lone-approval",
+const approveLoan = {
+  id: "Loan Approval",
+  path: "/loan-approval",
   icon: <VerifiedIcon />,
-  component: LoneApprove,
-  children: null,
+  children: [
+    {
+      path: "/approve-loan",
+      name: "Approve A Lone",
+      component: LoanApprove,
+    },
+    {
+      path: "/loan-approval",
+      name: "Loan Approvals",
+      component: ApprovedLone,
+    },
+  ],
 };
+
+const loanReqTable = {
+  id: "Loan Requests Received",
+  path: "/loan-request-table",
+  icon: <ArchiveIcon />,
+  component: LoanReqTable,
+};
+
 const landingRoutes = {
   id: "Landing Page",
   path: "/",
@@ -153,8 +174,9 @@ export const dashboardLayoutRoutes = [
   consumableRoute,
   non_consumablesRoute,
   componentsRoutes,
-  loneRequest,
-  approveLone,
+  loanRequest,
+  approveLoan,
+  loanReqTable,
 ];
 
 // Routes using the Auth layout
@@ -174,6 +196,7 @@ export const sidebarRoutes = [
   non_consumablesRoute,
   requsitionForm,
   componentsRoutes,
-  loneRequest,
-  approveLone,
+  loanRequest,
+  approveLoan,
+  loanReqTable,
 ];

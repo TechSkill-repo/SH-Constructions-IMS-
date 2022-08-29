@@ -153,7 +153,7 @@ const Category = styled(ListItem)`
 
   &.${(props) => props.activeClassName} {
     background-color: ${(props) =>
-    darken(0.03, props.theme.sidebar.background)};
+      darken(0.03, props.theme.sidebar.background)};
 
     span {
       color: ${(props) => props.theme.sidebar.color};
@@ -193,12 +193,12 @@ const Link = styled(ListItem)`
 
   &:hover {
     background-color: ${(props) =>
-    darken(0.015, props.theme.sidebar.background)};
+      darken(0.015, props.theme.sidebar.background)};
   }
 
   &.${(props) => props.activeClassName} {
     background-color: ${(props) =>
-    darken(0.03, props.theme.sidebar.background)};
+      darken(0.03, props.theme.sidebar.background)};
 
     span {
       color: ${(props) => props.theme.sidebar.color};
@@ -269,13 +269,17 @@ const SidebarFooterBadge = styled(Badge)`
   margin-right: ${(props) => props.theme.spacing(1)}px;
   span {
     background-color: ${(props) =>
-    props.theme.sidebar.footer.online.background};
+      props.theme.sidebar.footer.online.background};
     border: 1.5px solid ${(props) => props.theme.palette.common.white};
     height: 12px;
     width: 12px;
     border-radius: 50%;
   }
 `;
+
+const userDetails = window.sessionStorage.getItem("user");
+const userRole = JSON.parse(userDetails);
+console.log(userRole);
 
 const SidebarCategory = ({
   name,
@@ -411,7 +415,7 @@ const getSideBarContent = (user, rest, openRoutes, toggle) => {
               >
                 <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
                 <SidebarFooterText>
-                  Hey Central Store Dashboard
+                  Hey {userRole.role} Dashboard
                   <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
                 </SidebarFooterText>
               </SidebarFooterBadge>
@@ -512,7 +516,7 @@ const getSideBarContent = (user, rest, openRoutes, toggle) => {
               >
                 <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
                 <SidebarFooterText>
-                  Hey Central Store Dashboard
+                  Hey {userRole.role} Dashboard
                   <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
                 </SidebarFooterText>
               </SidebarFooterBadge>
@@ -613,7 +617,7 @@ const getSideBarContent = (user, rest, openRoutes, toggle) => {
               >
                 <Avatar src="https://img.freepik.com/free-photo/close-up-young-successful-man-smiling-camera-standing-casual-outfit-against-blue-background_1258-66609.jpg?w=2000" />
                 <SidebarFooterText>
-                  Hey Central Store Dashboard
+                  Hey {userRole.role} Dashboard
                   <SidebarFooterSubText>Hello UserName</SidebarFooterSubText>
                 </SidebarFooterText>
               </SidebarFooterBadge>
