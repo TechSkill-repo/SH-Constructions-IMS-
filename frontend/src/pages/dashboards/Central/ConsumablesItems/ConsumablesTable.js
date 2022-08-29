@@ -37,7 +37,7 @@ function ConsumablesTable() {
       filterPlaceholder: "filter",
     },
     {
-      title: "Curr.stock",
+      title: "Curr.Stock",
       field: "current_stock",
       filterPlaceholder: "filter",
     },
@@ -98,7 +98,7 @@ function ConsumablesTable() {
           index % 2 === 0 ? { background: "#f5f5f5" } : null,
         headerStyle: { background: "#376fd0", color: "#fff" },
       }}
-      title="Consumable Items"
+      title="Inventory: Consumable Items"
       icons={{ Add: () => <AddIcon /> }}
     />
   );

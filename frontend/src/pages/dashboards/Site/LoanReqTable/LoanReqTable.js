@@ -63,7 +63,7 @@ function LoanReqTable() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            Consumable Items StoreId:{" "}
+            Lone Requests:
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}
@@ -110,7 +110,7 @@ function LoanReqTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Material Issue"
+          title="Lone Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

@@ -23,7 +23,11 @@ function NonConsumable() {
 
   const columns = [
     { title: "Date", field: "date", filterPlaceholder: "filter" },
-    { title: "Issue Slip.No", field: "issue_slip_no", filterPlaceholder: "filter" },
+    {
+      title: "Issue Slip.No",
+      field: "issue_slip_no",
+      filterPlaceholder: "filter",
+    },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
       title: "M.Description",
@@ -40,7 +44,12 @@ function NonConsumable() {
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center" style={{ marginBottom: "0.8em" }}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginBottom: "0.8em" }}
+      >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
             NonConsumable Items StoreId:{" "}
@@ -51,8 +60,12 @@ function NonConsumable() {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container spacing={2} alignItems="center" style={{ justifyContent: "center" }}>
-      </Grid>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ justifyContent: "center" }}
+      ></Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
           columns={columns}
@@ -86,7 +99,7 @@ function NonConsumable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Material Issue"
+          title="Store Non-Consumable Inventory"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

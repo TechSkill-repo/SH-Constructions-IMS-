@@ -124,13 +124,13 @@ const loanRequest = {
 };
 
 const approveLoan = {
-  id: "Loan Approval",
+  id: "Loan Inventory",
   path: "/loan-approval",
   icon: <VerifiedIcon />,
   children: [
     {
       path: "/approve-loan",
-      name: "Approve A Lone",
+      name: "Stakes Lone",
       component: LoanApprove,
     },
     {

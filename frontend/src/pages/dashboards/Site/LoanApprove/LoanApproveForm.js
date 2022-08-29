@@ -77,8 +77,8 @@ function LoanApproveForm() {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <Typography variant="h5" gutterBottom gutterLeft>
-        Consumable Form
+      <Typography textAlign="center" variant="h5" gutterBottom gutterLeft>
+        Lone Lending
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>

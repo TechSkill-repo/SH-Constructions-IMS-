@@ -16,7 +16,7 @@ function ConsumablesItems() {
       <Grid container spacing={4} alignItems="center" justifyContent="center">
         <Grid item xs={11}>
           <Typography variant="h3" gutterBottom gutterLeft>
-            Consumable Items
+            Consumable Items Inventory
           </Typography>
         </Grid>
         <Grid item xs={1}>

@@ -34,7 +34,7 @@ function LoanApproveTable() {
       filterPlaceholder: "filter",
       render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.receiverStoreId}
+          {rowData.storeId}
         </span>
       ),
     },
@@ -137,7 +137,7 @@ function LoanApproveTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Material Issue"
+          title="Stakes Lone"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>
