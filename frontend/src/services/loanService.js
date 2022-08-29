@@ -1,9 +1,10 @@
 import axios from "axios";
+import {HOST} from "../environments/env";
 
 export function requestLoan(material) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9090/loan/request", material)
+      .post(HOST + "/loan/request", material)
       .then((response) => {
         if (response.status === 201) {
           resolve(response.data);
@@ -18,7 +19,7 @@ export function requestLoan(material) {
 export function lendMaterial(material) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9090/loan/lend", material)
+      .post(HOST + "/loan/lend", material)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -33,7 +34,7 @@ export function lendMaterial(material) {
 export function getLoans(storeId) {
   return new Promise((resolve, reject) => {
     axios
-      .get("http://localhost:9090/loan" + (storeId ? `?storeId=${storeId}` : ""))
+      .get((HOST + "/loan") + (storeId ? `?storeId=${storeId}` : ""))
       .then((response) => {
         if (response.status === 200)
           resolve(response.data);
@@ -47,7 +48,7 @@ export function getLoans(storeId) {
 export function getApprovedLoans(storeId, reverse = false) {
   return new Promise((resolve, reject) => {
     axios
-      .get("http://localhost:9090/loan/approved" + (storeId ? `?storeId=${storeId}` : "") + (reverse ? `&reverse=true` : ""))
+      .get((HOST + "/loan/approved") + (storeId ? `?storeId=${storeId}` : "") + (reverse ? `&reverse=true` : ""))
       .then((response) => {
         if (response.status === 200)
           resolve(response.data);

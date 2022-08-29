@@ -1,9 +1,10 @@
 import axios from "axios";
+import {HOST} from "../environments/env";
 
 export function issueConsumableMaterial(material) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9090/issue/consumable", material)
+      .post(HOST + "/issue/consumable", material)
       .then((response) => {
         if (response.status === 201) {
           resolve(response.data);
@@ -18,7 +19,7 @@ export function issueConsumableMaterial(material) {
 export function issueNonConsumableMaterial(material) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9090/issue/non-consumable", material)
+      .post(HOST + "/issue/non-consumable", material)
       .then((response) => {
         if (response.status === 201) {
           resolve(response.data);
@@ -33,7 +34,7 @@ export function issueNonConsumableMaterial(material) {
 export function getConsumableIssue(storeId) {
   return new Promise((resolve, reject) => {
     axios
-      .get("http://localhost:9090/issue/consumable/get?storeId=" + storeId)
+      .get(HOST + "/issue/consumable/get?storeId=" + storeId)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -48,7 +49,7 @@ export function getConsumableIssue(storeId) {
 export function getNonConsumbaleIssue(storeId) {
   return new Promise((resolve, reject) => {
     axios
-      .get("http://localhost:9090/issue/non-consumable/get?storeId=" + storeId)
+      .get(HOST + "/issue/non-consumable/get?storeId=" + storeId)
       .then((response) => {
         if (response.status === 200)
           resolve(response.data);

@@ -1,9 +1,10 @@
 import axios from "axios";
+import {HOST} from "../environments/env";
 
 export function signIn(credentials) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9090/users/login", credentials)
+      .post(HOST + "/users/login", credentials)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -18,7 +19,7 @@ export function signIn(credentials) {
 export function signUp(credentials) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://localhost:9090/users/signup", credentials)
+      .post(HOST + "/users/signup", credentials)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);

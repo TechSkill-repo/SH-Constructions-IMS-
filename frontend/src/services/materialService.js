@@ -1,8 +1,9 @@
 import axios from "axios";
+import {HOST} from "../environments/env";
 
 const requisition = (item) => {
   return new Promise((resolve, reject) => {
-    return axios.post('http://localhost:9090/materials/requisition', item)
+    return axios.post(HOST + '/materials/requisition', item)
       .then(resp => {
         resolve(resp);
       }).catch(err => {
@@ -13,7 +14,7 @@ const requisition = (item) => {
 
 const getMaterial = (storeId, category) => {
   return new Promise((resolve, reject) => {
-    return axios.get('http://localhost:9090/materials/query?storeId=' + storeId + '&category=' + category)
+    return axios.get(HOST + '/materials/query?storeId=' + storeId + '&category=' + category)
       .then(resp => {
         resolve(resp.data);
       }).catch(err => {

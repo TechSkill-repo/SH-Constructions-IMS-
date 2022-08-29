@@ -1,8 +1,9 @@
 import axios from "axios";
+import {HOST} from "../environments/env";
 
 const getConsumableItem = () => {
   return new Promise((resolve, reject) => {
-    return axios.get('http://localhost:9090/inventory/consumable/get')
+    return axios.get(HOST + '/inventory/consumable/get')
       .then(resp => {
         resolve(resp.data);
       }).catch(err => {
@@ -13,7 +14,7 @@ const getConsumableItem = () => {
 
 const getNonConsumableItem = () => {
   return new Promise((resolve, reject) => {
-    return axios.get('http://localhost:9090/inventory/non-consumable/get')
+    return axios.get(HOST + '/inventory/non-consumable/get')
       .then(resp => {
         resolve(resp.data);
       }).catch(err => {
@@ -24,7 +25,7 @@ const getNonConsumableItem = () => {
 
 const postConsumableItem = (item) => {
   return new Promise((resolve, reject) => {
-    return axios.post('http://localhost:9090/inventory/consumable/add', item)
+    return axios.post(HOST + '/inventory/consumable/add', item)
     .then(resp => {
       resolve(resp);
     }).catch(err => {
@@ -35,7 +36,7 @@ const postConsumableItem = (item) => {
 
 const postNonConsumableItem = (item) => {
   return new Promise((resolve, reject) => {
-    return axios.post('http://localhost:9090/inventory/non-consumable/add', item)
+    return axios.post(HOST + '/inventory/non-consumable/add', item)
     .then(resp => {
       resolve(resp);
     }).catch(err => {
