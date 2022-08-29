@@ -20,9 +20,6 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
-// Guards
-import AuthGuard from "../components/AuthGuard";
-
 import ConstructionIcon from "@mui/icons-material/Construction";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 
@@ -30,25 +27,8 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 const Default = async(() => import("../pages/dashboards/Site/Default"));
 const Analytics = async(() => import("../pages/dashboards/Site/Analytics"));
 
-// Forms components
-import TextFields from "../pages/forms/TextFields";
-
-// Pages components
-import Orders from "../pages/pages/Orders";
-
-// Tables components
-import SimpleTable from "../pages/tables/SimpleTable";
-
-// Chart components
-const Chartjs = async(() => import("../pages/charts/Chartjs"));
-
-// Landing
-import Landing from "../pages/presentation/Landing";
-
 // Protected routes
-import ProtectedPage from "../pages/protected/ProtectedPage";
 import ReqForm from "../pages/dashboards/Site/Requisition/ReqForm";
-import MaterialLoan from "../pages/dashboards/Site/MaterialLoan/MaterialLoan";
 import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
 import NonConsumable from "../pages/dashboards/Site/Inventory/NonConsumable";
 import LoanRequest from "../pages/dashboards/Site/LoanRequest/LoanRequest";
@@ -104,12 +84,12 @@ const componentsRoutes = {
     {
       path: "/simpleTables",
       name: "Consumable",
-      component: SimpleTable,
+      component: null,
     },
     {
       path: "/simpleTables",
       name: "Non-Consumable",
-      component: SimpleTable,
+      component: null,
     },
   ],
   component: null,
@@ -153,18 +133,10 @@ const landingRoutes = {
   path: "/",
   header: "Docs",
   icon: <Monitor />,
-  component: Landing,
+  component: null,
   children: null,
 };
 
-// This route is only visible while signed in
-const protectedPageRoutes = {
-  id: "Private",
-  path: "/private",
-  component: ProtectedPage,
-  children: null,
-  guard: AuthGuard,
-};
 
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
@@ -184,9 +156,6 @@ export const authLayoutRoutes = [];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
-
-// Routes that are protected
-export const protectedRoutes = [protectedPageRoutes];
 
 // Routes visible in the sidebar
 export const sidebarRoutes = [
