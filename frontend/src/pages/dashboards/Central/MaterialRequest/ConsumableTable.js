@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMaterial } from "../../../../services/materialService";
+import { getMaterial, putMaterial } from "../../../../services/materialService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid, IconButton } from "@material-ui/core";
 import { Save, Delete } from "@material-ui/icons";
+import { issueConsumableMaterial } from "../../../../services/issueService";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
@@ -59,15 +60,21 @@ function ConsumableTable() {
             icon: "checkbox",
             tooltip: "Approve",
             onClick: (event, rowData) => {
-              // Do save operation
+              issueConsumableMaterial(rowData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response));
             },
             color: "blue",
           },
           {
             icon: "edit",
-            tooltip: "Save User",
+            tooltip: "Edit",
             onClick: (event, rowData) => {
-              // Do save operation
+              rowData.category = "consumable";
+
+              putMaterial(rowData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response));
             },
           },
         ]}

@@ -32,4 +32,24 @@ const getMaterial = (req, res) => {
   });
 }
 
-module.exports = { requisition, getMaterial };
+const editMaterial = (req, res) => {
+  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
+
+  const query = db.collection("materials-req").where("storeId", "==", storeId);
+  query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ message: "Material not found" });
+    } else {
+      querySnapshot.forEach(async (doc) => {
+        if (doc.data().category === category && doc.data().mcode === mcode) {
+          db.collection("materials-req").delete(doc.id);
+          await db.collection("materials-req").doc(doc.id).set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location })
+        }
+      });
+
+      res.status(200).json({ message: "Material Request Edited" });
+    }
+  });
+}
+
+module.exports = { requisition, getMaterial, editMaterial };

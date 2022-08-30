@@ -1,5 +1,5 @@
 import axios from "axios";
-import {HOST} from "../environments/env";
+import { HOST } from "../environments/env";
 
 const requisition = (item) => {
   return new Promise((resolve, reject) => {
@@ -23,4 +23,15 @@ const getMaterial = (storeId, category) => {
   });
 }
 
-export { getMaterial, requisition };
+const putMaterial = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios.put(HOST + '/materials/edit', material)
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+};
+
+export { getMaterial, requisition, putMaterial };

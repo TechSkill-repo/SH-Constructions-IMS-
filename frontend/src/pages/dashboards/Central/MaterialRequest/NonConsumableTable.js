@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getMaterial } from "../../../../services/materialService";
+import { getMaterial, putMaterial } from "../../../../services/materialService";
 import MaterialTable from "material-table";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import AddIcon from "@material-ui/icons/Add";
@@ -54,6 +54,29 @@ function NonConsumableTable() {
       </div>
       <MaterialTable
         columns={columns}
+        actions={[
+          {
+            icon: "checkbox",
+            tooltip: "Approve",
+            onClick: (event, rowData) => {
+              issueNonConsumableMaterial(rowData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response));
+            },
+            color: "blue",
+          },
+          {
+            icon: "edit",
+            tooltip: "Edit",
+            onClick: (event, rowData) => {
+              rowData.category = "non-consumable";
+
+              putMaterial(rowData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response));
+            },
+          },
+        ]}
         data={items}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
