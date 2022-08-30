@@ -53,7 +53,37 @@ function NonConsumableTable() {
         </Grid>
       </div>
       <MaterialTable
+        actions={[
+          {
+            icon: "checkbox",
+            tooltip: "Approve",
+            style: { color: "red" },
+            onClick: (event, rowData) => {
+              // Do save operation
+            },
+          },
+        ]}
         columns={columns}
+        editable={{
+          onRowDelete: (selectedRow) =>
+            new Promise((resolve, reject) => {
+              const updatedData = [...tableData];
+              updatedData.splice(selectedRow.tableData.id, 1);
+              setTableData(updatedData);
+              setTimeout(() => resolve(), 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+
+                resolve();
+              }, 1000);
+            }),
+        }}
         data={items}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{

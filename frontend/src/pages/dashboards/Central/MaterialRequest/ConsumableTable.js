@@ -63,13 +63,6 @@ function ConsumableTable() {
             },
             color: "blue",
           },
-          {
-            icon: "edit",
-            tooltip: "Save User",
-            onClick: (event, rowData) => {
-              // Do save operation
-            },
-          },
         ]}
         columns={columns}
         editable={{
@@ -79,6 +72,17 @@ function ConsumableTable() {
               updatedData.splice(selectedRow.tableData.id, 1);
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+
+                resolve();
+              }, 1000);
             }),
         }}
         data={items}
