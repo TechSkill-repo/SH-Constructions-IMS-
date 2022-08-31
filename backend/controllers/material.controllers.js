@@ -33,7 +33,7 @@ const getMaterial = (req, res) => {
 }
 
 const editMaterial = (req, res) => {
-  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
+  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location } = req.body;
 
   const query = db.collection("materials-req").where("storeId", "==", storeId);
   query.get().then((querySnapshot) => {
@@ -42,8 +42,8 @@ const editMaterial = (req, res) => {
     } else {
       querySnapshot.forEach(async (doc) => {
         if (doc.data().category === category && doc.data().mcode === mcode) {
-          db.collection("materials-req").delete(doc.id);
-          await db.collection("materials-req").doc(doc.id).set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location })
+          db.collection("materials-req").doc(doc.id).delete();
+          await db.collection("materials-req").doc(doc.id).set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location })
         }
       });
 

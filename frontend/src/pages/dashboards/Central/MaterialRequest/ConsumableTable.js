@@ -39,6 +39,11 @@ function ConsumableTable() {
       field: "quantity_req",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Approval Qty.",
+      field: "quantity_aprv",
+      filterPlaceholder: "filter",
+    }
   ];
 
   return (
@@ -65,18 +70,7 @@ function ConsumableTable() {
                 .catch(err => console.log(err.response));
             },
             color: "blue",
-          },
-          {
-            icon: "edit",
-            tooltip: "Edit",
-            onClick: (event, rowData) => {
-              rowData.category = "consumable";
-
-              putMaterial(rowData)
-                .then(resp => console.log(resp))
-                .catch(err => console.log(err.response));
-            },
-          },
+          }
         ]}
         columns={columns}
         editable={{
@@ -86,6 +80,21 @@ function ConsumableTable() {
               updatedData.splice(selectedRow.tableData.id, 1);
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              const dataUpdate = [...items];
+              const index = oldData.tableData.id;
+              dataUpdate[index] = newData;
+              setItems([...dataUpdate]);
+
+              newData.category = "consumable";
+
+              putMaterial(newData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response));
+
+              resolve();
             }),
         }}
         data={items}

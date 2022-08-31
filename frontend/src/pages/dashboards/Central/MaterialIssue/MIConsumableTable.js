@@ -38,7 +38,7 @@ function MIConsumableTable() {
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
-      title: "Qty.Req",
+      title: "Approve Qty.",
       field: "mquantity",
       filterPlaceholder: "filter",
     },
