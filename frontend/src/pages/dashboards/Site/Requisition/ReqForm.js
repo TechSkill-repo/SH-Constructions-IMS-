@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { v4 as uuidv4 } from "uuid";
+
 import { requisition } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
 import { InputLabel, Typography } from "@material-ui/core";
@@ -14,20 +12,24 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function ReqForm() {
+  var seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+
   const user = JSON.parse(window.sessionStorage.getItem("user"));
-  const [items, setItems] = useState([{
-    storeId: user ? user.storeId : "",
-    slip_no: uuidv4(),
-    mcode: "",
-    mname: "",
-    mdescription: "",
-    date: getCurrentDate(),
-    uom: "",
-    category: "consumable",
-    quantity_req: "",
-    incharge_name: "",
-    site_location: user ? user.site_location : ""
-  }]);
+  const [items, setItems] = useState([
+    {
+      storeId: user ? user.storeId : "",
+      slip_no: seq,
+      mcode: "",
+      mname: "",
+      mdescription: "",
+      date: getCurrentDate(),
+      uom: "",
+      category: "",
+      quantity_req: "",
+      incharge_name: "",
+      site_location: user ? user.site_location : "",
+    },
+  ]);
 
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -48,7 +50,7 @@ function ReqForm() {
       return i;
     });
     setItems(newItems);
-  }
+  };
 
   const handleRemoveClick = (slip_no) => {
     const values = [...items];
@@ -60,26 +62,29 @@ function ReqForm() {
   };
 
   const handleAddClick = () => {
-    setItems([...items, {
-      storeId: user ? user.storeId : "",
-      slip_no: uuidv4(),
-      mcode: "",
-      mname: "",
-      mdescription: "",
-      date: getCurrentDate(),
-      uom: "",
-      category: "consumable",
-      quantity_req: "",
-      incharge_name: "",
-      site_location: user ? user.site_location : ""
-    }]);
+    setItems([
+      ...items,
+      {
+        storeId: user ? user.storeId : "",
+        slip_no: seq,
+        mcode: "",
+        mname: "",
+        mdescription: "",
+        date: getCurrentDate(),
+        uom: "",
+        category: "consumable",
+        quantity_req: "",
+        incharge_name: "",
+        site_location: user ? user.site_location : "",
+      },
+    ]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
 
-    items.map(item => {
+    items.map((item) => {
       requisition(item)
         .then((resp) => {
           console.log(resp.data);
@@ -89,23 +94,35 @@ function ReqForm() {
         });
     });
 
-
     setTimeout(() => {
-      setItems([{
-        storeId: user ? user.storeId : "",
-        slip_no: uuidv4(),
-        mcode: "",
-        mname: "",
-        mdescription: "",
-        date: getCurrentDate(),
-        uom: "",
-        category: "consumable",
-        quantity_req: "",
-        incharge_name: "",
-        site_location: user ? user.site_location : ""
-      }])
+      setItems([
+        {
+          storeId: user ? user.storeId : "",
+          slip_no: seq,
+          mcode: "",
+          mname: "",
+          mdescription: "",
+          date: getCurrentDate(),
+          uom: "",
+          category: "consumable",
+          quantity_req: "",
+          incharge_name: "",
+          site_location: user ? user.site_location : "",
+        },
+      ]);
     }, 3000);
   };
+
+  const category = [
+    {
+      value: "consumable",
+      label: "Consumable",
+    },
+    {
+      value: "non-consumable",
+      label: "Non-Consumable",
+    },
+  ];
 
   return (
     <div>
@@ -219,22 +236,22 @@ function ReqForm() {
                 />
               </Grid>
               <Grid item xs={12} md={4}>
-                <FormControl sx={{ m: 1, width: "100%" }} size="medium">
-                  <InputLabel id="category">Category</InputLabel>
-                  <Select
-                    labelId="category-label"
-                    id="category"
-                    value={item.category}
-                    label="Category"
-                    onChange={(e) => {
-                      handleInputChange(item.slip_no, e);
-                    }}
-                  // sx={{ display: "none" }}
-                  >
-                    <MenuItem value={"consumable"}>Consumable</MenuItem>
-                    <MenuItem value={"non-consumable"}>Non-Consumable</MenuItem>
-                  </Select>
-                </FormControl>
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select"
+                  value={item.currency}
+                  helperText="Please select your currency"
+                  onChange={(e) => {
+                    handleInputChange(item.slip_no, e);
+                  }}
+                >
+                  {category.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField

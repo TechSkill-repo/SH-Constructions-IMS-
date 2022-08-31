@@ -40,10 +40,10 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
     },
     {
-      title: "Approval Qty.",
+      title: "Qty.App",
       field: "quantity_aprv",
       filterPlaceholder: "filter",
-    }
+    },
   ];
 
   return (
@@ -66,11 +66,11 @@ function ConsumableTable() {
             tooltip: "Approve",
             onClick: (event, rowData) => {
               issueConsumableMaterial(rowData)
-                .then(resp => console.log(resp))
-                .catch(err => console.log(err.response));
+                .then((resp) => console.log(resp))
+                .catch((err) => console.log(err.response));
             },
             color: "blue",
-          }
+          },
         ]}
         columns={columns}
         editable={{
@@ -91,8 +91,8 @@ function ConsumableTable() {
               newData.category = "consumable";
 
               putMaterial(newData)
-                .then(resp => console.log(resp))
-                .catch(err => console.log(err.response));
+                .then((resp) => console.log(resp))
+                .catch((err) => console.log(err.response));
 
               resolve();
             }),
