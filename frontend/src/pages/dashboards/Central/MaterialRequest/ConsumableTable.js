@@ -4,8 +4,7 @@ import { getMaterial, putMaterial } from "../../../../services/materialService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
-import { Grid, IconButton } from "@material-ui/core";
-import { Save, Delete } from "@material-ui/icons";
+import { Grid } from "@material-ui/core";
 import { issueConsumableMaterial } from "../../../../services/issueService";
 
 function ConsumableTable() {
@@ -44,6 +43,25 @@ function ConsumableTable() {
       field: "quantity_aprv",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        rowData.quantity_aprv?.length ? (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+              Approvable
+            </span>
+          </div>
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+              Pending
+            </span>
+          </div>
+        )
+      ),
+    }
   ];
 
   return (
@@ -65,9 +83,11 @@ function ConsumableTable() {
             icon: "checkbox",
             tooltip: "Approve",
             onClick: (event, rowData) => {
-              issueConsumableMaterial(rowData)
-                .then((resp) => console.log(resp))
-                .catch((err) => console.log(err.response));
+              if (rowData.quantity_aprv?.length) {
+                issueConsumableMaterial(rowData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
+              }
             },
             color: "blue",
           },
@@ -83,18 +103,23 @@ function ConsumableTable() {
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-              const dataUpdate = [...items];
-              const index = oldData.tableData.id;
-              dataUpdate[index] = newData;
-              setItems([...dataUpdate]);
+              if (!(oldData.quantity_aprv?.length)) {
+                const dataUpdate = [...items];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setItems([...dataUpdate]);
 
-              newData.category = "consumable";
+                newData.category = "consumable";
 
-              putMaterial(newData)
-                .then((resp) => console.log(resp))
-                .catch((err) => console.log(err.response));
+                putMaterial(newData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
 
-              resolve();
+                resolve();
+              }
+              else {
+                reject();
+              }
             }),
         }}
         data={items}
