@@ -32,6 +32,44 @@ const getMaterial = (req, res) => {
   });
 }
 
+const fetchDetails = (req, res) => {
+  const mcode = req.query.mcode;
+  let items = [];
+
+  const query = db.collection("consumable-inv").where("mcode", "==", mcode);
+  query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      const query = db.collection("non-consumable-inv").where("mcode", "==", mcode);
+
+      query.get().then((querySnapshot) => {
+        if (querySnapshot.empty) {
+          res.status(404).json({ message: "Material not found" });
+        } else {
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            data.category = "non-consumable";
+
+            res.status(200).json({
+              message: "Material fetched",
+              item: data
+            });
+          });
+        }
+      });
+    } else {
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        data.category = "consumable";
+
+        res.status(200).json({
+          message: "Material fetched",
+          item: data
+        });
+      });
+    }
+  });
+}
+
 const editMaterial = (req, res) => {
   const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location } = req.body;
 
@@ -52,4 +90,4 @@ const editMaterial = (req, res) => {
   });
 }
 
-module.exports = { requisition, getMaterial, editMaterial };
+module.exports = { requisition, getMaterial, editMaterial, fetchDetails };

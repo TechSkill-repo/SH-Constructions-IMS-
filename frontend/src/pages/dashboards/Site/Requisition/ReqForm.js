@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
-import { requisition } from "../../../../services/materialService";
+import { requisition, fetchDetails } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Alert from "@mui/material/Alert";
@@ -12,7 +11,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function ReqForm() {
-  var seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+  let seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const [items, setItems] = useState([
@@ -46,6 +45,24 @@ function ReqForm() {
     const newItems = items.map((i) => {
       if (slip_no === i.slip_no) {
         i[event.target.id] = event.target.value;
+
+        if (event.target.id === "mcode" && event.target.value.length >= 3) {
+          fetchDetails(event.target.value)
+            .then(data => {
+              const { mname, mdescription, uom, category } = data.item
+              i.mname = mname;
+              i.mdescription = mdescription;
+              i.uom = uom;
+              i.category = category;
+
+              // const eventer = document.getElementById("mname")
+              // const event = new Event("change", { 'bubbles': true, 'cancelable': false })
+              // eventer.dispatchEvent(event);
+
+              console.log(i);
+            })
+            .catch(err => console.log(err))
+        }
       }
       return i;
     });
@@ -72,7 +89,7 @@ function ReqForm() {
         mdescription: "",
         date: getCurrentDate(),
         uom: "",
-        category: "consumable",
+        category: "",
         quantity_req: "",
         incharge_name: "",
         site_location: user ? user.site_location : "",
@@ -104,7 +121,7 @@ function ReqForm() {
           mdescription: "",
           date: getCurrentDate(),
           uom: "",
-          category: "consumable",
+          category: "",
           quantity_req: "",
           incharge_name: "",
           site_location: user ? user.site_location : "",
@@ -240,8 +257,8 @@ function ReqForm() {
                   id="outlined-select-currency"
                   select
                   label="Select"
-                  value={item.currency}
-                  helperText="Please select your currency"
+                  value={item.category}
+                  helperText="Please select your category"
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
