@@ -34,6 +34,17 @@ const fetchDetails = (mcode) => {
   });
 }
 
+const getMcodes = () => {
+  return new Promise((resolve, reject) => {
+    return axios.get(HOST + '/materials/codes')
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      })
+  })
+}
+
 const putMaterial = (material) => {
   return new Promise((resolve, reject) => {
     return axios.put(HOST + '/materials/edit', material)
@@ -45,4 +56,4 @@ const putMaterial = (material) => {
   });
 };
 
-export { getMaterial, requisition, putMaterial, fetchDetails };
+export { getMaterial, requisition, putMaterial, fetchDetails, getMcodes };

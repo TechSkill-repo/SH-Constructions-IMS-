@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { requisition, fetchDetails } from "../../../../services/materialService";
+import { requisition, fetchDetails, getMcodes } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Alert from "@mui/material/Alert";
@@ -29,8 +29,20 @@ function ReqForm() {
       site_location: user ? user.site_location : "",
     },
   ]);
+  const [mcodes, setMcodes] = useState([]);
 
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    async function fetch() {
+      await getMcodes()
+        .then(data => setMcodes(data.codes))
+        .catch(err => console.log(err));
+
+      console.log(mcodes);
+    }
+    fetch();
+  }, []);
 
   function getCurrentDate() {
     let newDate = new Date();
@@ -44,22 +56,16 @@ function ReqForm() {
   const handleInputChange = (slip_no, event) => {
     const newItems = items.map((i) => {
       if (slip_no === i.slip_no) {
-        i[event.target.id] = event.target.value;
+        i[event.target.name] = event.target.value;
 
-        if (event.target.id === "mcode" && event.target.value.length >= 3) {
+        if (event.target.name === "mcode") {
           fetchDetails(event.target.value)
             .then(data => {
-              const { mname, mdescription, uom, category } = data.item
+              const { mname, mdescription, uom, category } = data.item;
               i.mname = mname;
               i.mdescription = mdescription;
               i.uom = uom;
               i.category = category;
-
-              // const eventer = document.getElementById("mname")
-              // const event = new Event("change", { 'bubbles': true, 'cancelable': false })
-              // eventer.dispatchEvent(event);
-
-              console.log(i);
             })
             .catch(err => console.log(err))
         }
@@ -112,6 +118,7 @@ function ReqForm() {
     });
 
     setTimeout(() => {
+      setShowSuccess(false);
       setItems([
         {
           storeId: user ? user.storeId : "",
@@ -129,17 +136,6 @@ function ReqForm() {
       ]);
     }, 3000);
   };
-
-  const category = [
-    {
-      value: "consumable",
-      label: "Consumable",
-    },
-    {
-      value: "non-consumable",
-      label: "Non-Consumable",
-    },
-  ];
 
   return (
     <div>
@@ -173,29 +169,38 @@ function ReqForm() {
             >
               <Grid item xs={12} md={4}>
                 <TextField
-                  id="mname"
+                  name="mname"
                   label="Material Name"
                   type="text"
                   value={item.mname}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
+                  disabled={true}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
+                <input style={{ display: "none" }} id="dummy" />
                 <TextField
-                  id="mcode"
+                  name="mcode"
+                  select
                   label="Material Code"
-                  type="text"
                   value={item.mcode}
+                  helperText="Select mcode"
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                />
+                >
+                  {mcodes.map((mcode) => (
+                    <MenuItem key={mcode} value={mcode}>
+                      {mcode}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
-                  id="quantity_req"
+                  name="quantity_req"
                   label="Quantity Request"
                   type="text"
                   value={item.quantity_req}
@@ -204,104 +209,96 @@ function ReqForm() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              {/* <Grid item xs={12} md={6}>
                 <TextField
-                  id="storeId"
+                  name="storeId"
                   label="Store ID"
                   type="text"
                   value={item.storeId}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                  sx={{ display: "none" }}
+                  disabled={true}
                 />
-              </Grid>
-              <Grid item xs={12} md={6}>
+              </Grid> */}
+              {/* <Grid item xs={12} md={6}>
                 <TextField
-                  id="uom"
+                  name="uom"
                   label="Unit of Measurement"
                   type="text"
                   value={item.uom}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                  sx={{ display: "none" }}
+                  disabled={true}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid> */}
+              {/* <Grid item xs={12}>
                 <TextField
-                  id="mdescription"
+                  name="mdescription"
                   label="Material Description"
                   type="text"
                   value={item.mdescription}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                  sx={{ display: "none" }}
+                  disabled={true}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
-                  id="date"
+                  name="date"
                   label="Date"
                   type="text"
                   value={item.date}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                  sx={{ display: "none" }}
+                  disabled={true}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select"
+                  name="category"
+                  label="Category"
                   value={item.category}
-                  helperText="Please select your category"
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                >
-                  {category.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                />
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
-                  id="slip_no"
+                  name="slip_no"
                   label="Slip Number"
                   type="text"
                   value={item.slip_no}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
-                  sx={{ display: "none" }}
+                  disabled={true}
                 />
-              </Grid>
-              <TextField
-                id="incharge_name"
+              </Grid> */}
+              {/* <TextField
+                name="incharge_name"
                 label="Incharge Name"
                 type="text"
                 value={item.incharge_name}
                 onChange={(e) => {
                   handleInputChange(item.slip_no, e);
                 }}
-                sx={{ display: "none" }}
+                disabled={true}
               />
               <TextField
-                id="site_location"
+                name="site_location"
                 label="Site Location"
                 type="text"
                 value={item.site_location}
                 onChange={(e) => {
                   handleInputChange(item.slip_no, e);
                 }}
-                sx={{ display: "none" }}
-              />
+                disabled={true}
+              /> */}
               <div className="btn-box">
                 <RemoveCircleIcon
                   style={{

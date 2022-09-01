@@ -4,7 +4,7 @@ const issueConsumableMaterial = async (req, res) => {
   const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
 
   const query = db.collection("consumable-inv").where("mcode", "==", mcode);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
@@ -36,7 +36,7 @@ const issueNonConsumableMaterial = async (req, res) => {
   const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
 
   const query = db.collection("non-consumable-inv").where("mcode", "==", mcode);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
@@ -64,13 +64,13 @@ const issueNonConsumableMaterial = async (req, res) => {
   });
 };
 
-const getConsumbaleIssue = (req, res) => {
+const getConsumbaleIssue = async (req, res) => {
   const category = "consumable";
   const storeId = req.query.storeId;
   let items = [];
 
   const query = db.collection("materials-issue").where("category", "==", category);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Issue not found" });
     } else {
@@ -87,13 +87,13 @@ const getConsumbaleIssue = (req, res) => {
   });
 };
 
-const getNonConsumbaleIssue = (req, res) => {
+const getNonConsumbaleIssue = async (req, res) => {
   const category = "non-consumable";
   const storeId = req.query.storeId;
   let items = [];
 
   const query = db.collection("materials-issue").where("category", "==", category);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Issue not found" });
     } else {

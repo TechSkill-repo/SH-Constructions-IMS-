@@ -9,13 +9,13 @@ const requisition = async (req, res) => {
   res.status(201).json({ "message": "Requisition successful" });
 };
 
-const getMaterial = (req, res) => {
+const getMaterial = async (req, res) => {
   const storeId = req.query.storeId;
   const category = req.query.category;
   let items = [];
 
   const query = db.collection("materials-req").where("storeId", "==", storeId);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
@@ -32,16 +32,15 @@ const getMaterial = (req, res) => {
   });
 }
 
-const fetchDetails = (req, res) => {
+const fetchDetails = async (req, res) => {
   const mcode = req.query.mcode;
-  let items = [];
 
   const query = db.collection("consumable-inv").where("mcode", "==", mcode);
-  query.get().then((querySnapshot) => {
+  await query.get().then(async (querySnapshot) => {
     if (querySnapshot.empty) {
       const query = db.collection("non-consumable-inv").where("mcode", "==", mcode);
 
-      query.get().then((querySnapshot) => {
+      await query.get().then((querySnapshot) => {
         if (querySnapshot.empty) {
           res.status(404).json({ message: "Material not found" });
         } else {
@@ -70,11 +69,31 @@ const fetchDetails = (req, res) => {
   });
 }
 
-const editMaterial = (req, res) => {
+const getMcodes = async (req, res) => {
+  const items = [];
+
+  let query = db.collection("consumable-inv");
+  await query.get().then((querySnapshot) => {
+    querySnapshot.forEach(doc => {
+      items.push(doc.data().mcode);
+    });
+  });
+
+  query = db.collection("non-consumable-inv");
+  await query.get().then((querySnapshot) => {
+    querySnapshot.forEach(doc => {
+      items.push(doc.data().mcode);
+    });
+  });
+
+  res.status(200).json({ "message": "codes fetched", codes: items });
+}
+
+const editMaterial = async (req, res) => {
   const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location } = req.body;
 
   const query = db.collection("materials-req").where("storeId", "==", storeId);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
@@ -90,4 +109,4 @@ const editMaterial = (req, res) => {
   });
 }
 
-module.exports = { requisition, getMaterial, editMaterial, fetchDetails };
+module.exports = { requisition, getMaterial, editMaterial, fetchDetails, getMcodes };

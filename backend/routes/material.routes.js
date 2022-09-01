@@ -5,5 +5,6 @@ router.post("/requisition", materialControllers.requisition);
 router.get("/query", materialControllers.getMaterial);
 router.put("/edit", materialControllers.editMaterial);
 router.get("/fetch", materialControllers.fetchDetails);
+router.get("/codes", materialControllers.getMcodes);
 
 module.exports = router;

@@ -14,7 +14,7 @@ const lendMaterial = async (req, res) => {
 
   // remove the material quantity from the sender store
   const query = db.collection(storeId).where("mcode", "==", mcode);
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found in the lender store" });
     } else {
@@ -31,7 +31,7 @@ const lendMaterial = async (req, res) => {
 
           // add the material quantity to receiver store
           const query = db.collection(receiverStoreId).where("mcode", "==", mcode);
-          query.get().then(async (querySnapshot) => {
+          await query.get().then(async (querySnapshot) => {
             if (querySnapshot.empty) {
               const docRef = db.collection(receiverStoreId).doc();
               await docRef.set({ mcode, date: lendDate, issue_slip_no: "", mname, mdescription: "", uom, mquantity: lendQuantity, category });
@@ -61,7 +61,7 @@ const putReturnedDate = async (req, res) => {
 
 }
 
-const getLoans = (req, res) => {
+const getLoans = async (req, res) => {
   const storeId = req.query.storeId;
   let items = [];
 
@@ -72,7 +72,7 @@ const getLoans = (req, res) => {
   else
     query = db.collection("loans");
 
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Loan Requests not found" });
     } else {
@@ -88,7 +88,7 @@ const getLoans = (req, res) => {
   });
 };
 
-const getApprovedLoans = (req, res) => {
+const getApprovedLoans = async (req, res) => {
   const storeId = req.query.storeId;
   const reverse = req.query.reverse;
   let items = [];
@@ -104,7 +104,7 @@ const getApprovedLoans = (req, res) => {
   else
     query = db.collection("approved-loans");
 
-  query.get().then((querySnapshot) => {
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Loan Approvals not found" });
     } else {
