@@ -33,7 +33,7 @@ import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/Consu
 import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
 import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
 import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
-import MaterialReqForm from "../pages/dashboards/Central/MaterialReqForm/MaterialReqForm";
+import ReqFrom from "../pages/dashboards/Central/Requisition/ReqForm";
 import Remarks from "../pages/dashboards/Central/Remarks/Remarks";
 import MRConsumable from "../pages/dashboards/Central/MaterialRequest/Consumable";
 import MRNonConsumable from "../pages/dashboards/Central/MaterialRequest/NonConsumable";
@@ -160,7 +160,7 @@ const requisitionForm = {
   id: "Requisition Form",
   path: "/requisition-form",
   icon: <InsertDriveFileIcon />,
-  component: MaterialReqForm,
+  component: ReqFrom,
   children: null,
 };
 
