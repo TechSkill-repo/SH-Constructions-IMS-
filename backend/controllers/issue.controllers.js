@@ -3,7 +3,7 @@ const db = require('./db.controllers');
 const issueConsumableMaterial = async (req, res) => {
   const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
 
-  const query = db.collection("consumable-inv").where("mcode", "==", mcode);
+  const query = db.collection("inventory").doc("consumable").collection("items").where("mcode", "==", mcode);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
@@ -16,10 +16,10 @@ const issueConsumableMaterial = async (req, res) => {
         } else {
           let data = doc.data();
           data.current_stock = "" + (current_stock - parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req)));
-          db.collection("consumable-inv").doc(doc.id).delete();
-          db.collection("consumable-inv").doc(doc.id).set(data);
+          db.collection("inventory").doc("consumable").collection("items").doc(doc.id).delete();
+          await db.collection("inventory").doc("consumable").collection("items").doc(doc.id).set(data);
 
-          const docRef = db.collection("materials-issue").doc();
+          const docRef = db.collection("materials").doc("issue").collection("items").doc();
           await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "consumable", storeId });
 
           const docRef2 = db.collection(storeId).doc();
@@ -35,7 +35,7 @@ const issueConsumableMaterial = async (req, res) => {
 const issueNonConsumableMaterial = async (req, res) => {
   const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
 
-  const query = db.collection("non-consumable-inv").where("mcode", "==", mcode);
+  const query = db.collection("inventory").doc("non-consumable").collection("items").where("mcode", "==", mcode);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
@@ -48,10 +48,10 @@ const issueNonConsumableMaterial = async (req, res) => {
         } else {
           let data = doc.data();
           data.current_stock = "" + (current_stock - parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req)));
-          db.collection("non-consumable-inv").doc(doc.id).delete();
-          db.collection("non-consumable-inv").doc(doc.id).set(data);
+          db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).delete();
+          await db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).set(data);
 
-          const docRef = db.collection("materials-issue").doc();
+          const docRef = db.collection("materials").doc("issue").collection("items").doc();
           await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable", storeId });
 
           const docRef2 = db.collection(storeId).doc();
@@ -69,7 +69,7 @@ const getConsumbaleIssue = async (req, res) => {
   const storeId = req.query.storeId;
   let items = [];
 
-  const query = db.collection("materials-issue").where("category", "==", category);
+  const query = db.collection("materials").doc("issue").collection("items").where("category", "==", category);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Issue not found" });
@@ -92,7 +92,7 @@ const getNonConsumbaleIssue = async (req, res) => {
   const storeId = req.query.storeId;
   let items = [];
 
-  const query = db.collection("materials-issue").where("category", "==", category);
+  const query = db.collection("materials").doc("issue").collection("items").where("category", "==", category);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Issue not found" });

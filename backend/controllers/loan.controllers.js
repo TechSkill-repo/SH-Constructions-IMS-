@@ -3,7 +3,7 @@ const db = require('./db.controllers');
 const requestLoan = async (req, res) => {
   const { rqDate, mquantity, storeId, mcode, mname, uom, requestedStoreId, category } = req.body;
 
-  const docRef = db.collection("loans").doc();
+  const docRef = db.collection("loans").doc("request").collection("items").doc();
   await docRef.set({ rqDate, mquantity, storeId, mcode, mname, uom, requestedStoreId, category });
 
   res.status(201).json({ message: "Loan requested successfully" });
@@ -46,7 +46,7 @@ const lendMaterial = async (req, res) => {
               });
             }
 
-            const docRef = db.collection("approved-loans").doc();
+            const docRef = db.collection("loans").doc("approved").collection("items").doc();
             await docRef.set({ mcode, mname, uom, lendDate, lendQuantity, returnDate, storeId, receiverStoreId, condition, returnCondition, category });
 
             res.status(200).json({ message: "Loan Approved successfully" });
@@ -68,9 +68,9 @@ const getLoans = async (req, res) => {
   let query;
 
   if (storeId)
-    query = db.collection("loans").where("requestedStoreId", "==", storeId);
+    query = db.collection("loans").doc("request").collection("items").where("requestedStoreId", "==", storeId);
   else
-    query = db.collection("loans");
+    query = db.collection("loans").doc("request").collection("items");
 
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
@@ -97,12 +97,12 @@ const getApprovedLoans = async (req, res) => {
 
   if (storeId) {
     if (reverse)
-      query = db.collection("approved-loans").where("receiverStoreId", "==", storeId);
+      query = db.collection("loans").doc("approved").collection("items").where("receiverStoreId", "==", storeId);
     else
-      query = db.collection("approved-loans").where("storeId", "==", storeId);
+      query = db.collection("loans").doc("approved").collection("items").where("storeId", "==", storeId);
   }
   else
-    query = db.collection("approved-loans");
+    query = db.collection("loans").doc("approved").collection("items");
 
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
