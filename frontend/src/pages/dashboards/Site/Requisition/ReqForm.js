@@ -281,18 +281,8 @@ function ReqForm() {
           </Button>
         </Grid>
       </Box>
+
       <div>
-        <div>
-          <Grid item>
-            <Typography variant="h5" gutterBottom>
-              Consumable Items StoreId:{" "}
-              <span style={{ fontWeight: "900", color: "#376fd0" }}>
-                {" "}
-                {storeId}{" "}
-              </span>
-            </Typography>
-          </Grid>
-        </div>
         <MaterialTable
           columns={columns}
           data={data}
