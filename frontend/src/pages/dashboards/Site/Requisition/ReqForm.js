@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { requisition, fetchDetails, getMcodes } from "../../../../services/materialService";
+import AddIcon from "@material-ui/icons/Add";
+import { requisition, getMaterial } from "../../../../services/requestService";
+import { fetchDetails, getMcodes } from "../../../../services/materialService"
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Alert from "@mui/material/Alert";
@@ -9,11 +11,15 @@ import Grid from "@mui/material/Grid";
 import { InputLabel, Typography } from "@material-ui/core";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import MaterialTable from "material-table";
 
 function ReqForm() {
   let seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const storeId = user.storeId;
+
+  const [data, setData] = useState([]);
   const [items, setItems] = useState([
     {
       storeId: user ? user.storeId : "",
@@ -35,11 +41,17 @@ function ReqForm() {
 
   useEffect(() => {
     async function fetch() {
+      await getMaterial(storeId)
+        .then((data) => {
+          setData(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       await getMcodes()
         .then(data => setMcodes(data.codes))
         .catch(err => console.log(err));
-
-      console.log(mcodes);
     }
     fetch();
   }, []);
@@ -118,24 +130,51 @@ function ReqForm() {
     });
 
     setTimeout(() => {
-      setShowSuccess(false);
-      setItems([
-        {
-          storeId: user ? user.storeId : "",
-          slip_no: seq,
-          mcode: "",
-          mname: "",
-          mdescription: "",
-          date: getCurrentDate(),
-          uom: "",
-          category: "",
-          quantity_req: "",
-          incharge_name: "",
-          site_location: user ? user.site_location : "",
-        },
-      ]);
+      window.location.href = '/reqForm';
     }, 3000);
   };
+
+  const columns = [
+    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
+    { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    {
+      title: "M.Description",
+      field: "mdescription",
+      filterPlaceholder: "filter",
+    },
+    { title: "Date", field: "date", filterPlaceholder: "filter" },
+    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
+    {
+      title: "Qty.Req",
+      field: "quantity_req",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Qty.App",
+      field: "quantity_aprv",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        rowData.quantity_aprv?.length ? (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+              Approvable
+            </span>
+          </div>
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+              Pending
+            </span>
+          </div>
+        )
+      ),
+    }
+  ];
 
   return (
     <div>
@@ -209,96 +248,6 @@ function ReqForm() {
                   }}
                 />
               </Grid>
-              {/* <Grid item xs={12} md={6}>
-                <TextField
-                  name="storeId"
-                  label="Store ID"
-                  type="text"
-                  value={item.storeId}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                  disabled={true}
-                />
-              </Grid> */}
-              {/* <Grid item xs={12} md={6}>
-                <TextField
-                  name="uom"
-                  label="Unit of Measurement"
-                  type="text"
-                  value={item.uom}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                  disabled={true}
-                />
-              </Grid> */}
-              {/* <Grid item xs={12}>
-                <TextField
-                  name="mdescription"
-                  label="Material Description"
-                  type="text"
-                  value={item.mdescription}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                  disabled={true}
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <TextField
-                  name="date"
-                  label="Date"
-                  type="text"
-                  value={item.date}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                  disabled={true}
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <TextField
-                  name="category"
-                  label="Category"
-                  value={item.category}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <TextField
-                  name="slip_no"
-                  label="Slip Number"
-                  type="text"
-                  value={item.slip_no}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                  disabled={true}
-                />
-              </Grid> */}
-              {/* <TextField
-                name="incharge_name"
-                label="Incharge Name"
-                type="text"
-                value={item.incharge_name}
-                onChange={(e) => {
-                  handleInputChange(item.slip_no, e);
-                }}
-                disabled={true}
-              />
-              <TextField
-                name="site_location"
-                label="Site Location"
-                type="text"
-                value={item.site_location}
-                onChange={(e) => {
-                  handleInputChange(item.slip_no, e);
-                }}
-                disabled={true}
-              /> */}
               <div className="btn-box">
                 <RemoveCircleIcon
                   style={{
@@ -332,6 +281,53 @@ function ReqForm() {
           </Button>
         </Grid>
       </Box>
+      <div>
+        <div>
+          <Grid item>
+            <Typography variant="h5" gutterBottom>
+              Consumable Items StoreId:{" "}
+              <span style={{ fontWeight: "900", color: "#376fd0" }}>
+                {" "}
+                {storeId}{" "}
+              </span>
+            </Typography>
+          </Grid>
+        </div>
+        <MaterialTable
+          columns={columns}
+          data={data}
+          onSelectionChange={(selectedRows) => console.log(selectedRows)}
+          options={{
+            sorting: true,
+            search: true,
+            searchFieldAlignment: "right",
+            searchAutoFocus: true,
+            searchFieldVariant: "standard",
+            filtering: true,
+            paging: true,
+            pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
+            pageSize: 5,
+            paginationType: "stepped",
+            showFirstLastPageButtons: false,
+            paginationPosition: "both",
+            exportButton: true,
+            exportAllData: true,
+            exportFileName: "items",
+            addRowPosition: "first",
+            showSelectAllCheckbox: false,
+            showTextRowsSelected: false,
+            selectionProps: (rowData) => ({
+              disabled: rowData.age == null,
+            }),
+            columnsButton: true,
+            rowStyle: (data, index) =>
+              index % 2 === 0 ? { background: "#f5f5f5" } : null,
+            headerStyle: { background: "#376fd0", color: "#fff" },
+          }}
+          title="Material Requests"
+          icons={{ Add: () => <AddIcon /> }}
+        />
+      </div>
     </div>
   );
 }
