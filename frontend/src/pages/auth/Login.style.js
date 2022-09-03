@@ -4,12 +4,10 @@ export const Container = styled.div`
   display: flex;
   height: 100vh;
   width: 100vw;
-
   background-image: url(https://media.glassdoor.com/l/e1/0f/91/05/tata-steel-europe.jpg);
   background-size: cover;
   filter: blur(6px);
   background-repeat: no-repeat;
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -32,7 +30,7 @@ export const FormContainer = styled.div`
   max-width: 400px;
   width: 100%;
   padding: 0.8em 0;
-  border-radius: 0;
+  border-radius: 0.2em;
   z-index: 999;
 
   @media (min-width: 380px) {
@@ -65,19 +63,10 @@ export const FormField = styled.div`
   align-items: center;
   margin: 0.5em auto;
   width: 75%;
-  background: transparent;
   margin-bottom: 15px;
 
   & > * {
     width: 100%;
-  }
-
-  /* Change the white text autofill to any color */
-  & input:-webkit-autofill,
-  & input:-webkit-autofill:hover,
-  & input:-webkit-autofill:focus,
-  & input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px rgba(55, 198, 255, 0.8) inset !important;
   }
 `;
 

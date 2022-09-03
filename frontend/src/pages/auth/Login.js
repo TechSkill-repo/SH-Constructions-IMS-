@@ -7,7 +7,6 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-import Link from "@material-ui/core/Link";
 import Alert from "@mui/material/Alert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Visibility from "@mui/icons-material/Visibility";
@@ -19,7 +18,7 @@ import {
   Container,
   FormField,
   FormContainer,
-  Links,
+  // Links,
   Form,
   Logo,
 } from "./Login.style";
@@ -96,11 +95,19 @@ export const Login = () => {
           )}
           <FormField>
             <FormControl sx={{ mb: 1 }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-weight">
+              <InputLabel
+                htmlFor="outlined-adornment-weight"
+                sx={{ "&.Mui-focused": { color: "#000" } }}
+              >
                 User Email
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-weight"
+                sx={{
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#0008",
+                  },
+                }}
                 value={username}
                 onChange={(e) => {
                   setUsername(e.target.value);
@@ -116,15 +123,24 @@ export const Login = () => {
           </FormField>
           <FormField>
             <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
+              <InputLabel
+                htmlFor="outlined-adornment-password"
+                sx={{ "&.Mui-focused": { color: "#000" } }}
+              >
                 Password
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
+                sx={{
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#0008",
+                  },
+                }}
                 type={values.showPassword ? "text" : "password"}
                 value={values.password}
                 onChange={handleChange("password")}
                 endAdornment={
+                  // password != "" ? (
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
@@ -135,6 +151,7 @@ export const Login = () => {
                       {values.showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
+                  // ) : null
                 }
                 label="Password"
               />
