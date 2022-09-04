@@ -110,7 +110,7 @@ function NonConsumableTable() {
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
 
-                newData.category = "consumable";
+                newData.category = "non-consumable";
 
                 putMaterial(newData)
                   .then((resp) => console.log(resp))
