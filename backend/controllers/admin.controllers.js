@@ -36,17 +36,17 @@ const getMaterial = async (req, res) => {
 }
 
 const editMaterial = async (req, res) => {
-  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location } = req.body;
+  const { slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name } = req.body;
 
-  const query = db.collection("materials").doc("request").collection("items").where("storeId", "==", storeId);
+  const query = db.collection("admin").doc("request").collection("items");
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach(async (doc) => {
         if (doc.data().category === category && doc.data().mcode === mcode) {
-          db.collection("materials").doc("request").collection("items").doc(doc.id).delete();
-          await db.collection("materials").doc("request").collection("items").doc(doc.id).set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location })
+          await db.collection("admin").doc("request").collection("items").doc(doc.id).delete();
+          await db.collection("admin").doc("request").collection("items").doc(doc.id).set({ slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name })
         }
       });
 
@@ -55,4 +55,49 @@ const editMaterial = async (req, res) => {
   });
 }
 
-module.exports = { requisition, getMaterial, editMaterial };
+const issueConsumableMaterial = async (req, res) => {
+  const { mcode, quantity_req, quantity_aprv } = req.body;
+
+  const query = db.collection("inventory").doc("consumable").collection("items").where("mcode", "==", mcode);
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ message: "Material not found" });
+    } else {
+      querySnapshot.forEach(async (doc) => {
+        const total_received = parseInt(doc.data().total_received);
+
+        let data = doc.data();
+
+        data.total_received = "" + (total_received + parseInt((quantity_aprv.length) ? quantity_aprv : quantity_req));
+        await db.collection("inventory").doc("consumable").collection("items").doc(doc.id).delete();
+        await db.collection("inventory").doc("consumable").collection("items").doc(doc.id).set(data);
+
+        res.status(201).json({ "message": "Issue successful" });
+      });
+    }
+  });
+};
+
+const issueNonConsumableMaterial = async (req, res) => {
+  const { mcode, quantity_req, quantity_aprv } = req.body;
+
+  const query = db.collection("inventory").doc("non-consumable").collection("items").where("mcode", "==", mcode);
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ message: "Material not found" });
+    } else {
+      querySnapshot.forEach(async (doc) => {
+        const total_received = parseInt(doc.data().total_received);
+
+        let data = doc.data();
+        data.total_received = "" + (total_received + parseInt((quantity_aprv.length) ? quantity_aprv : quantity_req));
+        await db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).delete();
+        await db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).set(data);
+
+        res.status(201).json({ "message": "Issue successful" });
+      });
+    }
+  });
+};
+
+module.exports = { requisition, getMaterial, editMaterial, issueConsumableMaterial, issueNonConsumableMaterial };

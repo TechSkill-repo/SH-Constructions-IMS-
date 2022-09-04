@@ -28,7 +28,6 @@ const Default = async(() => import("../pages/dashboards/Central/Default"));
 const Analytics = async(() => import("../pages/dashboards/Central/Analytics"));
 
 // Protected routes
-import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
 import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
 import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
 import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
@@ -62,7 +61,7 @@ const dashboardsRoutes = {
 const materialRequest = {
   id: "Material Requests",
   path: "/materialRequest",
-  component: MaterialRequest,
+  component: null,
   icon: <ShoppingCart />,
   children: [
     {

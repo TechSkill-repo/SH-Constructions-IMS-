@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
+import { getMaterial, putMaterial, issueNonConsumableMaterial } from "../../../../services/adminService";
 import MaterialTable from "material-table";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Typography } from "@material-ui/core";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
-  const { storeId } = useParams();
   const category = "non-consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
-      .then((data) => {
-        setItems(data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    async function fetch() {
+      await getMaterial(category)
+        .then((data) => {
+          setItems(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    fetch();
   }, []);
 
   const columns = [
@@ -42,6 +43,25 @@ function NonConsumableTable() {
       field: "quantity_aprv",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        rowData.quantity_aprv?.length ? (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+              Approvable
+            </span>
+          </div>
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+              Pending
+            </span>
+          </div>
+        )
+      ),
+    }
   ];
 
   return (
@@ -49,11 +69,7 @@ function NonConsumableTable() {
       <div>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Non-Consumable Items StoreId{" "}
-            <span style={{ fontWeight: "900", color: "#376fd0" }}>
-              {" "}
-              {storeId}{" "}
-            </span>
+            Non-Consumable Items StoreId
           </Typography>
         </Grid>
       </div>
@@ -64,8 +80,13 @@ function NonConsumableTable() {
             tooltip: "Approve",
             style: { color: "red" },
             onClick: (event, rowData) => {
-              // Do save operation
+              if (rowData.quantity_aprv?.length) {
+                issueNonConsumableMaterial(rowData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
+              }
             },
+            color: "blue",
           },
         ]}
         columns={columns}
@@ -79,18 +100,23 @@ function NonConsumableTable() {
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-              const dataUpdate = [...items];
-              const index = oldData.tableData.id;
-              dataUpdate[index] = newData;
-              setItems([...dataUpdate]);
+              if (!(oldData.quantity_aprv?.length)) {
+                const dataUpdate = [...items];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setItems([...dataUpdate]);
 
-              newData.category = "consumable";
+                newData.category = "consumable";
 
-              putMaterial(newData)
-                .then((resp) => console.log(resp))
-                .catch((err) => console.log(err.response));
+                putMaterial(newData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
 
-              resolve();
+                resolve();
+              }
+              else {
+                reject();
+              }
             }),
         }}
         data={items}

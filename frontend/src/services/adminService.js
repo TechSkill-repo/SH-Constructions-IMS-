@@ -14,7 +14,7 @@ const requisition = (item) => {
 
 const getMaterial = (category) => {
   return new Promise((resolve, reject) => {
-    return axios.get(HOST + '/admin/query?' + (category ? 'category=' + category : ''))
+    return axios.get(HOST + '/admin/query' + (category ? ('?category=' + category) : ''))
       .then(resp => {
         resolve(resp.data);
       }).catch(err => {
@@ -34,4 +34,34 @@ const putMaterial = (material) => {
   });
 };
 
-export { getMaterial, requisition, putMaterial };
+function issueConsumableMaterial(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/admin/consumable", material)
+      .then((response) => {
+        if (response.status === 201) {
+          resolve(response.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+function issueNonConsumableMaterial(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/admin/non-consumable", material)
+      .then((response) => {
+        if (response.status === 201) {
+          resolve(response.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+export { getMaterial, requisition, putMaterial, issueConsumableMaterial, issueNonConsumableMaterial };
