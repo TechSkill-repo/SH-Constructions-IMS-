@@ -146,7 +146,7 @@ function ReqForm() {
     });
 
     setTimeout(() => {
-      window.location.href = '/reqForm';
+      window.location.href = '/requisition-form';
     }, 3000);
   };
 

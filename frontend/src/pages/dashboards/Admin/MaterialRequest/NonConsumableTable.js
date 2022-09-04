@@ -69,7 +69,7 @@ function NonConsumableTable() {
       <div>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Non-Consumable Items StoreId
+            Non-Consumable Items
           </Typography>
         </Grid>
       </div>
@@ -81,6 +81,7 @@ function NonConsumableTable() {
             style: { color: "red" },
             onClick: (event, rowData) => {
               if (rowData.quantity_aprv?.length) {
+                console.log("Approving...")
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
@@ -106,7 +107,7 @@ function NonConsumableTable() {
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
 
-                newData.category = "consumable";
+                newData.category = "non-consumable";
 
                 putMaterial(newData)
                   .then((resp) => console.log(resp))
