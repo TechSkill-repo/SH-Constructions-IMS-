@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getMaterial } from "../../../../services/materialService";
+import { getMaterial, putMaterial } from "../../../../services/requestService";
 import MaterialTable from "material-table";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Typography } from "@material-ui/core";
+import { checkIsIssued, issueNonConsumableMaterial } from "../../../../services/issueService";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
@@ -37,6 +38,30 @@ function NonConsumableTable() {
       field: "quantity_req",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Qty.App",
+      field: "quantity_aprv",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        rowData.quantity_aprv?.length ? (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+              Approvable
+            </span>
+          </div>
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+              Pending
+            </span>
+          </div>
+        )
+      ),
+    }
   ];
 
   return (
@@ -53,7 +78,53 @@ function NonConsumableTable() {
         </Grid>
       </div>
       <MaterialTable
+        actions={[
+          {
+            icon: "checkbox",
+            tooltip: "Approve",
+            style: { color: "red" },
+            onClick: async (event, rowData) => {
+              const data = await checkIsIssued(rowData.slip_no);
+              console.log(data);
+              if (rowData.quantity_aprv?.length && !data.issued) {
+                issueNonConsumableMaterial(rowData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
+              }
+            },
+            color: "blue",
+          },
+        ]}
         columns={columns}
+        editable={{
+          onRowDelete: (selectedRow) =>
+            new Promise((resolve, reject) => {
+              const updatedData = [...tableData];
+              updatedData.splice(selectedRow.tableData.id, 1);
+              setTableData(updatedData);
+              setTimeout(() => resolve(), 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              if (!(oldData.quantity_aprv?.length)) {
+                const dataUpdate = [...items];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setItems([...dataUpdate]);
+
+                newData.category = "non-consumable";
+
+                putMaterial(newData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
+
+                resolve();
+              }
+              else {
+                reject();
+              }
+            }),
+        }}
         data={items}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{

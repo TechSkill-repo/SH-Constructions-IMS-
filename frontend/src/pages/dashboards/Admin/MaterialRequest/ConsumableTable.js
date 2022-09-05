@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
+import { getMaterial, putMaterial, issueConsumableMaterial, checkIsIssued } from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
-import { checkIsIssued, issueConsumableMaterial } from "../../../../services/issueService";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
-  const { storeId } = useParams();
   const category = "consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
-      .then((data) => {
-        setItems(data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    async function fetch() {
+      await getMaterial(category)
+        .then((data) => {
+          setItems(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    fetch();
   }, []);
 
   const columns = [
@@ -69,11 +70,7 @@ function ConsumableTable() {
       <div>
         <Grid item>
           <Typography variant="h5" gutterBottom>
-            Consumable Items StoreId:{" "}
-            <span style={{ fontWeight: "900", color: "#376fd0" }}>
-              {" "}
-              {storeId}{" "}
-            </span>
+            Consumable Items
           </Typography>
         </Grid>
       </div>

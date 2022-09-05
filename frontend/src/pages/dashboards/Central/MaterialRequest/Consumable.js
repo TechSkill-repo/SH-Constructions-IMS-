@@ -23,8 +23,6 @@ function Consumable(props) {
 
   let childProps = query.get("store-id");
 
-  console.log(props.title);
-  console.log(childProps);
   return (
     <div>
       <Helmet title="S.H Construction" />

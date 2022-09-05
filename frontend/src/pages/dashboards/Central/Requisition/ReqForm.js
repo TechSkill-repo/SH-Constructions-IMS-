@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import { requisition, getMaterial } from "../../../../services/requestService";
+import { requisition, getMaterial } from "../../../../services/adminService";
 import { fetchDetails, getMcodes } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
@@ -146,7 +146,7 @@ function ReqForm() {
     });
 
     setTimeout(() => {
-      window.location.href = '/reqForm';
+      window.location.href = '/requisition-form';
     }, 3000);
   };
 

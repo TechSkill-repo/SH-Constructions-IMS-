@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
+import React, { useState, useEffect } from "react";
+import { getMaterial, putMaterial, issueNonConsumableMaterial, checkIsIssued } from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@mui/material";
-import { Grid } from "@material-ui/core";
-import { checkIsIssued, issueConsumableMaterial } from "../../../../services/issueService";
+import { Grid, Typography } from "@material-ui/core";
 
-function ConsumableTable() {
+function NonConsumableTable() {
   const [items, setItems] = useState([]);
-  const { storeId } = useParams();
-  const category = "consumable";
+  const category = "non-consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
-      .then((data) => {
-        setItems(data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    async function fetch() {
+      await getMaterial(category)
+        .then((data) => {
+          setItems(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    fetch();
   }, []);
 
   const columns = [
@@ -68,12 +68,8 @@ function ConsumableTable() {
     <>
       <div>
         <Grid item>
-          <Typography variant="h5" gutterBottom>
-            Consumable Items StoreId:{" "}
-            <span style={{ fontWeight: "900", color: "#376fd0" }}>
-              {" "}
-              {storeId}{" "}
-            </span>
+          <Typography variant="h3" gutterBottom>
+            Non-Consumable Items
           </Typography>
         </Grid>
       </div>
@@ -82,11 +78,12 @@ function ConsumableTable() {
           {
             icon: "checkbox",
             tooltip: "Approve",
+            style: { color: "red" },
             onClick: async (event, rowData) => {
               const data = await checkIsIssued(rowData.slip_no);
               console.log(data);
               if (rowData.quantity_aprv?.length && !data.issued) {
-                issueConsumableMaterial(rowData)
+                issueNonConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
               }
@@ -111,7 +108,7 @@ function ConsumableTable() {
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
 
-                newData.category = "consumable";
+                newData.category = "non-consumable";
 
                 putMaterial(newData)
                   .then((resp) => console.log(resp))
@@ -152,7 +149,7 @@ function ConsumableTable() {
           columnsButton: true,
           rowStyle: (data, index) =>
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
-          headerStyle: { background: "#376fd0", color: "#fff" },
+          headerStyle: { background: "#233044", color: "#fff" },
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
@@ -161,4 +158,4 @@ function ConsumableTable() {
   );
 }
 
-export default ConsumableTable;
+export default NonConsumableTable;
