@@ -5,7 +5,7 @@ import MaterialTable from "material-table";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Typography } from "@material-ui/core";
-import { issueNonConsumableMaterial } from "../../../../services/issueService";
+import { checkIsIssued, issueNonConsumableMaterial } from "../../../../services/issueService";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
@@ -83,8 +83,10 @@ function NonConsumableTable() {
             icon: "checkbox",
             tooltip: "Approve",
             style: { color: "red" },
-            onClick: (event, rowData) => {
-              if (rowData.quantity_aprv?.length) {
+            onClick: async (event, rowData) => {
+              const data = await checkIsIssued(rowData.slip_no);
+              console.log(data);
+              if (rowData.quantity_aprv?.length && !data.issued) {
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));

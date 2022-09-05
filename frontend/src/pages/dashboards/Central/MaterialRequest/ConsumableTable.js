@@ -5,7 +5,7 @@ import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
-import { issueConsumableMaterial } from "../../../../services/issueService";
+import { checkIsIssued, issueConsumableMaterial } from "../../../../services/issueService";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
@@ -82,8 +82,10 @@ function ConsumableTable() {
           {
             icon: "checkbox",
             tooltip: "Approve",
-            onClick: (event, rowData) => {
-              if (rowData.quantity_aprv?.length) {
+            onClick: async (event, rowData) => {
+              const data = await checkIsIssued(rowData.slip_no);
+              console.log(data);
+              if (rowData.quantity_aprv?.length && !data.issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));

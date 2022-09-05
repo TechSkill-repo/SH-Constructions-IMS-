@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getMaterial, putMaterial, issueConsumableMaterial } from "../../../../services/adminService";
+import { getMaterial, putMaterial, issueConsumableMaterial, checkIsIssued } from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -79,8 +79,10 @@ function ConsumableTable() {
           {
             icon: "checkbox",
             tooltip: "Approve",
-            onClick: (event, rowData) => {
-              if (rowData.quantity_aprv?.length) {
+            onClick: async (event, rowData) => {
+              const data = await checkIsIssued(rowData.slip_no);
+              console.log(data);
+              if (rowData.quantity_aprv?.length && !data.issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
