@@ -34,6 +34,21 @@ const putMaterial = (material) => {
   });
 };
 
+function checkIsIssued(slip_no) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/admin/check?slip_no=" + slip_no)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
 function issueConsumableMaterial(material) {
   return new Promise((resolve, reject) => {
     axios
@@ -64,4 +79,4 @@ function issueNonConsumableMaterial(material) {
   });
 }
 
-export { getMaterial, requisition, putMaterial, issueConsumableMaterial, issueNonConsumableMaterial };
+export { getMaterial, requisition, putMaterial, issueConsumableMaterial, issueNonConsumableMaterial, checkIsIssued };

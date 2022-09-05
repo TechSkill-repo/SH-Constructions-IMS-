@@ -1,5 +1,19 @@
 const db = require('./db.controllers');
 
+const checkIsIssued = async (req, res) => {
+  const { slip_no } = req.query;
+
+  const query = db.collection("materials").doc("issue").collection("items").where("issue_slip_no", "==", slip_no);
+
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(200).json({ "issued": false });
+    } else {
+      res.status(200).json({ "issued": true });
+    }
+  });
+};
+
 const issueConsumableMaterial = async (req, res) => {
   const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
 
@@ -110,4 +124,4 @@ const getNonConsumbaleIssue = async (req, res) => {
   });
 };
 
-module.exports = { issueConsumableMaterial, issueNonConsumableMaterial, getConsumbaleIssue, getNonConsumbaleIssue };
+module.exports = { issueConsumableMaterial, issueNonConsumableMaterial, getConsumbaleIssue, getNonConsumbaleIssue, checkIsIssued };

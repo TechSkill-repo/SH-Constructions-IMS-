@@ -53,7 +53,21 @@ const editMaterial = async (req, res) => {
       res.status(200).json({ message: "Material Request Edited" });
     }
   });
-}
+};
+
+const checkIsIssued = async (req, res) => {
+  const { slip_no } = req.query;
+
+  const query = db.collection("admin").doc("issue").collection("items").where("issue_slip_no", "==", slip_no);
+
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(200).json({ "issued": false });
+    } else {
+      res.status(200).json({ "issued": true });
+    }
+  });
+};
 
 const issueConsumableMaterial = async (req, res) => {
   const { mcode, quantity_req, quantity_aprv, mname, mdescription, date, uom, slip_no, issue_slip_no } = req.body;
@@ -110,4 +124,4 @@ const issueNonConsumableMaterial = async (req, res) => {
   });
 };
 
-module.exports = { requisition, getMaterial, editMaterial, issueConsumableMaterial, issueNonConsumableMaterial };
+module.exports = { requisition, getMaterial, editMaterial, issueConsumableMaterial, issueNonConsumableMaterial, checkIsIssued };
