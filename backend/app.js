@@ -1,11 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
-const cors = require('cors');
+const cors = require("cors");
 const userRoute = require("./routes/user.routes");
 const materialRoute = require("./routes/material.routes");
 const inventoryRoute = require("./routes/inventory.routes");
 const issueRoute = require("./routes/issue.routes");
 const loanRoute = require("./routes/loan.routes");
+const criticalRoutes = require("./routes/criticaltools.routes");
 
 const app = express();
 const PORT = process.env.PORT || 9090;
@@ -18,6 +19,7 @@ app.use("/materials", materialRoute);
 app.use("/inventory", inventoryRoute);
 app.use("/issue", issueRoute);
 app.use("/loan", loanRoute);
+app.use("/critical-tools", criticalRoutes);
 
 app.get("/", (req, res) => {
   res.send("Sh-constructions backend");
