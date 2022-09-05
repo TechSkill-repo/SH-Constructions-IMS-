@@ -31,7 +31,7 @@ function CriticalTools(props) {
 
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/CB01">
             <Stats
               title="Tool 1"
               amount="Chain Block"
@@ -43,7 +43,7 @@ function CriticalTools(props) {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/DS01">
             <Stats
               title="Tool 2"
               amount="D-Shackle"
@@ -54,7 +54,7 @@ function CriticalTools(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/BS01">
             <Stats
               title="Tool 2"
               amount="Bow Shackle"
@@ -65,7 +65,7 @@ function CriticalTools(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/RS01">
             <Stats
               title="Tool 2"
               amount="Rope Sling"
@@ -78,7 +78,7 @@ function CriticalTools(props) {
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/WS01">
             <Stats
               title="Tool 2"
               amount="Wire Sling"
@@ -89,7 +89,7 @@ function CriticalTools(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/WM01">
             <Stats
               title="Tool 2"
               amount="Welding Machine"
@@ -100,7 +100,7 @@ function CriticalTools(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/FE01">
             <Stats
               title="Tool 2"
               amount="Fire Ext"
@@ -111,7 +111,7 @@ function CriticalTools(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="">
+          <Link style={{ textDecoration: "none" }} to="/critical-tool/GD01">
             <Stats
               title="Tool 2"
               amount="Gas Detector"

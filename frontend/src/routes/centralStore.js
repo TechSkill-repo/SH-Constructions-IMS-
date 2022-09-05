@@ -32,6 +32,7 @@ import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/Materia
 import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
 import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
 import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTool";
 import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
 import MaterialReqForm from "../pages/dashboards/Central/MaterialReqForm/MaterialReqForm";
 import Remarks from "../pages/dashboards/Central/Remarks/Remarks";
@@ -148,6 +149,13 @@ const criticalTools = {
   component: CriticalTools,
 };
 
+const criticalTool = {
+  id: "Critical Tool",
+  path: "/critical-tool/:productId",
+  children: null,
+  component: CriticalTool,
+};
+
 const monitorStoreLone = {
   id: "Monitor Store Lone",
   path: "/monitor-lone",
@@ -181,7 +189,6 @@ const landingRoutes = {
   children: null,
 };
 
-
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
@@ -196,6 +203,7 @@ export const dashboardLayoutRoutes = [
   non_consumableTable,
   mi_consumableTable,
   mi_non_consumableTable,
+  criticalTool,
 ];
 
 // Routes using the Auth layout
