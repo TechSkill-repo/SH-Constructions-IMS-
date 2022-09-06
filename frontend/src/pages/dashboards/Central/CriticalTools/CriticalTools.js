@@ -33,10 +33,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/CB01">
             <Stats
-              title="Tool 1"
+              title="SHCB001"
               amount="Chain Block"
               chip="Muzaffar Iqbal"
-              percentageText="EC01"
+              percentageText="Ton.s"
               percentagecolor={green[500]}
             />
           </Link>
@@ -45,10 +45,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/DS01">
             <Stats
-              title="Tool 2"
+              title="SHDS002"
               amount="D-Shackle"
               chip="Anurag"
-              percentageText="E22"
+              percentageText="Ton.s"
               percentagecolor={red[500]}
             />
           </Link>
@@ -56,10 +56,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/BS01">
             <Stats
-              title="Tool 2"
+              title="SHBS003"
               amount="Bow Shackle"
               chip="Ramesh Sharma"
-              percentageText="E13"
+              percentageText="Ton.s"
               percentagecolor={green[500]}
             />
           </Link>
@@ -67,10 +67,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/RS01">
             <Stats
-              title="Tool 2"
+              title="SHRS004"
               amount="Rope Sling"
               chip="Love Gope"
-              percentageText="E17"
+              percentageText="Meter"
               percentagecolor={red[500]}
             />
           </Link>
@@ -80,10 +80,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/WS01">
             <Stats
-              title="Tool 2"
+              title="SHWS001"
               amount="Wire Sling"
               chip="RK Srivastava"
-              percentageText="E27"
+              percentageText="Meter"
               percentagecolor={green[500]}
             />
           </Link>
@@ -91,10 +91,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/WM01">
             <Stats
-              title="Tool 2"
+              title="SHWM006"
               amount="Welding Machine"
               chip="Manoj Mishra"
-              percentageText="E15"
+              percentageText="No.s"
               percentagecolor={red[500]}
             />
           </Link>
@@ -102,10 +102,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/FE01">
             <Stats
-              title="Tool 2"
+              title="SHFX007"
               amount="Fire Ext"
               chip="Chandan Singh"
-              percentageText="E23"
+              percentageText="No.s"
               percentagecolor={green[500]}
             />
           </Link>
@@ -113,10 +113,10 @@ function CriticalTools(props) {
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Link style={{ textDecoration: "none" }} to="/critical-tool/GD01">
             <Stats
-              title="Tool 2"
+              title="SHGD08"
               amount="Gas Detector"
               chip="Hashim Khan"
-              percentageText="E25"
+              percentageText="No.s"
               percentagecolor={red[500]}
             />
           </Link>

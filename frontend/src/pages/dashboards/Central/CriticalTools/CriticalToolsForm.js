@@ -70,7 +70,7 @@ function ConsumablesForm() {
         </Alert>
       )}
       <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={12} md={4}>
+        {/* <Grid item xs={12} md={4}>
           <TextField
             id="mcode"
             label="Material Code"
@@ -80,8 +80,8 @@ function ConsumablesForm() {
               setMcode(e.target.value);
             }}
           />
-        </Grid>
-        <Grid item xs={12} md={4}>
+        </Grid> */}
+        {/* <Grid item xs={12} md={4}>
           <TextField
             // required
             id="mname"
@@ -93,8 +93,8 @@ function ConsumablesForm() {
               setMname(e.target.value);
             }}
           />
-        </Grid>
-        <Grid item xs={12} md={4}>
+        </Grid> */}
+        <Grid item xs={12} md={6}>
           <TextField
             // required
             id="serialNo"
@@ -107,7 +107,7 @@ function ConsumablesForm() {
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <TextField
             // required
             id="uom"
@@ -119,7 +119,7 @@ function ConsumablesForm() {
               setUom(e.target.value);
             }}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={6}>
           <TextField
             // required
@@ -159,7 +159,7 @@ function ConsumablesForm() {
             }}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <TextField
             id="mdescription"
             label="Material Description"
@@ -169,7 +169,7 @@ function ConsumablesForm() {
               setMdescription(e.target.value);
             }}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={3}>
           <Button
             variant="contained"

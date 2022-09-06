@@ -28,4 +28,19 @@ const postCriticalTools = async (req, res) => {
   res.status(201).json({ message: "Post Successful" });
 };
 
-module.exports = { postCriticalTools };
+const getCriticalTools = async (req, res) => {
+  const criticalTools = [];
+  const query = db.collection("critical-tools");
+  query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ message: "Material in inventory not found" });
+    } else {
+      querySnapshot.forEach((doc) => {
+        criticalTools.push(doc.data());
+      });
+      res.status(200).json({ message: "Critical Tools Found" });
+    }
+  });
+};
+
+module.exports = { postCriticalTools, getCriticalTools };
