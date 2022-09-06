@@ -1,5 +1,5 @@
 import axios from "axios";
-import {HOST} from "../environments/env";
+import { HOST } from "../environments/env";
 
 export function requestLoan(material) {
   return new Promise((resolve, reject) => {
@@ -30,6 +30,17 @@ export function lendMaterial(material) {
       });
   });
 }
+
+export const putMaterial = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios.put(HOST + '/loan/edit', material)
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+};
 
 export function getLoans(storeId) {
   return new Promise((resolve, reject) => {

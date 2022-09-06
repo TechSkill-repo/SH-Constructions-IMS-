@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { fetchDetails, getMcodes } from "../../../../services/materialService";
-import { requestLoan } from "../../../../services/loanService";
+import { requestLoan, getLoans } from "../../../../services/loanService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Alert from "@mui/material/Alert";
@@ -16,6 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Popup from "./Popup";
 import Modal from '@mui/material/Modal';
+import MaterialTable from "material-table";
 
 function LoanRequest() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -42,6 +43,8 @@ function LoanRequest() {
     },
   ]);
 
+  const [data, setData] = useState([]);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -51,6 +54,16 @@ function LoanRequest() {
       await getMcodes()
         .then(data => setMcodes(data.codes))
         .catch(err => console.log(err));
+
+      await getLoans()
+        .then((resp) => {
+          const oldData = resp.items;
+          const newData = oldData.filter((item) => item.storeId === user.storeId);
+          setData(newData);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
     fetch();
   }, []);
@@ -75,6 +88,58 @@ function LoanRequest() {
     boxShadow: 24,
     p: 4,
   };
+
+  const columns = [
+    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
+    {
+      title: "Requested.Store",
+      field: "requestedStoreId",
+      filterPlaceholder: "filter",
+    },
+    { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
+    {
+      title: "M.Des",
+      field: "mdescription",
+      filterPlaceholder: "filter",
+    },
+    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
+    {
+      title: "Qty.Req",
+      field: "mquantity",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Category",
+      field: "category",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Qty.App",
+      field: "lendQuantity",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        rowData.quantity_aprv?.length ? (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+              Approvable
+            </span>
+          </div>
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+              Pending
+            </span>
+          </div>
+        )
+      ),
+    }
+  ];
 
   const handleInputChange = (slip_no, event) => {
     const newItems = items.map((i) => {
@@ -271,6 +336,66 @@ function LoanRequest() {
         </Grid>
       </Box>
     </Modal>
+
+    <Grid
+      container
+      spacing={2}
+      alignItems="center"
+      style={{ marginBottom: "0.8em" }}
+    >
+      <Grid item xs={11}>
+        <Typography variant="h5" gutterBottom>
+          Lone Requests:
+          <span style={{ fontWeight: "900", color: "#376fd0" }}>
+            {" "}
+            {user.storeId}{" "}
+          </span>
+        </Typography>
+      </Grid>
+    </Grid>
+    <Grid
+      container
+      spacing={2}
+      alignItems="center"
+      style={{ justifyContent: "center" }}
+    ></Grid>
+    <Box component="div" sx={{ mt: 2 }}>
+      <MaterialTable
+        columns={columns}
+        data={data}
+        onSelectionChange={(selectedRows) => console.log(selectedRows)}
+        options={{
+          sorting: true,
+          search: true,
+          searchFieldAlignment: "right",
+          searchAutoFocus: true,
+          searchFieldVariant: "standard",
+          filtering: true,
+          paging: true,
+          pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
+          pageSize: 5,
+          paginationType: "stepped",
+          showFirstLastPageButtons: false,
+          paginationPosition: "both",
+          exportButton: true,
+          exportAllData: true,
+          exportFileName: "items",
+          addRowPosition: "first",
+          actionsColumnIndex: -1,
+          showSelectAllCheckbox: false,
+          showTextRowsSelected: false,
+          selectionProps: (rowData) => ({
+            disabled: rowData.age == null,
+          }),
+          columnsButton: true,
+          rowStyle: (data, index) =>
+            index % 2 === 0 ? { background: "#f5f5f5" } : null,
+          headerStyle: { background: "#376fd0", color: "#fff" },
+        }}
+        title="Lone Requests"
+        icons={{ Add: () => <AddIcon /> }}
+      />
+    </Box>
   </div >
   );
 }

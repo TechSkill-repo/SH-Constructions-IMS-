@@ -4,7 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-import { getLoans } from "../../../../services/loanService";
+import { getLoans, lendMaterial, putMaterial } from "../../../../services/loanService";
 
 function LoanReqTable() {
   const [items, setItems] = useState([]);
@@ -21,7 +21,17 @@ function LoanReqTable() {
       });
   }, []);
 
+  function getCurrentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
+  }
+
   const columns = [
+    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
     { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
     {
       title: "Store.Location",
@@ -46,6 +56,30 @@ function LoanReqTable() {
       field: "category",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Qty.App",
+      field: "lendQuantity",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        rowData.lendQuantity?.length ? (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+              Approvable
+            </span>
+          </div>
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+              Pending
+            </span>
+          </div>
+        )
+      ),
+    }
   ];
 
   return (
@@ -74,7 +108,61 @@ function LoanReqTable() {
       ></Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
+          actions={[
+            {
+              icon: "checkbox",
+              tooltip: "Approve",
+              onClick: (event, rowData) => {
+                if (rowData.lendQuantity?.length) {
+                  rowData.lendDate = getCurrentDate();
+                  rowData.returnCondition = "";
+                  rowData.condition = "";
+                  rowData.returnDate = "";
+                  rowData.receiverStoreId = rowData.storeId;
+                  rowData.requestedStoreId = storeId;
+                  lendMaterial(rowData)
+                    .then((resp) => console.log(resp))
+                    .catch((err) => console.log(err.response));
+                }
+              },
+              color: "blue",
+            },
+          ]}
           columns={columns}
+          editable={{
+            onRowDelete: (selectedRow) =>
+              new Promise((resolve, reject) => {
+                const updatedData = [...tableData];
+                updatedData.splice(selectedRow.tableData.id, 1);
+                setTableData(updatedData);
+                setTimeout(() => resolve(), 1000);
+              }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                if (!(oldData.quantity_aprv?.length)) {
+                  const dataUpdate = [...items];
+                  const index = oldData.tableData.id;
+                  dataUpdate[index] = newData;
+                  setItems([...dataUpdate]);
+
+                  newData.lendDate = getCurrentDate();
+                  newData.returnCondition = "";
+                  newData.condition = "";
+                  newData.returnDate = "";
+                  newData.receiverStoreId = newData.storeId;
+                  newData.requestedStoreId = storeId;
+
+                  putMaterial(newData)
+                    .then((resp) => console.log(resp))
+                    .catch((err) => console.log(err.response));
+
+                  resolve();
+                }
+                else {
+                  reject();
+                }
+              }),
+          }}
           data={items}
           onSelectionChange={(selectedRows) => console.log(selectedRows)}
           options={{
