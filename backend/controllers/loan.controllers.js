@@ -1,10 +1,10 @@
 const db = require('./db.controllers');
 
 const requestLoan = async (req, res) => {
-  const { rqDate, mquantity, storeId, mcode, mname, uom, requestedStoreId, category } = req.body;
+  const { rqDate, mquantity, storeId, mdescription, mcode, mname, uom, requestedStoreId, category } = req.body;
 
   const docRef = db.collection("loans").doc("request").collection("items").doc();
-  await docRef.set({ rqDate, mquantity, storeId, mcode, mname, uom, requestedStoreId, category });
+  await docRef.set({ rqDate, mquantity, storeId, mdescription, mcode, mname, uom, requestedStoreId, category });
 
   res.status(201).json({ message: "Loan requested successfully" });
 };

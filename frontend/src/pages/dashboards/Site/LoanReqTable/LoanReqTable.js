@@ -22,7 +22,7 @@ function LoanReqTable() {
   }, []);
 
   const columns = [
-    { title: "Date", field: "date", filterPlaceholder: "filter" },
+    { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
     {
       title: "Store.Location",
       field: "storeId",
@@ -44,11 +44,6 @@ function LoanReqTable() {
     {
       title: "Category",
       field: "category",
-      filterPlaceholder: "filter",
-    },
-    {
-      title: "Condition",
-      field: "condition",
       filterPlaceholder: "filter",
     },
   ];
