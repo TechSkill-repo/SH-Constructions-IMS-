@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
+import { getCriticalTools } from "../../../../services/criticalTools";
 
 function CriticalToolsTable() {
   const [items, setItems] = useState([]);
 
+  useEffect(() => {
+    getCriticalTools()
+      .then((data) => {
+        console.log("data: ", data);
+        setItems(data.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const columns = [
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
-    { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
-    {
-      title: "M.Des",
-      field: "mdescription",
-      filterPlaceholder: "filter",
-    },
+    // { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
+    // { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    // {
+    //   title: "M.Des",
+    //   field: "mdescription",
+    //   filterPlaceholder: "filter",
+    // },
     { title: "Entry Date", field: "entryDate", filterPlaceholder: "filter" },
-    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
+    // { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     { title: "Make", field: "make", filterPlaceholder: "filter" },
     { title: "Serial no.", field: "serialNo", filterPlaceholder: "filter" },
     { title: "Due Date", field: "dueDate", filterPlaceholder: "filter" },

@@ -1,36 +1,26 @@
 import axios from "axios";
 import { HOST } from "../environments/env";
 
-const postCriticalTools = (
-  mcode,
-  mname,
-  mdescription,
-  entryDate,
-  uom,
-  make,
-  serialNo,
-  dueDate
-) => {
-  return new Promise((resolve, reject) => {
-    return axios
-      .post(
-        HOST + "/critical-tools",
-        mcode,
-        mname,
-        mdescription,
-        entryDate,
-        uom,
-        make,
-        serialNo,
-        dueDate
-      )
-      .then((resp) => {
-        resolve(resp);
-      })
-      .catch((err) => {
-        reject(err);
-      });
+const postCriticalTools = (item) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await axios.post(HOST + "/critical-tools", item);
+      resolve(resp);
+    } catch (err) {
+      reject(err);
+    }
   });
 };
 
-export { postCriticalTools };
+const getCriticalTools = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await axios.get(HOST + "/critical-tools");
+      resolve(resp.data);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+export { postCriticalTools, getCriticalTools };
