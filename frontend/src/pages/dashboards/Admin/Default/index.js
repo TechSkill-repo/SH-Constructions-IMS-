@@ -47,7 +47,7 @@ function Default() {
 
       <Divider my={6} />
 
-      {/* <Grid container spacing={6}>
+      <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
             title="Gloves"
@@ -84,7 +84,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-      </Grid> */}
+      </Grid>
       <div
         style={{
           textAlign: "center",
