@@ -5,9 +5,9 @@ export const Container = styled.div`
   height: 100vh;
   width: 100vw;
 
-  background-image: url(https://media.glassdoor.com/l/e1/0f/91/05/tata-steel-europe.jpg);
+  background-image: url(https://images.pond5.com/industrial-production-plant-tata-steel-footage-086764102_prevstill.jpeg);
   background-size: cover;
-  filter: blur(6px);
+  filter: blur(4px);
   background-repeat: no-repeat;
 
   background-position: center;
