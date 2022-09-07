@@ -3,14 +3,15 @@ import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { getCriticalTools } from "../../../../services/criticalTools";
 
-function CriticalToolsTable() {
+function CriticalToolsTable({ productId }) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     getCriticalTools()
       .then((data) => {
-        console.log("data: ", data);
-        setItems(data.items);
+        setItems(
+          data.criticalTools.filter((item) => item.productId == productId)
+        );
       })
       .catch((err) => {
         console.log(err);

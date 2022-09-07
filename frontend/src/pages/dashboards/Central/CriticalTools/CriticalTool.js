@@ -7,8 +7,10 @@ import AddIcon from "@material-ui/icons/Add";
 import Box from "@mui/material/Box";
 import CriticalToolsForm from "./CriticalToolsForm";
 import CriticalToolsTable from "./CriticalToolsTable";
+import { useParams } from "react-router-dom";
 
 function CriticalTool() {
+  const productId = useParams().productId;
   const [showForm, setShowForm] = useState(false);
 
   return (
@@ -33,11 +35,11 @@ function CriticalTool() {
       </Grid>
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={9}>
-          {showForm && <CriticalToolsForm />}
+          {showForm && <CriticalToolsForm productId={productId} />}
         </Grid>
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
-        <CriticalToolsTable />
+        <CriticalToolsTable productId={productId} />
       </Box>
     </>
   );

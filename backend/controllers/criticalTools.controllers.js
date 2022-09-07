@@ -10,6 +10,7 @@ const postCriticalTools = async (req, res) => {
     make,
     serialNo,
     dueDate,
+    productId,
   } = req.body;
 
   const docRef = db.collection("critical-tools").doc();
@@ -23,6 +24,7 @@ const postCriticalTools = async (req, res) => {
     make,
     serialNo,
     dueDate,
+    productId,
   });
 
   res.status(201).json({ message: "Post Successful" });
@@ -38,7 +40,7 @@ const getCriticalTools = async (req, res) => {
       querySnapshot.forEach((doc) => {
         criticalTools.push(doc.data());
       });
-      res.status(200).json({ message: "Critical Tools Found" });
+      res.status(200).json({ message: "Critical Tools Found", criticalTools });
     }
   });
 };

@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import { Typography } from "@material-ui/core";
 import { postCriticalTools } from "../../../../services/criticalTools";
 
-function ConsumablesForm() {
+function ConsumablesForm({ productId }) {
   const [mcode, setMcode] = useState("");
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
@@ -27,6 +27,7 @@ function ConsumablesForm() {
     postCriticalTools({
       mcode,
       mname,
+      productId,
       mdescription,
       entryDate,
       uom,
@@ -43,7 +44,7 @@ function ConsumablesForm() {
 
     setTimeout(() => {
       setShowSuccess(false);
-      // window.location.href = "/critical-tools";
+      window.location.href = `/critical-tool/${productId}`;
     }, 3000);
     // } else {
     //   showError(true);
