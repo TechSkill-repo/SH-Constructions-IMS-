@@ -13,7 +13,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import MaterialTable from "material-table";
 import Popup from "./Popup";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 
 function ReqForm() {
   let seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
@@ -44,13 +44,13 @@ function ReqForm() {
   const handleClose = () => setOpen(false);
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: "100%",
     maxWidth: "80vw",
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
   };
@@ -66,8 +66,8 @@ function ReqForm() {
         });
 
       await getMcodes()
-        .then(data => setMcodes(data.codes))
-        .catch(err => console.log(err));
+        .then((data) => setMcodes(data.codes))
+        .catch((err) => console.log(err));
     }
     fetch();
   }, []);
@@ -88,14 +88,14 @@ function ReqForm() {
 
         if (event.target.name === "mcode") {
           fetchDetails(event.target.value)
-            .then(data => {
+            .then((data) => {
               const { mname, mdescription, uom, category } = data.item;
               i.mname = mname;
               i.mdescription = mdescription;
               i.uom = uom;
               i.category = category;
             })
-            .catch(err => console.log(err))
+            .catch((err) => console.log(err));
         }
       }
       return i;
@@ -146,7 +146,7 @@ function ReqForm() {
     });
 
     setTimeout(() => {
-      window.location.href = '/requisition-form';
+      window.location.href = "/requisition-form";
     }, 3000);
   };
 
@@ -174,22 +174,39 @@ function ReqForm() {
     {
       title: "Status",
       filterPlaceholder: "filter",
-      render: (rowData) => (
+      render: (rowData) =>
         rowData.quantity_aprv?.length ? (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
-              Approvable
+            <span
+              style={{
+                backgroundColor: "rgba(76,175,80,0.1)",
+                color: "#4caf50",
+                fontWeight: "bold",
+                border: "",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
+              Approved
             </span>
           </div>
         ) : (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+            <span
+              style={{
+                backgroundColor: "rgba(244,67,54,0.1)",
+                color: "#f44336",
+                fontWeight: "bold",
+                border: "",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
               Pending
             </span>
           </div>
-        )
-      ),
-    }
+        ),
+    },
   ];
 
   return (
@@ -211,21 +228,20 @@ function ReqForm() {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h3">
-          Requisition Form
-        </Typography>
+        <Typography variant="h3">Requisition Form</Typography>
         {items.map((item, index) => {
           return (
             <Grid
               container
               spacing={2}
-              alignItems="end"
+              alignItems="center"
               justifyContent="center"
               key={index.toString()}
             >
               <Grid item xs={12} md={5}>
                 <input style={{ display: "none" }} id="dummy" />
                 <TextField
+                  variant="outlined"
                   name="mcode"
                   select
                   label="Material Code"
@@ -243,6 +259,7 @@ function ReqForm() {
               </Grid>
               <Grid item xs={12} md={5}>
                 <TextField
+                  variant="outlined"
                   name="quantity_req"
                   label="Quantity Request"
                   type="text"
@@ -253,7 +270,13 @@ function ReqForm() {
                 />
               </Grid>
               <Grid item xs={6} md={2}>
-                <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "end" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "end",
+                  }}
+                >
                   <RemoveCircleIcon
                     style={{
                       fontSize: "3em",
@@ -276,11 +299,16 @@ function ReqForm() {
             </Grid>
           );
         })}
-        <Grid container justifyContent="center" style={{ margin: "2em auto 0" }}>
+        <Grid
+          container
+          justifyContent="center"
+          style={{ margin: "2em auto 0" }}
+        >
           <Button
             variant="contained"
             size="medium"
             onClick={handleOpen}
+            color="primary"
             style={{ width: "100%", maxWidth: "220px" }}
           >
             Add Items
@@ -331,11 +359,16 @@ function ReqForm() {
       >
         <Box sx={style}>
           <Popup tableValues={items} />
-          <Grid container justifyContent="center" style={{ margin: "2em auto 0" }}>
+          <Grid
+            container
+            justifyContent="center"
+            style={{ margin: "2em auto 0" }}
+          >
             <Button
               variant="contained"
               size="medium"
               onClick={handleSubmit}
+              color="primary"
               style={{ width: "100%", maxWidth: "220px" }}
             >
               Submit
@@ -343,7 +376,7 @@ function ReqForm() {
           </Grid>
         </Box>
       </Modal>
-    </div >
+    </div>
   );
 }
 

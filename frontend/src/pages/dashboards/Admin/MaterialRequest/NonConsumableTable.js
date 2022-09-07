@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getMaterial, putMaterial, issueNonConsumableMaterial, checkIsIssued } from "../../../../services/adminService";
+import {
+  getMaterial,
+  putMaterial,
+  issueNonConsumableMaterial,
+  checkIsIssued,
+} from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Typography } from "@material-ui/core";
@@ -46,22 +51,39 @@ function NonConsumableTable() {
     {
       title: "Status",
       filterPlaceholder: "filter",
-      render: (rowData) => (
+      render: (rowData) =>
         rowData.quantity_aprv?.length ? (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
-              Approvable
+            <span
+              style={{
+                backgroundColor: "rgba(76,175,80,0.1)",
+                color: "#4caf50",
+                fontWeight: "bold",
+                border: "",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
+              Approved
             </span>
           </div>
         ) : (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+            <span
+              style={{
+                backgroundColor: "rgba(244,67,54,0.1)",
+                color: "#f44336",
+                fontWeight: "bold",
+                border: "",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
               Pending
             </span>
           </div>
-        )
-      ),
-    }
+        ),
+    },
   ];
 
   return (
@@ -102,7 +124,7 @@ function NonConsumableTable() {
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-              if (!(oldData.quantity_aprv?.length)) {
+              if (!oldData.quantity_aprv?.length) {
                 const dataUpdate = [...items];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
@@ -115,8 +137,7 @@ function NonConsumableTable() {
                   .catch((err) => console.log(err.response));
 
                 resolve();
-              }
-              else {
+              } else {
                 reject();
               }
             }),
