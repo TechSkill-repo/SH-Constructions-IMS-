@@ -10,10 +10,10 @@ const requestLoan = async (req, res) => {
 };
 
 const lendMaterial = async (req, res) => {
-  const { mcode, mname, uom, lendDate, lendQuantity, returnDate, storeId, requestedStoreId, receiverStoreId, condition, returnCondition, category } = req.body;
+  const { mcode, mname, uom, lendDate, lendQuantity, returnDate, requestedStoreId, receiverStoreId, condition, returnCondition, category } = req.body;
 
   // remove the material quantity from the sender store
-  const query = db.collection(storeId).where("mcode", "==", mcode);
+  const query = db.collection("stores").doc(requestedStoreId).collection("items").where("mcode", "==", mcode);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found in the lender store" });
@@ -26,8 +26,8 @@ const lendMaterial = async (req, res) => {
         } else {
           let data = doc.data();
           data.mquantity = "" + (mquantity - parseInt(lendQuantity));
-          await db.collection(storeId).doc(doc.id).delete();
-          await db.collection(storeId).doc(doc.id).set(data);
+          await db.collection("stores").doc(requestedStoreId).doc(doc.id).delete();
+          await db.collection("stores").doc(requestedStoreId).doc(doc.id).set(data);
 
           // add the material quantity to receiver store
           const query = db.collection(receiverStoreId).where("mcode", "==", mcode);
@@ -47,7 +47,7 @@ const lendMaterial = async (req, res) => {
             }
 
             const docRef = db.collection("loans").doc("approved").collection("items").doc();
-            await docRef.set({ mcode, mname, uom, lendDate, lendQuantity, returnDate, storeId: requestedStoreId ? requestedStoreId : storeId, receiverStoreId, condition, returnCondition, category });
+            await docRef.set({ mcode, mname, uom, lendDate, lendQuantity, returnDate, requestedStoreId, receiverStoreId, condition, returnCondition, category });
 
             res.status(200).json({ message: "Loan Approved successfully" });
           });
@@ -115,7 +115,7 @@ const getApprovedLoans = async (req, res) => {
     if (reverse)
       query = db.collection("loans").doc("approved").collection("items").where("receiverStoreId", "==", storeId);
     else
-      query = db.collection("loans").doc("approved").collection("items").where("storeId", "==", storeId);
+      query = db.collection("loans").doc("approved").collection("items").where("requestedStoreId", "==", storeId);
   }
   else
     query = db.collection("loans").doc("approved").collection("items");
