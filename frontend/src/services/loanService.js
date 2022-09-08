@@ -16,6 +16,21 @@ export function requestLoan(material) {
   });
 }
 
+export function checkIsIssued(slip_no) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/loan/check?slip_no=" + slip_no)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
 export function lendMaterial(material) {
   return new Promise((resolve, reject) => {
     axios

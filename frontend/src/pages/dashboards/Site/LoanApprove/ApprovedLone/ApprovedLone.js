@@ -30,11 +30,11 @@ function ApprovedLone() {
     { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
     {
       title: "Location",
-      field: "storeId",
+      field: "requestedStoreId",
       filterPlaceholder: "filter",
       render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.storeId}
+          {rowData.requestedStoreId}
         </span>
       ),
     },
@@ -56,7 +56,7 @@ function ApprovedLone() {
       ),
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Condition", field: "condition", filterPlaceholder: "filter" },
+    // { title: "Condition", field: "condition", filterPlaceholder: "filter" },
     { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
     // { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
   ];

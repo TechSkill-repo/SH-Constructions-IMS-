@@ -29,7 +29,7 @@ function LoanRequest() {
 
   const [items, setItems] = useState([
     {
-      storeId: user ? user.storeId : "",
+      receiverStoreId: user ? user.storeId : "",
       slip_no: seq,
       mcode: "",
       mname: "",
@@ -58,7 +58,7 @@ function LoanRequest() {
       await getLoans()
         .then((resp) => {
           const oldData = resp.items;
-          const newData = oldData.filter((item) => item.storeId === user.storeId);
+          const newData = oldData.filter((item) => item.receiverStoreId === user.storeId);
           setData(newData);
         })
         .catch((err) => {
@@ -124,7 +124,7 @@ function LoanRequest() {
       title: "Status",
       filterPlaceholder: "filter",
       render: (rowData) => (
-        rowData.quantity_aprv?.length ? (
+        rowData.lendQuantity?.length ? (
           <div style={{ width: "100%", textAlign: "center" }}>
             <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
               Approvable
@@ -176,7 +176,7 @@ function LoanRequest() {
     setItems([
       ...items,
       {
-        storeId: user ? user.storeId : "",
+        receiverStoreId: user ? user.storeId : "",
         slip_no: seq,
         mcode: "",
         mname: "",

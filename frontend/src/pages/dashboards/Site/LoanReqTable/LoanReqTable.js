@@ -4,7 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-import { getLoans, lendMaterial, putMaterial } from "../../../../services/loanService";
+import { checkIsIssued, getLoans, lendMaterial, putMaterial } from "../../../../services/loanService";
 
 function LoanReqTable() {
   const [items, setItems] = useState([]);
@@ -35,7 +35,7 @@ function LoanReqTable() {
     { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
     {
       title: "Store.Location",
-      field: "storeId",
+      field: "receiverStoreId",
       filterPlaceholder: "filter",
     },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
@@ -112,14 +112,15 @@ function LoanReqTable() {
             {
               icon: "checkbox",
               tooltip: "Approve",
-              onClick: (event, rowData) => {
-                if (rowData.lendQuantity?.length) {
+              onClick: async (event, rowData) => {
+                const data = await checkIsIssued(rowData.slip_no);
+                console.log(data);
+                if (rowData.lendQuantity?.length && !data.issued) {
                   rowData.lendDate = getCurrentDate();
                   rowData.returnCondition = "";
                   rowData.condition = "";
                   rowData.returnDate = "";
-                  rowData.receiverStoreId = rowData.storeId;
-                  rowData.requestedStoreId = storeId;
+
                   lendMaterial(rowData)
                     .then((resp) => console.log(resp))
                     .catch((err) => console.log(err.response));
@@ -139,7 +140,7 @@ function LoanReqTable() {
               }),
             onRowUpdate: (newData, oldData) =>
               new Promise((resolve, reject) => {
-                if (!(oldData.quantity_aprv?.length)) {
+                if (!(oldData.lendQuantity?.length)) {
                   const dataUpdate = [...items];
                   const index = oldData.tableData.id;
                   dataUpdate[index] = newData;
@@ -149,8 +150,6 @@ function LoanReqTable() {
                   newData.returnCondition = "";
                   newData.condition = "";
                   newData.returnDate = "";
-                  newData.receiverStoreId = newData.storeId;
-                  newData.requestedStoreId = storeId;
 
                   putMaterial(newData)
                     .then((resp) => console.log(resp))
