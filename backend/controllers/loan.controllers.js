@@ -23,6 +23,61 @@ const checkIsIssued = async (req, res) => {
   });
 };
 
+const loanReturn = async (req, res) => {
+  const { slip_no, mcode, mname, mdescription, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category } = req.body;
+
+  console.log(slip_no);
+  const query = db.collection("loans").doc("approved").collection("items").where("slip_no", "==", slip_no);
+
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ "message": "Approved loan not found" });
+    } else {
+      querySnapshot.forEach(async dadDoc => {
+        const lndqty = parseInt(lendQuantity);
+        const query = db.collection("stores").doc(receiverStoreId).collection("items").where("mcode", "==", mcode);
+
+        await query.get().then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            res.status(403).json({ "message": "Item not available" });
+          } else {
+            querySnapshot.forEach(async doc => {
+              const data = doc.data();
+              const mquantity = parseInt(data.mquantity);
+
+              data.mquantity = "" + (mquantity - lndqty);
+
+              await db.collection("stores").doc(receiverStoreId).collection("items").doc(doc.id).delete();
+              await db.collection("stores").doc(receiverStoreId).collection("items").doc(doc.id).set(data);
+
+              const query = db.collection("stores").doc(requestedStoreId).collection("items").where("mcode", "==", mcode);
+              await query.get().then(async querySnapshot => {
+                if (querySnapshot.empty) {
+                  const docRef = db.collection("stores").doc(requestedStoreId).collection("items").doc();
+                  await docRef.set({ mcode, mname, mdescription, issue_slip_no: "", slip_no, date: returnDate, mquantity: lndqty, uom, category });
+                } else {
+                  querySnapshot.forEach(async doc => {
+                    const data = doc.data();
+                    const mquantity = parseInt(data.mquantity);
+
+                    data.mquantity = "" + (mquantity + lndqty);
+
+                    await db.collection("stores").doc(requestedStoreId).collection("items").doc(doc.id).delete();
+                    await db.collection("stores").doc(requestedStoreId).collection("items").doc(doc.id).set(data);
+                  });
+                }
+
+                await db.collection("loans").doc("issue").collection("items").doc(dadDoc.id).delete();
+                res.status(200).json({ "message": "loan returned successfully" });
+              });
+            });
+          }
+        });
+      });
+    }
+  });
+}
+
 const lendMaterial = async (req, res) => {
   const { slip_no, mcode, mname, mdescription, uom, lendDate, lendQuantity, returnDate, requestedStoreId, receiverStoreId, condition, returnCondition, category } = req.body;
 
@@ -148,4 +203,4 @@ const getApprovedLoans = async (req, res) => {
   });
 };
 
-module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued };
+module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued, loanReturn };

@@ -84,3 +84,18 @@ export function getApprovedLoans(storeId, reverse = false) {
       });
   });
 }
+
+export function loanReturn(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/loan/return", material)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
