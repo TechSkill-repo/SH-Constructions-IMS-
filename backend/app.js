@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const userRoute = require("./routes/user.routes");
 const adminRoute = require("./routes/admin.routes");
+const storeRoute = require("./routes/store.routes");
 const requestRoute = require("./routes/request.routes");
 const materialRoute = require("./routes/material.routes");
 const inventoryRoute = require("./routes/inventory.routes");
@@ -19,6 +20,7 @@ app.use(express.json()); //allows us to access request body as req.body
 app.use(morgan("dev")); //enable incoming request logging in dev mode
 app.use("/users", userRoute);
 app.use("/admin", adminRoute);
+app.use("/store", storeRoute);
 app.use("/request", requestRoute);
 app.use("/material", materialRoute);
 app.use("/inventory", inventoryRoute);

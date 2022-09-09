@@ -36,8 +36,20 @@ const issueConsumableMaterial = async (req, res) => {
           const docRef = db.collection("materials").doc("issue").collection("items").doc();
           await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "consumable", storeId });
 
-          const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
-          await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "consumable" });
+          const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+          query.get().then(async querySnapshot => {
+            if (querySnapshot.empty) {
+              const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
+              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "consumable" });
+            } else {
+              querySnapshot.forEach(async doc => {
+                const data = doc.data();
+                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity);
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+              })
+            }
+          });
 
           res.status(201).json({ "message": "Issue successful" });
         }
@@ -68,8 +80,20 @@ const issueNonConsumableMaterial = async (req, res) => {
           const docRef = db.collection("materials").doc("issue").collection("items").doc();
           await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable", storeId });
 
-          const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
-          await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable" });
+          const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+          query.get().then(async querySnapshot => {
+            if (querySnapshot.empty) {
+              const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
+              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable" });
+            } else {
+              querySnapshot.forEach(async doc => {
+                const data = doc.data();
+                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity);
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+              })
+            }
+          });
 
           res.status(201).json({ "message": "Issue successful" });
         }
