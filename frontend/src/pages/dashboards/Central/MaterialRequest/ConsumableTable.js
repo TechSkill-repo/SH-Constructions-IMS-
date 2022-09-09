@@ -9,9 +9,13 @@ import {
   checkIsIssued,
   issueConsumableMaterial,
 } from "../../../../services/issueService";
+import Alert from "@mui/material/Alert";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+  const [message, setMessage] = useState("");
   const { storeId } = useParams();
   const category = "consumable";
 
@@ -97,18 +101,39 @@ function ConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      {showAlert && (
+        <Alert severity={`${isValid ? "success" : "error"}`} sx={{ my: 4 }}>
+          {message}
+        </Alert>
+      )}
       <MaterialTable
         actions={[
           {
             icon: "checkbox",
             tooltip: "Approve",
             onClick: async (event, rowData) => {
-              const data = await checkIsIssued(rowData.slip_no);
-              console.log(data);
-              if (rowData.quantity_aprv?.length && !data.issued) {
+              let issued = false;
+              await checkIsIssued(rowData.slip_no).then((data) => {
+                issued = data.issued;
+                setMessage("Material is already issued.");
+                setIsValid(false);
+                setShowAlert(issued);
+                setTimeout(() => setShowAlert(false), 3000);
+              });
+              if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
-                  .then((resp) => console.log(resp))
-                  .catch((err) => console.log(err.response));
+                  .then((resp) => {
+                    setMessage("Material Issued Successfully");
+                    setShowAlert(true);
+                    setIsValid(true);
+                    setTimeout(() => setShowAlert(false), 3000);
+                  })
+                  .catch((err) => {
+                    setMessage(err.response.data.message);
+                    setShowAlert(true);
+                    setIsValid(false);
+                    setTimeout(() => setShowAlert(false), 3000);
+                  });
               }
             },
             color: "blue",
