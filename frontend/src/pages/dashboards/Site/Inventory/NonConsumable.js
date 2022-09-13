@@ -4,7 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-import { getNonConsumbaleIssue } from "../../../../services/issueService";
+import { getMaterials } from "../../../../services/storeService";
 
 function NonConsumable() {
   const [items, setItems] = useState([]);
@@ -12,9 +12,10 @@ function NonConsumable() {
   const storeId = user.storeId;
 
   useEffect(() => {
-    getNonConsumbaleIssue(storeId)
+    getMaterials(storeId)
       .then((data) => {
-        setItems(data.items);
+        const temp = data.items.filter(item => item.category === "non-consumable");
+        setItems(temp);
       })
       .catch((err) => {
         console.log(err);
