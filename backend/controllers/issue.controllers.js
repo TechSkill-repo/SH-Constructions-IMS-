@@ -1,29 +1,55 @@
 const db = require('./db.controllers');
 
-const issueConsumableMaterial = async (req, res) => {
-  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId } = req.body;
+const checkIsIssued = async (req, res) => {
+  const { slip_no } = req.query;
 
-  const query = db.collection("consumable-inv").where("mcode", "==", mcode);
-  query.get().then((querySnapshot) => {
+  const query = db.collection("materials").doc("issue").collection("items").where("issue_slip_no", "==", slip_no);
+
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(200).json({ "issued": false });
+    } else {
+      res.status(200).json({ "issued": true });
+    }
+  });
+};
+
+const issueConsumableMaterial = async (req, res) => {
+  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
+
+  const query = db.collection("inventory").doc("consumable").collection("items").where("mcode", "==", mcode);
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach(async (doc) => {
         const current_stock = parseInt(doc.data().current_stock);
 
-        if (parseInt(mquantity) > current_stock) {
+        if (parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req)) > current_stock) {
           res.status(403).json({ message: "Quantity unavailable" });
         } else {
           let data = doc.data();
-          data.current_stock = "" + (current_stock - parseInt(mquantity));
-          db.collection("consumable-inv").doc(doc.id).delete();
-          db.collection("consumable-inv").doc(doc.id).set(data);
+          data.current_stock = "" + (current_stock - parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req)));
+          await db.collection("inventory").doc("consumable").collection("items").doc(doc.id).delete();
+          await db.collection("inventory").doc("consumable").collection("items").doc(doc.id).set(data);
 
-          const docRef = db.collection("materials-issue").doc();
-          await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "consumable", storeId });
+          const docRef = db.collection("materials").doc("issue").collection("items").doc();
+          await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "consumable", storeId });
 
-          const docRef2 = db.collection(storeId).doc();
-          await docRef2.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "consumable" });
+          const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+          query.get().then(async querySnapshot => {
+            if (querySnapshot.empty) {
+              const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
+              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "consumable" });
+            } else {
+              querySnapshot.forEach(async doc => {
+                const data = doc.data();
+                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity);
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+              })
+            }
+          });
 
           res.status(201).json({ "message": "Issue successful" });
         }
@@ -33,29 +59,41 @@ const issueConsumableMaterial = async (req, res) => {
 };
 
 const issueNonConsumableMaterial = async (req, res) => {
-  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId } = req.body;
+  const { mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
 
-  const query = db.collection("non-consumable-inv").where("mcode", "==", mcode);
-  query.get().then((querySnapshot) => {
+  const query = db.collection("inventory").doc("non-consumable").collection("items").where("mcode", "==", mcode);
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach(async (doc) => {
         const current_stock = parseInt(doc.data().current_stock);
 
-        if (parseInt(mquantity) > current_stock) {
+        if (parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req)) > current_stock) {
           res.status(403).json({ message: "Quantity unavailable" });
         } else {
           let data = doc.data();
-          data.current_stock = "" + (current_stock - parseInt(mquantity));
-          db.collection("non-consumable-inv").doc(doc.id).delete();
-          db.collection("non-consumable-inv").doc(doc.id).set(data);
+          data.current_stock = "" + (current_stock - parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req)));
+          await db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).delete();
+          await db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).set(data);
 
-          const docRef = db.collection("materials-issue").doc();
-          await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "non-consumable", storeId });
+          const docRef = db.collection("materials").doc("issue").collection("items").doc();
+          await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable", storeId });
 
-          const docRef2 = db.collection(storeId).doc();
-          await docRef2.set({ mcode, date, issue_slip_no, mname, mdescription, uom, mquantity, category: "non-consumable" });
+          const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+          query.get().then(async querySnapshot => {
+            if (querySnapshot.empty) {
+              const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
+              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable" });
+            } else {
+              querySnapshot.forEach(async doc => {
+                const data = doc.data();
+                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity);
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+                await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+              })
+            }
+          });
 
           res.status(201).json({ "message": "Issue successful" });
         }
@@ -64,13 +102,13 @@ const issueNonConsumableMaterial = async (req, res) => {
   });
 };
 
-const getConsumbaleIssue = (req, res) => {
+const getConsumbaleIssue = async (req, res) => {
   const category = "consumable";
   const storeId = req.query.storeId;
   let items = [];
 
-  const query = db.collection("materials-issue").where("category", "==", category);
-  query.get().then((querySnapshot) => {
+  const query = db.collection("materials").doc("issue").collection("items").where("category", "==", category);
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Issue not found" });
     } else {
@@ -87,13 +125,13 @@ const getConsumbaleIssue = (req, res) => {
   });
 };
 
-const getNonConsumbaleIssue = (req, res) => {
+const getNonConsumbaleIssue = async (req, res) => {
   const category = "non-consumable";
   const storeId = req.query.storeId;
   let items = [];
 
-  const query = db.collection("materials-issue").where("category", "==", category);
-  query.get().then((querySnapshot) => {
+  const query = db.collection("materials").doc("issue").collection("items").where("category", "==", category);
+  await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Issue not found" });
     } else {
@@ -110,4 +148,4 @@ const getNonConsumbaleIssue = (req, res) => {
   });
 };
 
-module.exports = { issueConsumableMaterial, issueNonConsumableMaterial, getConsumbaleIssue, getNonConsumbaleIssue };
+module.exports = { issueConsumableMaterial, issueNonConsumableMaterial, getConsumbaleIssue, getNonConsumbaleIssue, checkIsIssued };

@@ -1,20 +1,9 @@
 import axios from "axios";
-import {HOST} from "../environments/env";
+import { HOST } from "../environments/env";
 
-const requisition = (item) => {
+const fetchDetails = (mcode) => {
   return new Promise((resolve, reject) => {
-    return axios.post(HOST + '/materials/requisition', item)
-      .then(resp => {
-        resolve(resp);
-      }).catch(err => {
-        reject(err);
-      })
-  })
-}
-
-const getMaterial = (storeId, category) => {
-  return new Promise((resolve, reject) => {
-    return axios.get(HOST + '/materials/query?storeId=' + storeId + '&category=' + category)
+    return axios.get(HOST + '/material/fetch?mcode=' + mcode)
       .then(resp => {
         resolve(resp.data);
       }).catch(err => {
@@ -23,4 +12,15 @@ const getMaterial = (storeId, category) => {
   });
 }
 
-export { getMaterial, requisition };
+const getMcodes = () => {
+  return new Promise((resolve, reject) => {
+    return axios.get(HOST + '/material/codes')
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      })
+  })
+}
+
+export { fetchDetails, getMcodes };

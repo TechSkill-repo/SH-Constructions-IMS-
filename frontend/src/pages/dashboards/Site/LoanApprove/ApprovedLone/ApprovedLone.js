@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getApprovedLoans } from "../../../../../services/loanService";
+import { getApprovedLoans, loanReturn } from "../../../../../services/loanService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -25,16 +25,25 @@ function ApprovedLone() {
       });
   }, []);
 
+  function getCurrentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
+  }
+
   const columns = [
     { title: "Date", field: "lendDate", filterPlaceholder: "filter" },
     { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
     {
       title: "Location",
-      field: "storeId",
+      field: "requestedStoreId",
       filterPlaceholder: "filter",
       render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.storeId}
+          {rowData.requestedStoreId}
         </span>
       ),
     },
@@ -56,8 +65,8 @@ function ApprovedLone() {
       ),
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-    { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
+    // { title: "Condition", field: "condition", filterPlaceholder: "filter" },
+    // { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
     // { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
   ];
 
@@ -102,6 +111,18 @@ function ApprovedLone() {
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
+          actions={[
+            {
+              icon: "checkbox",
+              tooltip: "Return",
+              onClick: (event, rowData) => {
+                rowData.returnDate = getCurrentDate();
+                loanReturn(rowData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
+              }
+            },
+          ]}
           columns={columns}
           data={items}
           onSelectionChange={(selectedRows) => console.log(selectedRows)}

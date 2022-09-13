@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMaterial } from "../../../../services/materialService";
+import { getMaterial } from "../../../../services/requestService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -38,7 +38,7 @@ function MIConsumableTable() {
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
-      title: "Qty.Req",
+      title: "Approve Qty.",
       field: "mquantity",
       filterPlaceholder: "filter",
     },

@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
+import {
+  getMaterial,
+  putMaterial,
+  issueNonConsumableMaterial,
+  checkIsIssued,
+} from "../../../../services/adminService";
 import MaterialTable from "material-table";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Typography } from "@material-ui/core";
-import {
-  checkIsIssued,
-  issueNonConsumableMaterial,
-} from "../../../../services/issueService";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
-  const { storeId } = useParams();
   const category = "non-consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
-      .then((data) => {
-        setItems(data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    async function fetch() {
+      await getMaterial(category)
+        .then((data) => {
+          setItems(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    fetch();
   }, []);
 
   const columns = [
@@ -89,11 +91,7 @@ function NonConsumableTable() {
       <div>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Non-Consumable Items StoreId{" "}
-            <span style={{ fontWeight: "900", color: "#376fd0" }}>
-              {" "}
-              {storeId}{" "}
-            </span>
+            Non-Consumable Items
           </Typography>
         </Grid>
       </div>

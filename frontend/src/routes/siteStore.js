@@ -76,25 +76,6 @@ const requsitionForm = {
   children: null,
 };
 
-const componentsRoutes = {
-  id: "Material Issue",
-  path: "/tables",
-  icon: <Grid />,
-  children: [
-    {
-      path: "/simpleTables",
-      name: "Consumable",
-      component: null,
-    },
-    {
-      path: "/simpleTables",
-      name: "Non-Consumable",
-      component: null,
-    },
-  ],
-  component: null,
-};
-
 const loanRequest = {
   id: "Request A Lone",
   path: "/loan-request",
@@ -145,7 +126,6 @@ export const dashboardLayoutRoutes = [
   requsitionForm,
   consumableRoute,
   non_consumablesRoute,
-  componentsRoutes,
   loanRequest,
   approveLoan,
   loanReqTable,
@@ -164,7 +144,6 @@ export const sidebarRoutes = [
   consumableRoute,
   non_consumablesRoute,
   requsitionForm,
-  componentsRoutes,
   loanRequest,
   approveLoan,
   loanReqTable,

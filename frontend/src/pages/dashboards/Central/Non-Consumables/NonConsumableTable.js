@@ -24,9 +24,9 @@ function NonConsumablesTable() {
       field: "mdescription",
       filterPlaceholder: "filter",
     },
-    { title: "Ope.Stock", field: "opening_stock", filterPlaceholder: "filter" },
+    // { title: "Ope.Stock", field: "opening_stock", filterPlaceholder: "filter" },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Date", field: "date", filterPlaceholder: "filter" },
+    // { title: "Date", field: "date", filterPlaceholder: "filter" },
     {
       title: "ToT.Received",
       field: "total_received",

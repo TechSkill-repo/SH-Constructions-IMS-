@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
-import MaterialTable from "material-table";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import AddIcon from "@material-ui/icons/Add";
-import { Grid, Typography } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import {
+  getMaterial,
+  putMaterial,
+  issueConsumableMaterial,
   checkIsIssued,
-  issueNonConsumableMaterial,
-} from "../../../../services/issueService";
+} from "../../../../services/adminService";
+import MaterialTable from "material-table";
+import AddIcon from "@material-ui/icons/Add";
+import { Typography } from "@mui/material";
+import { Grid } from "@material-ui/core";
 
-function NonConsumableTable() {
+function ConsumableTable() {
   const [items, setItems] = useState([]);
-  const { storeId } = useParams();
-  const category = "non-consumable";
+  const category = "consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
-      .then((data) => {
-        setItems(data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    async function fetch() {
+      await getMaterial(category)
+        .then((data) => {
+          setItems(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    fetch();
   }, []);
 
   const columns = [
@@ -88,12 +91,8 @@ function NonConsumableTable() {
     <>
       <div>
         <Grid item>
-          <Typography variant="h3" gutterBottom>
-            Non-Consumable Items StoreId{" "}
-            <span style={{ fontWeight: "900", color: "#376fd0" }}>
-              {" "}
-              {storeId}{" "}
-            </span>
+          <Typography variant="h5" gutterBottom>
+            Consumable Items
           </Typography>
         </Grid>
       </div>
@@ -102,12 +101,11 @@ function NonConsumableTable() {
           {
             icon: "checkbox",
             tooltip: "Approve",
-            style: { color: "red" },
             onClick: async (event, rowData) => {
               const data = await checkIsIssued(rowData.slip_no);
               console.log(data);
               if (rowData.quantity_aprv?.length && !data.issued) {
-                issueNonConsumableMaterial(rowData)
+                issueConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
               }
@@ -132,7 +130,7 @@ function NonConsumableTable() {
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
 
-                newData.category = "non-consumable";
+                newData.category = "consumable";
 
                 putMaterial(newData)
                   .then((resp) => console.log(resp))
@@ -172,7 +170,7 @@ function NonConsumableTable() {
           columnsButton: true,
           rowStyle: (data, index) =>
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
-          headerStyle: { background: "#233044", color: "#fff" },
+          headerStyle: { background: "#376fd0", color: "#fff" },
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
@@ -181,4 +179,4 @@ function NonConsumableTable() {
   );
 }
 
-export default NonConsumableTable;
+export default ConsumableTable;

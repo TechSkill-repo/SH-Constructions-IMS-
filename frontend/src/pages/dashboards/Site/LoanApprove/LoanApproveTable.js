@@ -34,7 +34,7 @@ function LoanApproveTable() {
       filterPlaceholder: "filter",
       render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.storeId}
+          {rowData.receiverStoreId}
         </span>
       ),
     },
@@ -62,7 +62,6 @@ function LoanApproveTable() {
       ),
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Condition", field: "condition", filterPlaceholder: "filter" },
   ];
 
   return (

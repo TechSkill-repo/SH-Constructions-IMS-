@@ -2,75 +2,100 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
+
+  background-image: url(https://images.pond5.com/industrial-production-plant-tata-steel-footage-086764102_prevstill.jpeg);
+  background-size: cover;
+  filter: blur(4px);
+  background-repeat: no-repeat;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -99;
 `;
 
 export const FormContainer = styled.div`
-  height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 65%;
+  display: flex;
+  flex-direction: column;
+  margin: auto 0.5em;
+  background-image: linear-gradient(
+    rgb(248, 248, 255, 0.5),
+    rgb(56, 160, 223, 0.3)
+  );
+  max-width: 400px;
   width: 100%;
-  text-align: center;
-  margin-top: 8vh;
-  @media (min-width: 768px) {
-    width: 50%;
+  padding: 0.8em 0;
+  border-radius: 0;
+  z-index: 999;
+
+  @media (min-width: 380px) {
+    margin: auto;
   }
 `;
 
-export const Wrapper = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
+
+  form {
+    width: 100%;
+    padding: 0.5em;
+  }
 `;
 
 export const Logo = styled.img`
-  height: 25vh;
+  height: 22vh;
   width: 100%;
   object-fit: contain;
 `;
 
-export const Head = styled.h1`
-  color: #1769aa;
-  font-size: 1.7em;
-  font-weight: 900 !important;
-  font-family: Arial, Helvetica, sans-serif;
-
-  @media (min-width: 330px) {
-    font-size: 2em;
-  }
-
-  @media (min-width: 420px) {
-    font-size: 2.2em;
-  }
-`;
-
-export const Paragraph = styled.p`
-  max-width: 450px;
-  padding: 0 0.5em;
-  margin: 1em auto 1.5em;
-  color: gray;
-  font-size: 0.875em;
-  font-weight: 200 !important;
-  font-family: Arial, Helvetica, sans-serif;
-`;
-
-export const Form = styled.div`
+export const FormField = styled.div`
   display: flex;
-  max-width: 450px;
-  width: 90%;
-  margin: 1em auto;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em auto;
+  width: 75%;
+  background: transparent;
+  margin-bottom: 15px;
 
   & > * {
     width: 100%;
   }
+
+  /* Change the white text autofill to any color */
+  & input:-webkit-autofill,
+  & input:-webkit-autofill:hover,
+  & input:-webkit-autofill:focus,
+  & input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(55, 198, 255, 0.8) inset !important;
+  }
 `;
 
-export const ImageContainer = styled.div`
-  display: none;
-  background: rgb(255, 255, 255);
+export const Links = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  text-align: left;
+  align-items: center;
+  padding: 0.5em;
+  margin: 0.8em auto 0.2em;
+  color: #efefef;
 
-  @media (min-width: 768px) {
-    display: block;
-    width: 50%;
+  a {
+    margin-right: 0.8em;
+    padding-right: 0.5em;
+
+    :not(:last-child) {
+      border-right: 0.1em solid #efefef;
+    }
   }
 `;

@@ -28,13 +28,12 @@ const Default = async(() => import("../pages/dashboards/Central/Default"));
 const Analytics = async(() => import("../pages/dashboards/Central/Analytics"));
 
 // Protected routes
-import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
 import ConsumablesItems from "../pages/dashboards/Central/ConsumablesItems/ConsumablesItems";
 import NonConsumable from "../pages/dashboards/Central/Non-Consumables/NonConsumable";
 import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
 import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTool";
 import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
-import MaterialReqForm from "../pages/dashboards/Central/MaterialReqForm/MaterialReqForm";
+import ReqFrom from "../pages/dashboards/Central/Requisition/ReqForm";
 import Remarks from "../pages/dashboards/Central/Remarks/Remarks";
 import MRConsumable from "../pages/dashboards/Central/MaterialRequest/Consumable";
 import MRNonConsumable from "../pages/dashboards/Central/MaterialRequest/NonConsumable";
@@ -63,7 +62,7 @@ const dashboardsRoutes = {
 const materialRequest = {
   id: "Material Requests",
   path: "/materialRequest",
-  component: MaterialRequest,
+  component: null,
   icon: <ShoppingCart />,
   children: [
     {
@@ -168,7 +167,7 @@ const requisitionForm = {
   id: "Requisition Form",
   path: "/requisition-form",
   icon: <InsertDriveFileIcon />,
-  component: MaterialReqForm,
+  component: ReqFrom,
   children: null,
 };
 

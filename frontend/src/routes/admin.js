@@ -20,16 +20,13 @@ import {
   Users,
 } from "react-feather";
 
-// All pages that rely on 3rd party components (other than Material-UI) are
-// loaded asynchronously, to keep the initial JS bundle to a minimum size
-
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Admin/Default"));
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 
-// Protected routes
-import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
+import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
+import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -54,14 +51,6 @@ const projectsRoutes = {
   children: null,
 };
 
-const orderRoutes = {
-  id: "Material requests",
-  path: "/orders",
-  icon: <ShoppingCart />,
-  component: null,
-  children: null,
-};
-
 const authRoutes = {
   id: "Material Issue",
   path: "/material-issue",
@@ -72,18 +61,18 @@ const authRoutes = {
 
 const consumables = {
   id: "Consumables Items",
-  path: "/material-issue",
+  path: "/consumable",
   icon: <Users />,
   children: null,
-  component: null,
+  component: ConsumableTable,
 };
 
 const non_consumables = {
   id: "Non-Consumables Items",
-  path: "/material-issue",
+  path: "/non-consumable",
   icon: <Users />,
   children: null,
-  component: null,
+  component: NonConsumableTable,
 };
 
 const componentsRoutes = {
@@ -123,8 +112,9 @@ const landingRoutes = {
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
   projectsRoutes,
-  orderRoutes,
   componentsRoutes,
+  consumables,
+  non_consumables
 ];
 
 // Routes using the Auth layout
@@ -137,7 +127,6 @@ export const presentationLayoutRoutes = [landingRoutes];
 export const sidebarRoutes = [
   dashboardsRoutes,
   projectsRoutes,
-  orderRoutes,
   consumables,
   non_consumables,
   authRoutes,
