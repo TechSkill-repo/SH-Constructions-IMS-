@@ -12,6 +12,7 @@ import {
 import { spacing } from "@material-ui/system";
 
 import { green, red } from "@material-ui/core/colors";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 import Actions from "./Actions";
 import BarChart from "./BarChart";
@@ -49,71 +50,117 @@ function Default() {
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
-            title="Gloves"
-            amount="200"
-            chip="Today"
-            percentageText="On Stock"
+            title="Coke Plant"
+            amount="₹ 19900"
+            chip="Muzaffar Iqbal"
+            percentageText="EC01"
             percentagecolor={green[500]}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
-            title="Gloves"
-            amount="2"
-            chip="Annual"
-            percentageText="Low Stock"
+            title="RMM"
+            amount="₹ 19900"
+            chip="Anurag"
+            percentageText="E22"
             percentagecolor={red[500]}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
-            title="Order Compleated"
-            amount="24300"
-            chip="Yearly"
-            percentageText="+18%"
+            title="RMBB"
+            amount="₹ 19900"
+            chip="Ramesh Sharma"
+            percentageText="E13"
             percentagecolor={green[500]}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
           <Stats
-            title="Pending Orders"
-            amount="45"
-            chip="Today"
-            percentageText="-9%"
+            title="RMBB2"
+            amount="₹ 19900"
+            chip="Love Gope"
+            percentageText="E17"
             percentagecolor={red[500]}
           />
-        </Grid>
-      </Grid>
-      <div
-        style={{
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "50px",
-          color: "#233044",
-          fontSize: "25px",
-        }}
-      >
-        <h1>👷‍♂️</h1>
-        <h1>CentralStore Dashboard Under Construction 🛠</h1>
-      </div>
-
-      {/* <Grid container spacing={6}>
-        <Grid item xs={12} lg={8}>
-          <LineChart />
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <DoughnutChart />
         </Grid>
       </Grid>
       <Grid container spacing={6}>
-        <Grid item xs={12} lg={4}>
-          <BarChart />
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="GBF"
+            amount="₹ 19900"
+            chip="RK Srivastava"
+            percentageText="E27"
+            percentagecolor={green[500]}
+          />
         </Grid>
-        <Grid item xs={12} lg={8}>
-          <Table />
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="SP#1,2"
+            amount="₹ 19900"
+            chip="Chandan Singh"
+            percentageText="E23"
+            percentagecolor={green[500]}
+          />
         </Grid>
-      </Grid> */}
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="SP#3,4"
+            amount="₹ 19900"
+            chip="Manoj Mishra"
+            percentageText="E15"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="MM"
+            amount="₹ 19900"
+            chip="Hashim Khan"
+            percentageText="E25"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="LD#01"
+            amount="₹ 19900"
+            chip="Prabhat Singh"
+            percentageText="E20"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="PALLET PLANT"
+            amount="₹ 19900"
+            chip="Bablu Panday"
+            percentageText="E30"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="MRSPP"
+            amount="₹ 19900"
+            chip="Santosh Panday"
+            percentageText="E28"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Line Plant"
+            amount="₹ 19900"
+            chip="Imteyaz Ahmed"
+            percentageText="I11"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }
