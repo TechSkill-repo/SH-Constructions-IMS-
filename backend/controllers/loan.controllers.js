@@ -26,7 +26,32 @@ const checkIsIssued = async (req, res) => {
 const loanReturn = async (req, res) => {
   const { slip_no, mcode, mname, mdescription, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category } = req.body;
 
-  console.log(slip_no);
+  const docRef = db.collection("loans").doc("return").collection("items").doc();
+  await docRef.set({ slip_no, mcode, mname, mdescription, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category })
+}
+
+const getLoanReturns = async (req, res) => {
+  const { storeId } = req.query;
+  const items = [];
+
+  const query = db.collection("loans").doc("return").collection("items").where("receiverStoreId", "==", storeId);
+
+  await query.get().then(querySnapshot => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ "message": "Loan Returns not found" });
+    } else {
+      querySnapshot.forEach(doc => {
+        items.push(doc.data());
+      });
+
+      res.status(404).json({ "message": "Loan returns fetched", "items": items });
+    }
+  })
+}
+
+const loanReturnApprove = async (req, res) => {
+  const { slip_no, mcode, mname, mdescription, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category } = req.body;
+
   const query = db.collection("loans").doc("approved").collection("items").where("slip_no", "==", slip_no);
 
   await query.get().then((querySnapshot) => {
@@ -203,4 +228,4 @@ const getApprovedLoans = async (req, res) => {
   });
 };
 
-module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued, loanReturn };
+module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued, loanReturn, getLoanReturns, loanReturnApprove };
