@@ -99,3 +99,33 @@ export function loanReturn(material) {
       })
   });
 }
+
+export function getLoanReturn(storeId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/loan/return?storeId=" + storeId)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+export function loanReturnApprove(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/loan/return/approve", material)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
