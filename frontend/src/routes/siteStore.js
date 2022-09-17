@@ -35,6 +35,7 @@ import LoanRequest from "../pages/dashboards/Site/LoanRequest/LoanRequest";
 import LoanApprove from "../pages/dashboards/Site/LoanApprove/LoanApprove";
 import LoanReqTable from "../pages/dashboards/Site/LoanReqTable/LoanReqTable";
 import ApprovedLone from "../pages/dashboards/Site/LoanApprove/ApprovedLone/ApprovedLone";
+import LoanReturn from "../pages/dashboards/Site/LoanReturn/LoanReturn";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -109,6 +110,13 @@ const loanReqTable = {
   component: LoanReqTable,
 };
 
+const loanReturn = {
+  id: "Loan Returns",
+  path: "/loan-return",
+  icon: <ArchiveIcon />,
+  comoponent: LoanReturn,
+};
+
 const landingRoutes = {
   id: "Landing Page",
   path: "/",
@@ -129,6 +137,7 @@ export const dashboardLayoutRoutes = [
   loanRequest,
   approveLoan,
   loanReqTable,
+  loanReturn,
 ];
 
 // Routes using the Auth layout
@@ -147,4 +156,5 @@ export const sidebarRoutes = [
   loanRequest,
   approveLoan,
   loanReqTable,
+  loanReturn,
 ];

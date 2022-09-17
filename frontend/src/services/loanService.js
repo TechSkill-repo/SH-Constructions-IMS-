@@ -90,7 +90,7 @@ export function loanReturn(material) {
     axios
       .post(HOST + "/loan/return", material)
       .then(response => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           resolve(response.data);
         }
       })

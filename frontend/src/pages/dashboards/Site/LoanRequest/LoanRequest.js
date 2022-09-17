@@ -21,7 +21,10 @@ import MaterialTable from "material-table";
 function LoanRequest() {
   const [showSuccess, setShowSuccess] = useState(false);
 
-  let seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+  const uniqueId = () => {
+    var id = "id" + Math.random().toString(16).slice(2);
+    return id.substring(3, 8);
+  };
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
 
@@ -30,7 +33,7 @@ function LoanRequest() {
   const [items, setItems] = useState([
     {
       receiverStoreId: user ? user.storeId : "",
-      slip_no: seq,
+      slip_no: uniqueId(),
       mcode: "",
       mname: "",
       mdescription: "",
@@ -177,7 +180,7 @@ function LoanRequest() {
       ...items,
       {
         receiverStoreId: user ? user.storeId : "",
-        slip_no: seq,
+        slip_no: uniqueId(),
         mcode: "",
         mname: "",
         mdescription: "",

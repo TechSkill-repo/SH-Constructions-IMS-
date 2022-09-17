@@ -24,10 +24,12 @@ const checkIsIssued = async (req, res) => {
 };
 
 const loanReturn = async (req, res) => {
-  const { slip_no, mcode, mname, mdescription, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category } = req.body;
+  const { slip_no, mcode, mname, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category } = req.body;
 
   const docRef = db.collection("loans").doc("return").collection("items").doc();
-  await docRef.set({ slip_no, mcode, mname, mdescription, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category })
+  await docRef.set({ slip_no, mcode, mname, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category });
+
+  res.status(201).json({ "message": "Loan return initiated" });
 }
 
 const getLoanReturns = async (req, res) => {
@@ -93,6 +95,14 @@ const loanReturnApprove = async (req, res) => {
                 }
 
                 await db.collection("loans").doc("issue").collection("items").doc(dadDoc.id).delete();
+
+                const query = db.collection("loans").doc("return").collection("items").where("slip_no", "==", slip_no);
+                await query.get().then(querySnapshot => {
+                  querySnapshot.forEach(async doc => {
+                    await doc.delete();
+                  });
+                });
+
                 res.status(200).json({ "message": "loan returned successfully" });
               });
             });
