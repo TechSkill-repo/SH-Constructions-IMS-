@@ -114,7 +114,7 @@ const loanReturn = {
   id: "Loan Returns",
   path: "/loan-return",
   icon: <ArchiveIcon />,
-  comoponent: LoanReturn,
+  component: LoanReturn,
 };
 
 const landingRoutes = {

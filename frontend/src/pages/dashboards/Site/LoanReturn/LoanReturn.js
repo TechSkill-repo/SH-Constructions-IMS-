@@ -23,7 +23,7 @@ function LoanReturn() {
 
   const columns = [
     { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
-    { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
+    { title: "Date", field: "returnDate", filterPlaceholder: "filter" },
     {
       title: "Store.Location",
       field: "receiverStoreId",
@@ -31,24 +31,14 @@ function LoanReturn() {
     },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
-    {
-      title: "M.Des",
-      field: "mdescription",
-      filterPlaceholder: "filter",
-    },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    {
-      title: "Qty.Req",
-      field: "mquantity",
-      filterPlaceholder: "filter",
-    },
     {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
     },
     {
-      title: "Qty.App",
+      title: "Return Qty",
       field: "lendQuantity",
       filterPlaceholder: "filter",
     },

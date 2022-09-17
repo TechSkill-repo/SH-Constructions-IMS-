@@ -36,7 +36,7 @@ const getLoanReturns = async (req, res) => {
   const { storeId } = req.query;
   const items = [];
 
-  const query = db.collection("loans").doc("return").collection("items").where("receiverStoreId", "==", storeId);
+  const query = db.collection("loans").doc("return").collection("items").where("requestedStoreId", "==", storeId);
 
   await query.get().then(querySnapshot => {
     if (querySnapshot.empty) {
@@ -46,7 +46,7 @@ const getLoanReturns = async (req, res) => {
         items.push(doc.data());
       });
 
-      res.status(404).json({ "message": "Loan returns fetched", "items": items });
+      res.status(200).json({ "message": "Loan returns fetched", "items": items });
     }
   })
 }
@@ -94,12 +94,12 @@ const loanReturnApprove = async (req, res) => {
                   });
                 }
 
-                await db.collection("loans").doc("issue").collection("items").doc(dadDoc.id).delete();
+                await db.collection("loans").doc("approved").collection("items").doc(dadDoc.id).delete();
 
                 const query = db.collection("loans").doc("return").collection("items").where("slip_no", "==", slip_no);
                 await query.get().then(querySnapshot => {
                   querySnapshot.forEach(async doc => {
-                    await doc.delete();
+                    await db.collection("loans").doc("return").collection("items").doc(doc.id).delete();
                   });
                 });
 
