@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getApprovedLoans, loanReturn } from "../../../../../services/loanService";
+import { checkIsReturned, getApprovedLoans, loanReturn } from "../../../../../services/loanService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -115,11 +115,15 @@ function ApprovedLone() {
             {
               icon: "checkbox",
               tooltip: "Return",
-              onClick: (event, rowData) => {
+              onClick: async (event, rowData) => {
+                const returned = await checkIsReturned();
                 rowData.returnDate = getCurrentDate();
-                loanReturn(rowData)
-                  .then((resp) => console.log(resp))
-                  .catch((err) => console.log(err.response));
+
+                if (!returned) {
+                  loanReturn(rowData)
+                    .then((resp) => console.log(resp))
+                    .catch((err) => console.log(err.response));
+                }
               }
             },
           ]}

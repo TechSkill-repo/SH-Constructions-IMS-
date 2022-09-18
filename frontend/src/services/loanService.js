@@ -85,7 +85,7 @@ export function getApprovedLoans(storeId, reverse = false) {
   });
 }
 
-export function getLoanReturn(slip_no) {
+export function checkIsReturned(slip_no) {
   return new Promise((resolve, reject) => {
     axios
       .get(HOST + "/loan/return/check?slip_no=" + slip_no)

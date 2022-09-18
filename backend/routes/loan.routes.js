@@ -9,6 +9,7 @@ router.put("/edit", loanControllers.editMaterial);
 router.get("/check", loanControllers.checkIsIssued);
 router.post("/return", loanControllers.loanReturn);
 router.get("/return", loanControllers.getLoanReturns);
+router.get("/return/check", loanControllers.checkIsReturned);
 router.post("/return/approve", loanControllers.loanReturnApprove);
 
 module.exports = router;

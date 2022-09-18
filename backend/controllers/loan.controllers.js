@@ -23,6 +23,19 @@ const checkIsIssued = async (req, res) => {
   });
 };
 
+const checkIsReturned = async (req, res) => {
+  const { slip_no } = req.body;
+
+  const query = db.collection("loans").doc("return").collection("items").where("slip_no", "==", slip_no);
+
+  await query.get().then(querySnapshot => {
+    if (querySnapshot.empty)
+      res.status(200).json({ "returned": false });
+    else
+      res.status(200).json({ "returned": true });
+  });
+}
+
 const loanReturn = async (req, res) => {
   const { slip_no, mcode, mname, uom, lendQuantity, returnDate, requestedStoreId, receiverStoreId, category } = req.body;
 
@@ -238,4 +251,4 @@ const getApprovedLoans = async (req, res) => {
   });
 };
 
-module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued, loanReturn, getLoanReturns, loanReturnApprove };
+module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued, loanReturn, getLoanReturns, loanReturnApprove, checkIsReturned };
