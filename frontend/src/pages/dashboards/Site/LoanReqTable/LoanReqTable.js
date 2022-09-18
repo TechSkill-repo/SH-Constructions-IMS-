@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import {
@@ -10,9 +10,13 @@ import {
   lendMaterial,
   putMaterial,
 } from "../../../../services/loanService";
+import { FormField } from "../../../auth/Login.style";
 
 function LoanReqTable() {
   const [items, setItems] = useState([]);
+  const [loneApproved, setLoneApproved] = useState(false);
+  const [loneDenied, setLoneDenied] = useState(false);
+
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
@@ -118,6 +122,16 @@ function LoanReqTable() {
           </Typography>
         </Grid>
       </Grid>
+      {loneDenied && (
+        <FormField style={{ marginBottom: "1.3em" }}>
+          <Alert severity="error">Lone Denied! 😕</Alert>
+        </FormField>
+      )}
+      {loneApproved && (
+        <FormField style={{ marginBottom: "1.3em" }}>
+          <Alert severity="success">Lone Request success! </Alert>
+        </FormField>
+      )}
       <Grid
         container
         spacing={2}
@@ -140,8 +154,18 @@ function LoanReqTable() {
                   rowData.returnDate = "";
 
                   lendMaterial(rowData)
-                    .then((resp) => console.log(resp))
-                    .catch((err) => console.log(err.response));
+                    .then((resp) => {
+                      console.log(resp);
+                      setLoneApproved(true);
+                      setTimeout(() => setLoneApproved(false), 3000);
+                    })
+                    .catch((err) => {
+                      console.log(err.response);
+                      if (err.response?.status === 403) {
+                        setLoneDenied(true);
+                        setTimeout(() => setLoneDenied(false), 3000);
+                      }
+                    });
                 }
               },
               color: "blue",
