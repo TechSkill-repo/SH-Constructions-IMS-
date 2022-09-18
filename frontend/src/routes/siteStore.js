@@ -22,7 +22,9 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 
 import ConstructionIcon from "@mui/icons-material/Construction";
 import EngineeringIcon from "@mui/icons-material/Engineering";
-
+import TelegramIcon from "@mui/icons-material/Telegram";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Site/Default"));
 const Analytics = async(() => import("../pages/dashboards/Site/Analytics"));
@@ -104,7 +106,7 @@ const approveLoan = {
 };
 
 const loanReqTable = {
-  id: "Loan Requests Received",
+  id: "Loan Req Received",
   path: "/loan-request-table",
   icon: <ArchiveIcon />,
   component: LoanReqTable,
@@ -113,7 +115,21 @@ const loanReqTable = {
 const loanReturn = {
   id: "Loan Returns",
   path: "/loan-return",
-  icon: <ArchiveIcon />,
+  icon: <TelegramIcon />,
+  component: LoanReturn,
+};
+
+const materialIssue = {
+  id: "Material Issue",
+  path: "/material-issue",
+  icon: <DirectionsRunIcon />,
+  component: LoanReturn,
+};
+
+const materialDamage = {
+  id: "Material Damaged",
+  path: "/material-damage",
+  icon: <DoDisturbIcon />,
   component: LoanReturn,
 };
 
@@ -126,7 +142,6 @@ const landingRoutes = {
   children: null,
 };
 
-
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
@@ -134,10 +149,12 @@ export const dashboardLayoutRoutes = [
   requsitionForm,
   consumableRoute,
   non_consumablesRoute,
+  materialIssue,
   loanRequest,
   approveLoan,
   loanReqTable,
   loanReturn,
+  materialDamage,
 ];
 
 // Routes using the Auth layout
@@ -152,9 +169,11 @@ export const sidebarRoutes = [
   // siteInventoryRoute,
   consumableRoute,
   non_consumablesRoute,
+  materialIssue,
   requsitionForm,
   loanRequest,
   approveLoan,
   loanReqTable,
   loanReturn,
+  materialDamage,
 ];

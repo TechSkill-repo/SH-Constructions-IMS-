@@ -15,7 +15,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Popup from "./Popup";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 import MaterialTable from "material-table";
 
 function LoanRequest() {
@@ -42,7 +42,7 @@ function LoanRequest() {
       category: "",
       mquantity: "",
       incharge_name: "",
-      requestedStoreId: ""
+      requestedStoreId: "",
     },
   ]);
 
@@ -55,13 +55,15 @@ function LoanRequest() {
   useEffect(() => {
     async function fetch() {
       await getMcodes()
-        .then(data => setMcodes(data.codes))
-        .catch(err => console.log(err));
+        .then((data) => setMcodes(data.codes))
+        .catch((err) => console.log(err));
 
       await getLoans()
         .then((resp) => {
           const oldData = resp.items;
-          const newData = oldData.filter((item) => item.receiverStoreId === user.storeId);
+          const newData = oldData.filter(
+            (item) => item.receiverStoreId === user.storeId
+          );
           setData(newData);
         })
         .catch((err) => {
@@ -81,22 +83,22 @@ function LoanRequest() {
   }
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: "100%",
     maxWidth: "80vw",
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
   };
 
   const columns = [
     { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
-    { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
+    // { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
     {
-      title: "Requested.Store",
+      title: "Req.Store",
       field: "requestedStoreId",
       filterPlaceholder: "filter",
     },
@@ -126,22 +128,35 @@ function LoanRequest() {
     {
       title: "Status",
       filterPlaceholder: "filter",
-      render: (rowData) => (
+      render: (rowData) =>
         rowData.lendQuantity?.length ? (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <span style={{ backgroundColor: "#edf7ed", color: "#1e4620", border: "1px solid #1e4620", borderRadius: "10px", padding: "5px 8px" }}>
+            <span
+              style={{
+                backgroundColor: "rgba(76,175,80,0.1)",
+                color: "#4caf50",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
               Approvable
             </span>
           </div>
         ) : (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <span style={{ backgroundColor: "#fdeded", color: "#5f2120", border: "1px solid #5f2120", borderRadius: "10px", padding: "5px 8px" }}>
+            <span
+              style={{
+                backgroundColor: "rgba(244,67,54,0.1)",
+                color: "#f44336",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
               Pending
             </span>
           </div>
-        )
-      ),
-    }
+        ),
+    },
   ];
 
   const handleInputChange = (slip_no, event) => {
@@ -151,14 +166,14 @@ function LoanRequest() {
 
         if (event.target.name === "mcode") {
           fetchDetails(event.target.value)
-            .then(data => {
+            .then((data) => {
               const { mname, mdescription, uom, category } = data.item;
               i.mname = mname;
               i.mdescription = mdescription;
               i.uom = uom;
               i.category = category;
             })
-            .catch(err => console.log(err))
+            .catch((err) => console.log(err));
         }
       }
       return i;
@@ -189,7 +204,7 @@ function LoanRequest() {
         category: "",
         mquantity: "",
         incharge_name: "",
-        requestedStoreId: ""
+        requestedStoreId: "",
       },
     ]);
   };
@@ -210,196 +225,212 @@ function LoanRequest() {
 
     setTimeout(() => {
       setShowSuccess(false);
-      window.location.href = '/loan-request';
+      window.location.href = "/loan-request";
     }, 3000);
   };
 
-  return (<div>
-    {showSuccess && (
-      <Alert severity="success" sx={{ my: 3 }}>
-        This is a success alert — check it out!
-      </Alert>
-    )}
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "100%" },
-        "&.MuiBox-root": { background: "#fff", p: 3, borderRadius: 3 },
-      }}
-      noValidate
-      autoComplete="off"
-      // onSubmit={handleSubmit}
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Typography variant="h3">
-        Loan Request Form
-      </Typography>
-      {items.map((item, index) => {
-        return (
-          <Grid
-            container
-            spacing={2}
-            alignItems="end"
-            justifyContent="center"
-            key={index.toString()}
-          >
-            <Grid item xs={12} md={4}>
-              <input style={{ display: "none" }} id="dummy" />
-              <TextField
-                name="mcode"
-                select
-                label="Material Code"
-                value={item.mcode}
-                onChange={(e) => {
-                  handleInputChange(item.slip_no, e);
-                }}
-              >
-                {mcodes.map((mcode) => (
-                  <MenuItem key={mcode} value={mcode}>
-                    {mcode}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                name="mquantity"
-                label="Loan Amount"
-                type="text"
-                value={item.mquantity}
-                onChange={(e) => {
-                  handleInputChange(item.slip_no, e);
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                name="requestedStoreId"
-                label="Requested store Id"
-                type="text"
-                value={item.requestedStoreId}
-                onChange={(e) => {
-                  handleInputChange(item.slip_no, e);
-                }}
-              />
-            </Grid>
-            <Grid item xs={6} md={2}>
-              <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "end" }}>
-                <RemoveCircleIcon
-                  style={{
-                    fontSize: "3em",
-                    cursor: "pointer",
-                    color: "#4782da",
-                    display: items.length === 1 ? "none" : "",
+  return (
+    <div>
+      {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "100%" },
+          "&.MuiBox-root": { background: "#fff", p: 3, borderRadius: 3 },
+        }}
+        noValidate
+        autoComplete="off"
+        // onSubmit={handleSubmit}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="h3">Loan Request Form</Typography>
+        {items.map((item, index) => {
+          return (
+            <Grid
+              container
+              spacing={2}
+              alignItems="end"
+              justifyContent="center"
+              key={index.toString()}
+            >
+              <Grid item xs={12} md={4}>
+                <input style={{ display: "none" }} id="dummy" />
+                <TextField
+                  variant="outlined"
+                  name="mcode"
+                  select
+                  label="Material Code"
+                  value={item.mcode}
+                  onChange={(e) => {
+                    handleInputChange(item.slip_no, e);
                   }}
-                  onClick={() => handleRemoveClick(item.slip_no)}
-                />
-                <AddCircleIcon
-                  onClick={handleAddClick}
-                  style={{
-                    fontSize: "3em",
-                    cursor: "pointer",
-                    color: "#4782da",
+                >
+                  {mcodes.map((mcode) => (
+                    <MenuItem key={mcode} value={mcode}>
+                      {mcode}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <TextField
+                  variant="outlined"
+                  name="mquantity"
+                  label="Loan Amount"
+                  type="text"
+                  value={item.mquantity}
+                  onChange={(e) => {
+                    handleInputChange(item.slip_no, e);
                   }}
                 />
-              </div>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <TextField
+                  variant="outlined"
+                  name="requestedStoreId"
+                  label="Requested store Id"
+                  type="text"
+                  value={item.requestedStoreId}
+                  onChange={(e) => {
+                    handleInputChange(item.slip_no, e);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6} md={2}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "end",
+                  }}
+                >
+                  <RemoveCircleIcon
+                    style={{
+                      fontSize: "3em",
+                      cursor: "pointer",
+                      color: "#4782da",
+                      display: items.length === 1 ? "none" : "",
+                    }}
+                    onClick={() => handleRemoveClick(item.slip_no)}
+                  />
+                  <AddCircleIcon
+                    onClick={handleAddClick}
+                    style={{
+                      fontSize: "3em",
+                      cursor: "pointer",
+                      color: "#4782da",
+                    }}
+                  />
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        );
-      })}
-      <Grid container justifyContent="center" style={{ margin: "2em auto 0" }}>
-        <Button
-          variant="contained"
-          size="medium"
-          onClick={handleOpen}
-          style={{ width: "100%", maxWidth: "220px" }}
+          );
+        })}
+        <Grid
+          container
+          justifyContent="center"
+          style={{ margin: "2em auto 0" }}
         >
-          Add Items
-        </Button>
-      </Grid>
-    </Box>
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Popup tableValues={items} />
-        <Grid container justifyContent="center" style={{ margin: "2em auto 0" }}>
           <Button
             variant="contained"
             size="medium"
-            onClick={handleSubmit}
+            onClick={handleOpen}
             style={{ width: "100%", maxWidth: "220px" }}
           >
-            Submit
+            Add Items
           </Button>
         </Grid>
       </Box>
-    </Modal>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Popup tableValues={items} />
+          <Grid
+            container
+            justifyContent="center"
+            style={{ margin: "2em auto 0" }}
+          >
+            <Button
+              variant="contained"
+              size="medium"
+              onClick={handleSubmit}
+              style={{ width: "100%", maxWidth: "220px" }}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Box>
+      </Modal>
 
-    <Grid
-      container
-      spacing={2}
-      alignItems="center"
-      style={{ marginBottom: "0.8em" }}
-    >
-      <Grid item xs={11}>
-        <Typography variant="h5" gutterBottom>
-          Lone Requests:
-          <span style={{ fontWeight: "900", color: "#376fd0" }}>
-            {" "}
-            {user.storeId}{" "}
-          </span>
-        </Typography>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginBottom: "0.8em" }}
+      >
+        <Grid item xs={11}>
+          <Typography variant="h5" gutterBottom>
+            Lone Requests:
+            <span style={{ fontWeight: "900", color: "#376fd0" }}>
+              {" "}
+              {user.storeId}{" "}
+            </span>
+          </Typography>
+        </Grid>
       </Grid>
-    </Grid>
-    <Grid
-      container
-      spacing={2}
-      alignItems="center"
-      style={{ justifyContent: "center" }}
-    ></Grid>
-    <Box component="div" sx={{ mt: 2 }}>
-      <MaterialTable
-        columns={columns}
-        data={data}
-        onSelectionChange={(selectedRows) => console.log(selectedRows)}
-        options={{
-          sorting: true,
-          search: true,
-          searchFieldAlignment: "right",
-          searchAutoFocus: true,
-          searchFieldVariant: "standard",
-          filtering: true,
-          paging: true,
-          pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
-          pageSize: 5,
-          paginationType: "stepped",
-          showFirstLastPageButtons: false,
-          paginationPosition: "both",
-          exportButton: true,
-          exportAllData: true,
-          exportFileName: "items",
-          addRowPosition: "first",
-          actionsColumnIndex: -1,
-          showSelectAllCheckbox: false,
-          showTextRowsSelected: false,
-          selectionProps: (rowData) => ({
-            disabled: rowData.age == null,
-          }),
-          columnsButton: true,
-          rowStyle: (data, index) =>
-            index % 2 === 0 ? { background: "#f5f5f5" } : null,
-          headerStyle: { background: "#376fd0", color: "#fff" },
-        }}
-        title="Lone Requests"
-        icons={{ Add: () => <AddIcon /> }}
-      />
-    </Box>
-  </div >
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ justifyContent: "center" }}
+      ></Grid>
+      <Box component="div" sx={{ mt: 2 }}>
+        <MaterialTable
+          columns={columns}
+          data={data}
+          onSelectionChange={(selectedRows) => console.log(selectedRows)}
+          options={{
+            sorting: true,
+            search: true,
+            searchFieldAlignment: "right",
+            searchAutoFocus: true,
+            searchFieldVariant: "standard",
+            filtering: true,
+            paging: true,
+            pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
+            pageSize: 5,
+            paginationType: "stepped",
+            showFirstLastPageButtons: false,
+            paginationPosition: "both",
+            exportButton: true,
+            exportAllData: true,
+            exportFileName: "items",
+            addRowPosition: "first",
+            actionsColumnIndex: -1,
+            showSelectAllCheckbox: false,
+            showTextRowsSelected: false,
+            selectionProps: (rowData) => ({
+              disabled: rowData.age == null,
+            }),
+            columnsButton: true,
+            rowStyle: (data, index) =>
+              index % 2 === 0 ? { background: "#f5f5f5" } : null,
+            headerStyle: { background: "#376fd0", color: "#fff" },
+          }}
+          title="Lone Requests"
+          icons={{ Add: () => <AddIcon /> }}
+        />
+      </Box>
+    </div>
   );
 }
 
