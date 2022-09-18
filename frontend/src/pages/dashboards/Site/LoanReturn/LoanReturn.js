@@ -1,73 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { checkIsReturned, getApprovedLoans, loanReturn } from "../../../../../services/loanService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
-import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@material-ui/core";
-import LoanApproveForm from "../LoanApproveForm";
+import { getLoanReturn, loanReturnApprove } from "../../../../services/loanService";
 
-function ApprovedLone() {
-  const [showForm, setShowForm] = useState(false);
+function LoanReturn() {
   const [items, setItems] = useState([]);
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
   useEffect(() => {
-    getApprovedLoans(storeId, true)
-      .then((data) => {
-        setItems(data.items);
+    getLoanReturn(storeId)
+      .then((resp) => {
+        setItems(resp.items);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   }, []);
 
-  function getCurrentDate() {
-    let newDate = new Date();
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-
-    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
-  }
-
   const columns = [
-    { title: "Date", field: "lendDate", filterPlaceholder: "filter" },
-    { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
+    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    { title: "Date", field: "returnDate", filterPlaceholder: "filter" },
     {
-      title: "Location",
-      field: "requestedStoreId",
+      title: "Store.Location",
+      field: "receiverStoreId",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.requestedStoreId}
-        </span>
-      ),
     },
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
+    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span
-          style={{
-            color: `${rowData.category == "consumable" ? "red" : "green"}`,
-            fontWeight: "600",
-          }}
-        >
-          {rowData.category}
-        </span>
-      ),
     },
-    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    // { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-    // { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
-    // { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
+    {
+      title: "Return Qty",
+      field: "lendQuantity",
+      filterPlaceholder: "filter",
+    },
   ];
 
   return (
@@ -80,23 +54,12 @@ function ApprovedLone() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            Approved Loan StoreId:{" "}
+            Lone Returns:
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}
             </span>
           </Typography>
-        </Grid>
-        <Grid item xs={1}>
-          <Button
-            variant="contained"
-            size="medium"
-            onClick={() => {
-              setShowForm(!showForm);
-            }}
-          >
-            {showForm ? <CloseIcon /> : <AddIcon />}
-          </Button>
         </Grid>
       </Grid>
       <Grid
@@ -104,27 +67,19 @@ function ApprovedLone() {
         spacing={2}
         alignItems="center"
         style={{ justifyContent: "center" }}
-      >
-        <Grid item xs={9} justifyContent="center">
-          {showForm && <LoanApproveForm storeId={storeId} />}
-        </Grid>
-      </Grid>
+      ></Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
           actions={[
             {
               icon: "checkbox",
-              tooltip: "Return",
+              tooltip: "Approve",
               onClick: async (event, rowData) => {
-                const returned = await checkIsReturned();
-                rowData.returnDate = getCurrentDate();
-
-                if (!returned) {
-                  loanReturn(rowData)
-                    .then((resp) => console.log(resp))
-                    .catch((err) => console.log(err.response));
-                }
-              }
+                loanReturnApprove(rowData)
+                  .then((resp) => console.log(resp))
+                  .catch((err) => console.log(err.response));
+              },
+              color: "blue",
             },
           ]}
           columns={columns}
@@ -158,7 +113,7 @@ function ApprovedLone() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Approved Lone"
+          title="Lone Returns"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>
@@ -166,4 +121,4 @@ function ApprovedLone() {
   );
 }
 
-export default ApprovedLone;
+export default LoanReturn;

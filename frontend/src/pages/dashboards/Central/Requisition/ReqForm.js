@@ -16,7 +16,11 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
 function ReqForm() {
-  let seq = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+  const uniqueId = () => {
+    var id = "id" + Math.random().toString(16).slice(2);
+    return id.substring(3, 8);
+  };
+
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
@@ -24,7 +28,7 @@ function ReqForm() {
   const [items, setItems] = useState([
     {
       storeId: user ? user.storeId : "",
-      slip_no: seq,
+      slip_no: uniqueId(),
       mcode: "",
       mname: "",
       mdescription: "",
@@ -117,7 +121,7 @@ function ReqForm() {
       ...items,
       {
         storeId: user ? user.storeId : "",
-        slip_no: seq,
+        slip_no: uniqueId(),
         mcode: "",
         mname: "",
         mdescription: "",

@@ -44,7 +44,7 @@ const issueConsumableMaterial = async (req, res) => {
             } else {
               querySnapshot.forEach(async doc => {
                 const data = doc.data();
-                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity);
+                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req));
                 await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
                 await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
               })
@@ -88,7 +88,7 @@ const issueNonConsumableMaterial = async (req, res) => {
             } else {
               querySnapshot.forEach(async doc => {
                 const data = doc.data();
-                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity);
+                data.mquantity = "" + parseInt(data.mquantity) + parseInt(mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req));
                 await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
                 await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
               })
