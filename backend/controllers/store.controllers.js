@@ -21,4 +21,34 @@ const getMaterials = async (req, res) => {
   });
 };
 
-module.exports = { getMaterials };
+const materialDestruct = async (req, res) => {
+  const { storeId, mcode, mquantity, empName, empId } = req.query;
+
+  const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+  await query.get().then(querySnapshot => {
+    if (querySnapshot => {
+      if (querySnapshot.empty) {
+        res.status(404).json({ "message": "Material not found" });
+      } else {
+        querySnapshot.forEach(async doc => {
+          const data = doc.data();
+          if (parseInt(mquantity) > data.mquantity) {
+            res.status(403).json({ "message": "Not enough material quantity" });
+          } else {
+            data.mquantity = "" + (parseInt(data.mquantity) - parseInt(mquantity));
+
+            await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+            await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+
+            const docRef = db.collection("stores").doc(storeId).collection("employees").doc();
+            await docRef.set({ empId, empName, mcode, mquantity });
+
+            res.status(200).json({ "message": "Material Destroyed" });
+          }
+        });
+      }
+    });
+  });
+}
+
+module.exports = { getMaterials, materialDestruct };

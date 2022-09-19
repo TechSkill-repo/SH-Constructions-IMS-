@@ -15,3 +15,18 @@ export function getMaterials(storeId) {
       });
   });
 }
+
+export function materialDestruct(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/store/destroy", material)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
