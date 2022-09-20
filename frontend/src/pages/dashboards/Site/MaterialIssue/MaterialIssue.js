@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import { requisition, getMaterial } from "../../../../services/requestService";
-import { fetchDetails, getMcodes } from "../../../../services/materialService";
+import { getMatetrialDestructs, materialDestruct } from "../../../../services/storeService";
+import { getMcodes } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Alert from "@mui/material/Alert";
@@ -28,16 +28,11 @@ function MaterialIssue() {
   const [items, setItems] = useState([
     {
       storeId: user ? user.storeId : "",
-      slip_no: uniqueId(),
+      empName: "",
+      empId: "",
       mcode: "",
-      mname: "",
-      mdescription: "",
-      date: getCurrentDate(),
-      uom: "",
-      category: "",
-      quantity_req: "",
-      incharge_name: "",
-      site_location: user ? user.site_location : "",
+      Ddate: getCurrentDate(),
+      mquantity: ""
     },
   ]);
   const [mcodes, setMcodes] = useState([]);
@@ -61,7 +56,7 @@ function MaterialIssue() {
 
   useEffect(() => {
     async function fetch() {
-      await getMaterial(storeId)
+      await getMatetrialDestructs(storeId)
         .then((data) => {
           setData(data.items);
         })
@@ -121,16 +116,11 @@ function MaterialIssue() {
       ...items,
       {
         storeId: user ? user.storeId : "",
-        slip_no: uniqueId(),
+        empName: "",
+        empId: "",
         mcode: "",
-        mname: "",
-        mdescription: "",
-        date: getCurrentDate(),
-        uom: "",
-        category: "",
-        quantity_req: "",
-        incharge_name: "",
-        site_location: user ? user.site_location : "",
+        Ddate: getCurrentDate(),
+        mquantity: ""
       },
     ]);
   };
@@ -140,7 +130,7 @@ function MaterialIssue() {
     setShowSuccess(true);
 
     items.map((item) => {
-      requisition(item)
+      materialDestruct(item)
         .then((resp) => {
           console.log(resp.data);
         })
@@ -150,67 +140,18 @@ function MaterialIssue() {
     });
 
     setTimeout(() => {
-      window.location.href = "/reqForm";
+      window.location.href = "/material-issue";
     }, 3000);
   };
 
   const columns = [
-    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
-    { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    { title: "Date", field: "Ddate", filterPlaceholder: "filter" },
     {
-      title: "M.Description",
-      field: "mdescription",
+      title: "Qty.",
+      field: "mquantity",
       filterPlaceholder: "filter",
-    },
-    { title: "Date", field: "date", filterPlaceholder: "filter" },
-    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    {
-      title: "Qty.Req",
-      field: "quantity_req",
-      filterPlaceholder: "filter",
-    },
-    // {
-    //   title: "Qty.App",
-    //   field: "quantity_aprv",
-    //   filterPlaceholder: "filter",
-    // },
-    {
-      title: "Status",
-      filterPlaceholder: "filter",
-      render: (rowData) =>
-        rowData.quantity_aprv?.length ? (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(76,175,80,0.1)",
-                color: "#4caf50",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Approved
-            </span>
-          </div>
-        ) : (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(244,67,54,0.1)",
-                color: "#f44336",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Pending
-            </span>
-          </div>
-        ),
-    },
+    }
   ];
 
   return (
@@ -264,10 +205,34 @@ function MaterialIssue() {
               <Grid item xs={12} md={5}>
                 <TextField
                   variant="outlined"
-                  name="quantity_req"
+                  name="mquantity"
                   label="Quantity Request"
                   type="text"
-                  value={item.quantity_req}
+                  value={item.mquantity}
+                  onChange={(e) => {
+                    handleInputChange(item.slip_no, e);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={5}>
+                <TextField
+                  variant="outlined"
+                  name="empId"
+                  label="Employee ID"
+                  type="text"
+                  value={item.empId}
+                  onChange={(e) => {
+                    handleInputChange(item.slip_no, e);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={5}>
+                <TextField
+                  variant="outlined"
+                  name="empName"
+                  label="Employee Name"
+                  type="text"
+                  value={item.empName}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
@@ -351,7 +316,7 @@ function MaterialIssue() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Material Requests"
+          title="Material Issue"
           icons={{ Add: () => <AddIcon /> }}
         />
       </div>

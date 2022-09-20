@@ -22,7 +22,7 @@ const getMaterials = async (req, res) => {
 };
 
 const materialDestruct = async (req, res) => {
-  const { storeId, mcode, mquantity, empName, empId } = req.query;
+  const { storeId, mcode, mquantity, empName, empId, Ddate } = req.query;
 
   const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
   await query.get().then(querySnapshot => {
@@ -41,7 +41,7 @@ const materialDestruct = async (req, res) => {
             await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
 
             const docRef = db.collection("stores").doc(storeId).collection("employees").doc();
-            await docRef.set({ empId, empName, mcode, mquantity });
+            await docRef.set({ empId, empName, mcode, mquantity, Ddate });
 
             res.status(200).json({ "message": "Material Destroyed" });
           }
@@ -51,4 +51,23 @@ const materialDestruct = async (req, res) => {
   });
 }
 
-module.exports = { getMaterials, materialDestruct };
+const getMatetrialDestructs = async (req, res) => {
+  const storeId = req.query.storeId;
+  const items = [];
+
+  const query = db.collection("stores").doc(storeId).collection("employees");
+
+  await query.get().then(querySnapshot => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ "message": "Items not found" });
+    } else {
+      querySnapshot.forEach(doc => {
+        items.push(doc.data());
+      });
+
+      res.status(200).json({ "message": "Datas fetched", "items": items });
+    }
+  });
+}
+
+module.exports = { getMaterials, materialDestruct, getMatetrialDestructs };

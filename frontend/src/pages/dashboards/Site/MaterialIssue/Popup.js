@@ -7,14 +7,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(mname, mcode, mdescription, quantity_req) {
-    return { mname, mcode, mdescription, quantity_req };
+function createData(empName, mcode, empId, mquantity) {
+    return { empName, mcode, empId, mquantity };
 }
 
 function Popup({ tableValues }) {
     const rows = [];
 
-    tableValues.map((value) => rows.push(createData(value.mname, value.mcode, value.mdescription, value.quantity_req)));
+    tableValues.map((value) => rows.push(createData(value.empName, value.mcode, value.empId, value.mquantity)));
 
     return (
         <>
@@ -34,10 +34,10 @@ function Popup({ tableValues }) {
                                 key={row.mcode}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell align="center">{row.mname}</TableCell>
+                                <TableCell align="center">{row.empName}</TableCell>
                                 <TableCell align="center">{row.mcode}</TableCell>
-                                <TableCell align="center">{row.mdescription}</TableCell>
-                                <TableCell align="center">{row.quantity_req}</TableCell>
+                                <TableCell align="center">{row.empId}</TableCell>
+                                <TableCell align="center">{row.mquantity}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -16,6 +16,21 @@ export function getMaterials(storeId) {
   });
 }
 
+export function getMatetrialDestructs(storeId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/store/destroy?storeId=" + storeId)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
 export function materialDestruct(material) {
   return new Promise((resolve, reject) => {
     axios
