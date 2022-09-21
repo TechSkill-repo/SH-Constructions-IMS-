@@ -38,6 +38,8 @@ import LoanApprove from "../pages/dashboards/Site/LoanApprove/LoanApprove";
 import LoanReqTable from "../pages/dashboards/Site/LoanReqTable/LoanReqTable";
 import ApprovedLone from "../pages/dashboards/Site/LoanApprove/ApprovedLone/ApprovedLone";
 import LoanReturn from "../pages/dashboards/Site/LoanReturn/LoanReturn";
+import MaterialIssue from "../pages/dashboards/Site/MaterialIssue/MaterialIssue";
+import MaterialDestroy from "../pages/dashboards/Site/MaterialDestroy/MaterialDestroy";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -123,14 +125,14 @@ const materialIssue = {
   id: "Material Issue",
   path: "/material-issue",
   icon: <DirectionsRunIcon />,
-  component: LoanReturn,
+  component: MaterialIssue,
 };
 
 const materialDamage = {
   id: "Material Damaged",
   path: "/material-damage",
   icon: <DoDisturbIcon />,
-  component: LoanReturn,
+  component: MaterialDestroy,
 };
 
 const landingRoutes = {
