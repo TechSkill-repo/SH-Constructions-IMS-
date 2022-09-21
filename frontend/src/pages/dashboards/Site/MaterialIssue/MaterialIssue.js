@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { getMatetrialDestructs, materialDestruct } from "../../../../services/storeService";
-import { getMcodes } from "../../../../services/materialService";
+import { getMcodes, fetchDetails } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Alert from "@mui/material/Alert";
