@@ -23,4 +23,15 @@ const getMcodes = () => {
   })
 }
 
-export { fetchDetails, getMcodes };
+const getRequests = () => {
+  return new Promise((resolve, reject) => {
+    return axios.get(HOST + '/material/requests')
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      })
+  })
+}
+
+export { fetchDetails, getMcodes, getRequests };
