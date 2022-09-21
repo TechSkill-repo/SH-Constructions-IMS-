@@ -7,14 +7,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(empName, mcode, empId, mquantity) {
-    return { empName, mcode, empId, mquantity };
+function createData(mcode, mquantity, remark) {
+    return { mcode, mquantity, remark };
 }
 
 function Popup({ tableValues }) {
     const rows = [];
 
-    tableValues.map((value) => rows.push(createData(value.empName, value.mcode, value.empId, value.mquantity)));
+    tableValues.map((value) => rows.push(createData(value.mcode, value.empId, value.remark)));
 
     return (
         <>
@@ -22,10 +22,9 @@ function Popup({ tableValues }) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Employee Name</TableCell>
-                            <TableCell align="center">Employee Id</TableCell>
                             <TableCell align="center">Material Code</TableCell>
                             <TableCell align="center">Quantity Requested</TableCell>
+                            <TableCell align="center">Remark</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -34,10 +33,9 @@ function Popup({ tableValues }) {
                                 key={row.mcode}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell align="center">{row.empName}</TableCell>
-                                <TableCell align="center">{row.empId}</TableCell>
                                 <TableCell align="center">{row.mcode}</TableCell>
                                 <TableCell align="center">{row.mquantity}</TableCell>
+                                <TableCell align="center">{row.remark}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

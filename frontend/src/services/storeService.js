@@ -16,10 +16,10 @@ export function getMaterials(storeId) {
   });
 }
 
-export function getMatetrialDestructs(storeId) {
+export function getMatetrialDestructs(storeId, remark = false) {
   return new Promise((resolve, reject) => {
     axios
-      .get(HOST + "/store/destroy?storeId=" + storeId)
+      .get(HOST + "/store/destroy?storeId=" + storeId + ((remark) ? `&remark=true` : ''))
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -34,7 +34,7 @@ export function getMatetrialDestructs(storeId) {
 export function materialDestruct(material) {
   return new Promise((resolve, reject) => {
     axios
-      .get(HOST + "/store/destroy", material)
+      .post(HOST + "/store/destroy", material)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);

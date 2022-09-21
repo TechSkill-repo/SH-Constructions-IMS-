@@ -22,40 +22,48 @@ const getMaterials = async (req, res) => {
 };
 
 const materialDestruct = async (req, res) => {
-  const { storeId, mcode, mquantity, empName, empId, Ddate } = req.body;
+  const { storeId, mcode, mquantity, empName, empId, Ddate, remark } = req.body;
 
   const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
   await query.get().then(querySnapshot => {
-    if (querySnapshot => {
-      if (querySnapshot.empty) {
-        res.status(404).json({ "message": "Material not found" });
-      } else {
-        querySnapshot.forEach(async doc => {
-          const data = doc.data();
-          if (parseInt(mquantity) > data.mquantity) {
-            res.status(403).json({ "message": "Not enough material quantity" });
-          } else {
-            data.mquantity = "" + (parseInt(data.mquantity) - parseInt(mquantity));
+    if (querySnapshot.empty) {
+      res.status(404).json({ "message": "Material not found" });
+    } else {
+      querySnapshot.forEach(async doc => {
+        const data = doc.data();
+        if (parseInt(mquantity) > data.mquantity) {
+          res.status(403).json({ "message": "Not enough material quantity" });
+        } else {
+          data.mquantity = "" + (parseInt(data.mquantity) - parseInt(mquantity));
 
-            await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
-            await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+          await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+          await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
 
+          if (empId) {
             const docRef = db.collection("stores").doc(storeId).collection("employees").doc();
             await docRef.set({ empId, empName, mcode, mquantity, Ddate });
-
-            res.status(200).json({ "message": "Material Destroyed" });
+          } else {
+            const docRef = db.collection("stores").doc(storeId).collection("damage").doc();
+            await docRef.set({ mcode, mquantity, Ddate, remark });
           }
-        });
-      }
-    });
+
+          res.status(200).json({ "message": "Material Destroyed" });
+        }
+      });
+    }
   });
 }
 
 const getMatetrialDestructs = async (req, res) => {
-  const storeId = req.query.storeId;
+  const { storeId, remark } = req.query;
   const items = [];
 
-  const query = db.collection("stores").doc(storeId).collection("employees");
+  let query;
+
+  if (remark)
+    query = db.collection("stores").doc(storeId).collection("damage");
+  else
+    query = db.collection("stores").doc(storeId).collection("employees");
 
   await query.get().then(querySnapshot => {
     if (querySnapshot.empty) {

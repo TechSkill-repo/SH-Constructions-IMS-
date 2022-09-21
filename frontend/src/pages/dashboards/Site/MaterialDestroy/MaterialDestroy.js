@@ -15,7 +15,7 @@ import MaterialTable from "material-table";
 import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
-function MaterialIssue() {
+function MaterialDestroy() {
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
@@ -24,8 +24,7 @@ function MaterialIssue() {
   const [items, setItems] = useState([
     {
       storeId: user ? user.storeId : "",
-      empName: "",
-      empId: "",
+      remark: "",
       mcode: "",
       Ddate: getCurrentDate(),
       mquantity: ""
@@ -52,7 +51,7 @@ function MaterialIssue() {
 
   useEffect(() => {
     async function fetch() {
-      await getMatetrialDestructs(storeId)
+      await getMatetrialDestructs(storeId, true)
         .then((data) => {
           setData(data.items);
         })
@@ -112,8 +111,7 @@ function MaterialIssue() {
       ...items,
       {
         storeId: user ? user.storeId : "",
-        empName: "",
-        empId: "",
+        remark: "",
         mcode: "",
         Ddate: getCurrentDate(),
         mquantity: ""
@@ -141,15 +139,14 @@ function MaterialIssue() {
   };
 
   const columns = [
-    { title: "Emp.ID", field: "empId", filterPlaceholder: "filter" },
     { title: "Emp.Name", field: "empName", filterPlaceholder: "filter" },
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "Date", field: "Ddate", filterPlaceholder: "filter" },
     {
       title: "Qty.",
       field: "mquantity",
       filterPlaceholder: "filter",
-    }
+    },
+    { title: "Remark", field: "remark", filterPlaceholder: "filter" }
   ];
 
   return (
@@ -347,4 +344,4 @@ function MaterialIssue() {
   );
 }
 
-export default MaterialIssue;
+export default MaterialDestroy;
