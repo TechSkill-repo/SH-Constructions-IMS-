@@ -16,7 +16,7 @@ export function getMaterials(storeId) {
   });
 }
 
-export function getMatetrialDestructs(storeId, remark = false) {
+export function getMatetrialDestructs(storeId, remark) {
   return new Promise((resolve, reject) => {
     axios
       .get(HOST + "/store/destroy?storeId=" + storeId + ((remark) ? `&remark=true` : ''))

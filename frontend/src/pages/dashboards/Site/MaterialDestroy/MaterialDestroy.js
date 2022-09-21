@@ -134,12 +134,12 @@ function MaterialDestroy() {
     });
 
     setTimeout(() => {
-      window.location.href = "/material-issue";
+      window.location.href = "/material-damage";
     }, 3000);
   };
 
   const columns = [
-    { title: "Emp.Name", field: "empName", filterPlaceholder: "filter" },
+    { title: "M.code", field: "mcode", filterPlaceholder: "filter" },
     { title: "Date", field: "Ddate", filterPlaceholder: "filter" },
     {
       title: "Qty.",
@@ -212,22 +212,10 @@ function MaterialDestroy() {
               <Grid item xs={12} md={5}>
                 <TextField
                   variant="outlined"
-                  name="empId"
-                  label="Employee ID"
+                  name="remark"
+                  label="Quantity Request"
                   type="text"
-                  value={item.empId}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <TextField
-                  variant="outlined"
-                  name="empName"
-                  label="Employee Name"
-                  type="text"
-                  value={item.empName}
+                  value={item.remark}
                   onChange={(e) => {
                     handleInputChange(item.slip_no, e);
                   }}
@@ -311,7 +299,7 @@ function MaterialDestroy() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Material Issue"
+          title="Material Destroy"
           icons={{ Add: () => <AddIcon /> }}
         />
       </div>
