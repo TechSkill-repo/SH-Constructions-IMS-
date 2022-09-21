@@ -16,10 +16,6 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
 function MaterialIssue() {
-  const uniqueId = () => {
-    var id = "id" + Math.random().toString(16).slice(2);
-    return id.substring(3, 8);
-  };
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;

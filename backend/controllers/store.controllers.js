@@ -22,7 +22,7 @@ const getMaterials = async (req, res) => {
 };
 
 const materialDestruct = async (req, res) => {
-  const { storeId, mcode, mquantity, empName, empId, Ddate } = req.query;
+  const { storeId, mcode, mquantity, empName, empId, Ddate } = req.body;
 
   const query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
   await query.get().then(querySnapshot => {
