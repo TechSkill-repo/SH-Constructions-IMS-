@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { checkIsReturned, getApprovedLoans, loanReturn } from "../../../../../services/loanService";
+import {
+  checkIsReturned,
+  getApprovedLoans,
+  loanReturn,
+} from "../../../../../services/loanService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -35,36 +39,89 @@ function ApprovedLone() {
   }
 
   const columns = [
-    { title: "Date", field: "lendDate", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>{rowData.lendDate}</span>) },
-    { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>{rowData.lendQuantity}</span>) },
+    {
+      title: "Date",
+      field: "lendDate",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span
+          style={{
+            backgroundColor: rowData.returned === true ? "red" : "",
+          }}
+        >
+          {rowData.lendDate}
+        </span>
+      ),
+    },
+    {
+      title: "Qty",
+      field: "lendQuantity",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span style={{ color: rowData.returned && "red" }}>
+          {rowData.lendQuantity}
+        </span>
+      ),
+    },
     {
       title: "Location",
       field: "requestedStoreId",
       filterPlaceholder: "filter",
-      render: (rowData) => ((rowData.returned && <span style={{ color: "red" }}>rowData.requestedStoreId</span>) ||
-        <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.requestedStoreId}
+      render: (rowData) =>
+        (rowData.returned && (
+          <span style={{ color: "red" }}>{rowData.requestedStoreId}</span>
+        )) || (
+          <span style={{ color: "green", fontWeight: "600" }}>
+            {rowData.requestedStoreId}
+          </span>
+        ),
+    },
+    {
+      title: "M.Code",
+      field: "mcode",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span style={{ color: rowData.returned && "red" }}>
+          {rowData.mcode}
         </span>
       ),
     },
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>rowData.requestedStoreId</span>) },
-    { title: "M.Name", field: "mname", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>rowData.requestedStoreId</span>) },
+    {
+      title: "M.Name",
+      field: "mname",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span style={{ color: rowData.returned && "red" }}>
+          {rowData.mname}
+        </span>
+      ),
+    },
     {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
-      render: (rowData) => ((rowData.returned && <span style={{ color: "red" }}>rowData.requestedStoreId</span>) ||
-        <span
-          style={{
-            color: `${rowData.category == "consumable" ? "red" : "green"}`,
-            fontWeight: "600",
-          }}
-        >
-          {rowData.category}
-        </span>
+      render: (rowData) =>
+        (rowData.returned && (
+          <span style={{ color: "red" }}>rowData.requestedStoreId</span>
+        )) || (
+          <span
+            style={{
+              color: `${rowData.category == "consumable" ? "red" : "green"}`,
+              fontWeight: "600",
+            }}
+          >
+            {rowData.category}
+          </span>
+        ),
+    },
+    {
+      title: "U.O.M",
+      field: "uom",
+      filterPlaceholder: "filter",
+      render: (rowData) => (
+        <span style={{ color: rowData.returned && "red" }}>{rowData.uom}</span>
       ),
     },
-    { title: "U.O.M", field: "uom", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>rowData.requestedStoreId</span>) },
   ];
 
   return (
@@ -114,18 +171,18 @@ function ApprovedLone() {
               tooltip: "Return",
               onClick: async (event, rowData) => {
                 const data = await checkIsReturned(rowData.slip_no);
-                const returned = data.returned;
+                rowData.returned = data.returned;
                 console.log(data);
                 rowData.returnDate = getCurrentDate();
 
-                if (!returned) {
+                if (!rowData.returned) {
                   loanReturn(rowData)
                     .then((resp) => console.log(resp))
                     .catch((err) => console.log(err.response));
 
-                  window.location = '/loan-approval';
+                  window.location = "/loan-approval";
                 }
-              }
+              },
             },
           ]}
           columns={columns}
