@@ -76,7 +76,12 @@ function LoanReturn() {
               tooltip: "Approve",
               onClick: async (event, rowData) => {
                 loanReturnApprove(rowData)
-                  .then((resp) => console.log(resp))
+                  .then((resp) => {
+                    console.log(resp);
+                    setTimeout(() => {
+                      window.location = '/loan-return';
+                    }, 3000);
+                  })
                   .catch((err) => console.log(err.response));
               },
               color: "blue",

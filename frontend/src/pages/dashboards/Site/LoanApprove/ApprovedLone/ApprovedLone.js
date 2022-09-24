@@ -22,7 +22,16 @@ function ApprovedLone() {
   useEffect(() => {
     getApprovedLoans(storeId, true)
       .then((data) => {
-        setItems(data.items);
+        let temp = data.items;
+
+        temp.map(async item => {
+          const data = await checkIsReturned(item.slip_no);
+          item.returned = data.returned;
+          // console.log(item);
+          return item;
+        });
+
+        setItems(temp);
       })
       .catch((err) => {
         console.log(err);
@@ -43,84 +52,52 @@ function ApprovedLone() {
       title: "Date",
       field: "lendDate",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span
-          style={{
-            backgroundColor: rowData.returned === true ? "red" : "",
-          }}
-        >
-          {rowData.lendDate}
-        </span>
-      ),
     },
     {
       title: "Qty",
       field: "lendQuantity",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span style={{ color: rowData.returned && "red" }}>
-          {rowData.lendQuantity}
-        </span>
-      ),
     },
     {
       title: "Location",
       field: "requestedStoreId",
       filterPlaceholder: "filter",
       render: (rowData) =>
-        (rowData.returned && (
-          <span style={{ color: "red" }}>{rowData.requestedStoreId}</span>
-        )) || (
-          <span style={{ color: "green", fontWeight: "600" }}>
-            {rowData.requestedStoreId}
-          </span>
-        ),
+      (
+        <span style={{ color: "green", fontWeight: "600" }}>
+          {rowData.requestedStoreId}
+        </span>
+      ),
     },
     {
       title: "M.Code",
       field: "mcode",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span style={{ color: rowData.returned && "red" }}>
-          {rowData.mcode}
-        </span>
-      ),
     },
     {
       title: "M.Name",
       field: "mname",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span style={{ color: rowData.returned && "red" }}>
-          {rowData.mname}
-        </span>
-      ),
     },
     {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
       render: (rowData) =>
-        (rowData.returned && (
-          <span style={{ color: "red" }}>rowData.requestedStoreId</span>
-        )) || (
-          <span
-            style={{
-              color: `${rowData.category == "consumable" ? "red" : "green"}`,
-              fontWeight: "600",
-            }}
-          >
-            {rowData.category}
-          </span>
-        ),
+      (<span
+        style={{
+          color: `${rowData.category == "consumable" ? "red" : "green"}`,
+          fontWeight: "600",
+        }}
+      >
+        {rowData.category}
+      </span>
+      ),
     },
     {
       title: "U.O.M",
       field: "uom",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span style={{ color: rowData.returned && "red" }}>{rowData.uom}</span>
-      ),
     },
   ];
 
@@ -170,17 +147,18 @@ function ApprovedLone() {
               icon: "checkbox",
               tooltip: "Return",
               onClick: async (event, rowData) => {
-                const data = await checkIsReturned(rowData.slip_no);
-                rowData.returned = data.returned;
                 console.log(data);
                 rowData.returnDate = getCurrentDate();
 
                 if (!rowData.returned) {
                   loanReturn(rowData)
-                    .then((resp) => console.log(resp))
+                    .then((resp) => {
+                      console.log(resp);
+                      setTimeout(() => {
+                        window.location = '/loan-approval'
+                      }, 2000);
+                    })
                     .catch((err) => console.log(err.response));
-
-                  window.location = "/loan-approval";
                 }
               },
             },
@@ -212,8 +190,10 @@ function ApprovedLone() {
               disabled: rowData.age == null,
             }),
             columnsButton: true,
-            rowStyle: (data, index) =>
-              index % 2 === 0 ? { background: "#f5f5f5" } : null,
+            rowStyle: (data, index) => {
+              console.log(data);
+              return { background: index % 2 === 0 ? "#f5f5f5" : "", color: data.returned === true ? "red" : "black" }
+            },
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
           title="Approved Lone"
