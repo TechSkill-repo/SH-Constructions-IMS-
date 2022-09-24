@@ -24,7 +24,7 @@ const checkIsIssued = async (req, res) => {
 };
 
 const checkIsReturned = async (req, res) => {
-  const { slip_no } = req.body;
+  const { slip_no } = req.query;
 
   const query = db.collection("loans").doc("return").collection("items").where("slip_no", "==", slip_no);
 

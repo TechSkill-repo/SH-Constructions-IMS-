@@ -35,25 +35,25 @@ function ApprovedLone() {
   }
 
   const columns = [
-    { title: "Date", field: "lendDate", filterPlaceholder: "filter" },
-    { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
+    { title: "Date", field: "lendDate", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>{rowData.lendDate}</span>) },
+    { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>{rowData.lendQuantity}</span>) },
     {
       title: "Location",
       field: "requestedStoreId",
       filterPlaceholder: "filter",
-      render: (rowData) => (
+      render: (rowData) => ((rowData.returned && <span style={{ color: "red" }}>rowData.requestedStoreId</span>) ||
         <span style={{ color: "green", fontWeight: "600" }}>
           {rowData.requestedStoreId}
         </span>
       ),
     },
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
-    { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    { title: "M.Code", field: "mcode", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>rowData.requestedStoreId</span>) },
+    { title: "M.Name", field: "mname", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>rowData.requestedStoreId</span>) },
     {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
-      render: (rowData) => (
+      render: (rowData) => ((rowData.returned && <span style={{ color: "red" }}>rowData.requestedStoreId</span>) ||
         <span
           style={{
             color: `${rowData.category == "consumable" ? "red" : "green"}`,
@@ -64,10 +64,7 @@ function ApprovedLone() {
         </span>
       ),
     },
-    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    // { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-    // { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
-    // { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
+    { title: "U.O.M", field: "uom", filterPlaceholder: "filter", render: (rowData) => (<span style={{ color: rowData.returned && "red" }}>rowData.requestedStoreId</span>) },
   ];
 
   return (
@@ -116,13 +113,17 @@ function ApprovedLone() {
               icon: "checkbox",
               tooltip: "Return",
               onClick: async (event, rowData) => {
-                const returned = await checkIsReturned();
+                const data = await checkIsReturned(rowData.slip_no);
+                const returned = data.returned;
+                console.log(data);
                 rowData.returnDate = getCurrentDate();
 
                 if (!returned) {
                   loanReturn(rowData)
                     .then((resp) => console.log(resp))
                     .catch((err) => console.log(err.response));
+
+                  window.location = '/loan-approval';
                 }
               }
             },
