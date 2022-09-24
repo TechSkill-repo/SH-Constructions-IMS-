@@ -19,7 +19,8 @@ import FireplaceIcon from "@mui/icons-material/Fireplace";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
+import DonutSmallIcon from "@mui/icons-material/DonutSmall";
+import UpcomingIcon from "@mui/icons-material/Upcoming";
 // All pages that rely on 3rd party components (other than Material-UI) are
 // loaded asynchronously, to keep the initial JS bundle to a minimum size
 
@@ -44,6 +45,7 @@ import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonCons
 import MIConsumbaleTable from "../pages/dashboards/Central/MaterialIssue/MIConsumableTable";
 import MINonConsumableTable from "../pages/dashboards/Central/MaterialIssue/MINonConsumableTable";
 import Allproducts from "../pages/dashboards/Central/AllProducts/Allproducts";
+import MaterialReceiveTable from "../pages/dashboards/Central/MaterialReceive/MaterialReceiveTable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -156,12 +158,20 @@ const criticalTool = {
   component: CriticalTool,
 };
 
+const materialReceive = {
+  id: "Material App & Rec",
+  path: "/material-receive",
+  icon: <UpcomingIcon />,
+  children: null,
+  component: MaterialReceiveTable,
+};
+
 const allProducts = {
   id: "All Products",
   path: "/all-products",
-  icon: <ShoppingCart />,
-  component: Allproducts
-}
+  icon: <DonutSmallIcon />,
+  component: Allproducts,
+};
 
 const monitorStoreLone = {
   id: "Monitor Store Lone",
@@ -199,6 +209,7 @@ const landingRoutes = {
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
+  materialReceive,
   materialRequest,
   consumables,
   materialIssue,
@@ -211,7 +222,7 @@ export const dashboardLayoutRoutes = [
   mi_consumableTable,
   mi_non_consumableTable,
   criticalTool,
-  allProducts
+  allProducts,
 ];
 
 // Routes using the Auth layout
@@ -223,6 +234,7 @@ export const presentationLayoutRoutes = [landingRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
+  materialReceive,
   consumables,
   non_consumables,
   materialRequest,
@@ -231,5 +243,5 @@ export const sidebarRoutes = [
   criticalTools,
   monitorStoreLone,
   requisitionForm,
-  allProducts
+  allProducts,
 ];

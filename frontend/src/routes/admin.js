@@ -26,6 +26,7 @@ const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 
 import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
+import MaterialReceiveTable from "../pages/dashboards/Central/MaterialReceive/MaterialReceiveTable";
 import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
 
 const dashboardsRoutes = {
@@ -51,12 +52,12 @@ const projectsRoutes = {
   children: null,
 };
 
-const authRoutes = {
+const material = {
   id: "Material Issue",
-  path: "/material-issue",
+  path: "/material-receive",
   icon: <Users />,
   children: null,
-  component: null,
+  component: MaterialReceiveTable,
 };
 
 const consumables = {
@@ -113,12 +114,10 @@ export const dashboardLayoutRoutes = [
   dashboardsRoutes,
   projectsRoutes,
   componentsRoutes,
+  material,
   consumables,
-  non_consumables
+  non_consumables,
 ];
-
-// Routes using the Auth layout
-export const authLayoutRoutes = [authRoutes];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
@@ -128,7 +127,7 @@ export const sidebarRoutes = [
   dashboardsRoutes,
   projectsRoutes,
   consumables,
+  material,
   non_consumables,
-  authRoutes,
   componentsRoutes,
 ];
