@@ -17,6 +17,7 @@ function ApprovedLone() {
   const [showForm, setShowForm] = useState(false);
   const [items, setItems] = useState([]);
   const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const [x, setX] = useState(false);
   const storeId = user.storeId;
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function ApprovedLone() {
       .then((data) => {
         let temp = data.items;
 
-        temp.map(async item => {
+        temp.map(async (item) => {
           const data = await checkIsReturned(item.slip_no);
           item.returned = data.returned;
           // console.log(item);
@@ -62,8 +63,7 @@ function ApprovedLone() {
       title: "Location",
       field: "requestedStoreId",
       filterPlaceholder: "filter",
-      render: (rowData) =>
-      (
+      render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
           {rowData.requestedStoreId}
         </span>
@@ -83,15 +83,15 @@ function ApprovedLone() {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
-      render: (rowData) =>
-      (<span
-        style={{
-          color: `${rowData.category == "consumable" ? "red" : "green"}`,
-          fontWeight: "600",
-        }}
-      >
-        {rowData.category}
-      </span>
+      render: (rowData) => (
+        <span
+          style={{
+            color: `${rowData.category == "consumable" ? "red" : "green"}`,
+            fontWeight: "600",
+          }}
+        >
+          {rowData.category}
+        </span>
       ),
     },
     {
@@ -99,10 +99,29 @@ function ApprovedLone() {
       field: "uom",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Status",
+      field: "returned",
+      render: (data) => {
+        let returned;
+
+        setTimeout(() => {
+          console.log(data.returned);
+          returned = data.returned;
+          console.log(returned, "rrerererer");
+          if (returned === true) {
+            setX(true);
+          } else {
+            return <span style={{ color: "red" }}>"She"</span>;
+          }
+        }, 1000);
+      },
+    },
   ];
 
   return (
     <>
+      {x && <span style={{ color: "green" }}>He</span>}
       <Grid
         container
         spacing={2}
@@ -147,7 +166,6 @@ function ApprovedLone() {
               icon: "checkbox",
               tooltip: "Return",
               onClick: async (event, rowData) => {
-                console.log(data);
                 rowData.returnDate = getCurrentDate();
 
                 if (!rowData.returned) {
@@ -155,7 +173,7 @@ function ApprovedLone() {
                     .then((resp) => {
                       console.log(resp);
                       setTimeout(() => {
-                        window.location = '/loan-approval'
+                        window.location = "/loan-approval";
                       }, 2000);
                     })
                     .catch((err) => console.log(err.response));
@@ -191,8 +209,11 @@ function ApprovedLone() {
             }),
             columnsButton: true,
             rowStyle: (data, index) => {
-              console.log(data);
-              return { background: index % 2 === 0 ? "#f5f5f5" : "", color: data.returned === true ? "red" : "black" }
+              // console.log(data);
+              return {
+                background: index % 2 === 0 ? "#f5f5f5" : "",
+                color: data.returned === true ? "red" : "black",
+              };
             },
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
