@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  getMaterial,
-  putMaterial,
-  issueConsumableMaterial,
-  checkIsIssued,
+  getIssuedMaterial,
+  putIssuedMaterial,
+  acceptNonConsumableMaterial,
+  checkIsAccepted,
 } from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@mui/material";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
-function ConsumableTable() {
+function AcceptNonConsumableTable() {
   const [items, setItems] = useState([]);
-  const category = "consumable";
+  const category = "non-consumable";
 
   useEffect(() => {
     async function fetch() {
-      await getMaterial(category)
+      await getIssuedMaterial(category)
         .then((data) => {
           setItems(data.items);
         })
@@ -50,49 +49,54 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
     },
     {
-      title: "Status",
+      title: "Qty.Accepted",
+      field: "quantity_acpt",
       filterPlaceholder: "filter",
-      render: (rowData) =>
-        rowData.quantity_aprv?.length ? (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(76,175,80,0.1)",
-                color: "#4caf50",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Approved
-            </span>
-          </div>
-        ) : (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(244,67,54,0.1)",
-                color: "#f44336",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Pending
-            </span>
-          </div>
-        ),
     },
+    // {
+    //   title: "Status",
+    //   filterPlaceholder: "filter",
+    //   render: (rowData) =>
+    //     rowData.quantity_aprv?.length ? (
+    //       <div style={{ width: "100%", textAlign: "center" }}>
+    //         <span
+    //           style={{
+    //             backgroundColor: "rgba(76,175,80,0.1)",
+    //             color: "#4caf50",
+    //             fontWeight: "bold",
+    //             border: "",
+    //             borderRadius: "3px",
+    //             padding: "5px 8px",
+    //           }}
+    //         >
+    //           Approved
+    //         </span>
+    //       </div>
+    //     ) : (
+    //       <div style={{ width: "100%", textAlign: "center" }}>
+    //         <span
+    //           style={{
+    //             backgroundColor: "rgba(244,67,54,0.1)",
+    //             color: "#f44336",
+    //             fontWeight: "bold",
+    //             border: "",
+    //             borderRadius: "3px",
+    //             padding: "5px 8px",
+    //           }}
+    //         >
+    //           Pending
+    //         </span>
+    //       </div>
+    //     ),
+    // },
   ];
 
   return (
     <>
       <div>
         <Grid item>
-          <Typography variant="h5" gutterBottom>
-            Consumable Items
+          <Typography variant="h3" gutterBottom>
+            Non-Consumable Items
           </Typography>
         </Grid>
       </div>
@@ -100,12 +104,13 @@ function ConsumableTable() {
         actions={[
           {
             icon: "checkbox",
-            tooltip: "Approve",
+            tooltip: "Accept",
+            style: { color: "red" },
             onClick: async (event, rowData) => {
-              const data = await checkIsIssued(rowData.slip_no, category);
+              const data = await checkIsAccepted(rowData.slip_no);
               console.log(data);
-              if (rowData.quantity_aprv?.length && !data.issued) {
-                issueConsumableMaterial(rowData)
+              if (rowData.quantity_acpt?.length && !data.accepted) {
+                acceptNonConsumableMaterial(rowData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
               }
@@ -124,15 +129,15 @@ function ConsumableTable() {
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-              if (!oldData.quantity_aprv?.length) {
+              if (!oldData.quantity_acpt?.length) {
                 const dataUpdate = [...items];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
 
-                newData.category = "consumable";
+                newData.category = "non-consumable";
 
-                putMaterial(newData)
+                putIssuedMaterial(newData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
 
@@ -170,7 +175,7 @@ function ConsumableTable() {
           columnsButton: true,
           rowStyle: (data, index) =>
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
-          headerStyle: { background: "#376fd0", color: "#fff" },
+          headerStyle: { background: "#233044", color: "#fff" },
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
@@ -179,4 +184,4 @@ function ConsumableTable() {
   );
 }
 
-export default ConsumableTable;
+export default AcceptNonConsumableTable;

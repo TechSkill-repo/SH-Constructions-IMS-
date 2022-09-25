@@ -23,9 +23,31 @@ const getMaterial = (category) => {
   });
 }
 
+const getIssuedMaterial = (category) => {
+  return new Promise((resolve, reject) => {
+    return axios.get(HOST + '/admin/issue/query?category=' + category)
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+}
+
+const getAcceptedMaterial = () => {
+  return new Promise((resolve, reject) => {
+    return axios.get(HOST + '/admin/accept/query')
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+}
+
 const putMaterial = (material) => {
   return new Promise((resolve, reject) => {
-    return axios.put(HOST + '/admin/edit', material)
+    return axios.put(HOST + '/admin/issue/edit', material)
       .then(resp => {
         resolve(resp.data);
       }).catch(err => {
@@ -34,10 +56,36 @@ const putMaterial = (material) => {
   });
 };
 
-function checkIsIssued(slip_no) {
+const putIssuedMaterial = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios.put(HOST + '/admin/accept/edit', material)
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+};
+
+function checkIsIssued(slip_no, category) {
   return new Promise((resolve, reject) => {
     axios
-      .get(HOST + "/admin/check?slip_no=" + slip_no)
+      .get(HOST + "/admin/issue/check?slip_no=" + slip_no + "&category=" + category)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+function checkIsAccepted(slip_no) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/admin/accept/check?slip_no=" + slip_no)
       .then(response => {
         if (response.status === 200) {
           resolve(response.data);
@@ -52,7 +100,7 @@ function checkIsIssued(slip_no) {
 function issueConsumableMaterial(material) {
   return new Promise((resolve, reject) => {
     axios
-      .post(HOST + "/admin/consumable", material)
+      .post(HOST + "/admin/issue/consumable", material)
       .then((response) => {
         if (response.status === 201) {
           resolve(response.data);
@@ -67,7 +115,7 @@ function issueConsumableMaterial(material) {
 function issueNonConsumableMaterial(material) {
   return new Promise((resolve, reject) => {
     axios
-      .post(HOST + "/admin/non-consumable", material)
+      .post(HOST + "/admin/issue/non-consumable", material)
       .then((response) => {
         if (response.status === 201) {
           resolve(response.data);
@@ -79,4 +127,34 @@ function issueNonConsumableMaterial(material) {
   });
 }
 
-export { getMaterial, requisition, putMaterial, issueConsumableMaterial, issueNonConsumableMaterial, checkIsIssued };
+function acceptConsumableMaterial(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/admin/accept/consumable", material)
+      .then((response) => {
+        if (response.status === 201) {
+          resolve(response.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+function acceptNonConsumableMaterial(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/admin/accept/non-consumable", material)
+      .then((response) => {
+        if (response.status === 201) {
+          resolve(response.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+export { getMaterial, getIssuedMaterial, getAcceptedMaterial, requisition, putMaterial, putIssuedMaterial, issueConsumableMaterial, issueNonConsumableMaterial, acceptConsumableMaterial, acceptNonConsumableMaterial, checkIsIssued, checkIsAccepted };

@@ -44,6 +44,8 @@ import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonCons
 import MIConsumbaleTable from "../pages/dashboards/Central/MaterialIssue/MIConsumableTable";
 import MINonConsumableTable from "../pages/dashboards/Central/MaterialIssue/MINonConsumableTable";
 import Allproducts from "../pages/dashboards/Central/AllProducts/Allproducts";
+import AcceptConsumableTable from "../pages/dashboards/Central/AcceptMaterials/AcceptConsumable";
+import AcceptNonConsumableTable from "../pages/dashboards/Central/AcceptMaterials/AcceptNonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -163,6 +165,24 @@ const allProducts = {
   component: Allproducts
 }
 
+const acceptMaterials = {
+  id: "Accept Materials",
+  path: "/accept",
+  icon: <GridViewIcon />,
+  children: [
+    {
+      path: "/accept-consumables",
+      name: "Consumables",
+      component: AcceptConsumableTable,
+    },
+    {
+      path: "/accept-non-consumables",
+      name: "Non-Consumables",
+      component: AcceptNonConsumableTable,
+    },
+  ],
+};
+
 const monitorStoreLone = {
   id: "Monitor Store Lone",
   path: "/monitor-lone",
@@ -211,7 +231,8 @@ export const dashboardLayoutRoutes = [
   mi_consumableTable,
   mi_non_consumableTable,
   criticalTool,
-  allProducts
+  allProducts,
+  acceptMaterials
 ];
 
 // Routes using the Auth layout
@@ -231,5 +252,6 @@ export const sidebarRoutes = [
   criticalTools,
   monitorStoreLone,
   requisitionForm,
-  allProducts
+  allProducts,
+  acceptMaterials
 ];
