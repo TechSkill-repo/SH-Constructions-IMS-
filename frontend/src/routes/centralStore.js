@@ -46,6 +46,7 @@ import MINonConsumableTable from "../pages/dashboards/Central/MaterialIssue/MINo
 import Allproducts from "../pages/dashboards/Central/AllProducts/Allproducts";
 import AcceptConsumableTable from "../pages/dashboards/Central/AcceptMaterials/AcceptConsumable";
 import AcceptNonConsumableTable from "../pages/dashboards/Central/AcceptMaterials/AcceptNonConsumable";
+import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -162,13 +163,13 @@ const allProducts = {
   id: "All Products",
   path: "/all-products",
   icon: <ShoppingCart />,
-  component: Allproducts
-}
+  component: Allproducts,
+};
 
 const acceptMaterials = {
-  id: "Accept Materials",
+  id: "Material App & Rec",
   path: "/accept",
-  icon: <GridViewIcon />,
+  icon: <InstallDesktopIcon />,
   children: [
     {
       path: "/accept-consumables",
@@ -220,6 +221,7 @@ const landingRoutes = {
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
   materialRequest,
+  acceptMaterials,
   consumables,
   materialIssue,
   criticalTools,
@@ -232,7 +234,6 @@ export const dashboardLayoutRoutes = [
   mi_non_consumableTable,
   criticalTool,
   allProducts,
-  acceptMaterials
 ];
 
 // Routes using the Auth layout
@@ -244,6 +245,7 @@ export const presentationLayoutRoutes = [landingRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
+  acceptMaterials,
   consumables,
   non_consumables,
   materialRequest,
@@ -253,5 +255,4 @@ export const sidebarRoutes = [
   monitorStoreLone,
   requisitionForm,
   allProducts,
-  acceptMaterials
 ];
