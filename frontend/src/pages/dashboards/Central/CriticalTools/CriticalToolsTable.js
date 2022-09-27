@@ -28,6 +28,7 @@ function CriticalToolsTable({ productId }) {
     // },
     { title: "Entry Date", field: "entryDate", filterPlaceholder: "filter" },
     // { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
+    { title: "Store Location", field: "storeId", filterPlaceholder: "storeId" },
     { title: "Make", field: "make", filterPlaceholder: "filter" },
     { title: "Serial no.", field: "serialNo", filterPlaceholder: "filter" },
     { title: "Due Date", field: "dueDate", filterPlaceholder: "filter" },
