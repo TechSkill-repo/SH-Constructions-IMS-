@@ -81,7 +81,7 @@ function CriticalTools(props) {
           <Link style={{ textDecoration: "none" }} to="/critical-tool/WS01">
             <Stats
               title="SHWS001"
-              amount="Wire Sling"
+              amount="WEB Sling"
               chip="RK Srivastava"
               percentageText="Meter"
               percentagecolor={green[500]}
@@ -114,7 +114,7 @@ function CriticalTools(props) {
           <Link style={{ textDecoration: "none" }} to="/critical-tool/GD01">
             <Stats
               title="SHGD08"
-              amount="Gas Detector"
+              amount="CO Gas Detector"
               chip="Hashim Khan"
               percentageText="No.s"
               percentagecolor={red[500]}

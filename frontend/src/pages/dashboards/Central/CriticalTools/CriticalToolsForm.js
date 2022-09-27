@@ -4,10 +4,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
-import { Typography } from "@material-ui/core";
+import { MenuItem, Typography } from "@material-ui/core";
 import { postCriticalTools } from "../../../../services/criticalTools";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function ConsumablesForm({ productId }) {
+  const [storeId, setStoreId] = useState("");
   const [mcode, setMcode] = useState("");
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
@@ -25,6 +29,7 @@ function ConsumablesForm({ productId }) {
     setShowSuccess(true);
 
     postCriticalTools({
+      storeId,
       mcode,
       mname,
       productId,
@@ -50,6 +55,97 @@ function ConsumablesForm({ productId }) {
     //   showError(true);
     // }
   };
+
+  const storeLocation = [
+    {
+      value: "EC01",
+      label: "COOKE PLANT",
+    },
+    {
+      value: "E22",
+      label: "RMM",
+    },
+    {
+      value: "E13",
+      label: "RMBB",
+    },
+    {
+      value: "E17",
+      label: "RMBB2",
+    },
+    {
+      value: "E27",
+      label: "GBF",
+    },
+    {
+      value: "E15",
+      label: "SP#3,4",
+    },
+    {
+      value: "E23",
+      label: "SP#1,2",
+    },
+    {
+      value: "E24",
+      label: "MM",
+    },
+    {
+      value: "E20",
+      label: "LD#01",
+    },
+    {
+      value: "E30",
+      label: "PP",
+    },
+    {
+      value: "E28",
+      label: "MRSPP",
+    },
+    {
+      value: "ILL",
+      label: "LINE PLANT",
+    },
+  ];
+
+  const makers = [
+    {
+      value: "Elephant",
+      label: "Elephant",
+    },
+    {
+      value: "Keto",
+      label: "Keto",
+    },
+    {
+      value: "MSA",
+      label: "MSA",
+    },
+    { value: "Drager", label: "Drager" },
+    {
+      value: "Honeywel",
+      label: "Honeywel",
+    },
+    {
+      value: "Honeywel",
+      label: "Honeywel",
+    },
+    {
+      value: "Kanex",
+      label: "Kanex",
+    },
+    {
+      value: "Safex",
+      label: "Safex",
+    },
+    {
+      value: "Alied",
+      label: "Toshan",
+    },
+    {
+      value: "AllStar",
+      labels: "All Star",
+    },
+  ];
 
   return (
     <Box
@@ -95,12 +191,12 @@ function ConsumablesForm({ productId }) {
             }}
           />
         </Grid> */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
           <TextField
             // required
             id="serialNo"
             label="Serial Number"
-            type="number"
+            type="text"
             value={serialNo}
             // error={error && serialNo == "" ? true : false}
             onChange={(e) => {
@@ -108,8 +204,8 @@ function ConsumablesForm({ productId }) {
             }}
           />
         </Grid>
-        {/* <Grid item xs={12} md={6}>
-          <TextField
+        <Grid item xs={12} md={4}>
+          {/* <TextField
             // required
             id="uom"
             label="Unit of Measurement"
@@ -119,46 +215,78 @@ function ConsumablesForm({ productId }) {
             onChange={(e) => {
               setUom(e.target.value);
             }}
-          />
-        </Grid> */}
-        <Grid item xs={12} md={6}>
+          /> */}
+          {/* <TextField
+            id="storeId"
+            label="Site Location"
+            type="text"
+            value={storeId}
+            onChange={(e) => {
+              setStoreId(e.target.value);
+            }}
+          /> */}
+          <TextField
+            id="storeId"
+            select
+            label="Site Location"
+            type="text"
+            value={storeId}
+            onChange={(e) => {
+              setStoreId(e.target.value);
+            }}
+          >
+            {storeLocation.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={12} md={4}>
           <TextField
             // required
             id="make"
+            select
             label="Make"
             type="text"
             value={make}
-            // error={error && make == "" ? true : false}
             onChange={(e) => {
               setMake(e.target.value);
             }}
-          />
+          >
+            {makers.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
-            // required
-            id="entryDate"
-            label="Entry date"
-            type="text"
-            value={entryDate}
-            // error={error && uom == "" ? true : false}
-            onChange={(e) => {
-              setEntryDate(e.target.value);
-            }}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              views={["day"]}
+              label="Entry Date"
+              color="success"
+              value={entryDate}
+              onChange={(newValue) => {
+                setEntryDate(`${newValue.$D}/${newValue.$M}/${newValue.$y}`);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
-            // required
-            id="dueDate"
-            label="Due Date"
-            type="text"
-            value={dueDate}
-            // error={error && make == "" ? true : false}
-            onChange={(e) => {
-              setDueDate(e.target.value);
-            }}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Due Date"
+              color="success"
+              value={dueDate}
+              onChange={(dueValue) => {
+                setDueDate(`${dueValue.$D}/${dueValue.$M}/${dueValue.$y}`);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </Grid>
         {/* <Grid item xs={12}>
           <TextField
