@@ -44,7 +44,6 @@ import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonCons
 import MIConsumbaleTable from "../pages/dashboards/Central/MaterialIssue/MIConsumableTable";
 import MINonConsumableTable from "../pages/dashboards/Central/MaterialIssue/MINonConsumableTable";
 import Allproducts from "../pages/dashboards/Central/AllProducts/Allproducts";
-import ProductList from "../pages/dashboards/Central/ProductList/ProductList";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -161,8 +160,8 @@ const allProducts = {
   id: "All Products",
   path: "/all-products",
   icon: <ShoppingCart />,
-  component: Allproducts,
-};
+  component: Allproducts
+}
 
 const monitorStoreLone = {
   id: "Monitor Store Lone",
@@ -180,11 +179,11 @@ const requisitionForm = {
   children: null,
 };
 
-const productList = {
-  id: "Product List",
-  path: "/product-list",
+const notes = {
+  id: "Remarks",
+  path: "/remarks",
   icon: <ImportContactsIcon />,
-  component: ProductList,
+  component: Remarks,
   children: null,
 };
 
@@ -212,8 +211,7 @@ export const dashboardLayoutRoutes = [
   mi_consumableTable,
   mi_non_consumableTable,
   criticalTool,
-  allProducts,
-  productList,
+  allProducts
 ];
 
 // Routes using the Auth layout
@@ -233,6 +231,5 @@ export const sidebarRoutes = [
   criticalTools,
   monitorStoreLone,
   requisitionForm,
-  allProducts,
-  productList,
+  allProducts
 ];
