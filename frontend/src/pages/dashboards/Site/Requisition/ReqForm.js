@@ -28,7 +28,7 @@ function ReqForm() {
   const [items, setItems] = useState([
     {
       storeId: user ? user.storeId : "",
-      slip_no: uniqueId(),
+      issue_slip_no: uniqueId(),
       mcode: "",
       mname: "",
       mdescription: "",
@@ -85,9 +85,9 @@ function ReqForm() {
     return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
   }
 
-  const handleInputChange = (slip_no, event) => {
+  const handleInputChange = (issue_slip_no, event) => {
     const newItems = items.map((i) => {
-      if (slip_no === i.slip_no) {
+      if (issue_slip_no === i.issue_slip_no) {
         i[event.target.name] = event.target.value;
 
         if (event.target.name === "mcode") {
@@ -107,10 +107,10 @@ function ReqForm() {
     setItems(newItems);
   };
 
-  const handleRemoveClick = (slip_no) => {
+  const handleRemoveClick = (issue_slip_no) => {
     const values = [...items];
     values.splice(
-      values.findIndex((value) => value.slip_no === slip_no),
+      values.findIndex((value) => value.issue_slip_no === issue_slip_no),
       1
     );
     setItems(values);
@@ -121,7 +121,7 @@ function ReqForm() {
       ...items,
       {
         storeId: user ? user.storeId : "",
-        slip_no: uniqueId(),
+        issue_slip_no: uniqueId(),
         mcode: "",
         mname: "",
         mdescription: "",
@@ -155,7 +155,7 @@ function ReqForm() {
   };
 
   const columns = [
-    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    { title: "Slip.No", field: "issue_slip_no", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
@@ -251,7 +251,7 @@ function ReqForm() {
                   label="Material Code"
                   value={item.mcode}
                   onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
+                    handleInputChange(item.issue_slip_no, e);
                   }}
                 >
                   {mcodes.map((mcode) => (
@@ -269,7 +269,7 @@ function ReqForm() {
                   type="text"
                   value={item.quantity_req}
                   onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
+                    handleInputChange(item.issue_slip_no, e);
                   }}
                 />
               </Grid>
@@ -288,7 +288,7 @@ function ReqForm() {
                       color: "#4782da",
                       display: items.length === 1 ? "none" : "",
                     }}
-                    onClick={() => handleRemoveClick(item.slip_no)}
+                    onClick={() => handleRemoveClick(item.issue_slip_no)}
                   />
                   <AddCircleIcon
                     onClick={handleAddClick}
