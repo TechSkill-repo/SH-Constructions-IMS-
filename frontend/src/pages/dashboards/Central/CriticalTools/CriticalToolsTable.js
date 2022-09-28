@@ -5,6 +5,7 @@ import { getCriticalTools } from "../../../../services/criticalTools";
 
 function CriticalToolsTable({ productId }) {
   const [items, setItems] = useState([]);
+  console.log(items, "ccc");
 
   useEffect(() => {
     getCriticalTools()
