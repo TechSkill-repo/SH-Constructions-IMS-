@@ -2,10 +2,10 @@ const db = require('./db.controllers');
 const { io } = require('./socket.controllers');
 
 const requisition = async (req, res) => {
-  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
+  const { storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
 
   const docRef = db.collection("materials").doc("request").collection("items").doc();
-  await docRef.set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location });
+  await docRef.set({ storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location });
 
   io.on('connection', (socket) => {
     socket.emit('siteRequisition', storeId);
@@ -42,7 +42,7 @@ const getMaterial = async (req, res) => {
 }
 
 const editMaterial = async (req, res) => {
-  const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location } = req.body;
+  const { storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location } = req.body;
 
   const query = db.collection("materials").doc("request").collection("items").where("storeId", "==", storeId);
   await query.get().then((querySnapshot) => {
@@ -52,7 +52,7 @@ const editMaterial = async (req, res) => {
       querySnapshot.forEach(async (doc) => {
         if (doc.data().category === category && doc.data().mcode === mcode) {
           await db.collection("materials").doc("request").collection("items").doc(doc.id).delete();
-          await db.collection("materials").doc("request").collection("items").doc(doc.id).set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location })
+          await db.collection("materials").doc("request").collection("items").doc(doc.id).set({ storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location })
         }
       });
 

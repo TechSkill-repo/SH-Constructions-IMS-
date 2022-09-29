@@ -39,7 +39,10 @@ import LoanReqTable from "../pages/dashboards/Site/LoanReqTable/LoanReqTable";
 import ApprovedLone from "../pages/dashboards/Site/LoanApprove/ApprovedLone/ApprovedLone";
 import LoanReturn from "../pages/dashboards/Site/LoanReturn/LoanReturn";
 import MaterialIssue from "../pages/dashboards/Site/MaterialIssue/MaterialIssue";
+import MaterialConsumableAccept from "../pages/dashboards/Site/MaterialAccept/MaterialConsumableAccept";
+import MaterialNonConsumableAccept from "../pages/dashboards/Site/MaterialAccept/MaterialNonConsumableAccept";
 import MaterialDestroy from "../pages/dashboards/Site/MaterialDestroy/MaterialDestroy";
+import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -128,6 +131,24 @@ const materialIssue = {
   component: MaterialIssue,
 };
 
+const materialAccept = {
+  id: "Material Accept",
+  path: "/material-accept",
+  icon: <InstallDesktopIcon />,
+  children: [
+    {
+      path: "/consumable-accept",
+      name: "Consumable",
+      component: MaterialConsumableAccept,
+    },
+    {
+      path: "/non-consumable-accept",
+      name: "Non Consumable",
+      component: MaterialNonConsumableAccept,
+    },
+  ],
+};
+
 const materialDamage = {
   id: "Material Damaged",
   path: "/material-damage",
@@ -152,6 +173,7 @@ export const dashboardLayoutRoutes = [
   consumableRoute,
   non_consumablesRoute,
   materialIssue,
+  materialAccept,
   loanRequest,
   approveLoan,
   loanReqTable,
@@ -169,6 +191,7 @@ export const presentationLayoutRoutes = [landingRoutes];
 export const sidebarRoutes = [
   dashboardsRoutes,
   // siteInventoryRoute,
+  materialAccept,
   consumableRoute,
   non_consumablesRoute,
   materialIssue,

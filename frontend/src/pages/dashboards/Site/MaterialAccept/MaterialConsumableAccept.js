@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import {
-  checkIsIssued,
-  issueConsumableMaterial,
+  getConsumableIssue,
+  checkIsAccepted,
+  acceptConsumableMaterial,
+  putIssuedMaterial
 } from "../../../../services/issueService";
 import Alert from "@mui/material/Alert";
 
-function ConsumableTable() {
+
+function MaterialConsumableAccept() {
   const [items, setItems] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const [message, setMessage] = useState("");
-  const { storeId } = useParams();
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const storeId = user.storeId;
   const category = "consumable";
 
   useEffect(() => {
-    getMaterial(storeId, category)
+    getConsumableIssue(storeId)
       .then((data) => {
         setItems(data.items);
       })
@@ -51,41 +53,46 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
     },
     {
-      title: "Status",
+      title: "Qty.Accept",
+      field: "quantity_acpt",
       filterPlaceholder: "filter",
-      render: (rowData) =>
-        rowData.quantity_aprv?.length ? (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(76,175,80,0.1)",
-                color: "#4caf50",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Approved
-            </span>
-          </div>
-        ) : (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(244,67,54,0.1)",
-                color: "#f44336",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Pending
-            </span>
-          </div>
-        ),
     },
+    // {
+    //   title: "Status",
+    //   filterPlaceholder: "filter",
+    //   render: (rowData) =>
+    //     rowData.quantity_aprv?.length ? (
+    //       <div style={{ width: "100%", textAlign: "center" }}>
+    //         <span
+    //           style={{
+    //             backgroundColor: "rgba(76,175,80,0.1)",
+    //             color: "#4caf50",
+    //             fontWeight: "bold",
+    //             border: "",
+    //             borderRadius: "3px",
+    //             padding: "5px 8px",
+    //           }}
+    //         >
+    //           Approved
+    //         </span>
+    //       </div>
+    //     ) : (
+    //       <div style={{ width: "100%", textAlign: "center" }}>
+    //         <span
+    //           style={{
+    //             backgroundColor: "rgba(244,67,54,0.1)",
+    //             color: "#f44336",
+    //             fontWeight: "bold",
+    //             border: "",
+    //             borderRadius: "3px",
+    //             padding: "5px 8px",
+    //           }}
+    //         >
+    //           Pending
+    //         </span>
+    //       </div>
+    //     ),
+    // },
   ];
 
   return (
@@ -112,18 +119,18 @@ function ConsumableTable() {
             icon: "checkbox",
             tooltip: "Approve",
             onClick: async (event, rowData) => {
-              let issued = false;
-              await checkIsIssued(rowData.slip_no).then((data) => {
-                issued = data.issued;
-                setMessage("Material is already issued.");
+              let accepted = false;
+              await checkIsAccepted(rowData.issue_slip_no).then((data) => {
+                accepted = data.accepted;
+                setMessage("Material is already accepted.");
                 setIsValid(false);
-                setShowAlert(issued);
+                setShowAlert(accepted);
                 setTimeout(() => setShowAlert(false), 3000);
               });
-              if (rowData.quantity_aprv?.length && !issued) {
-                issueConsumableMaterial(rowData)
+              if (rowData.quantity_acpt?.length && !accepted) {
+                acceptConsumableMaterial(rowData)
                   .then((resp) => {
-                    setMessage("Material Issued Successfully");
+                    setMessage("Material Accepted Successfully");
                     setShowAlert(true);
                     setIsValid(true);
                     setTimeout(() => setShowAlert(false), 3000);
@@ -150,7 +157,7 @@ function ConsumableTable() {
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-              if (!oldData.quantity_aprv?.length) {
+              if (!oldData.quantity_acpt?.length) {
                 const dataUpdate = [...items];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
@@ -158,7 +165,7 @@ function ConsumableTable() {
 
                 newData.category = "consumable";
 
-                putMaterial(newData)
+                putIssuedMaterial(newData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
 
@@ -198,11 +205,11 @@ function ConsumableTable() {
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
           headerStyle: { background: "#376fd0", color: "#fff" },
         }}
-        title="Material Requests"
+        title="Material Issued"
         icons={{ Add: () => <AddIcon /> }}
       />
     </>
   );
 }
 
-export default ConsumableTable;
+export default MaterialConsumableAccept;

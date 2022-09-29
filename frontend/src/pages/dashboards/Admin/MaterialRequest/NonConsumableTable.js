@@ -102,7 +102,7 @@ function NonConsumableTable() {
             tooltip: "Approve",
             style: { color: "red" },
             onClick: async (event, rowData) => {
-              const data = await checkIsIssued(rowData.slip_no);
+              const data = await checkIsIssued(rowData.slip_no, category);
               console.log(data);
               if (rowData.quantity_aprv?.length && !data.issued) {
                 issueNonConsumableMaterial(rowData)

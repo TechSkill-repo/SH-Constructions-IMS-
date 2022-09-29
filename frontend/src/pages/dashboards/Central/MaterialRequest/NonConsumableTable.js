@@ -26,7 +26,7 @@ function NonConsumableTable() {
   }, []);
 
   const columns = [
-    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    { title: "Slip.No", field: "issue_slip_no", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {

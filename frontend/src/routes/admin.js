@@ -27,6 +27,7 @@ const SaaS = async(() => import("../pages/dashboards/SaaS"));
 
 import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
 import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
+import MaterialAccepted from "../pages/dashboards/Admin/MaterialAccepted/MaterialAccepted";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -99,6 +100,13 @@ const componentsRoutes = {
   component: null,
 };
 
+const materialAccepted = {
+  id: "Accepted Materials",
+  path: "/material-accept",
+  icon: <Monitor />,
+  component: MaterialAccepted
+}
+
 const landingRoutes = {
   id: "Landing Page",
   path: "/",
@@ -114,7 +122,8 @@ export const dashboardLayoutRoutes = [
   projectsRoutes,
   componentsRoutes,
   consumables,
-  non_consumables
+  non_consumables,
+  materialAccepted
 ];
 
 // Routes using the Auth layout
@@ -129,6 +138,6 @@ export const sidebarRoutes = [
   projectsRoutes,
   consumables,
   non_consumables,
-  authRoutes,
+  materialAccepted,
   componentsRoutes,
 ];
