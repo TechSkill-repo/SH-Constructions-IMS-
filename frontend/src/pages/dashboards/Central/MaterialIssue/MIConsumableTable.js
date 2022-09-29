@@ -50,6 +50,10 @@ function MIConsumableTable() {
       title: "Received Qty.",
       field: "mquantity",
       filterPlaceholder: "filter",
+      render: (rowData) => {
+        if (rowData.mquantity != rowData.quantity_aprv) return <span style={{ color: "red", fontWeight: "bold" }}>{rowData.mquantity}</span>;
+        else return rowData.mquantity;
+      }
     },
   ];
 
