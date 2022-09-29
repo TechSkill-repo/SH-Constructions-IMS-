@@ -47,6 +47,7 @@ import Allproducts from "../pages/dashboards/Central/AllProducts/Allproducts";
 import AcceptConsumableTable from "../pages/dashboards/Central/AcceptMaterials/AcceptConsumable";
 import AcceptNonConsumableTable from "../pages/dashboards/Central/AcceptMaterials/AcceptNonConsumable";
 import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
+import ProductList from "../pages/dashboards/Central/ProductList/ProductList";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -200,11 +201,11 @@ const requisitionForm = {
   children: null,
 };
 
-const notes = {
-  id: "Remarks",
-  path: "/remarks",
+const productList = {
+  id: "Product List",
+  path: "/product-list",
   icon: <ImportContactsIcon />,
-  component: Remarks,
+  component: ProductList,
   children: null,
 };
 
@@ -234,6 +235,7 @@ export const dashboardLayoutRoutes = [
   mi_non_consumableTable,
   criticalTool,
   allProducts,
+  productList,
 ];
 
 // Routes using the Auth layout
@@ -255,4 +257,5 @@ export const sidebarRoutes = [
   monitorStoreLone,
   requisitionForm,
   allProducts,
+  productList,
 ];
