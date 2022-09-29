@@ -6,10 +6,10 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import MIConsumableForm from "./MIConsumableForm";
 import { Box } from "@material-ui/core";
-import { getConsumableAccept } from "../../../../services/issueService";
+import { getConsumableIssue } from "../../../../services/issueService";
 
 function MIConsumableTable() {
   const [showForm, setShowForm] = useState(false);
@@ -18,7 +18,7 @@ function MIConsumableTable() {
   const category = "consumable";
 
   useEffect(() => {
-    getConsumableAccept(storeId)
+    getConsumableIssue(storeId)
       .then((data) => {
         setItems(data.items);
       })
@@ -29,7 +29,11 @@ function MIConsumableTable() {
 
   const columns = [
     { title: "Date", field: "date", filterPlaceholder: "filter" },
-    { title: "Issue Slip.No", field: "issue_slip_no", filterPlaceholder: "filter" },
+    {
+      title: "Issue Slip.No",
+      field: "issue_slip_no",
+      filterPlaceholder: "filter",
+    },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
       title: "M.Description",
@@ -42,11 +46,21 @@ function MIConsumableTable() {
       field: "mquantity",
       filterPlaceholder: "filter",
     },
+    {
+      title: "Received Qty.",
+      field: "quantity_acpt",
+      filterPlaceholder: "filter",
+    },
   ];
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center" style={{ marginBottom: "0.8em" }}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginBottom: "0.8em" }}
+      >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
             Consumable Items StoreId:{" "}
@@ -68,7 +82,12 @@ function MIConsumableTable() {
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} alignItems="center" style={{ justifyContent: "center" }}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ justifyContent: "center" }}
+      >
         <Grid item xs={9} justifyContent="center">
           {showForm && <MIConsumableForm storeId={storeId} />}
         </Grid>

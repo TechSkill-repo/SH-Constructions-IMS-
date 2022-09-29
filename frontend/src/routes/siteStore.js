@@ -42,6 +42,7 @@ import MaterialIssue from "../pages/dashboards/Site/MaterialIssue/MaterialIssue"
 import MaterialConsumableAccept from "../pages/dashboards/Site/MaterialAccept/MaterialConsumableAccept";
 import MaterialNonConsumableAccept from "../pages/dashboards/Site/MaterialAccept/MaterialNonConsumableAccept";
 import MaterialDestroy from "../pages/dashboards/Site/MaterialDestroy/MaterialDestroy";
+import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -133,7 +134,7 @@ const materialIssue = {
 const materialAccept = {
   id: "Material Accept",
   path: "/material-accept",
-  icon: <DirectionsRunIcon />,
+  icon: <InstallDesktopIcon />,
   children: [
     {
       path: "/consumable-accept",
@@ -145,7 +146,7 @@ const materialAccept = {
       name: "Non Consumable",
       component: MaterialNonConsumableAccept,
     },
-  ]
+  ],
 };
 
 const materialDamage = {
@@ -190,10 +191,10 @@ export const presentationLayoutRoutes = [landingRoutes];
 export const sidebarRoutes = [
   dashboardsRoutes,
   // siteInventoryRoute,
+  materialAccept,
   consumableRoute,
   non_consumablesRoute,
   materialIssue,
-  materialAccept,
   requsitionForm,
   loanRequest,
   approveLoan,
