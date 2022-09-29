@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import CloseIcon from '@mui/icons-material/Close';
 import MIConsumableForm from "./MIConsumableForm";
 import { Box } from "@material-ui/core";
-import { getConsumableIssue } from "../../../../services/issueService";
+import { getConsumableAccept } from "../../../../services/issueService";
 
 function MIConsumableTable() {
   const [showForm, setShowForm] = useState(false);
@@ -18,7 +18,7 @@ function MIConsumableTable() {
   const category = "consumable";
 
   useEffect(() => {
-    getConsumableIssue(storeId)
+    getConsumableAccept(storeId)
       .then((data) => {
         setItems(data.items);
       })

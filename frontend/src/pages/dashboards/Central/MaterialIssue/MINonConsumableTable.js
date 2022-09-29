@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import CloseIcon from '@mui/icons-material/Close';
 import MINonConsumableForm from "./MINonConsumableForm";
 import { Box } from "@material-ui/core";
-import { getNonConsumbaleIssue } from "../../../../services/issueService";
+import { getNonConsumbaleAccept } from "../../../../services/issueService";
 
 function MINonConsumableTable() {
   const [showForm, setShowForm] = useState(false);
@@ -17,7 +17,7 @@ function MINonConsumableTable() {
   const category = "non-consumable";
 
   useEffect(() => {
-    getNonConsumbaleIssue(storeId)
+    getNonConsumbaleAccept(storeId)
       .then((data) => {
         setItems(data.items);
       })
