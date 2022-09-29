@@ -48,13 +48,13 @@ const acceptConsumableMaterial = async (req, res) => {
           await db.collection("inventory").doc("consumable").collection("items").doc(doc.id).set(data);
 
           const docRef = db.collection("materials").doc("issue").collection("items").doc();
-          await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "consumable", storeId });
+          await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "consumable", storeId, quantity_aprv });
 
           let query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
           query.get().then(async querySnapshot => {
             if (querySnapshot.empty) {
               const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
-              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "consumable" });
+              await docRef2.set({ storeId, mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "consumable", quantity_aprv });
             } else {
               querySnapshot.forEach(async doc => {
                 const data = doc.data();
@@ -106,13 +106,13 @@ const acceptNonConsumableMaterial = async (req, res) => {
           await db.collection("inventory").doc("non-consumable").collection("items").doc(doc.id).set(data);
 
           const docRef = db.collection("materials").doc("issue").collection("items").doc();
-          await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "non-consumable", storeId });
+          await docRef.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "non-consumable", storeId, quantity_aprv });
 
           let query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
           query.get().then(async querySnapshot => {
             if (querySnapshot.empty) {
               const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
-              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_aprv.length) ? quantity_aprv : quantity_req), category: "non-consumable", storeId });
+              await docRef2.set({ mcode, date, issue_slip_no: issue_slip_no ? issue_slip_no : slip_no, mname, mdescription, uom, mquantity: mquantity ? mquantity : ((quantity_acpt.length) ? quantity_acpt : quantity_aprv), category: "non-consumable", storeId, quantity_aprv });
             } else {
               querySnapshot.forEach(async doc => {
                 const data = doc.data();

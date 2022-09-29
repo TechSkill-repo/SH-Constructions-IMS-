@@ -42,7 +42,7 @@ function MINonConsumableTable() {
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
       title: "Approve Qty.",
-      field: "mquantity",
+      field: "quantity_aprv",
       filterPlaceholder: "filter",
     },
     {
