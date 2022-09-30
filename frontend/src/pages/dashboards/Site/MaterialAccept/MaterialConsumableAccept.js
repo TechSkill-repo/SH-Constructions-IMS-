@@ -125,7 +125,7 @@ function MaterialConsumableAccept() {
                 setMessage("Material is already accepted.");
                 setIsValid(false);
                 setShowAlert(accepted);
-                setTimeout(() => setShowAlert(false), 3000);
+                setTimeout(() => setShowAlert(false), 2000);
               });
               if (rowData.quantity_acpt?.length && !accepted) {
                 acceptConsumableMaterial(rowData)
@@ -133,13 +133,14 @@ function MaterialConsumableAccept() {
                     setMessage("Material Accepted Successfully");
                     setShowAlert(true);
                     setIsValid(true);
-                    setTimeout(() => setShowAlert(false), 3000);
+                    setTimeout(() => setShowAlert(false), 2000);
+                    window.location = '/consumable-accept';
                   })
                   .catch((err) => {
                     setMessage(err.response.data.message);
                     setShowAlert(true);
                     setIsValid(false);
-                    setTimeout(() => setShowAlert(false), 3000);
+                    setTimeout(() => setShowAlert(false), 2000);
                   });
               }
             },

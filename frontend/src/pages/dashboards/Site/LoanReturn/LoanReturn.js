@@ -80,7 +80,7 @@ function LoanReturn() {
                     console.log(resp);
                     setTimeout(() => {
                       window.location = '/loan-return';
-                    }, 3000);
+                    }, 2000);
                   })
                   .catch((err) => console.log(err.response));
               },

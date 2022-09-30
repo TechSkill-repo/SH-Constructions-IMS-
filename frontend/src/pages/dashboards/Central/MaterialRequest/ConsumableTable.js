@@ -118,7 +118,7 @@ function ConsumableTable() {
                 setMessage("Material is already issued.");
                 setIsValid(false);
                 setShowAlert(issued);
-                setTimeout(() => setShowAlert(false), 3000);
+                setTimeout(() => setShowAlert(false), 2000);
               });
               if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
@@ -126,13 +126,14 @@ function ConsumableTable() {
                     setMessage("Material Issued Successfully");
                     setShowAlert(true);
                     setIsValid(true);
-                    setTimeout(() => setShowAlert(false), 3000);
+                    setTimeout(() => setShowAlert(false), 2000);
+                    window.location = '/consumables-table/' + storeId;
                   })
                   .catch((err) => {
                     setMessage(err.response.data.message);
                     setShowAlert(true);
                     setIsValid(false);
-                    setTimeout(() => setShowAlert(false), 3000);
+                    setTimeout(() => setShowAlert(false), 2000);
                   });
               }
             },

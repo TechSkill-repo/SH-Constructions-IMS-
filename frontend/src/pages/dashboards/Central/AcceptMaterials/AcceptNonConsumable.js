@@ -111,7 +111,10 @@ function AcceptNonConsumableTable() {
               console.log(data);
               if (rowData.quantity_acpt?.length && !data.accepted) {
                 acceptNonConsumableMaterial(rowData)
-                  .then((resp) => console.log(resp))
+                  .then((resp) => {
+                    console.log(resp);
+                    window.location = '/accept-non-consumables';
+                  })
                   .catch((err) => console.log(err.response));
               }
             },

@@ -106,7 +106,10 @@ function NonConsumableTable() {
               console.log(data);
               if (rowData.quantity_aprv?.length && !data.issued) {
                 issueNonConsumableMaterial(rowData)
-                  .then((resp) => console.log(resp))
+                  .then((resp) => {
+                    console.log(resp);
+                    window.location = '/non-consumable';
+                  })
                   .catch((err) => console.log(err.response));
               }
             },

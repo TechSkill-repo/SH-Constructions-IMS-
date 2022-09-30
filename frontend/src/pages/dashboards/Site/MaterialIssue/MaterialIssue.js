@@ -137,7 +137,7 @@ function MaterialIssue() {
 
     setTimeout(() => {
       window.location.href = "/material-issue";
-    }, 3000);
+    }, 2000);
   };
 
   const columns = [

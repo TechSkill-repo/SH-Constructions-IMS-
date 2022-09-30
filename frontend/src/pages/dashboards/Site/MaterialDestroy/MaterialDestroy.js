@@ -135,7 +135,7 @@ function MaterialDestroy() {
 
     setTimeout(() => {
       window.location.href = "/material-damage";
-    }, 3000);
+    }, 2000);
   };
 
   const columns = [

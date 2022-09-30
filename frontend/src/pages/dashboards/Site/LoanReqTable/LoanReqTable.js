@@ -157,13 +157,14 @@ function LoanReqTable() {
                     .then((resp) => {
                       console.log(resp);
                       setLoneApproved(true);
-                      setTimeout(() => setLoneApproved(false), 3000);
+                      setTimeout(() => setLoneApproved(false), 2000);
+                      window.location = '/loan-request-table';
                     })
                     .catch((err) => {
                       console.log(err.response);
                       if (err.response?.status === 403) {
                         setLoneDenied(true);
-                        setTimeout(() => setLoneDenied(false), 3000);
+                        setTimeout(() => setLoneDenied(false), 2000);
                       }
                     });
                 }

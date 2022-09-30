@@ -106,7 +106,10 @@ function ConsumableTable() {
               console.log(data);
               if (rowData.quantity_aprv?.length && !data.issued) {
                 issueConsumableMaterial(rowData)
-                  .then((resp) => console.log(resp))
+                  .then((resp) => {
+                    console.log(resp);
+                    window.location = '/consumable';
+                  })
                   .catch((err) => console.log(err.response));
               }
             },
