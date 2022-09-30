@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getMaterial, putMaterial } from "../../../../services/requestService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@mui/material";
-import { Grid } from "@material-ui/core";
 import { getRequests } from "../../../../services/materialService";
 
 function Allproducts() {
@@ -13,6 +9,7 @@ function Allproducts() {
   useEffect(() => {
     getRequests()
       .then((data) => {
+        console.log(data.data);
         setItems(data.data);
       })
       .catch((err) => {
@@ -21,7 +18,7 @@ function Allproducts() {
   }, []);
 
   const columns = [
-    { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    { title: "Slip.No", field: "issue_slip_no", filterPlaceholder: "filter" },
     { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
@@ -34,11 +31,6 @@ function Allproducts() {
     {
       title: "Qty.Req",
       field: "quantity_req",
-      filterPlaceholder: "filter",
-    },
-    {
-      title: "Qty.App",
-      field: "quantity_aprv",
       filterPlaceholder: "filter",
     },
   ];
