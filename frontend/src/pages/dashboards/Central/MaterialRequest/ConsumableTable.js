@@ -113,7 +113,7 @@ function ConsumableTable() {
             tooltip: "Approve",
             onClick: async (event, rowData) => {
               let issued = false;
-              await checkIsIssued(rowData.slip_no).then((data) => {
+              await checkIsIssued(rowData.issue_slip_no).then((data) => {
                 issued = data.issued;
                 setMessage("Material is already issued.");
                 setIsValid(false);

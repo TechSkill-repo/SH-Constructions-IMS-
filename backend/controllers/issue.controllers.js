@@ -145,7 +145,7 @@ const acceptNonConsumableMaterial = async (req, res) => {
 };
 
 const issueConsumableMaterial = async (req, res) => {
-  const { mcode, date, issue_slip_no, mname, mdescription, uom, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
+  const { mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv } = req.body;
 
   const docRef = db.collection("inventory").doc("issue").collection("items").doc();
   docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "consumable" });

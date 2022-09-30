@@ -16,6 +16,19 @@ const fetchDetails = async (req, res) => {
   });
 }
 
+const getMaterials = async (req, res) => {
+  const items = [];
+
+  const query = db.collection("materials").doc("data").collection("items");
+  await query.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      items.push(doc.data());
+    });
+  });
+
+  res.status(200).json({ message: "materials fetched", items: items });
+};
+
 const getMcodes = async (req, res) => {
   const items = [];
 
@@ -63,4 +76,4 @@ const getRequests = async (req, res) => {
   });
 }
 
-module.exports = { fetchDetails, getMcodes, getRequests };
+module.exports = { fetchDetails, getMcodes, getRequests, getMaterials };
