@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import { getMatetrialDestructs, materialDestruct } from "../../../../services/storeService";
+import {
+  getMatetrialDestructs,
+  materialDestruct,
+} from "../../../../services/storeService";
 import { getMcodes, fetchDetails } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,7 +19,6 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
 function MaterialIssue() {
-
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
@@ -28,7 +30,7 @@ function MaterialIssue() {
       empId: "",
       mcode: "",
       Ddate: getCurrentDate(),
-      mquantity: ""
+      mquantity: "",
     },
   ]);
   const [mcodes, setMcodes] = useState([]);
@@ -116,7 +118,7 @@ function MaterialIssue() {
         empId: "",
         mcode: "",
         Ddate: getCurrentDate(),
-        mquantity: ""
+        mquantity: "",
       },
     ]);
   };
@@ -149,7 +151,7 @@ function MaterialIssue() {
       title: "Qty.",
       field: "mquantity",
       filterPlaceholder: "filter",
-    }
+    },
   ];
 
   return (
@@ -181,7 +183,7 @@ function MaterialIssue() {
               justifyContent="center"
               key={index.toString()}
             >
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={3}>
                 <input style={{ display: "none" }} id="dummy" />
                 <TextField
                   variant="outlined"
@@ -200,7 +202,7 @@ function MaterialIssue() {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   variant="outlined"
                   name="mquantity"
@@ -212,7 +214,7 @@ function MaterialIssue() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   variant="outlined"
                   name="empId"
@@ -224,7 +226,7 @@ function MaterialIssue() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   variant="outlined"
                   name="empName"

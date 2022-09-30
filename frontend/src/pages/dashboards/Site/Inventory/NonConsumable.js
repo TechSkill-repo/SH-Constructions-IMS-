@@ -14,7 +14,9 @@ function NonConsumable() {
   useEffect(() => {
     getMaterials(storeId)
       .then((data) => {
-        const temp = data.items.filter(item => item.category === "non-consumable");
+        const temp = data.items.filter(
+          (item) => item.category === "non-consumable"
+        );
         setItems(temp);
       })
       .catch((err) => {
@@ -37,7 +39,7 @@ function NonConsumable() {
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
-      title: "Qty.Req",
+      title: "Current Stock",
       field: "mquantity",
       filterPlaceholder: "filter",
     },

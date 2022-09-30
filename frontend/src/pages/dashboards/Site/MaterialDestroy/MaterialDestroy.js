@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import { getMatetrialDestructs, materialDestruct } from "../../../../services/storeService";
+import {
+  getMatetrialDestructs,
+  materialDestruct,
+} from "../../../../services/storeService";
 import { getMcodes, fetchDetails } from "../../../../services/materialService";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,7 +19,6 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
 function MaterialDestroy() {
-
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
@@ -27,7 +29,7 @@ function MaterialDestroy() {
       remark: "",
       mcode: "",
       Ddate: getCurrentDate(),
-      mquantity: ""
+      mquantity: "",
     },
   ]);
   const [mcodes, setMcodes] = useState([]);
@@ -114,7 +116,7 @@ function MaterialDestroy() {
         remark: "",
         mcode: "",
         Ddate: getCurrentDate(),
-        mquantity: ""
+        mquantity: "",
       },
     ]);
   };
@@ -146,7 +148,7 @@ function MaterialDestroy() {
       field: "mquantity",
       filterPlaceholder: "filter",
     },
-    { title: "Remark", field: "remark", filterPlaceholder: "filter" }
+    { title: "Remark", field: "remark", filterPlaceholder: "filter" },
   ];
 
   return (
@@ -178,7 +180,7 @@ function MaterialDestroy() {
               justifyContent="center"
               key={index.toString()}
             >
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={3}>
                 <input style={{ display: "none" }} id="dummy" />
                 <TextField
                   variant="outlined"
@@ -197,7 +199,7 @@ function MaterialDestroy() {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   variant="outlined"
                   name="mquantity"
@@ -209,11 +211,11 @@ function MaterialDestroy() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={4}>
                 <TextField
                   variant="outlined"
                   name="remark"
-                  label="Quantity Request"
+                  label="Remark"
                   type="text"
                   value={item.remark}
                   onChange={(e) => {

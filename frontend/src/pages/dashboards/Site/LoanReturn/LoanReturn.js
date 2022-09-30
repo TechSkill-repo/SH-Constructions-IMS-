@@ -4,7 +4,10 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-import { getLoanReturn, loanReturnApprove } from "../../../../services/loanService";
+import {
+  getLoanReturn,
+  loanReturnApprove,
+} from "../../../../services/loanService";
 
 function LoanReturn() {
   const [items, setItems] = useState([]);
@@ -38,7 +41,7 @@ function LoanReturn() {
       filterPlaceholder: "filter",
     },
     {
-      title: "Return Qty",
+      title: "Ret. Qty",
       field: "lendQuantity",
       filterPlaceholder: "filter",
     },
@@ -79,7 +82,7 @@ function LoanReturn() {
                   .then((resp) => {
                     console.log(resp);
                     setTimeout(() => {
-                      window.location = '/loan-return';
+                      window.location = "/loan-return";
                     }, 3000);
                   })
                   .catch((err) => console.log(err.response));
