@@ -14,7 +14,9 @@ function Consumable() {
   useEffect(() => {
     getMaterials(storeId)
       .then((data) => {
-        const temp = data.items.filter(item => item.category === "consumable");
+        const temp = data.items.filter(
+          (item) => item.category === "consumable"
+        );
         setItems(temp);
       })
       .catch((err) => {
