@@ -37,7 +37,6 @@ export const Login = () => {
     showPassword: false,
   });
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -91,9 +90,7 @@ export const Login = () => {
           )}
           {invalidPassword && (
             <FormField style={{ marginBottom: "1.3em" }}>
-              <Alert severity="error">
-                Please enter the correct password 😬
-              </Alert>
+              <Alert severity="error">Please enter correct password 😬</Alert>
             </FormField>
           )}
           <FormField>

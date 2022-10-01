@@ -4,12 +4,10 @@ export const Container = styled.div`
   display: flex;
   height: 100vh;
   width: 100vw;
-
   background-image: url(https://images.pond5.com/industrial-production-plant-tata-steel-footage-086764102_prevstill.jpeg);
   background-size: cover;
-  filter: blur(4px);
+  filter: blur(5px);
   background-repeat: no-repeat;
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -21,7 +19,7 @@ export const FormContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 65%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   margin: auto 0.5em;
@@ -33,6 +31,7 @@ export const FormContainer = styled.div`
   width: 100%;
   padding: 0.8em 0;
   border-radius: 0;
+
   z-index: 999;
 
   @media (min-width: 380px) {
@@ -45,6 +44,7 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
   width: 100%;
 
   form {
