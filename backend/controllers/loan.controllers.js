@@ -4,23 +4,9 @@ const requestLoan = async (req, res) => {
   const { slip_no, rqDate, mquantity, receiverStoreId, mdescription, mcode, mname, uom, requestedStoreId, category } = req.body;
 
   const docRef = db.collection("loans").doc("request").collection("items").doc();
-  await docRef.set({ slip_no, rqDate, mquantity, receiverStoreId, mdescription, mcode, mname, uom, requestedStoreId, category });
+  await docRef.set({ slip_no, rqDate, mquantity, receiverStoreId, mdescription, mcode, mname, uom, requestedStoreId, category, issued: false });
 
   res.status(201).json({ message: "Loan requested successfully" });
-};
-
-const checkIsIssued = async (req, res) => {
-  const { slip_no } = req.query;
-
-  const query = db.collection("loans").doc("approved").collection("items").where("slip_no", "==", slip_no);
-
-  await query.get().then((querySnapshot) => {
-    if (querySnapshot.empty) {
-      res.status(200).json({ "issued": false });
-    } else {
-      res.status(200).json({ "issued": true });
-    }
-  });
 };
 
 const checkIsReturned = async (req, res) => {
@@ -127,7 +113,7 @@ const loanReturnApprove = async (req, res) => {
 }
 
 const lendMaterial = async (req, res) => {
-  const { slip_no, mcode, mname, mdescription, uom, lendDate, lendQuantity, returnDate, requestedStoreId, receiverStoreId, condition, returnCondition, category } = req.body;
+  const { slip_no, mcode, mname, mdescription, uom, rqDate, lendDate, lendQuantity, returnDate, requestedStoreId, receiverStoreId, condition, returnCondition, category } = req.body;
 
   // remove the material quantity from the sender store
   const query = db.collection("stores").doc(requestedStoreId).collection("items").where("mcode", "==", mcode);
@@ -147,7 +133,7 @@ const lendMaterial = async (req, res) => {
           await db.collection("stores").doc(requestedStoreId).collection("items").doc(doc.id).set(data);
 
           // add the material quantity to receiver store
-          const query = db.collection("stores").doc(receiverStoreId).collection("items").where("mcode", "==", mcode);
+          let query = db.collection("stores").doc(receiverStoreId).collection("items").where("mcode", "==", mcode);
           await query.get().then(async (querySnapshot) => {
             if (querySnapshot.empty) {
               const docRef = db.collection("stores").doc(receiverStoreId).collection("items").doc();
@@ -162,6 +148,14 @@ const lendMaterial = async (req, res) => {
                 await db.collection("stores").doc(receiverStoreId).collection("items").doc(doc.id).set(data);
               });
             }
+
+            query = db.collection("loans").doc("request").collection("items").where("slip_no", "==", slip_no);
+            await query.get().then(querySnapshot => {
+              querySnapshot.forEach(async doc => {
+                await db.collection("loans").doc("request").collection("items").doc(doc.id).delete();
+                await db.collection("loans").doc("request").collection("items").doc(doc.id).set({ slip_no, rqDate, mquantity, lendQuantity, receiverStoreId, mdescription, mcode, mname, uom, requestedStoreId, category, issued: true });
+              })
+            })
 
             const docRef = db.collection("loans").doc("approved").collection("items").doc();
             await docRef.set({ slip_no, mcode, mname, uom, lendDate, lendQuantity, returnDate, requestedStoreId, receiverStoreId, condition, returnCondition, category });
@@ -251,4 +245,4 @@ const getApprovedLoans = async (req, res) => {
   });
 };
 
-module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, checkIsIssued, loanReturn, getLoanReturns, loanReturnApprove, checkIsReturned };
+module.exports = { requestLoan, lendMaterial, getLoans, getApprovedLoans, editMaterial, loanReturn, getLoanReturns, loanReturnApprove, checkIsReturned };

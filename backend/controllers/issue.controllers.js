@@ -1,19 +1,5 @@
 const db = require('./db.controllers');
 
-const checkIsIssued = async (req, res) => {
-  const { slip_no } = req.query;
-
-  const query = db.collection("inventory").doc("issue").collection("items").where("issue_slip_no", "==", slip_no);
-
-  await query.get().then((querySnapshot) => {
-    if (querySnapshot.empty) {
-      res.status(200).json({ "issued": false });
-    } else {
-      res.status(200).json({ "issued": true });
-    }
-  });
-};
-
 const checkIsAccepted = async (req, res) => {
   const { slip_no } = req.query;
 
@@ -145,7 +131,15 @@ const acceptNonConsumableMaterial = async (req, res) => {
 };
 
 const issueConsumableMaterial = async (req, res) => {
-  const { mcode, date, issue_slip_no, mname, mdescription, uom, storeId, slip_no, quantity_req, quantity_aprv } = req.body;
+  const { mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv } = req.body;
+
+  const query = db.collection("materials").doc("request").collection("items").where("issue_slip_no", "==", issue_slip_no);
+  await query.get().then(querySnapshot => {
+    querySnapshot.forEach(async doc => {
+      await db.collection("materials").doc("request").collection("items").doc(doc.id).delete();
+      await db.collection("materials").doc("request").collection("items").doc(doc.id).set({ mcode, date, issue_slip_no, mname, category: "consumable", mdescription, uom, storeId, quantity_req, quantity_aprv, issued: true });
+    });
+  });
 
   const docRef = db.collection("inventory").doc("issue").collection("items").doc();
   docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "consumable" });
@@ -155,6 +149,14 @@ const issueConsumableMaterial = async (req, res) => {
 
 const issueNonConsumableMaterial = async (req, res) => {
   const { mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv } = req.body;
+
+  const query = db.collection("materials").doc("request").collection("items").where("issue_slip_no", "==", issue_slip_no);
+  await query.get().then(querySnapshot => {
+    querySnapshot.forEach(async doc => {
+      await db.collection("materials").doc("request").collection("items").doc(doc.id).delete();
+      await db.collection("materials").doc("request").collection("items").doc(doc.id).set({ mcode, date, issue_slip_no, mname, category: "non-consumable", mdescription, uom, storeId, quantity_req, quantity_aprv, issued: true });
+    });
+  });
 
   const docRef = db.collection("inventory").doc("issue").collection("items").doc();
   docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "non-consumable" });
@@ -274,4 +276,4 @@ const editIssuedMaterial = async (req, res) => {
   });
 }
 
-module.exports = { issueConsumableMaterial, issueNonConsumableMaterial, acceptConsumableMaterial, acceptNonConsumableMaterial, getConsumbaleIssue, getNonConsumbaleIssue, getConsumbaleAccept, getNonConsumbaleAccept, checkIsIssued, checkIsAccepted, editIssuedMaterial };
+module.exports = { issueConsumableMaterial, issueNonConsumableMaterial, acceptConsumableMaterial, acceptNonConsumableMaterial, getConsumbaleIssue, getNonConsumbaleIssue, getConsumbaleAccept, getNonConsumbaleAccept, checkIsAccepted, editIssuedMaterial };

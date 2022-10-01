@@ -129,7 +129,7 @@ function LoanRequest() {
       title: "Status",
       filterPlaceholder: "filter",
       render: (rowData) =>
-        rowData.lendQuantity?.length ? (
+        rowData.issued ? (
           <div style={{ width: "100%", textAlign: "center" }}>
             <span
               style={{
@@ -139,7 +139,7 @@ function LoanRequest() {
                 padding: "5px 8px",
               }}
             >
-              Approvable
+              Approved
             </span>
           </div>
         ) : (

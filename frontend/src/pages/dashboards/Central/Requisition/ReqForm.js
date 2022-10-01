@@ -179,7 +179,7 @@ function ReqForm() {
       title: "Status",
       filterPlaceholder: "filter",
       render: (rowData) =>
-        rowData.quantity_aprv?.length ? (
+        rowData.issued ? (
           <div style={{ width: "100%", textAlign: "center" }}>
             <span
               style={{

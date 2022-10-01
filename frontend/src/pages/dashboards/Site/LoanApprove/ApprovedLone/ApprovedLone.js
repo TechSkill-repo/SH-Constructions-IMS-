@@ -147,7 +147,6 @@ function ApprovedLone() {
               icon: "checkbox",
               tooltip: "Return",
               onClick: async (event, rowData) => {
-                console.log(data);
                 rowData.returnDate = getCurrentDate();
 
                 if (!rowData.returned) {

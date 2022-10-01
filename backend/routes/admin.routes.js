@@ -11,7 +11,6 @@ router.post("/issue/consumable", adminControllers.issueConsumableMaterial);
 router.post("/issue/non-consumable", adminControllers.issueNonConsumableMaterial);
 router.post("/accept/consumable", adminControllers.acceptConsumableMaterial);
 router.post("/accept/non-consumable", adminControllers.acceptNonConsumableMaterial);
-router.get("/issue/check", adminControllers.checkIsIssued);
 router.get("/accept/check", adminControllers.checkIsAccepted);
 
 module.exports = router;

@@ -82,8 +82,8 @@ function LoanReturn() {
                   .then((resp) => {
                     console.log(resp);
                     setTimeout(() => {
-                      window.location = "/loan-return";
-                    }, 3000);
+                      window.location = '/loan-return';
+                    }, 2000);
                   })
                   .catch((err) => console.log(err.response));
               },

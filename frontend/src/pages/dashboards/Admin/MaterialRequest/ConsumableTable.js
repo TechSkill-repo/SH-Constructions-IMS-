@@ -3,7 +3,6 @@ import {
   getMaterial,
   putMaterial,
   issueConsumableMaterial,
-  checkIsIssued,
 } from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
@@ -54,20 +53,37 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(76,175,80,0.1)",
-                color: "#4caf50",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Approved
-            </span>
-          </div>
+          rowData.issued ? (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgba(76,175,80,0.1)",
+                  color: "#4caf50",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Approved
+              </span>
+            </div>
+          ) : (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgb(255, 244, 229)",
+                  color: "rgb(102, 60, 0)",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Edited
+              </span>
+            </div>
+          )
         ) : (
           <div style={{ width: "100%", textAlign: "center" }}>
             <span
@@ -102,11 +118,13 @@ function ConsumableTable() {
             icon: "checkbox",
             tooltip: "Approve",
             onClick: async (event, rowData) => {
-              const data = await checkIsIssued(rowData.slip_no, category);
-              console.log(data);
-              if (rowData.quantity_aprv?.length && !data.issued) {
+              let issued = rowData.issued;
+              if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
-                  .then((resp) => console.log(resp))
+                  .then((resp) => {
+                    console.log(resp);
+                    window.location = '/consumable';
+                  })
                   .catch((err) => console.log(err.response));
               }
             },

@@ -6,7 +6,6 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import {
-  checkIsIssued,
   issueConsumableMaterial,
 } from "../../../../services/issueService";
 import Alert from "@mui/material/Alert";
@@ -55,20 +54,37 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          <div style={{ width: "100%", textAlign: "center" }}>
-            <span
-              style={{
-                backgroundColor: "rgba(76,175,80,0.1)",
-                color: "#4caf50",
-                fontWeight: "bold",
-                border: "",
-                borderRadius: "3px",
-                padding: "5px 8px",
-              }}
-            >
-              Approved
-            </span>
-          </div>
+          rowData.issued ? (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgba(76,175,80,0.1)",
+                  color: "#4caf50",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Approved
+              </span>
+            </div>
+          ) : (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgb(255, 244, 229)",
+                  color: "rgb(102, 60, 0)",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Edited
+              </span>
+            </div>
+          )
         ) : (
           <div style={{ width: "100%", textAlign: "center" }}>
             <span
@@ -112,27 +128,26 @@ function ConsumableTable() {
             icon: "checkbox",
             tooltip: "Approve",
             onClick: async (event, rowData) => {
-              let issued = false;
-              await checkIsIssued(rowData.slip_no).then((data) => {
-                issued = data.issued;
+              let issued = rowData.issued;
+              if (issued) {
                 setMessage("Material is already issued.");
                 setIsValid(false);
                 setShowAlert(issued);
-                setTimeout(() => setShowAlert(false), 3000);
-              });
-              if (rowData.quantity_aprv?.length && !issued) {
+                setTimeout(() => setShowAlert(false), 2000);
+              } else if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => {
                     setMessage("Material Issued Successfully");
                     setShowAlert(true);
                     setIsValid(true);
-                    setTimeout(() => setShowAlert(false), 3000);
+                    setTimeout(() => setShowAlert(false), 2000);
+                    window.location = '/consumables-table/' + storeId;
                   })
                   .catch((err) => {
                     setMessage(err.response.data.message);
                     setShowAlert(true);
                     setIsValid(false);
-                    setTimeout(() => setShowAlert(false), 3000);
+                    setTimeout(() => setShowAlert(false), 2000);
                   });
               }
             },
