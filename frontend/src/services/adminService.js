@@ -67,21 +67,6 @@ const putIssuedMaterial = (material) => {
   });
 };
 
-function checkIsIssued(slip_no, category) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(HOST + "/admin/issue/check?slip_no=" + slip_no + "&category=" + category)
-      .then(response => {
-        if (response.status === 200) {
-          resolve(response.data);
-        }
-      })
-      .catch(err => {
-        reject(err);
-      })
-  });
-}
-
 function checkIsAccepted(slip_no) {
   return new Promise((resolve, reject) => {
     axios

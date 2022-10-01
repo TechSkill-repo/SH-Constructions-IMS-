@@ -9,7 +9,6 @@ router.get("/consumable", issueControllers.getConsumbaleIssue);
 router.get("/non-consumable", issueControllers.getNonConsumbaleIssue);
 router.get("/consumable/accept", issueControllers.getConsumbaleAccept);
 router.get("/non-consumable/accept", issueControllers.getNonConsumbaleAccept);
-router.get("/check", issueControllers.checkIsIssued);
 router.get("/check/accept", issueControllers.checkIsAccepted);
 router.put("/edit/accept", issueControllers.editIssuedMaterial);
 

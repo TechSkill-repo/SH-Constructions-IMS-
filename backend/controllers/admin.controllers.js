@@ -4,7 +4,7 @@ const requisition = async (req, res) => {
   const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
 
   const docRef = db.collection("admin").doc("request").collection("items").doc();
-  await docRef.set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location });
+  await docRef.set({ storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location, issued: false });
 
   res.status(201).json({ "message": "Requisition successful" });
 };
@@ -77,7 +77,7 @@ const getAcceptedMaterial = async (req, res) => {
 };
 
 const editMaterial = async (req, res) => {
-  const { slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name } = req.body;
+  const { slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv } = req.body;
 
   const query = db.collection("admin").doc("request").collection("items");
   await query.get().then((querySnapshot) => {
@@ -87,7 +87,7 @@ const editMaterial = async (req, res) => {
       querySnapshot.forEach(async (doc) => {
         if (doc.data().category === category && doc.data().mcode === mcode) {
           await db.collection("admin").doc("request").collection("items").doc(doc.id).delete();
-          await db.collection("admin").doc("request").collection("items").doc(doc.id).set({ slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name })
+          await db.collection("admin").doc("request").collection("items").doc(doc.id).set({ slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv })
         }
       });
 
@@ -116,20 +116,6 @@ const editIssuedMaterial = async (req, res) => {
   });
 };
 
-const checkIsIssued = async (req, res) => {
-  const { slip_no, category } = req.query;
-
-  const query = db.collection("admin").doc("issue").collection(category).where("slip_no", "==", slip_no);
-
-  await query.get().then((querySnapshot) => {
-    if (querySnapshot.empty) {
-      res.status(200).json({ "issued": false });
-    } else {
-      res.status(200).json({ "issued": true });
-    }
-  });
-};
-
 const checkIsAccepted = async (req, res) => {
   const { slip_no } = req.query;
 
@@ -147,6 +133,14 @@ const checkIsAccepted = async (req, res) => {
 const issueConsumableMaterial = async (req, res) => {
   const { mcode, quantity_req, quantity_aprv, mname, mdescription, date, uom, slip_no } = req.body;
 
+  const query = db.collection("admin").doc("request").collection("items").where("slip_no", "==", slip_no);
+  await query.get().then(querySnapshot => {
+    querySnapshot.forEach(async doc => {
+      await db.collection("admin").doc("request").collection("items").doc(doc.id).delete();
+      await db.collection("admin").doc("request").collection("items").doc(doc.id).set({ slip_no, mcode, mname, mdescription, date, uom, category: "consumable", quantity_req, quantity_aprv, issued: true });
+    });
+  });
+
   const docRef = db.collection("admin").doc("issue").collection("consumable").doc();
   await docRef.set({ mcode, date, slip_no, mname, mdescription, uom, quantity_req, quantity_aprv, category: "consumable" });
 
@@ -155,6 +149,14 @@ const issueConsumableMaterial = async (req, res) => {
 
 const issueNonConsumableMaterial = async (req, res) => {
   const { mcode, quantity_req, quantity_aprv, mname, mdescription, date, uom, slip_no } = req.body;
+
+  const query = db.collection("admin").doc("request").collection("items").where("slip_no", "==", slip_no);
+  await query.get().then(querySnapshot => {
+    querySnapshot.forEach(async doc => {
+      await db.collection("admin").doc("request").collection("items").doc(doc.id).delete();
+      await db.collection("admin").doc("request").collection("items").doc(doc.id).set({ slip_no, mcode, mname, mdescription, date, uom, category: "non-consumable", quantity_req, quantity_aprv, issued: true });
+    });
+  });
 
   const docRef = db.collection("admin").doc("issue").collection("non-consumable").doc();
   await docRef.set({ mcode, date, slip_no, mname, mdescription, uom, quantity_req, quantity_aprv, category: "non-consumable" });
@@ -238,4 +240,4 @@ const acceptNonConsumableMaterial = async (req, res) => {
   });
 };
 
-module.exports = { requisition, getMaterial, getIssuedMaterial, getAcceptedMaterial, editMaterial, editIssuedMaterial, issueConsumableMaterial, issueNonConsumableMaterial, checkIsIssued, checkIsAccepted, acceptConsumableMaterial, acceptNonConsumableMaterial };
+module.exports = { requisition, getMaterial, getIssuedMaterial, getAcceptedMaterial, editMaterial, editIssuedMaterial, issueConsumableMaterial, issueNonConsumableMaterial, checkIsAccepted, acceptConsumableMaterial, acceptNonConsumableMaterial };
