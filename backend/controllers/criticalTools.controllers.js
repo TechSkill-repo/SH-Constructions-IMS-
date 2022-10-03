@@ -11,6 +11,7 @@ const postCriticalTools = async (req, res) => {
     serialNo,
     dueDate,
     productId,
+    storeId
   } = req.body;
 
   const docRef = db.collection("critical-tools").doc();
