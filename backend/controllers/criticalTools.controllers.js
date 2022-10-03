@@ -25,6 +25,7 @@ const postCriticalTools = async (req, res) => {
     serialNo,
     dueDate,
     productId,
+    storeId
   });
 
   res.status(201).json({ message: "Post Successful" });
@@ -55,7 +56,8 @@ const editCriticalTools = async (req, res) => {
     make,
     serialNo,
     dueDate,
-    productId
+    productId,
+    storeId
   } = req.body;
 
   const query = db.collection("materials").doc("request").collection("items").where("storeId", "==", storeId);
@@ -75,7 +77,8 @@ const editCriticalTools = async (req, res) => {
             make,
             serialNo,
             dueDate,
-            productId
+            productId,
+            storeId
           })
         }
       });
