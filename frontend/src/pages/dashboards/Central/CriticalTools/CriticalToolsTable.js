@@ -46,7 +46,7 @@ function CriticalToolsTable({ productId }) {
         onRowUpdate: (newRow, oldRow) =>
           new Promise((resolve, reject) => {
             const dataUpdate = [...items];
-            const index = oldData.tableData.id;
+            const index = oldRow.tableData.id;
             dataUpdate[index] = newRow;
             setItems([...dataUpdate]);
 
