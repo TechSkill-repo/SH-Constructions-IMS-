@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { getCriticalTools } from "../../../../services/criticalTools";
+import { getCriticalTools, putCriticalTools } from "../../../../services/criticalTools";
 
 function CriticalToolsTable({ productId }) {
   const [items, setItems] = useState([]);
@@ -45,10 +45,16 @@ function CriticalToolsTable({ productId }) {
           }),
         onRowUpdate: (newRow, oldRow) =>
           new Promise((resolve, reject) => {
-            const updatedData = [...tableData];
-            updatedData[oldRow.tableData.id] = newRow;
-            setTableData(updatedData);
-            setTimeout(() => resolve(), 500);
+            const dataUpdate = [...items];
+            const index = oldData.tableData.id;
+            dataUpdate[index] = newRow;
+            setItems([...dataUpdate]);
+
+            putCriticalTools(newRow)
+              .then((resp) => console.log(resp))
+              .catch((err) => console.log(err.response));
+
+            resolve();
           }),
         onRowDelete: (selectedRow) =>
           new Promise((resolve, reject) => {

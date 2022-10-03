@@ -23,4 +23,15 @@ const getCriticalTools = () => {
   });
 };
 
-export { postCriticalTools, getCriticalTools };
+const putCriticalTools = (tool) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await axios.put(HOST + "/critical-tools", tool);
+      resolve(resp.data);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+export { postCriticalTools, getCriticalTools, putCriticalTools };

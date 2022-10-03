@@ -5,5 +5,6 @@ router.get("/fetch", materialControllers.fetchDetails);
 router.get("/codes", materialControllers.getMcodes);
 router.get("/requests", materialControllers.getRequests);
 router.get("/materials", materialControllers.getMaterials);
+router.post("/add", materialControllers.addMaterial);
 
 module.exports = router;

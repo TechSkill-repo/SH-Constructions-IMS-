@@ -16,6 +16,15 @@ const fetchDetails = async (req, res) => {
   });
 }
 
+const addMaterial = async (req, res) => {
+  const { mcode, mname, mdescription, uom, category } = req.body;
+
+  const docRef = db.collection("materials").doc("data").collection("items").doc();
+  await docRef.set({ mcode, mname, mdescription, uom, category });
+
+  res.status(201).json({ "message": "Material detail created" });
+}
+
 const getMaterials = async (req, res) => {
   const items = [];
 
@@ -76,4 +85,4 @@ const getRequests = async (req, res) => {
   });
 }
 
-module.exports = { fetchDetails, getMcodes, getRequests, getMaterials };
+module.exports = { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial };
