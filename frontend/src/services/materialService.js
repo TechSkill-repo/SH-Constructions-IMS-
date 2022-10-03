@@ -1,6 +1,20 @@
 import axios from "axios";
 import { HOST } from "../environments/env";
 
+const addMaterial = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .post(HOST + "/material/add", material)
+      .then((resp) => {
+        if (resp.status === 201)
+          resolve(resp.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 const getMaterials = () => {
   return new Promise((resolve, reject) => {
     return axios
@@ -53,4 +67,4 @@ const getRequests = () => {
   });
 };
 
-export { fetchDetails, getMcodes, getRequests, getMaterials };
+export { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial };
