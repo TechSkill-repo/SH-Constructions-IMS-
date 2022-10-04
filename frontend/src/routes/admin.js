@@ -30,11 +30,12 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
 import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
 import MaterialAccepted from "../pages/dashboards/Admin/MaterialAccepted/MaterialAccepted";
-import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTool";
+import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTools";
 import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
 import ProductList from "../pages/dashboards/Central/ProductList/ProductList";
+import MaterialIssue from "../pages/dashboards/Central/MaterialIssue/MaterialIssue";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import MIConsumable from "../pages/dashboards/Central/MaterialIssue/MIConsumable";
 import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonConsumable";
@@ -43,6 +44,8 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import MonitorStorLon from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLon";
+import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -123,20 +126,27 @@ const productList = {
 
 const monitorStoreInventory = {
   id: "Store Inventory",
-  path: "/material-issue",
+  path: "/store-inventory",
   icon: <GridViewIcon />,
   children: [
     {
-      path: "/mi-consumables",
+      path: "/store-inventory",
       name: "Consumables",
-      component: MIConsumable,
+      component: MonitorStorLon,
     },
-    {
-      path: "/mi-non-consumables",
-      name: "Non-Consumables",
-      component: MINonConsumable,
-    },
+    // {
+    //   path: "/store-inventory",
+    //   name: "Non-Consumables",
+    //   component: MINonConsumable,
+    // },
   ],
+};
+
+const monitor_Store_Inventory = {
+  id: "store in inventory",
+  path: "/store-inventory/:storeId",
+  children: null,
+  component: Consumable,
 };
 
 const details = {
@@ -176,6 +186,7 @@ export const dashboardLayoutRoutes = [
   monitorStoreInventory,
   materialDamaged,
   details,
+  monitor_Store_Inventory,
 ];
 
 // Routes using the Auth layout
