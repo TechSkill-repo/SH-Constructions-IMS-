@@ -215,11 +215,7 @@ function ReqForm() {
 
   return (
     <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+      
       <Box
         component="form"
         sx={{
@@ -362,6 +358,11 @@ function ReqForm() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
           <Popup tableValues={items} />
           <Grid
             container
