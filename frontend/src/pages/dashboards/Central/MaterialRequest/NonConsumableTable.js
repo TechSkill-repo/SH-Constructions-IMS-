@@ -8,11 +8,14 @@ import { Grid, Typography } from "@material-ui/core";
 import {
   issueNonConsumableMaterial,
 } from "../../../../services/issueService";
+import Alert from "@mui/material/Alert";
+
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
   const { storeId } = useParams();
   const category = "non-consumable";
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     getMaterial(storeId, category)
@@ -113,6 +116,11 @@ function NonConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      {showAlert && (
+        <Alert severity={"success"} sx={{ my: 4 }}>
+          Material Issued Successfully
+        </Alert>
+      )}
       <MaterialTable
         actions={[
           {
@@ -124,6 +132,7 @@ function NonConsumableTable() {
               if (rowData.quantity_aprv?.length && !issued) {
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => {
+                    setShowAlert(true);
                     console.log(resp);
                     window.location = '/non-consumables-table/' + storeId;
                   })
