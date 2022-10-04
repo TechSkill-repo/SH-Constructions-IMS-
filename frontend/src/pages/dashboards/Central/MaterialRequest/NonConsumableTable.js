@@ -16,6 +16,8 @@ function NonConsumableTable() {
   const { storeId } = useParams();
   const category = "non-consumable";
   const [showAlert, setShowAlert] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     getMaterial(storeId, category)
@@ -117,8 +119,8 @@ function NonConsumableTable() {
         </Grid>
       </div>
       {showAlert && (
-        <Alert severity={"success"} sx={{ my: 4 }}>
-          Material Issued Successfully
+        <Alert severity={`${isValid ? "success" : "error"}`} sx={{ my: 4 }}>
+          {message}
         </Alert>
       )}
       <MaterialTable
@@ -129,14 +131,28 @@ function NonConsumableTable() {
             style: { color: "red" },
             onClick: async (event, rowData) => {
               let issued = rowData.issued;
-              if (rowData.quantity_aprv?.length && !issued) {
+              if(issued)
+              {
+                setMessage("Material is already issued.");
+                setIsValid(false);
+                setShowAlert(issued);
+                setTimeout(() => setShowAlert(false), 2000);
+              }
+              else if (rowData.quantity_aprv?.length && !issued) {
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => {
+                    setMessage("Material Issued Successfully");
                     setShowAlert(true);
-                    console.log(resp);
+                    setIsValid(true);
+                    setTimeout(() => setShowAlert(false), 2000);
                     window.location = '/non-consumables-table/' + storeId;
                   })
-                  .catch((err) => console.log(err.response));
+                  .catch((err) => {
+                    setMessage(err.response.data.message);
+                    setShowAlert(true);
+                    setIsValid(false);
+                    setTimeout(() => setShowAlert(false), 2000);
+                  });
               }
             },
             color: "blue",
