@@ -6,7 +6,7 @@ export const Container = styled.div`
   width: 100vw;
   background-image: url(https://images.pond5.com/industrial-production-plant-tata-steel-footage-086764102_prevstill.jpeg);
   background-size: cover;
-  filter: blur(5px);
+  filter: blur(0px);
   background-repeat: no-repeat;
   background-position: center;
   background-repeat: no-repeat;

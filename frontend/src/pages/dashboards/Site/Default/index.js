@@ -26,79 +26,34 @@ const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
   return (
-    // <React.Fragment>
-    //   <Helmet title="Company Name" />
-    //   <Grid justify="space-between" container spacing={6}>
-    //     <Grid item>
-    //       <Typography variant="h3" gutterBottom>
-    //        Company Name
-    //       </Typography>
-    //     </Grid>
+    <React.Fragment>
+      <Helmet title="Company Name" />
+      <Grid justify="space-between" container spacing={6}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom>
+            Store Name
+          </Typography>
+        </Grid>
 
-    //     <Grid item>
-    //       <Actions />
-    //     </Grid>
-    //   </Grid>
+        <Grid item>
+          <Actions />
+        </Grid>
+      </Grid>
 
-    //   <Divider my={6} />
+      <Divider my={6} />
 
-    //   <Grid container spacing={6}>
-    //     <Grid item xs={12} sm={12} md={6} lg={3} xl>
-    //       <Stats
-    //         title="Past Order"
-    //         amount="2532"
-    //         chip="Today"
-    //         percentageText="+26%"
-    //         percentagecolor={green[500]}
-    //       />
-    //     </Grid>
-    //     <Grid item xs={12} sm={12} md={6} lg={3} xl>
-    //       <Stats
-    //         title="Ongoing Order"
-    //         amount="1702"
-    //         chip="Annual"
-    //         percentageText="-14%"
-    //         percentagecolor={red[500]}
-    //       />
-    //     </Grid>
-    //     <Grid item xs={12} sm={12} md={6} lg={3} xl>
-    //       <Stats
-    //         title="Order Compleated"
-    //         amount="$ 24300"
-    //         chip="Yearly"
-    //         percentageText="+18%"
-    //         percentagecolor={green[500]}
-    //       />
-    //     </Grid>
-    //     <Grid item xs={12} sm={12} md={6} lg={3} xl>
-    //       <Stats
-    //         title="Pending Orders"
-    //         amount="45"
-    //         chip="Today"
-    //         percentageText="-9%"
-    //         percentagecolor={red[500]}
-    //       />
-    //     </Grid>
-    //   </Grid>
-
-    //   <Grid container spacing={6}>
-    //     <Grid item xs={12} lg={8}>
-    //       <LineChart />
-    //     </Grid>
-    //     <Grid item xs={12} lg={4}>
-    //       <DoughnutChart />
-    //     </Grid>
-    //   </Grid>
-    //   <Grid container spacing={6}>
-    //     <Grid item xs={12} lg={4}>
-    //       <BarChart />
-    //     </Grid>
-    //     <Grid item xs={12} lg={8}>
-    //       <Table />
-    //     </Grid>
-    //   </Grid>
-    // </React.Fragment>
-    <h1>Site store under construction</h1>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Coke Plant"
+            amount="₹ 19900"
+            chip="Muzaffar Iqbal"
+            percentageText="EC01"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
 }
 
