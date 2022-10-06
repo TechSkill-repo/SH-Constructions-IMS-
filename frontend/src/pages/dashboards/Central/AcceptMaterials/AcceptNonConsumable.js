@@ -7,11 +7,14 @@ import {
 } from "../../../../services/adminService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
+import Alert from "@mui/material/Alert";
 import { Grid, Typography } from "@material-ui/core";
 
 function AcceptNonConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "non-consumable";
+  const [showSuccess, setShowSuccess] = useState(false);
+
 
   useEffect(() => {
     async function fetch() {
@@ -94,6 +97,11 @@ function AcceptNonConsumableTable() {
   return (
     <>
       <div>
+      {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
         <Grid item>
           <Typography variant="h3" gutterBottom>
             Non-Consumable Items
@@ -109,9 +117,11 @@ function AcceptNonConsumableTable() {
             onClick: async (event, rowData) => {
               const data = await checkIsAccepted(rowData.slip_no);
               console.log(data);
+             
               if (rowData.quantity_acpt?.length && !data.accepted) {
                 acceptNonConsumableMaterial(rowData)
                   .then((resp) => {
+                    setShowSuccess(true);
                     console.log(resp);
                     window.location = '/accept-non-consumables';
                   })

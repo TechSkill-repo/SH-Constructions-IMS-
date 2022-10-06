@@ -85,6 +85,12 @@ const List = styled(MuiList)`
 const Items = styled.div`
   padding-top: ${(props) => props.theme.spacing(2.5)}px;
   padding-bottom: ${(props) => props.theme.spacing(2.5)}px;
+  height: 70vh;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
 `;
 
 const Brand = styled(ListItem)`

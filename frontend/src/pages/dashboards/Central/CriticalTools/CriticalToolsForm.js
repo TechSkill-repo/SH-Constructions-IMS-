@@ -200,7 +200,7 @@ function ConsumablesForm({ productId }) {
             value={serialNo}
             // error={error && serialNo == "" ? true : false}
             onChange={(e) => {
-              e.target.value >= 0 ? setserialNo(e.target.value) : 0;
+              e.target.value.length >= 0 ? setserialNo(e.target.value) : 0;
             }}
           />
         </Grid>

@@ -8,11 +8,14 @@ import {
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
+import Alert from "@mui/material/Alert";
 import { Grid } from "@material-ui/core";
 
 function AcceptConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "consumable";
+  const [showSuccess, setShowSuccess] = useState(false);
+
 
   useEffect(() => {
     async function fetch() {
@@ -95,6 +98,13 @@ function AcceptConsumableTable() {
   return (
     <>
       <div>
+      
+        {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
+       
         <Grid item>
           <Typography variant="h5" gutterBottom>
             Consumable Items
@@ -112,6 +122,7 @@ function AcceptConsumableTable() {
               if (rowData.quantity_acpt?.length && !data.accepted) {
                 acceptConsumableMaterial(rowData)
                   .then((resp) => {
+                    setShowSuccess(true);
                     console.log(resp);
                     window.location = '/accept-consumables';
                   })

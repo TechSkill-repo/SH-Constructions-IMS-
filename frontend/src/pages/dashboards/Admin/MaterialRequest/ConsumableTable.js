@@ -7,12 +7,13 @@ import {
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
+import Alert from "@mui/material/Alert";
 import { Grid } from "@material-ui/core";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "consumable";
-
+  const [showSuccess, setShowSuccess] = useState(false);
   useEffect(() => {
     async function fetch() {
       await getMaterial(category)
@@ -106,12 +107,18 @@ function ConsumableTable() {
   return (
     <>
       <div>
+      {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
         <Grid item>
           <Typography variant="h5" gutterBottom>
             Consumable Items
           </Typography>
         </Grid>
       </div>
+      
       <MaterialTable
         actions={[
           {
@@ -122,6 +129,7 @@ function ConsumableTable() {
               if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => {
+                    setShowSuccess(true);
                     console.log(resp);
                     window.location = '/consumable';
                   })

@@ -42,11 +42,12 @@ function ReqForm() {
   ]);
   const [mcodes, setMcodes] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const [submitDisabled, setSubmitDisabled] = useState(false);
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  
   const style = {
     position: "absolute",
     top: "50%",
@@ -138,6 +139,7 @@ function ReqForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
+    setSubmitDisabled(true);
 
     items.map((item) => {
       requisition(item)
@@ -215,11 +217,7 @@ function ReqForm() {
 
   return (
     <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+      
       <Box
         component="form"
         sx={{
@@ -362,6 +360,11 @@ function ReqForm() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
           <Popup tableValues={items} />
           <Grid
             container
@@ -373,6 +376,7 @@ function ReqForm() {
               color="primary"
               size="medium"
               onClick={handleSubmit}
+              disabled={submitDisabled}
               style={{ width: "100%", maxWidth: "220px" }}
             >
               Submit

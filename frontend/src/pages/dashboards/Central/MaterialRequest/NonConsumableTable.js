@@ -8,11 +8,16 @@ import { Grid, Typography } from "@material-ui/core";
 import {
   issueNonConsumableMaterial,
 } from "../../../../services/issueService";
+import Alert from "@mui/material/Alert";
+
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
   const { storeId } = useParams();
   const category = "non-consumable";
+  const [showAlert, setShowAlert] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     getMaterial(storeId, category)
@@ -113,6 +118,11 @@ function NonConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      {showAlert && (
+        <Alert severity={`${isValid ? "success" : "error"}`} sx={{ my: 4 }}>
+          {message}
+        </Alert>
+      )}
       <MaterialTable
         actions={[
           {
@@ -121,13 +131,28 @@ function NonConsumableTable() {
             style: { color: "red" },
             onClick: async (event, rowData) => {
               let issued = rowData.issued;
-              if (rowData.quantity_aprv?.length && !issued) {
+              if(issued)
+              {
+                setMessage("Material is already issued.");
+                setIsValid(false);
+                setShowAlert(issued);
+                setTimeout(() => setShowAlert(false), 2000);
+              }
+              else if (rowData.quantity_aprv?.length && !issued) {
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => {
-                    console.log(resp);
+                    setMessage("Material Issued Successfully");
+                    setShowAlert(true);
+                    setIsValid(true);
+                    setTimeout(() => setShowAlert(false), 2000);
                     window.location = '/non-consumables-table/' + storeId;
                   })
-                  .catch((err) => console.log(err.response));
+                  .catch((err) => {
+                    setMessage(err.response.data.message);
+                    setShowAlert(true);
+                    setIsValid(false);
+                    setTimeout(() => setShowAlert(false), 2000);
+                  });
               }
             },
             color: "blue",
