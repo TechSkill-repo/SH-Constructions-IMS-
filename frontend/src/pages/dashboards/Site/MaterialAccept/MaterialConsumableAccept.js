@@ -17,6 +17,8 @@ function MaterialConsumableAccept() {
   const [showAlert, setShowAlert] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const [message, setMessage] = useState("");
+  const [approved, setApproved] = useState(false);
+
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
   const category = "consumable";
@@ -56,6 +58,60 @@ function MaterialConsumableAccept() {
       title: "Qty.Accept",
       field: "quantity_acpt",
       filterPlaceholder: "filter",
+    },
+    
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) =>
+        rowData.quantity_acpt?.length ? (
+          rowData.issued || approved ? (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgba(76,175,80,0.1)",
+                  color: "#4caf50",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Approved
+              </span>
+            </div>
+          ) : (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgb(255, 244, 229)",
+                  color: "rgb(102, 60, 0)",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Edited
+              </span>
+            </div>
+          )
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span
+              style={{
+                backgroundColor: "rgba(244,67,54,0.1)",
+                color: "#f44336",
+                fontWeight: "bold",
+                border: "",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
+              Pending
+            </span>
+          </div>
+        ),
     },
     // {
     //   title: "Status",
@@ -125,11 +181,13 @@ function MaterialConsumableAccept() {
                 setMessage("Material is already accepted.");
                 setIsValid(false);
                 setShowAlert(accepted);
+                setApproved(true);
                 setTimeout(() => setShowAlert(false), 2000);
               });
               if (rowData.quantity_acpt?.length && !accepted) {
                 acceptConsumableMaterial(rowData)
                   .then((resp) => {
+                    setApproved(true)
                     setMessage("Material Accepted Successfully");
                     setShowAlert(true);
                     setIsValid(true);
