@@ -67,4 +67,31 @@ const getRequests = () => {
   });
 };
 
-export { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial };
+
+const getConsumableTotalPrice = () => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .get(HOST + "/material/total/consumable")
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+const getNonConsumableTotalPrice = () => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .get(HOST + "/material/total/non-consumable")
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial, getConsumableTotalPrice, getNonConsumableTotalPrice };
