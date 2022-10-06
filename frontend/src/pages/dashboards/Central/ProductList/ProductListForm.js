@@ -14,7 +14,7 @@ function ConsumablesForm() {
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
   const [uom, setUom] = useState("");
-  const [mprice, setMprice] = useState("");
+  const [price, setPrice] = useState("");
   const [category, setCategory] = useState("")
   const [brand, setBrand] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
@@ -31,7 +31,7 @@ function ConsumablesForm() {
       mcode,
       mname,
       mdescription,
-      mprice,
+      price,
       uom,
       category,
       brand
@@ -162,10 +162,10 @@ function ConsumablesForm() {
             id="mPrice"
             label="M.Price"
             type="text"
-            value={mprice}
+            value={price}
             // error={error && serialNo == "" ? true : false}
             onChange={(e) => {
-              e.target.value.length >= 0 ? setMprice(e.target.value) : 0;
+              e.target.value.length >= 0 ? setPrice(e.target.value) : 0;
             }}
           />
         </Grid>
