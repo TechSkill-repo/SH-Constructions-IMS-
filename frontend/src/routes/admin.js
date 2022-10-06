@@ -45,7 +45,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import MonitorStorLon from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLon";
-import Consumable from "../pages/dashboards/Site/Inventory/Consumable";
+import Consumable from "../pages/dashboards/Admin/MonitorStorInventory/Consumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",

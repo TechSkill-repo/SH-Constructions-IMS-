@@ -5,12 +5,12 @@ import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { getMaterials } from "../../../../services/storeService";
+import { useParams } from "react-router-dom";
 
 function Consumable() {
   const [items, setItems] = useState([]);
 
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
-  const storeId = user.storeId;
+  const { storeId } = useParams();
 
   useEffect(() => {
     getMaterials(storeId)
