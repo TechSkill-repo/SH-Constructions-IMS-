@@ -18,6 +18,8 @@ function NonConsumableTable() {
   const [showAlert, setShowAlert] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const [message, setMessage] = useState("");
+  const [approved, setApproved] = useState(false);
+
 
   useEffect(() => {
     getMaterial(storeId, category)
@@ -55,7 +57,7 @@ function NonConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          rowData.issued ? (
+          rowData.issued || approved ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{

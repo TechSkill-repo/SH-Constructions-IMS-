@@ -14,6 +14,9 @@ function ConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "consumable";
   const [showSuccess, setShowSuccess] = useState(false);
+  const [approved, setApproved] = useState(false);
+
+
   useEffect(() => {
     async function fetch() {
       await getMaterial(category)
@@ -54,7 +57,7 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          rowData.issued ? (
+          rowData.issued || approved ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{
@@ -129,6 +132,7 @@ function ConsumableTable() {
               if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => {
+                    setApproved(true);
                     setShowSuccess(true);
                     console.log(resp);
                     window.location = '/consumable';

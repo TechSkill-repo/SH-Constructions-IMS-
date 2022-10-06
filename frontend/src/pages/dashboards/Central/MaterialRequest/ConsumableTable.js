@@ -15,6 +15,8 @@ function ConsumableTable() {
   const [showAlert, setShowAlert] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const [message, setMessage] = useState("");
+  const [approved, setApproved] = useState(false);
+
   const { storeId } = useParams();
   const category = "consumable";
 
@@ -54,7 +56,7 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          rowData.issued ? (
+          rowData.issued || approved ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{
@@ -130,6 +132,7 @@ function ConsumableTable() {
             onClick: async (event, rowData) => {
               let issued = rowData.issued;
               if (issued) {
+                setApproved(true)
                 setMessage("Material is already issued.");
                 setIsValid(false);
                 setShowAlert(issued);
@@ -137,6 +140,7 @@ function ConsumableTable() {
               } else if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => {
+                    setApproved(true)
                     setMessage("Material Issued Successfully");
                     setShowAlert(true);
                     setIsValid(true);
