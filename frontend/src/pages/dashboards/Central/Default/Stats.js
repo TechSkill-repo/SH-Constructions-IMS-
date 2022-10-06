@@ -53,7 +53,7 @@ const Percentage = styled(MuiTypography)`
   }
 `;
 
-const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
+const Stats = ({ title, amountC, amountNC, chip, percentageText, percentagecolor }) => {
   return (
     <Card mb={3}>
       <CardContent>
@@ -61,7 +61,10 @@ const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
           {title}
         </Typography>
         <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{amount}</Box>
+          <Box fontWeight="fontWeightRegular">{amountC}</Box>
+        </Typography>
+        <Typography variant="h3" mb={3}>
+          <Box fontWeight="fontWeightRegular">{amountNC}</Box>
         </Typography>
         <Percentage
           variant="subtitle2"
