@@ -44,8 +44,10 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import HandymanIcon from "@mui/icons-material/Handyman";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import MonitorStorLon from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLon";
+import MonitorStorLonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonConsumable";
+import MonitorStorLonNonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonNonConsumable";
 import Consumable from "../pages/dashboards/Admin/MonitorStorInventory/Consumable";
+import NonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/NonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -108,7 +110,7 @@ const materialAccepted = {
   component: MaterialAccepted,
 };
 
-const monitorStoreLone = {
+const monitorStoreLone= {
   id: "Monitor Store Lone",
   path: "/monitor-lone",
   icon: <VolunteerActivismIcon />,
@@ -130,24 +132,37 @@ const monitorStoreInventory = {
   icon: <GridViewIcon />,
   children: [
     {
-      path: "/store-inventory",
+      path: "/store-inventory/consumabales",
       name: "Consumables",
-      component: MonitorStorLon,
+      component: MonitorStorLonConsumable,
     },
-    // {
-    //   path: "/store-inventory",
-    //   name: "Non-Consumables",
-    //   component: MINonConsumable,
-    // },
+     {
+       path: "/store-inventory/non-consumables",
+      name: "Non-Consumables",
+      component: MonitorStorLonNonConsumable,
+   },
   ],
 };
-
-const monitor_Store_Inventory = {
+const monitor_Store_Inventory_Consumable = {
   id: "store in inventory",
-  path: "/store-inventory/:storeId",
+  path: "/store-inventory/consumable/:storeId",
   children: null,
   component: Consumable,
 };
+
+const monitor_Store_Inventory_NonConsumable = {
+  id: "store in inventory",
+  path: "/store-inventory/non-consumable/:storeId",
+  children: null,
+  component: NonConsumable,
+};
+
+// const monitor_Store_Inventory = {
+//   id: "store in inventory",
+//   path: "/store-inventory/non-consumables/:storeId",
+//   children: null,
+//   component: NonConsumable,
+// };
 
 const details = {
   id: "User Information's",
@@ -186,7 +201,8 @@ export const dashboardLayoutRoutes = [
   monitorStoreInventory,
   materialDamaged,
   details,
-  monitor_Store_Inventory,
+  monitor_Store_Inventory_Consumable,
+  monitor_Store_Inventory_NonConsumable,
 ];
 
 // Routes using the Auth layout
