@@ -20,6 +20,7 @@ import MaterialTable from "material-table";
 
 function LoanRequest() {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const uniqueId = () => {
     var id = "id" + Math.random().toString(16).slice(2);
@@ -211,6 +212,7 @@ function LoanRequest() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsDisabled(true)
     setShowSuccess(true);
 
     items.map((item) => {
@@ -339,6 +341,8 @@ function LoanRequest() {
           <Button
             variant="contained"
             size="medium"
+            color="primary"
+            disabled={items.filter((item) => item.mcode === "" || item.mquantity === "" || item.requestedStoreId === "").length > 0}
             onClick={handleOpen}
             style={{ width: "100%", maxWidth: "220px" }}
           >
@@ -353,6 +357,11 @@ function LoanRequest() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
           <Popup tableValues={items} />
           <Grid
             container
@@ -362,6 +371,8 @@ function LoanRequest() {
             <Button
               variant="contained"
               size="medium"
+              color="primary"
+              disabled={isDisabled}
               onClick={handleSubmit}
               style={{ width: "100%", maxWidth: "220px" }}
             >
