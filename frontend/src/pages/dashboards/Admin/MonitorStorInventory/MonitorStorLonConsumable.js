@@ -11,14 +11,14 @@ import { Divider as MuiDivider } from "@material-ui/core";
 import { Link, Router, useLocation } from "react-router-dom";
 
 const Divider = styled(MuiDivider)(spacing);
-
+ 
 function useQuery() {
   const { search } = useLocation();
 
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function MonitorStorLon(props) {
+function MonitorStorLonConsumable(props) {
   let query = useQuery();
 
   let childProps = query.get("store-id");
@@ -43,7 +43,7 @@ function MonitorStorLon(props) {
 
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/EC01">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/EC01">
             <Stats
               title="EC01"
               amount="Coke Plant"
@@ -55,7 +55,7 @@ function MonitorStorLon(props) {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E22">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E22">
             <Stats
               title="E22"
               amount="RMM"
@@ -66,7 +66,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E13">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E13">
             <Stats
               title="E13"
               amount="RMBB"
@@ -77,7 +77,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E17">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E17">
             <Stats
               title="E17"
               amount="RMBB2"
@@ -90,7 +90,7 @@ function MonitorStorLon(props) {
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E27">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E27">
             <Stats
               title="E27"
               amount="GBF"
@@ -101,7 +101,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E15">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E15">
             <Stats
               title="E15"
               amount="SP#3,4"
@@ -112,7 +112,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E23">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E23">
             <Stats
               title="E23"
               amount="SP#1,2"
@@ -123,7 +123,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E24">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E24">
             <Stats
               title="E24"
               amount="MM"
@@ -136,7 +136,7 @@ function MonitorStorLon(props) {
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E20">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E20">
             <Stats
               title="E20"
               amount="LD#01"
@@ -147,7 +147,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E30">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E30">
             <Stats
               title="E30"
               amount="PALLET PLANT"
@@ -158,7 +158,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/E28">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/E28">
             <Stats
               title="E28"
               amount="MRSPP"
@@ -169,7 +169,7 @@ function MonitorStorLon(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/I11">
+          <Link style={{ textDecoration: "none" }} to="/store-inventory/consumable/I11">
             <Stats
               title="I11"
               amount="LINE PLANT"
@@ -184,4 +184,4 @@ function MonitorStorLon(props) {
   );
 }
 
-export default MonitorStorLon;
+export default MonitorStorLonConsumable;
