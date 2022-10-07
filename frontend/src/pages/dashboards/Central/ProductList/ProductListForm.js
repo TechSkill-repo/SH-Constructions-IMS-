@@ -14,7 +14,7 @@ function ConsumablesForm() {
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
   const [uom, setUom] = useState("");
-  const [mprice, setMprice] = useState("");
+  const [price, setPrice] = useState("");
   const [category, setCategory] = useState("")
   const [brand, setBrand] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
@@ -31,7 +31,7 @@ function ConsumablesForm() {
       mcode,
       mname,
       mdescription,
-      mprice,
+      price,
       uom,
       category,
       brand
@@ -51,71 +51,15 @@ function ConsumablesForm() {
   
   };
 
-  const uomValues = [
-    {
-      value: "EC01",
-      label: "COOKE PLANT",
-    },
-    {
-      value: "E22",
-      label: "RMM",
-    },
-    {
-      value: "E13",
-      label: "RMBB",
-    },
-    {
-      value: "E17",
-      label: "RMBB2",
-    },
-    {
-      value: "E27",
-      label: "GBF",
-    },
-    {
-      value: "E15",
-      label: "SP#3,4",
-    },
-    {
-      value: "E23",
-      label: "SP#1,2",
-    },
-    {
-      value: "E24",
-      label: "MM",
-    },
-    {
-      value: "E20",
-      label: "LD#01",
-    },
-    {
-      value: "E30",
-      label: "PP",
-    },
-    {
-      value: "E28",
-      label: "MRSPP",
-    },
-    {
-      value: "ILL",
-      label: "LINE PLANT",
-    },
-  ];
-
   const categoryValues = [
     {
-      value: "Elephant",
-      label: "Elephant",
+      value: "consumable",
+      label: "consumable",
     },
     {
-      value: "Keto",
-      label: "Keto",
-    },
-    {
-      value: "MSA",
-      label: "MSA",
-    },
-   
+      value: "non-consumable",
+      label: "non-consumable",
+    }
   ];
 
   const brandValues = [
@@ -218,10 +162,10 @@ function ConsumablesForm() {
             id="mPrice"
             label="M.Price"
             type="text"
-            value={mprice}
+            value={price}
             // error={error && serialNo == "" ? true : false}
             onChange={(e) => {
-              e.target.value.length >= 0 ? setMprice(e.target.value) : 0;
+              e.target.value.length >= 0 ? setPrice(e.target.value) : 0;
             }}
           />
         </Grid>
@@ -233,20 +177,13 @@ function ConsumablesForm() {
         <Grid item xs={12} md={4}>
           <TextField
             id="U.O.M"
-            select
             label="U.O.M"
             type="text"
             value={uom}
             onChange={(e) => {
               setUom(e.target.value);
             }}
-          >
-            {uomValues.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          />
         </Grid>
 
         <Grid item xs={12} md={4}>
