@@ -63,7 +63,7 @@ function AcceptConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_acpt?.length ? (
-          approved ? (
+          rowData.issued || approved  ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{

@@ -138,11 +138,13 @@ function NonConsumableTable() {
                 setMessage("Material is already issued.");
                 setIsValid(false);
                 setShowAlert(issued);
+                setApproved(true)
                 setTimeout(() => setShowAlert(false), 2000);
               }
               else if (rowData.quantity_aprv?.length && !issued) {
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => {
+                    setApproved(true)
                     setMessage("Material Issued Successfully");
                     setShowAlert(true);
                     setIsValid(true);
