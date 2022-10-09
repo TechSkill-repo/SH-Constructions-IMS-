@@ -61,6 +61,7 @@ function ReqForm() {
   };
 
   useEffect(() => {
+    
     async function fetch() {
       await getMaterial(storeId)
         .then((data) => {
@@ -309,6 +310,7 @@ function ReqForm() {
           <Button
             variant="contained"
             color="primary"
+            disabled={items.filter((item) => item.mcode === "" || item.quantity_req === "").length > 0}
             size="medium"
             onClick={handleOpen}
             style={{ width: "100%", maxWidth: "220px" }}

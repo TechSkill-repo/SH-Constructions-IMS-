@@ -311,6 +311,7 @@ function ReqForm() {
             variant="contained"
             size="medium"
             onClick={handleOpen}
+            disabled={items.filter((item) => item.mcode === "" || item.quantity_req === "").length > 0}
             color="primary"
             style={{ width: "100%", maxWidth: "220px" }}
           >
