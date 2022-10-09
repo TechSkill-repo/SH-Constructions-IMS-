@@ -50,7 +50,7 @@ const editMaterial = async (req, res) => {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach(async (doc) => {
-        if (doc.data().category === category && doc.data().mcode === mcode) {
+        if (doc.data().category === category && doc.data().mcode === mcode && doc.data().issue_slip_no === issue_slip_no) {
           await db.collection("materials").doc("request").collection("items").doc(doc.id).delete();
           await db.collection("materials").doc("request").collection("items").doc(doc.id).set({ storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, incharge_name, site_location })
         }
