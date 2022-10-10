@@ -197,7 +197,7 @@ function NonConsumable() {
               title="I11"
               amount="LINE PLANT"
               chip="Imteyaz Ahmed"
-              percentageText=""
+              percentageText="I11"
               percentagecolor={red[500]}
             />
           </Link>
