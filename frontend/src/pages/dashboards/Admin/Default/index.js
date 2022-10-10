@@ -1,7 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
+import { Button, Box} from "@mui/material";
 
 import {
   Grid,
@@ -27,6 +28,11 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const userRole = JSON.parse(userDetails);
+  const [viewMore, setViewMore] = useState(false)
+
+
+  const handleViewMore=()=>setViewMore(!viewMore)
+
 
   return (
     <React.Fragment>
@@ -84,7 +90,72 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
+        
+        {viewMore && (
+          <>
+        
+          <Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Pending Orders"
+            amount="45"
+            chip="Today"
+            percentageText="-9%"
+            percentagecolor={red[500]}
+          />
+        </Grid><Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Pending Orders"
+            amount="45"
+            chip="Today"
+            percentageText="-9%"
+            percentagecolor={red[500]}
+          />
+        </Grid><Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Pending Orders"
+            amount="45"
+            chip="Today"
+            percentageText="-9%"
+            percentagecolor={red[500]}
+          />
+        </Grid><Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Pending Orders"
+            amount="45"
+            chip="Today"
+            percentageText="-9%"
+            percentagecolor={red[500]}
+          />
+        </Grid><Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Pending Orders"
+            amount="45"
+            chip="Today"
+            percentageText="-9%"
+            percentagecolor={red[500]}
+          />
+        </Grid><Grid item xs={12} sm={12} md={6} lg={3} xl>
+          <Stats
+            title="Pending Orders"
+            amount="45"
+            chip="Today"
+            percentageText="-9%"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        
+        
+        </>
+        )
+          
+        }
+        
+
       </Grid>
+      <Box sx={{display:"flex", justifyContent:"center"}}>
+
+        <Button onClick={handleViewMore} variant="contained">{viewMore?"View Less":"View More"}</Button>
+        </Box>
       <div
         style={{
           textAlign: "center",
@@ -115,6 +186,8 @@ function Default() {
           <Table />
         </Grid>
       </Grid>
+      
+      
     </React.Fragment>
   );
 }
