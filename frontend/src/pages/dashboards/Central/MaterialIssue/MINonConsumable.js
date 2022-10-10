@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import Stats from "../Default/Stats";
+import Stats from "./Stats";
 // import Stats from "./Stats";
 import { green, red } from "@material-ui/core/colors";
 import { Helmet } from "react-helmet-async";
@@ -37,7 +37,7 @@ function MINonConsumable() {
           >
             <Stats
               title="EC01"
-              amount="Coke Plant"
+              amountNC="Coke Plant"
               chip="Muzaffar Iqbal"
               percentageText="EC01"
               percentagecolor={green[500]}
@@ -51,7 +51,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E22"
-              amount="RMM"
+              amountNC="RMM"
               chip="Anurag"
               percentageText="E22"
               percentagecolor={red[500]}
@@ -65,7 +65,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E13"
-              amount="RMBB"
+              amountNC="RMBB"
               chip="Ramesh Sharma"
               percentageText="E13"
               percentagecolor={green[500]}
@@ -79,7 +79,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E17"
-              amount="RMBB2"
+              amountNC="RMBB2"
               chip="Love Gope"
               percentageText="E17"
               percentagecolor={red[500]}
@@ -95,7 +95,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E27"
-              amount="GBF"
+              amountNC="GBF"
               chip="RK Srivastava"
               percentageText="E27"
               percentagecolor={green[500]}
@@ -109,7 +109,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E15"
-              amount="SP#3,4"
+              amountNC="SP#3,4"
               chip="Manoj Mishra"
               percentageText="E15"
               percentagecolor={red[500]}
@@ -123,7 +123,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E23"
-              amount="SP#1,2"
+              amountNC="SP#1,2"
               chip="Chandan Singh"
               percentageText="E23"
               percentagecolor={green[500]}
@@ -137,7 +137,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E24"
-              amount="MM"
+              amountNC="MM"
               chip="Hashim Khan"
               percentageText="E25"
               percentagecolor={red[500]}
@@ -153,7 +153,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E20"
-              amount="LD#01"
+              amountNC="LD#01"
               chip="Prabhat Singh"
               percentageText="E20"
               percentagecolor={green[500]}
@@ -167,7 +167,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E30"
-              amount="PALLET PLANT"
+              amountNC="PALLET PLANT"
               chip="Bablu Panday"
               percentageText="E30"
               percentagecolor={red[500]}
@@ -181,7 +181,7 @@ function MINonConsumable() {
           >
             <Stats
               title="E28"
-              amount="MRSPP"
+              amountNC="MRSPP"
               chip="Santosh Panday"
               percentageText="E28"
               percentagecolor={green[500]}
@@ -195,7 +195,7 @@ function MINonConsumable() {
           >
             <Stats
               title="I11"
-              amount="LINE PLANT"
+              amountNC="LINE PLANT"
               chip="Imteyaz Ahmed"
               percentageText=""
               percentagecolor={red[500]}

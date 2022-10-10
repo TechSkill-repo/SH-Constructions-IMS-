@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import Stats from "../Default/Stats";
+import Stats from "./Stats";
 // import Stats from "./Stats";
 import { green, red } from "@material-ui/core/colors";
 import { Helmet } from "react-helmet-async";
@@ -44,7 +44,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/EC01">
             <Stats
               title="EC01"
-              amount="Coke Plant"
+              amountC="Coke Plant"
               chip="Muzaffar Iqbal"
               percentageText="EC01"
               percentagecolor={green[500]}
@@ -56,7 +56,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E22">
             <Stats
               title="E22"
-              amount="RMM"
+              amountC="RMM"
               chip="Anurag"
               percentageText="E22"
               percentagecolor={red[500]}
@@ -67,7 +67,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E13">
             <Stats
               title="E13"
-              amount="RMBB"
+              amountC="RMBB"
               chip="Ramesh Sharma"
               percentageText="E13"
               percentagecolor={green[500]}
@@ -78,7 +78,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E17">
             <Stats
               title="E17"
-              amount="RMBB2"
+              amountC="RMBB2"
               chip="Love Gope"
               percentageText="E17"
               percentagecolor={red[500]}
@@ -91,7 +91,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E27">
             <Stats
               title="E27"
-              amount="GBF"
+              amountC="GBF"
               chip="RK Srivastava"
               percentageText="E27"
               percentagecolor={green[500]}
@@ -102,7 +102,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E15">
             <Stats
               title="E15"
-              amount="SP#3,4"
+              amountC="SP#3,4"
               chip="Manoj Mishra"
               percentageText="E15"
               percentagecolor={red[500]}
@@ -113,7 +113,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E23">
             <Stats
               title="E23"
-              amount="SP#1,2"
+              amountC="SP#1,2"
               chip="Chandan Singh"
               percentageText="E23"
               percentagecolor={green[500]}
@@ -124,7 +124,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E24">
             <Stats
               title="E24"
-              amount="MM"
+              amountC="MM"
               chip="Hashim Khan"
               percentageText="E25"
               percentagecolor={red[500]}
@@ -137,7 +137,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E20">
             <Stats
               title="E20"
-              amount="LD#01"
+              amountC="LD#01"
               chip="Prabhat Singh"
               percentageText="E20"
               percentagecolor={green[500]}
@@ -148,7 +148,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E30">
             <Stats
               title="E30"
-              amount="PALLET PLANT"
+              amountC="PALLET PLANT"
               chip="Bablu Panday"
               percentageText="E30"
               percentagecolor={red[500]}
@@ -159,7 +159,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/E28">
             <Stats
               title="E28"
-              amount="MRSPP"
+              amountC="MRSPP"
               chip="Santosh Panday"
               percentageText="E28"
               percentagecolor={green[500]}
@@ -170,7 +170,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/I11">
             <Stats
               title="I11"
-              amount="LINE PLANT"
+              amountC="LINE PLANT"
               chip="Imteyaz Ahmed"
               percentageText="I11"
               percentagecolor={red[500]}
