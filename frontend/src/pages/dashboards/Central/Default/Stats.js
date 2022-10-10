@@ -59,8 +59,6 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
   const [totalC, setTotalC] = useState(0);
   const [totalNC, setTotalNC] = useState(0);
 
-  console.log(percentageText);
-
   useEffect(() => {
     getConsumableTotalPrice(percentageText).then(data => setTotalC(data.total)).catch(err => console.log(err));
     getNonConsumableTotalPrice(percentageText).then(data => setTotalNC(data.total)).catch(err => console.log(err));
