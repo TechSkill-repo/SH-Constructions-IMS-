@@ -86,37 +86,45 @@ const getRequests = async (req, res) => {
 }
 
 const getConsumableTotalPrice = async (req, res) => {
+  const storeId = req.query.storeId;
   const items = [];
   const materials = [];
   const prices = [];
 
   const matQuery = db.collection("materials").doc("data").collection("items");
-  matQuery.get().then(querySnapshot => {
+  await matQuery.get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
       const { mcode, price } = doc.data();
       materials.push({ mcode, price });
     });
   });
 
-  const invQuery = db.collection("inventory").doc("consumable").collection("items");
-  invQuery.get().then(querySnapshot => {
+  const invQuery = db.collection("stores").doc(storeId).collection("items");
+  await invQuery.get().then(querySnapshot => {
     if (querySnapshot.empty) {
       res.status(404).json({ "message": "Materials not found" });
     } else {
       querySnapshot.forEach(doc => {
-        const { mcode, current_stock } = doc.data();
-        items.push({ mcode, current_stock });
+        if (doc.data().category === "consumable") {
+          const { mcode, mquantity } = doc.data();
+          items.push({ mcode, mquantity });
+        }
       });
 
       items.forEach(item => {
         materials.forEach(material => {
           if (material.mcode === item.mcode) {
-            prices.push(parseInt(item.current_stock) * parseInt(material.price));
+            prices.push(parseInt(item.mquantity) * parseInt(material.price));
           }
         })
       });
 
-      const total = prices.reduce((prev, curr) => prev + curr);
+      let total;
+      try {
+        total = prices.reduce((prev, curr) => prev + curr);
+      } catch {
+        total = 0;
+      }
 
       res.status(200).json({ "message": "Total price fetched", "total": total });
     }
@@ -124,37 +132,45 @@ const getConsumableTotalPrice = async (req, res) => {
 }
 
 const getNonConsumableTotalPrice = async (req, res) => {
+  const storeId = req.query.storeId;
   const items = [];
   const materials = [];
   const prices = [];
 
   const matQuery = db.collection("materials").doc("data").collection("items");
-  matQuery.get().then(querySnapshot => {
+  await matQuery.get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
       const { mcode, price } = doc.data();
       materials.push({ mcode, price });
     });
   });
 
-  const invQuery = db.collection("inventory").doc("non-consumable").collection("items");
-  invQuery.get().then(querySnapshot => {
+  const invQuery = db.collection("stores").doc(storeId).collection("items");
+  await invQuery.get().then(querySnapshot => {
     if (querySnapshot.empty) {
       res.status(404).json({ "message": "Materials not found" });
     } else {
       querySnapshot.forEach(doc => {
-        const { mcode, current_stock } = doc.data();
-        items.push({ mcode, current_stock });
+        if (doc.data().category === "non-consumable") {
+          const { mcode, mquantity } = doc.data();
+          items.push({ mcode, mquantity });
+        }
       });
 
       items.forEach(item => {
         materials.forEach(material => {
           if (material.mcode === item.mcode) {
-            prices.push(parseInt(item.current_stock) * parseInt(material.price));
+            prices.push(parseInt(item.mquantity) * parseInt(material.price));
           }
         })
       });
 
-      const total = prices.reduce((prev, curr) => prev + curr);
+      let total;
+      try {
+        total = prices.reduce((prev, curr) => prev + curr);
+      } catch {
+        total = 0;
+      }
 
       res.status(200).json({ "message": "Total price fetched", "total": total });
     }

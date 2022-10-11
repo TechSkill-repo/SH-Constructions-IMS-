@@ -68,10 +68,10 @@ const getRequests = () => {
 };
 
 
-const getConsumableTotalPrice = () => {
+const getConsumableTotalPrice = (storeId) => {
   return new Promise((resolve, reject) => {
     return axios
-      .get(HOST + "/material/total/consumable")
+      .get(HOST + "/material/total/consumable?storeId=" + storeId)
       .then((resp) => {
         resolve(resp.data);
       })
@@ -81,10 +81,10 @@ const getConsumableTotalPrice = () => {
   });
 };
 
-const getNonConsumableTotalPrice = () => {
+const getNonConsumableTotalPrice = (storeId) => {
   return new Promise((resolve, reject) => {
     return axios
-      .get(HOST + "/material/total/non-consumable")
+      .get(HOST + "/material/total/non-consumable?storeId=" + storeId)
       .then((resp) => {
         resolve(resp.data);
       })

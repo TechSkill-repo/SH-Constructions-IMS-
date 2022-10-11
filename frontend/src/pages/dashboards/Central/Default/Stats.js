@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 
 import {
@@ -12,6 +12,8 @@ import {
 import { rgba } from "polished";
 
 import { spacing } from "@material-ui/system";
+
+import { getConsumableTotalPrice, getNonConsumableTotalPrice } from "../../../../services/materialService";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -53,7 +55,15 @@ const Percentage = styled(MuiTypography)`
   }
 `;
 
-const Stats = ({ title, amountC, amountNC, chip, percentageText, percentagecolor }) => {
+const Stats = ({ title, chip, percentageText, percentagecolor }) => {
+  const [totalC, setTotalC] = useState(0);
+  const [totalNC, setTotalNC] = useState(0);
+
+  useEffect(() => {
+    getConsumableTotalPrice(percentageText).then(data => setTotalC(data.total)).catch(err => console.log(err));
+    getNonConsumableTotalPrice(percentageText).then(data => setTotalNC(data.total)).catch(err => console.log(err));
+  }, []);
+
   return (
     <Card mb={3}>
       <CardContent>
@@ -61,10 +71,10 @@ const Stats = ({ title, amountC, amountNC, chip, percentageText, percentagecolor
           {title}
         </Typography>
         <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{amountC}</Box>
+          <Box fontWeight="fontWeightRegular">{totalC}</Box>
         </Typography>
         <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{amountNC}</Box>
+          <Box fontWeight="fontWeightRegular">{totalNC}</Box>
         </Typography>
         <Percentage
           variant="subtitle2"

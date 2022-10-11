@@ -265,8 +265,8 @@ const editIssuedMaterial = async (req, res) => {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach(async (doc) => {
-        if (doc.data().category === category && doc.data().mcode === mcode) {
-          await db.collection("materials").doc("issue").collection("items").doc(doc.id).delete();
+        if (doc.data().category === category && doc.data().mcode === mcode && doc.data().issue_slip_no === issue_slip_no) {
+          await db.collection("inventory").doc("issue").collection("items").doc(doc.id).delete();
           await db.collection("inventory").doc("issue").collection("items").doc(doc.id).set({ storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, quantity_aprv, quantity_acpt });
         }
       });
