@@ -136,7 +136,7 @@ function MINonConsumable() {
             to="/mi-non-consumables-table/E24"
           >
             <Stats
-              title="E24"
+              title="E25"
               amount="MM"
               chip="Hashim Khan"
               percentageText="E25"
@@ -197,7 +197,7 @@ function MINonConsumable() {
               title="I11"
               amount="LINE PLANT"
               chip="Imteyaz Ahmed"
-              percentageText=""
+              percentageText="I11"
               percentagecolor={red[500]}
             />
           </Link>
