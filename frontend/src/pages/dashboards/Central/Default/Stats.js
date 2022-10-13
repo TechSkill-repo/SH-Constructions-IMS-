@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 import {
-
   Card as MuiCard,
   CardContent as MuiCardContent,
   Chip as MuiChip,
@@ -14,7 +14,10 @@ import { rgba } from "polished";
 
 import { spacing } from "@material-ui/system";
 
-import { getConsumableTotalPrice, getNonConsumableTotalPrice } from "../../../../services/materialService";
+import {
+  getConsumableTotalPrice,
+  getNonConsumableTotalPrice,
+} from "../../../../services/materialService";
 
 const Card = styled(MuiCard)(spacing);
 
@@ -61,8 +64,12 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
   const [totalNC, setTotalNC] = useState(0);
 
   useEffect(() => {
-    getConsumableTotalPrice(percentageText).then(data => setTotalC(data.total)).catch(err => console.log(err));
-    getNonConsumableTotalPrice(percentageText).then(data => setTotalNC(data.total)).catch(err => console.log(err));
+    getConsumableTotalPrice(percentageText)
+      .then((data) => setTotalC(data.total))
+      .catch((err) => console.log(err));
+    getNonConsumableTotalPrice(percentageText)
+      .then((data) => setTotalNC(data.total))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -72,20 +79,42 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
           {title}
         </Typography>
         <Typography variant="h4" mb={3}>
-          <Box fontWeight="fontWeightRegular" sx={{
-                  backgroundColor: '#deffde',
-                 
-                  borderRadius: '5px',
-                  padding: '5px',
-          }}>C - {totalC}</Box>
+          <Box
+            fontWeight="fontWeightRegular"
+            sx={{
+              backgroundColor: "#deffde",
+              display: "flex",
+              alignItems: "center",
+              borderRadius: "5px",
+              padding: "5px",
+            }}
+          >
+            C -{" "}
+            <CurrencyRupeeIcon
+              sx={{
+                width: "20px",
+              }}
+            ></CurrencyRupeeIcon>{" "}
+            {totalC}
+          </Box>
         </Typography>
         <Typography variant="h4" mb={3}>
-          <Box fontWeight="fontWeightRegular" sx={{
-                  backgroundColor: '#cae5ff',
-                 
-                  borderRadius: '5px',
-                  padding: '5px',
-          }}>NC -{totalNC}</Box>
+          <Box
+            fontWeight="fontWeightRegular"
+            sx={{
+              backgroundColor: "#cae5ff",
+              display: "flex",
+              alignItems: "center",
+              borderRadius: "5px",
+              padding: "5px",
+            }}
+          >
+            NC - <CurrencyRupeeIcon
+            sx={{
+                width: "20px",
+              }}
+            ></CurrencyRupeeIcon> {totalNC}
+          </Box>
         </Typography>
         <Percentage
           variant="subtitle2"

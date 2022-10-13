@@ -49,7 +49,7 @@ function Default() {
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="Coke Plant"
             chip="Muzaffar Iqbal"
@@ -57,7 +57,7 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="RMM"
             chip="Anurag"
@@ -65,7 +65,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="RMBB"
             chip="Ramesh Sharma"
@@ -73,7 +73,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+       
+      </Grid>
+      <Grid container spacing={6}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="RMBB2"
             chip="Love Gope"
@@ -81,9 +84,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-      </Grid>
-      <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="GBF"
             chip="RK Srivastava"
@@ -91,7 +92,7 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="SP#1,2"
             chip="Chandan Singh"
@@ -99,7 +100,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+       
+      </Grid>
+      <Grid container spacing={6}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="SP#3,4"
             chip="Manoj Mishra"
@@ -107,7 +111,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="MM"
             chip="Hashim Khan"
@@ -115,9 +119,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-      </Grid>
-      <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="LD#01"
             chip="Prabhat Singh"
@@ -125,7 +127,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        
+      </Grid>
+      <Grid container spacing={6}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="PALLET PLANT"
             chip="Bablu Panday"
@@ -133,7 +138,7 @@ function Default() {
             percentagecolor={red[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="MRSPP"
             chip="Santosh Panday"
@@ -141,7 +146,7 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="Line Plant"
             chip="Imteyaz Ahmed"
@@ -149,6 +154,7 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
+        
       </Grid>
     </React.Fragment>
   );

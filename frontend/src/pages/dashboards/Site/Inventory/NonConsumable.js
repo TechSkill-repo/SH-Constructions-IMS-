@@ -36,7 +36,7 @@ function NonConsumable() {
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
-      title: "Current Stock",
+      title: "Curr. Stock",
       field: "mquantity",
       filterPlaceholder: "filter",
     },

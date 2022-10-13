@@ -16,7 +16,7 @@ function NonConsumable() {
       <Grid container spacing={4} alignItems="center" justifyContent="center">
         <Grid item xs={11} >
           <Typography variant="h3" gutterBottom gutterLeft>
-            Non-Consumable Items
+            Non-Consumable Items Inventory
           </Typography>
         </Grid>
         <Grid item xs={1}>
