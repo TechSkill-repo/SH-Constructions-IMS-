@@ -111,7 +111,7 @@ function Default() {
           <Stats
             title="MM"
             chip="Hashim Khan"
-            percentageText="E25"
+            percentageText="E24"
             percentagecolor={red[500]}
           />
         </Grid>
