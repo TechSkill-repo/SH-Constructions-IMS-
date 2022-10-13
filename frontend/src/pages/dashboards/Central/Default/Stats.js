@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 
 import {
-  Box,
+
   Card as MuiCard,
   CardContent as MuiCardContent,
   Chip as MuiChip,
   Typography as MuiTypography,
 } from "@material-ui/core";
+import Box from "@mui/material/Box";
 
 import { rgba } from "polished";
 
@@ -70,11 +71,21 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
         <Typography variant="h6" mb={4}>
           {title}
         </Typography>
-        <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{totalC}</Box>
+        <Typography variant="h4" mb={3}>
+          <Box fontWeight="fontWeightRegular" sx={{
+                  backgroundColor: '#deffde',
+                 
+                  borderRadius: '5px',
+                  padding: '5px',
+          }}>C - {totalC}</Box>
         </Typography>
-        <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{totalNC}</Box>
+        <Typography variant="h4" mb={3}>
+          <Box fontWeight="fontWeightRegular" sx={{
+                  backgroundColor: '#cae5ff',
+                 
+                  borderRadius: '5px',
+                  padding: '5px',
+          }}>NC -{totalNC}</Box>
         </Typography>
         <Percentage
           variant="subtitle2"
