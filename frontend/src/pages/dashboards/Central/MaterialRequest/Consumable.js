@@ -126,7 +126,7 @@ function Consumable(props) {
               title="E24"
               amountC="MM"
               chip="Hashim Khan"
-              percentageText="E25"
+              percentageText="E24"
               percentagecolor={red[500]}
             />
           </Link>

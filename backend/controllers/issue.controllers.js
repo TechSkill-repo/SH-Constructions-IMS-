@@ -142,7 +142,7 @@ const issueConsumableMaterial = async (req, res) => {
   });
 
   const docRef = db.collection("inventory").doc("issue").collection("items").doc();
-  docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "consumable" });
+  await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "consumable" });
 
   res.status(201).json({ "message": "Issue successful" });
 };
@@ -159,7 +159,7 @@ const issueNonConsumableMaterial = async (req, res) => {
   });
 
   const docRef = db.collection("inventory").doc("issue").collection("items").doc();
-  docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "non-consumable" });
+  await docRef.set({ mcode, date, issue_slip_no, mname, mdescription, uom, storeId, quantity_req, quantity_aprv, category: "non-consumable" });
 
   res.status(201).json({ "message": "Issue successful" });
 };
