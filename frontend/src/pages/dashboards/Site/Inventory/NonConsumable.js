@@ -26,11 +26,8 @@ function NonConsumable() {
 
   const columns = [
     { title: "Date", field: "date", filterPlaceholder: "filter" },
-    {
-      title: "Issue Slip.No",
-      field: "issue_slip_no",
-      filterPlaceholder: "filter",
-    },
+    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
+   
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
       title: "M.Description",
