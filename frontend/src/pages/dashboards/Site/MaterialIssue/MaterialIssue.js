@@ -19,6 +19,11 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
 function MaterialIssue() {
+
+  const uniqueId = () => {
+    var id = "id" + Math.random().toString(16).slice(2);
+    return id.substring(3, 8);
+  };
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
@@ -27,6 +32,7 @@ function MaterialIssue() {
     {
       storeId: user ? user.storeId : "",
       empName: "",
+      slip_no: uniqueId(),
       empId: "",
       mcode: "",
       Ddate: getCurrentDate(),
@@ -35,6 +41,8 @@ function MaterialIssue() {
   ]);
   const [mcodes, setMcodes] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
+  
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -114,6 +122,7 @@ function MaterialIssue() {
       ...items,
       {
         storeId: user ? user.storeId : "",
+        slip_no: uniqueId(),
         empName: "",
         empId: "",
         mcode: "",
@@ -126,6 +135,7 @@ function MaterialIssue() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
+    setSubmitDisabled(true);
 
     items.map((item) => {
       materialDestruct(item)
@@ -156,11 +166,7 @@ function MaterialIssue() {
 
   return (
     <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+      
       <Box
         component="form"
         sx={{
@@ -173,7 +179,7 @@ function MaterialIssue() {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h3">Requisition Form</Typography>
+        <Typography variant="h3">Material Issue Form</Typography>
         {items.map((item, index) => {
           return (
             <Grid
@@ -206,7 +212,7 @@ function MaterialIssue() {
                 <TextField
                   variant="outlined"
                   name="mquantity"
-                  label="Quantity Request"
+                  label="Quantity Requested"
                   type="text"
                   value={item.mquantity}
                   onChange={(e) => {
@@ -279,6 +285,8 @@ function MaterialIssue() {
             size="medium"
             onClick={handleOpen}
             style={{ width: "100%", maxWidth: "220px" }}
+            disabled={items.filter((item) => item.mcode === "" || item.mquantity === "" || item.empId === "" || item.empName === "").length > 0}
+            
           >
             Add Items
           </Button>
@@ -327,6 +335,11 @@ function MaterialIssue() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+        {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          Material Issued Successfully!
+        </Alert>
+      )}
           <Popup tableValues={items} />
           <Grid
             container
@@ -338,6 +351,7 @@ function MaterialIssue() {
               color="primary"
               size="medium"
               onClick={handleSubmit}
+              disabled={submitDisabled}
               style={{ width: "100%", maxWidth: "220px" }}
             >
               Submit
