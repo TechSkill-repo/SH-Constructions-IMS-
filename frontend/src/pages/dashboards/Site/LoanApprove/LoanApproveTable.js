@@ -136,7 +136,7 @@ function LoanApproveTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Stakes Lone"
+          title="Stakes Loan"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

@@ -57,7 +57,7 @@ function LoanReturn() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            Lone Returns:
+            Loan Returns:
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}
@@ -121,7 +121,7 @@ function LoanReturn() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Lone Returns"
+          title="Loan Returns"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

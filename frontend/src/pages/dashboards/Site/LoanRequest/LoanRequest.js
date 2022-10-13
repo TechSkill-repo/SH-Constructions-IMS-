@@ -379,7 +379,7 @@ function LoanRequest() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            Lone Requests:
+            Loan Requests:
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {user.storeId}{" "}
@@ -426,7 +426,7 @@ function LoanRequest() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Lone Requests"
+          title="Loan Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

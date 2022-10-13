@@ -134,7 +134,7 @@ function LoanReqTable() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            Lone Requests:
+            Loan Requests:
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}
@@ -144,12 +144,12 @@ function LoanReqTable() {
       </Grid>
       {loneDenied && (
         <FormField style={{ marginBottom: "1.3em" }}>
-          <Alert severity="error">Lone Denied! 😕</Alert>
+          <Alert severity="error">Loan Denied! 😕</Alert>
         </FormField>
       )}
       {loneApproved && (
         <FormField style={{ marginBottom: "1.3em" }}>
-          <Alert severity="success">Lone Request success! </Alert>
+          <Alert severity="success">Loan Request success! </Alert>
         </FormField>
       )}
       <Grid
@@ -254,7 +254,7 @@ function LoanReqTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Lone Requests"
+          title="Loan Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>
