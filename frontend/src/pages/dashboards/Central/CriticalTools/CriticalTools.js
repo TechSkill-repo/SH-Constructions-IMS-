@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import Stats from "../Default/Stats";
+import Stats from "./Stats";
 // import Stats from "./Stats";
 import { green, red } from "@material-ui/core/colors";
 import { Helmet } from "react-helmet-async";
