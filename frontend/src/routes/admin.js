@@ -20,14 +20,34 @@ import {
   Users,
 } from "react-feather";
 
+import FireplaceIcon from "@mui/icons-material/Fireplace";
+
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Admin/Default"));
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
-
+import GridViewIcon from "@mui/icons-material/GridView";
 import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
 import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
 import MaterialAccepted from "../pages/dashboards/Admin/MaterialAccepted/MaterialAccepted";
+import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
+import ProductList from "../pages/dashboards/Central/ProductList/ProductList";
+import MaterialIssue from "../pages/dashboards/Central/MaterialIssue/MaterialIssue";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import MIConsumable from "../pages/dashboards/Central/MaterialIssue/MIConsumable";
+import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonConsumable";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import MonitorStorLonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonConsumable";
+import MonitorStorLonNonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonNonConsumable";
+import Consumable from "../pages/dashboards/Admin/MonitorStorInventory/Consumable";
+import NonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/NonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -44,68 +64,119 @@ const dashboardsRoutes = {
   ],
   component: null,
 };
-const projectsRoutes = {
-  id: "Admin Inventory",
-  path: "/analytics",
-  icon: <Briefcase />,
-  component: Analytics,
-  children: null,
-};
 
-const authRoutes = {
-  id: "Material Issue",
-  path: "/material-issue",
-  icon: <Users />,
-  children: null,
+const amount = {
+  id: "Account Details",
+  path: "/accounts",
+  icon: <AccountBalanceIcon />,
   component: null,
 };
 
 const consumables = {
   id: "Consumables Items",
   path: "/consumable",
-  icon: <Users />,
+  icon: <EngineeringIcon />,
   children: null,
   component: ConsumableTable,
 };
 
 const non_consumables = {
-  id: "Non-Consumables Items",
+  id: "Non-Consumables",
   path: "/non-consumable",
-  icon: <Users />,
+  icon: <HandymanIcon />,
   children: null,
   component: NonConsumableTable,
 };
 
-const componentsRoutes = {
+const criticalTools = {
   id: "Critical Tools",
   path: "/critical-tools",
-  icon: <Grid />,
-  children: [
-    {
-      path: "/simpleTables",
-      name: "Tool 1",
-      component: null,
-    },
-    {
-      path: "/simpleTables",
-      name: "Tool 2",
-      component: null,
-    },
-    {
-      path: "/simpleTables",
-      name: "Tool 3",
-      component: null,
-    },
-  ],
+  icon: <FireplaceIcon />,
   component: null,
+  component: CriticalTools,
+};
+
+const criticalTool = {
+  id: "Critical Tool",
+  path: "/critical-tool/:productId",
+  children: null,
+  component: CriticalTool,
 };
 
 const materialAccepted = {
-  id: "Accepted Materials",
+  id: "Monitor Materials",
   path: "/material-accept",
   icon: <Monitor />,
-  component: MaterialAccepted
-}
+  component: MaterialAccepted,
+};
+
+const monitorStoreLone= {
+  id: "Monitor Store Lone",
+  path: "/monitor-lone",
+  icon: <VolunteerActivismIcon />,
+  children: null,
+  component: MonitorLone,
+};
+
+const productList = {
+  id: "Product List",
+  path: "/product-list",
+  icon: <ImportContactsIcon />,
+  component: ProductList,
+  children: null,
+};
+
+const monitorStoreInventory = {
+  id: "Store Inventory",
+  path: "/store-inventory",
+  icon: <GridViewIcon />,
+  children: [
+    {
+      path: "/store-inventory/consumabales",
+      name: "Consumables",
+      component: MonitorStorLonConsumable,
+    },
+     {
+       path: "/store-inventory/non-consumables",
+      name: "Non-Consumables",
+      component: MonitorStorLonNonConsumable,
+   },
+  ],
+};
+const monitor_Store_Inventory_Consumable = {
+  id: "store in inventory",
+  path: "/store-inventory/consumable/:storeId",
+  children: null,
+  component: Consumable,
+};
+
+const monitor_Store_Inventory_NonConsumable = {
+  id: "store in inventory",
+  path: "/store-inventory/non-consumable/:storeId",
+  children: null,
+  component: NonConsumable,
+};
+
+// const monitor_Store_Inventory = {
+//   id: "store in inventory",
+//   path: "/store-inventory/non-consumables/:storeId",
+//   children: null,
+//   component: NonConsumable,
+// };
+
+const details = {
+  id: "User Information's",
+  path: "/user-info",
+  icon: <ContactsIcon />,
+  component: "",
+};
+
+const materialDamaged = {
+  id: "Damage Materials",
+  path: "/damage-materials",
+  icon: <RemoveCircleOutlineIcon />,
+  component: null,
+};
 
 const landingRoutes = {
   id: "Landing Page",
@@ -119,15 +190,22 @@ const landingRoutes = {
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
-  componentsRoutes,
+  amount,
+  criticalTools,
   consumables,
   non_consumables,
-  materialAccepted
+  materialAccepted,
+  monitorStoreLone,
+  criticalTool,
+  productList,
+  monitorStoreInventory,
+  materialDamaged,
+  details,
+  monitor_Store_Inventory_Consumable,
+  monitor_Store_Inventory_NonConsumable,
 ];
 
 // Routes using the Auth layout
-export const authLayoutRoutes = [authRoutes];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
@@ -135,9 +213,14 @@ export const presentationLayoutRoutes = [landingRoutes];
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
+  amount,
   consumables,
   non_consumables,
   materialAccepted,
-  componentsRoutes,
+  criticalTools,
+  monitorStoreLone,
+  productList,
+  monitorStoreInventory,
+  materialDamaged,
+  details,
 ];
