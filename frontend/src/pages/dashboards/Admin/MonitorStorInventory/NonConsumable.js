@@ -5,11 +5,12 @@ import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { getMaterials } from "../../../../services/storeService";
+import { useParams } from "react-router-dom";
 
 function NonConsumable() {
   const [items, setItems] = useState([]);
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
-  const storeId = user.storeId;
+
+  const { storeId } = useParams();
 
   useEffect(() => {
     getMaterials(storeId)
@@ -26,8 +27,11 @@ function NonConsumable() {
 
   const columns = [
     { title: "Date", field: "date", filterPlaceholder: "filter" },
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
-   
+    {
+      title: "M.code",
+      field: "mcode",
+      filterPlaceholder: "filter",
+    },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
     {
       title: "M.Description",
@@ -36,7 +40,7 @@ function NonConsumable() {
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
     {
-      title: "Curr. Stock",
+      title: "Curr.Stock",
       field: "mquantity",
       filterPlaceholder: "filter",
     },
@@ -52,7 +56,7 @@ function NonConsumable() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            NonConsumable Items StoreId:{" "}
+            Non-Consumable Items StoreId:{" "}
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}

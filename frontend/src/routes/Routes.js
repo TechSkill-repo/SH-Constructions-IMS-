@@ -8,7 +8,7 @@ import {
 
 import {
   dashboardLayoutRoutes as dL2,
-  authLayoutRoutes as aL2,
+  authLayoutRoutes as aL2, 
   presentationLayoutRoutes as pL2,
 } from "./centralStore";
 
