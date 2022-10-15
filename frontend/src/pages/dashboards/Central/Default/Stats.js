@@ -82,38 +82,45 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
           <Box
             fontWeight="fontWeightRegular"
             sx={{
-              backgroundColor: "#deffde",
+              backgroundColor: "rgba(76,175,80,0.1)",
+              color: "#4caf50",
               display: "flex",
               alignItems: "center",
               borderRadius: "5px",
               padding: "5px",
             }}
           >
-            C -{" "}
+            C{" "}
             <CurrencyRupeeIcon
               sx={{
                 width: "20px",
               }}
             ></CurrencyRupeeIcon>{" "}
-            {totalC}
+            <span style={{ fontWeight: "bold", textAlign: "end" }}>
+              {" "}
+              {totalC}{" "}
+            </span>
           </Box>
         </Typography>
         <Typography variant="h4" mb={3}>
           <Box
             fontWeight="fontWeightRegular"
             sx={{
-              backgroundColor: "#cae5ff",
+              backgroundColor: "rgba(244,67,54,0.1)",
+              color: "#f44336",
               display: "flex",
               alignItems: "center",
               borderRadius: "5px",
               padding: "5px",
             }}
           >
-            NC - <CurrencyRupeeIcon
-            sx={{
+            NC
+            <CurrencyRupeeIcon
+              sx={{
                 width: "20px",
               }}
-            ></CurrencyRupeeIcon> {totalNC}
+            ></CurrencyRupeeIcon>{" "}
+            <span style={{ fontWeight: "bold" }}> {totalNC}</span>
           </Box>
         </Typography>
         <Percentage
