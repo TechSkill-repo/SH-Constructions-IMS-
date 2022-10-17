@@ -1,17 +1,25 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import styled from "styled-components/macro";
 
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+
 import {
-  Box,
+ 
   Card as MuiCard,
   CardContent as MuiCardContent,
   Chip as MuiChip,
   Typography as MuiTypography,
 } from "@material-ui/core";
-
+import Box from "@mui/material/Box";
 import { rgba } from "polished";
 
 import { spacing } from "@material-ui/system";
+
+import {
+  getConsumableTotalPrice,
+  getNonConsumableTotalPrice,
+} from "../../../../services/materialService";
+
 
 const Card = styled(MuiCard)(spacing);
 
@@ -54,14 +62,93 @@ const Percentage = styled(MuiTypography)`
 `;
 
 const Stats = ({ title, amount, chip, percentageText, percentagecolor }) => {
+
+  const [totalC, setTotalC] = useState(0);
+  const [totalNC, setTotalNC] = useState(0);
+
+  useEffect(() => {
+    getConsumableTotalPrice(percentageText)
+      .then((data) => setTotalC(data.total))
+      .catch((err) => console.log(err));
+    getNonConsumableTotalPrice(percentageText)
+      .then((data) => setTotalNC(data.total))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <Card mb={3}>
       <CardContent>
         <Typography variant="h5" mb={4}>
           {title}
         </Typography>
-        <Typography variant="h3" mb={3}>
-          <Box fontWeight="fontWeightRegular">{amount}</Box>
+        <Typography variant="h4" mb={3}>
+          <Box
+            fontWeight="fontWeightRegular"
+            sx={{
+              backgroundColor: "rgba(76,175,80,0.1)",
+              color: "#4caf50",
+              display: "flex",
+              alignItems: "center",
+              justifyContent:"space-between",
+              borderRadius: "5px",
+              padding: "5px",
+            }}
+          >
+             <Box sx={{
+              display: "flex",
+              alignItems: "center",
+              height:"100%",
+              justifyContent: "center",
+
+            }}>
+
+            <CurrencyRupeeIcon
+              sx={{
+                width: "20px",
+              }}
+            ></CurrencyRupeeIcon>{" "}
+            <span style={{ fontWeight: "bold", textAlign: "end" }}>
+              {" "}
+              {totalC}{" "}
+            </span>
+
+            </Box>
+            C
+
+          </Box>
+        </Typography>
+        <Typography variant="h4" mb={3}>
+        <Box
+            fontWeight="fontWeightRegular"
+            sx={{
+              backgroundColor: "rgba(244,67,54,0.1)",
+              color: "#f44336",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderRadius: "5px",
+              padding: "5px",
+            }}
+          >
+           
+            <Box sx={{
+              display: "flex",
+              alignItems: "center",
+              height:"100%",
+              justifyContent: "center",
+
+            }}>
+
+            <CurrencyRupeeIcon
+              sx={{
+                width: "20px",
+              }}
+              ></CurrencyRupeeIcon>{" "}
+            <span style={{ fontWeight: "bold" }}> {totalNC}</span>
+              </Box>
+              NC
+           
+          </Box>
         </Typography>
         <Percentage
           variant="subtitle2"
