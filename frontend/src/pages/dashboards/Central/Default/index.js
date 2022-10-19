@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
@@ -20,6 +20,7 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
+import { adminApproval, siteStoreRequisition } from "../../../../services/socketService";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -27,7 +28,20 @@ const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
+  const [elements, setElements] = useState([]);
   const userRole = JSON.parse(userDetails);
+
+  useEffect(() => {
+    adminApproval(() => {
+      setElements([...elements, <div>Admin approval</div>]);
+      console.log('Approval emitted');
+    });
+
+    siteStoreRequisition(() => {
+      setElements([...elements, <div>Site Requisition</div>]);
+      console.log('Requisition emitted');
+    });
+  }, []);
 
   return (
     <React.Fragment>
@@ -45,6 +59,10 @@ function Default() {
           <Actions />
         </Grid>
       </Grid>
+
+      <div>
+        {elements.map(element => element)}
+      </div>
 
       <Divider my={6} />
 
@@ -73,10 +91,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-       
+
       </Grid>
       <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="RMBB2"
             chip="Love Gope"
@@ -100,10 +118,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-       
+
       </Grid>
       <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="SP#3,4"
             chip="Manoj Mishra"
@@ -127,10 +145,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        
+
       </Grid>
       <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="PALLET PLANT"
             chip="Bablu Panday"
@@ -154,7 +172,7 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        
+
       </Grid>
     </React.Fragment>
   );

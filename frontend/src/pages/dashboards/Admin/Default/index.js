@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
@@ -20,6 +20,7 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import BarChart from "./BarChart";
 import Table from "./Table";
+import { centralStoreRequisition } from "../../../../services/socketService";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -28,9 +29,16 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const userRole = JSON.parse(userDetails);
+  const [elements, setElements] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
   const handleViewMore = () => setViewMore(!viewMore);
+
+  useEffect(() => {
+    centralStoreRequisition(() => {
+      setElements([...elements, <div>Central Store requisition</div>]);
+    });
+  }, []);
 
   return (
     <React.Fragment>
@@ -50,6 +58,10 @@ function Default() {
       </Grid>
 
       <Divider my={6} />
+
+      <div>
+        {elements}
+      </div>
 
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl>
@@ -176,7 +188,7 @@ function Default() {
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Button onClick={handleViewMore} variant="contained" sx={{
-          marginTop:"20px"
+          marginTop: "20px"
         }}>
           {viewMore ? "View Less" : "View More"}
         </Button>

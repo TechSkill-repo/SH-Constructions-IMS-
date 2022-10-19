@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
@@ -19,12 +19,22 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
+import { centralStoreApproval } from "../../../../services/socketService";
 
 const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
+  const [elements, setElements] = useState([]);
+
+  useEffect(() => {
+    centralStoreApproval(() => {
+      setElements([...elements, <div>Central Approval</div>]);
+      console.log('Central Approval');
+    });
+  }, []);
+
   return (
     // <React.Fragment>
     //   <Helmet title="Company Name" />
@@ -98,7 +108,13 @@ function Default() {
     //     </Grid>
     //   </Grid>
     // </React.Fragment>
-    <h1>Site store under construction</h1>
+    <div>
+      <div>
+        {elements.map(element => element)}
+      </div>
+
+      <h1>Site store under construction</h1>
+    </div>
   );
 }
 

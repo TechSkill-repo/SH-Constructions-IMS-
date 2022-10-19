@@ -9,6 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { Grid } from "@material-ui/core";
+import { socket } from "../../../../services/socketService";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
@@ -110,18 +111,18 @@ function ConsumableTable() {
   return (
     <>
       <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+        {showSuccess && (
+          <Alert severity="success" sx={{ my: 3 }}>
+            This is a success alert — check it out!
+          </Alert>
+        )}
         <Grid item>
           <Typography variant="h5" gutterBottom>
             Consumable Items
           </Typography>
         </Grid>
       </div>
-      
+
       <MaterialTable
         actions={[
           {
@@ -138,6 +139,8 @@ function ConsumableTable() {
                     window.location = '/consumable';
                   })
                   .catch((err) => console.log(err.response));
+
+                socket.emit('clientAdminApproval');
               }
             },
             color: "blue",

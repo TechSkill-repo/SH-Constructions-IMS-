@@ -13,7 +13,7 @@ const loanRoute = require("./routes/loan.routes");
 const criticalRoutes = require("./routes/criticaltools.routes");
 
 const app = express();
-const { io, server } = require("./controllers/socket.controllers");
+const { server } = require("./controllers/socket.controllers");
 const PORT = parseInt(process.env.PORT) || 9090;
 
 app.use(cors());
@@ -28,10 +28,6 @@ app.use("/inventory", inventoryRoute);
 app.use("/issue", issueRoute);
 app.use("/loan", loanRoute);
 app.use("/critical-tools", criticalRoutes);
-
-io.on("connection", (socket) => {
-  console.log("a user connected");
-});
 
 app.get("/", (req, res) => {
   res.send("Sh-constructions backend");

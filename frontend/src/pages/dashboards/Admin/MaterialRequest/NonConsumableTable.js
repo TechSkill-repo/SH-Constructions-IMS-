@@ -110,18 +110,18 @@ function NonConsumableTable() {
   return (
     <>
       <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+        {showSuccess && (
+          <Alert severity="success" sx={{ my: 3 }}>
+            This is a success alert — check it out!
+          </Alert>
+        )}
         <Grid item>
           <Typography variant="h3" gutterBottom>
             Non-Consumable Items
           </Typography>
         </Grid>
       </div>
-     
+
       <MaterialTable
         actions={[
           {
@@ -139,6 +139,8 @@ function NonConsumableTable() {
                     window.location = '/non-consumable';
                   })
                   .catch((err) => console.log(err.response));
+
+                socket.emit('clientAdminApproval');
               }
             },
             color: "blue",

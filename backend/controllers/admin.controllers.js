@@ -1,6 +1,7 @@
 const db = require('./db.controllers');
 
 const requisition = async (req, res) => {
+
   const { storeId, slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
 
   const docRef = db.collection("admin").doc("request").collection("items").doc();
