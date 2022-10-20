@@ -21,7 +21,7 @@ import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
 import { adminApproval, siteStoreRequisition } from "../../../../services/socketService";
-import { Box , Alert, IconButton, Collapse} from "@mui/material";
+import { Box, Alert, IconButton, Collapse } from "@mui/material";
 
 import { Close } from "@material-ui/icons";
 
@@ -32,14 +32,15 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const [elements, setElements] = useState([]);
+  const [elements2, setElements2] = useState([]);
   const userRole = JSON.parse(userDetails);
-  
+
   const [open, setOpen] = useState(false);
 
 
   useEffect(() => {
     adminApproval(() => {
-      setElements([...elements, <div>Admin approval</div>]);
+      setElements2([...elements2, <div>Admin approval</div>]);
       console.log('Approval emitted');
       setOpen(true);
     });
@@ -69,34 +70,62 @@ function Default() {
       </Grid>
 
       <div>
-      {elements && 
-       
-       
-       <Box sx={{ width: '100%', marginTop:"6px" }} >
-   <Collapse in={open}>
-     <Alert
-       action={
-         <IconButton
-           aria-label="close"
-           color="inherit"
-           size="small"
-           onClick={() => {
-             setOpen(false);
-           }}
-         >
-           <Close fontSize="inherit" />
-         </IconButton>
-       }
-       sx={{ mb: 2 }}
-     >
-      {elements}
-     </Alert>
-   </Collapse>
-  
- </Box>
-       
+        {elements &&
 
-}
+
+          <Box sx={{ width: '100%', marginTop: "6px" }} >
+            <Collapse in={open}>
+              <Alert
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {elements}
+              </Alert>
+            </Collapse>
+
+          </Box>
+
+
+        }
+        {elements2 &&
+
+
+          <Box sx={{ width: '100%', marginTop: "6px" }} >
+            <Collapse in={open}>
+              <Alert
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {elements2}
+              </Alert>
+            </Collapse>
+
+          </Box>
+
+
+        }
       </div>
 
       <Divider my={6} />
