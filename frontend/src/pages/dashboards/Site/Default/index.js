@@ -21,6 +21,10 @@ import Stats from "./Stats";
 import Table from "./Table";
 import { centralStoreApproval, siteLoanApproval, siteLoanRequest } from "../../../../services/socketService";
 
+import { Box , Alert, IconButton, Collapse} from "@mui/material";
+
+import { Close } from "@material-ui/icons";
+
 const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
@@ -28,10 +32,14 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const [elements, setElements] = useState([]);
+  
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     centralStoreApproval(() => {
       setElements([...elements, <div>Central Approval</div>]);
+      setOpen(true);
       console.log('Central Approval');
     });
 
@@ -125,7 +133,34 @@ function Default() {
     // </React.Fragment>
     <div>
       <div>
-        {elements.map(element => element)}
+      {elements && 
+       
+       
+       <Box sx={{ width: '100%' }} >
+   <Collapse in={open}>
+     <Alert
+       action={
+         <IconButton
+           aria-label="close"
+           color="inherit"
+           size="small"
+           onClick={() => {
+             setOpen(false);
+           }}
+         >
+           <Close fontSize="inherit" />
+         </IconButton>
+       }
+       sx={{ mb: 2 }}
+     >
+      {elements}
+     </Alert>
+   </Collapse>
+  
+ </Box>
+       
+
+}
       </div>
 
       <h1>Site store under construction</h1>
