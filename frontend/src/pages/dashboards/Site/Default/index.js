@@ -19,19 +19,34 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
-import { centralStoreApproval } from "../../../../services/socketService";
+import { centralStoreApproval, siteLoanApproval, siteLoanRequest } from "../../../../services/socketService";
 
 const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
   const [elements, setElements] = useState([]);
 
   useEffect(() => {
     centralStoreApproval(() => {
       setElements([...elements, <div>Central Approval</div>]);
       console.log('Central Approval');
+    });
+
+    siteLoanRequest((storeId) => {
+      if (storeId != user.storeId) {
+        setElements([...elements, <div>Site Loan Request</div>]);
+        console.log('Site Loan Request');
+      }
+    });
+
+    siteLoanApproval((storeId) => {
+      if (storeId != user.storeId) {
+        setElements([...elements, <div>Site Loan Request</div>]);
+        console.log('Site Loan Request');
+      }
     });
   }, []);
 

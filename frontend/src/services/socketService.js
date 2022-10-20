@@ -30,3 +30,15 @@ export function centralStoreApproval(callback) {
     callback();
   });
 }
+
+export function siteLoanRequest(callback) {
+  socket.on('siteLoanRequest', (storeId) => {
+    callback(storeId);
+  });
+}
+
+export function siteLoanApproval(callback) {
+  socket.on('siteLoanApproval', (storeId) => {
+    callback(storeId);
+  });
+}

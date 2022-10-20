@@ -27,6 +27,16 @@ io.on("connection", (socket) => {
         io.emit('centralApproval', null);
         console.log('centralApproval');
     });
+
+    socket.on('clientSiteLoanRequest', (storeId) => {
+        io.emit('storeLoanRequest', storeId);
+        console.log('storeLoanRequest');
+    });
+
+    socket.on('clientSiteLoanApproval', (storeId) => {
+        io.emit('storeLoanApproval', storeId);
+        console.log('storeLoanApproval');
+    });
 });
 
 module.exports = { io, server };
