@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Alert, Snackbar, IconButton, Collapse } from "@mui/material";
 
 import {
   Grid,
@@ -21,6 +21,7 @@ import DoughnutChart from "./DoughnutChart";
 import BarChart from "./BarChart";
 import Table from "./Table";
 import { centralStoreRequisition } from "../../../../services/socketService";
+import { Close } from "@material-ui/icons";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -31,12 +32,14 @@ function Default() {
   const userRole = JSON.parse(userDetails);
   const [elements, setElements] = useState([]);
   const [viewMore, setViewMore] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleViewMore = () => setViewMore(!viewMore);
 
   useEffect(() => {
     centralStoreRequisition(() => {
       setElements([...elements, <div>Central Store requisition</div>]);
+      setOpen(true);
     });
   }, []);
 
@@ -60,7 +63,34 @@ function Default() {
       <Divider my={6} />
 
       <div>
-        {elements}
+        {elements && <>
+       
+
+          <Box sx={{ width: '100%' }}>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <Close fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+         {elements}
+        </Alert>
+      </Collapse>
+     
+    </Box>
+
+
+</>}
       </div>
 
       <Grid container spacing={6}>

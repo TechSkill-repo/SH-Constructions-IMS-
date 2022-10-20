@@ -21,6 +21,9 @@ import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
 import { adminApproval, siteStoreRequisition } from "../../../../services/socketService";
+import { Box , Alert, IconButton, Collapse} from "@mui/material";
+
+import { Close } from "@material-ui/icons";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -30,16 +33,21 @@ function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const [elements, setElements] = useState([]);
   const userRole = JSON.parse(userDetails);
+  
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     adminApproval(() => {
       setElements([...elements, <div>Admin approval</div>]);
       console.log('Approval emitted');
+      setOpen(true);
     });
 
     siteStoreRequisition(() => {
       setElements([...elements, <div>Site Requisition</div>]);
       console.log('Requisition emitted');
+      setOpen(true);
     });
   }, []);
 
@@ -61,7 +69,34 @@ function Default() {
       </Grid>
 
       <div>
-        {elements.map(element => element)}
+      {elements && 
+       
+       
+       <Box sx={{ width: '100%', marginTop:"6px" }} >
+   <Collapse in={open}>
+     <Alert
+       action={
+         <IconButton
+           aria-label="close"
+           color="inherit"
+           size="small"
+           onClick={() => {
+             setOpen(false);
+           }}
+         >
+           <Close fontSize="inherit" />
+         </IconButton>
+       }
+       sx={{ mb: 2 }}
+     >
+      {elements}
+     </Alert>
+   </Collapse>
+  
+ </Box>
+       
+
+}
       </div>
 
       <Divider my={6} />
