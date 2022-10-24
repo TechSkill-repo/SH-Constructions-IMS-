@@ -9,6 +9,7 @@ import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import Alert from "@mui/material/Alert";
 import { Grid, Typography } from "@material-ui/core";
+import { socket } from "../../../../services/socketService";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
@@ -127,7 +128,6 @@ function NonConsumableTable() {
           {
             icon: "checkbox",
             tooltip: "Approve",
-            style: { color: "red" },
             onClick: async (event, rowData) => {
               let issued = rowData.issued;
               if (rowData.quantity_aprv?.length && !issued) {
@@ -135,12 +135,11 @@ function NonConsumableTable() {
                   .then((resp) => {
                     setApproved(true);
                     setShowSuccess(true);
+                    socket.emit('clientAdminApproval');
                     console.log(resp);
                     window.location = '/non-consumable';
                   })
                   .catch((err) => console.log(err.response));
-
-                socket.emit('clientAdminApproval');
               }
             },
             color: "blue",

@@ -2,13 +2,12 @@ import { io } from "socket.io-client";
 
 export const socket = io('http://localhost:9091');
 
-socket.on('connect', function () {
+socket.on('connect', () => {
   console.log("connect");
 });
 
 export function centralStoreRequisition(callback) {
   socket.on('centralRequisition', () => {
-    console.log('centralRequisition');
     callback();
   });
 }

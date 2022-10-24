@@ -38,7 +38,7 @@ function Default() {
 
   useEffect(() => {
     centralStoreRequisition(() => {
-      setElements([...elements, <div>Central Store requisition</div>]);
+      setElements(prevElements => [...prevElements, "Central Store requisition"]);
       setOpen(true);
     });
   }, []);
@@ -63,34 +63,30 @@ function Default() {
       <Divider my={6} />
 
       <div>
-        {elements && <>
-       
-
-          <Box sx={{ width: '100%' }}>
-      <Collapse in={open}>
-        <Alert
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <Close fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-         {elements}
-        </Alert>
-      </Collapse>
-     
-    </Box>
-
-
-</>}
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={open}>
+            {elements.map((element, index) => {
+              return <Alert
+                key={index}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {element}
+              </Alert>
+            })}
+          </Collapse>
+        </Box>
       </div>
 
       <Grid container spacing={6}>

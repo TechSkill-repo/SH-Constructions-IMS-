@@ -21,7 +21,7 @@ import Stats from "./Stats";
 import Table from "./Table";
 import { centralStoreApproval, siteLoanApproval, siteLoanRequest } from "../../../../services/socketService";
 
-import { Box , Alert, IconButton, Collapse} from "@mui/material";
+import { Box, Alert, IconButton, Collapse } from "@mui/material";
 
 import { Close } from "@material-ui/icons";
 
@@ -32,28 +32,27 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const [elements, setElements] = useState([]);
-  
+
   const [open, setOpen] = useState(false);
 
 
   useEffect(() => {
     centralStoreApproval(() => {
-      setElements([...elements, <div>Central Approval</div>]);
+      setElements(prevElements => [...prevElements, "Central Approval"]);
       setOpen(true);
-      console.log('Central Approval');
     });
 
     siteLoanRequest((storeId) => {
       if (storeId != user.storeId) {
-        setElements([...elements, <div>Site Loan Request</div>]);
-        console.log('Site Loan Request');
+        setElements(prevElements => [...prevElements, "Site Loan Request"]);
+        setOpen(true);
       }
     });
 
     siteLoanApproval((storeId) => {
       if (storeId != user.storeId) {
-        setElements([...elements, <div>Site Loan Request</div>]);
-        console.log('Site Loan Request');
+        setElements(prevElements => [...prevElements, "Site Loan Approval"]);
+        setOpen(true);
       }
     });
   }, []);
@@ -133,34 +132,31 @@ function Default() {
     // </React.Fragment>
     <div>
       <div>
-      {elements && 
-       
-       
-       <Box sx={{ width: '100%' }} >
-   <Collapse in={open}>
-     <Alert
-       action={
-         <IconButton
-           aria-label="close"
-           color="inherit"
-           size="small"
-           onClick={() => {
-             setOpen(false);
-           }}
-         >
-           <Close fontSize="inherit" />
-         </IconButton>
-       }
-       sx={{ mb: 2 }}
-     >
-      {elements}
-     </Alert>
-   </Collapse>
-  
- </Box>
-       
+        <Box sx={{ width: '100%' }} >
+          <Collapse in={open}>
+            {elements.map(element => {
+              return <Alert
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {element}
+              </Alert>
+            })
+            }
+          </Collapse>
 
-}
+        </Box>
       </div>
 
       <h1>Site store under construction</h1>

@@ -135,12 +135,11 @@ function ConsumableTable() {
                   .then((resp) => {
                     setApproved(true);
                     setShowSuccess(true);
+                    socket.emit('clientAdminApproval');
                     console.log(resp);
                     window.location = '/consumable';
                   })
                   .catch((err) => console.log(err.response));
-
-                socket.emit('clientAdminApproval');
               }
             },
             color: "blue",

@@ -29,13 +29,13 @@ io.on("connection", (socket) => {
     });
 
     socket.on('clientSiteLoanRequest', (storeId) => {
-        io.emit('storeLoanRequest', storeId);
-        console.log('storeLoanRequest');
+        io.emit('siteLoanRequest', storeId);
+        console.log('siteLoanRequest');
     });
 
     socket.on('clientSiteLoanApproval', (storeId) => {
-        io.emit('storeLoanApproval', storeId);
-        console.log('storeLoanApproval');
+        io.emit('siteLoanApproval', storeId);
+        console.log('siteLoanApproval');
     });
 });
 
