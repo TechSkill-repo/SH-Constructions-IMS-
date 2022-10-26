@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@material-ui/core";
 import LoanApproveForm from "../LoanApproveForm";
+import { socket } from "../../../../../services/socketService";
 
 function ApprovedLone() {
   const [showForm, setShowForm] = useState(false);
@@ -153,6 +154,9 @@ function ApprovedLone() {
                   loanReturn(rowData)
                     .then((resp) => {
                       console.log(resp);
+
+                      socket.emit('clientSiteLoanReturn', user.storeId);
+
                       setTimeout(() => {
                         window.location = '/loan-approval'
                       }, 2000);

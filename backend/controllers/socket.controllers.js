@@ -10,32 +10,37 @@ io.on("connection", (socket) => {
 
     socket.on('clientCentralRequisition', () => {
         io.emit('centralRequisition', null);
-        console.log('centralRequisition');
+        // console.log('centralRequisition');
     });
 
     socket.on('clientAdminApproval', () => {
         io.emit('adminApproval', null);
-        console.log('adminApproval');
+        // console.log('adminApproval');
     });
 
     socket.on('clientSiteRequisition', () => {
         io.emit('siteRequisition', null);
-        console.log('siteRequisition');
+        // console.log('siteRequisition');
     });
 
     socket.on('clientCentralApproval', () => {
         io.emit('centralApproval', null);
-        console.log('centralApproval');
+        // console.log('centralApproval');
     });
 
     socket.on('clientSiteLoanRequest', (storeId) => {
         io.emit('siteLoanRequest', storeId);
-        console.log('siteLoanRequest');
+        // console.log('siteLoanRequest');
     });
 
     socket.on('clientSiteLoanApproval', (storeId) => {
         io.emit('siteLoanApproval', storeId);
-        console.log('siteLoanApproval');
+        // console.log('siteLoanApproval');
+    });
+
+    socket.on('clientSiteLoanReturn', (storeId) => {
+        io.emit('siteLoanReturn', storeId);
+        // console.log('siteLoanReturn');
     });
 });
 

@@ -41,3 +41,9 @@ export function siteLoanApproval(callback) {
     callback(storeId);
   });
 }
+
+export function siteLoanReturn(callback) {
+  socket.on('siteLoanReturn', (storeId) => {
+    callback(storeId);
+  });
+}

@@ -19,11 +19,12 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
-import { centralStoreApproval, siteLoanApproval, siteLoanRequest } from "../../../../services/socketService";
 
 import { Box, Alert, IconButton, Collapse } from "@mui/material";
 
 import { Close } from "@material-ui/icons";
+import { remove } from "../../../../redux/reducers/siteReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -31,31 +32,9 @@ const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
   const user = JSON.parse(window.sessionStorage.getItem("user"));
-  const [elements, setElements] = useState([]);
 
-  const [open, setOpen] = useState(false);
-
-
-  useEffect(() => {
-    centralStoreApproval(() => {
-      setElements(prevElements => [...prevElements, "Central Approval"]);
-      setOpen(true);
-    });
-
-    siteLoanRequest((storeId) => {
-      if (storeId != user.storeId) {
-        setElements(prevElements => [...prevElements, "Site Loan Request"]);
-        setOpen(true);
-      }
-    });
-
-    siteLoanApproval((storeId) => {
-      if (storeId != user.storeId) {
-        setElements(prevElements => [...prevElements, "Site Loan Approval"]);
-        setOpen(true);
-      }
-    });
-  }, []);
+  const { elements } = useSelector(state => state.site);
+  const dispatch = useDispatch();
 
   return (
     // <React.Fragment>
@@ -133,7 +112,7 @@ function Default() {
     <div>
       <div>
         <Box sx={{ width: '100%' }} >
-          <Collapse in={open}>
+          <Collapse in={true}>
             {elements.map(element => {
               return <Alert
                 action={
@@ -142,7 +121,7 @@ function Default() {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      setOpen(false);
+                      dispatch(remove());
                     }}
                   >
                     <Close fontSize="inherit" />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
@@ -20,7 +20,8 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import BarChart from "./BarChart";
 import Table from "./Table";
-import { centralStoreRequisition } from "../../../../services/socketService";
+import { useSelector, useDispatch } from "react-redux";
+import { remove } from "../../../../redux/reducers/adminReducer";
 import { Close } from "@material-ui/icons";
 
 const Divider = styled(MuiDivider)(spacing);
@@ -30,18 +31,12 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const userRole = JSON.parse(userDetails);
-  const [elements, setElements] = useState([]);
   const [viewMore, setViewMore] = useState(false);
-  const [open, setOpen] = useState(false);
+
+  const { elements } = useSelector(state => state.admin);
+  const dispatch = useDispatch();
 
   const handleViewMore = () => setViewMore(!viewMore);
-
-  useEffect(() => {
-    centralStoreRequisition(() => {
-      setElements(prevElements => [...prevElements, "Central Store requisition"]);
-      setOpen(true);
-    });
-  }, []);
 
   return (
     <React.Fragment>
@@ -64,7 +59,7 @@ function Default() {
 
       <div>
         <Box sx={{ width: '100%' }}>
-          <Collapse in={open}>
+          <Collapse in={true}>
             {elements.map((element, index) => {
               return <Alert
                 key={index}
@@ -74,7 +69,7 @@ function Default() {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      setOpen(false);
+                      dispatch(remove())
                     }}
                   >
                     <Close fontSize="inherit" />
