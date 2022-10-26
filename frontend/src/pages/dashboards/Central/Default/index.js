@@ -74,11 +74,11 @@ function Default() {
                 sx={{ mb: 2 }}
               >
                 {element}
-              </Alert>
+              </Alert >
             })}
-          </Collapse>
-        </Box>
-      </div>
+          </Collapse >
+        </Box >
+      </div >
 
       <Divider my={6} />
 
@@ -190,7 +190,7 @@ function Default() {
         </Grid>
 
       </Grid>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 
