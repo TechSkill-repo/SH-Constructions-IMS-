@@ -79,18 +79,26 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
           {title}
         </Typography>
         <Typography variant="h4" mb={3}>
-          <Box
+        <Box
             fontWeight="fontWeightRegular"
             sx={{
               backgroundColor: "rgba(76,175,80,0.1)",
               color: "#4caf50",
               display: "flex",
               alignItems: "center",
+              justifyContent:"space-between",
               borderRadius: "5px",
               padding: "5px",
             }}
           >
-            C{" "}
+             <Box sx={{
+              display: "flex",
+              alignItems: "center",
+              height:"100%",
+              justifyContent: "center",
+
+            }}>
+
             <CurrencyRupeeIcon
               sx={{
                 width: "20px",
@@ -100,27 +108,43 @@ const Stats = ({ title, chip, percentageText, percentagecolor }) => {
               {" "}
               {totalC}{" "}
             </span>
+
+            </Box>
+            C
+
           </Box>
         </Typography>
         <Typography variant="h4" mb={3}>
-          <Box
+        <Box
             fontWeight="fontWeightRegular"
             sx={{
               backgroundColor: "rgba(244,67,54,0.1)",
               color: "#f44336",
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
               borderRadius: "5px",
               padding: "5px",
             }}
           >
-            NC
+           
+            <Box sx={{
+              display: "flex",
+              alignItems: "center",
+              height:"100%",
+              justifyContent: "center",
+
+            }}>
+
             <CurrencyRupeeIcon
               sx={{
                 width: "20px",
               }}
-            ></CurrencyRupeeIcon>{" "}
+              ></CurrencyRupeeIcon>{" "}
             <span style={{ fontWeight: "bold" }}> {totalNC}</span>
+              </Box>
+              NC
+           
           </Box>
         </Typography>
         <Percentage
