@@ -10,6 +10,7 @@ import {
   putMaterial,
 } from "../../../../services/loanService";
 import { FormField } from "../../../auth/Login.style";
+import { socket } from "../../../../services/socketService";
 
 function LoanReqTable() {
   const [items, setItems] = useState([]);
@@ -176,6 +177,7 @@ function LoanReqTable() {
                   lendMaterial(rowData)
                     .then((resp) => {
                       console.log(resp);
+                      socket.emit('clientSiteLoanApproval');
                       setLoneApproved(true);
                       setTimeout(() => setLoneApproved(false), 2000);
                       window.location = '/loan-request-table';

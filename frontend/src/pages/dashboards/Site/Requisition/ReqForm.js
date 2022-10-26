@@ -14,6 +14,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import MaterialTable from "material-table";
 import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
+import { socket } from "../../../../services/socketService";
 
 function ReqForm() {
   const uniqueId = () => {
@@ -47,7 +48,7 @@ function ReqForm() {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -61,7 +62,7 @@ function ReqForm() {
   };
 
   useEffect(() => {
-    
+
     async function fetch() {
       await getMaterial(storeId)
         .then((data) => {
@@ -152,6 +153,8 @@ function ReqForm() {
         });
     });
 
+    socket.emit('clientSiteRequisition');
+
     setTimeout(() => {
       window.location.href = "/reqForm";
     }, 3000);
@@ -218,7 +221,7 @@ function ReqForm() {
 
   return (
     <div>
-      
+
       <Box
         component="form"
         sx={{
@@ -362,11 +365,11 @@ function ReqForm() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+          {showSuccess && (
+            <Alert severity="success" sx={{ my: 3 }}>
+              This is a success alert — check it out!
+            </Alert>
+          )}
           <Popup tableValues={items} />
           <Grid
             container

@@ -9,6 +9,7 @@ import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import Alert from "@mui/material/Alert";
 import { Grid, Typography } from "@material-ui/core";
+import { socket } from "../../../../services/socketService";
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
@@ -110,24 +111,23 @@ function NonConsumableTable() {
   return (
     <>
       <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+        {showSuccess && (
+          <Alert severity="success" sx={{ my: 3 }}>
+            This is a success alert — check it out!
+          </Alert>
+        )}
         <Grid item>
           <Typography variant="h3" gutterBottom>
             Non-Consumable Items
           </Typography>
         </Grid>
       </div>
-     
+
       <MaterialTable
         actions={[
           {
             icon: "checkbox",
             tooltip: "Approve",
-            style: { color: "red" },
             onClick: async (event, rowData) => {
               let issued = rowData.issued;
               if (rowData.quantity_aprv?.length && !issued) {
@@ -135,6 +135,7 @@ function NonConsumableTable() {
                   .then((resp) => {
                     setApproved(true);
                     setShowSuccess(true);
+                    socket.emit('clientAdminApproval');
                     console.log(resp);
                     window.location = '/non-consumable';
                   })

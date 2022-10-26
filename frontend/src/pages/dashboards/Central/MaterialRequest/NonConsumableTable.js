@@ -9,6 +9,7 @@ import {
   issueNonConsumableMaterial,
 } from "../../../../services/issueService";
 import Alert from "@mui/material/Alert";
+import { socket } from "../../../../services/socketService";
 
 
 function NonConsumableTable() {
@@ -133,8 +134,7 @@ function NonConsumableTable() {
             style: { color: "red" },
             onClick: async (event, rowData) => {
               let issued = rowData.issued;
-              if(issued)
-              {
+              if (issued) {
                 setMessage("Material is already issued.");
                 setIsValid(false);
                 setShowAlert(issued);
@@ -146,6 +146,7 @@ function NonConsumableTable() {
                   .then((resp) => {
                     setApproved(true)
                     setMessage("Material Issued Successfully");
+                    socket.emit('clientCentralApproval');
                     setShowAlert(true);
                     setIsValid(true);
                     setTimeout(() => setShowAlert(false), 2000);

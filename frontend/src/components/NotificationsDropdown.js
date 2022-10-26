@@ -19,7 +19,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Bell, Home, UserPlus, Server } from "react-feather";
-import { siteStoreRequisition } from "../services/socketService";
 
 const Popover = styled(MuiPopover)`
   .MuiPaper-root {
@@ -73,13 +72,6 @@ function NotificationsDropdown() {
 
   const [showNotif, setShowNotif] = useState(false);
   const [value, setValue] = useState("")
-
-  useEffect(() => {
-    siteStoreRequisition().then((data) => {
-      setShowNotif(true);
-      setValue(value);
-    });
-  }, [])
 
   const handleOpen = () => {
     setOpen(true);

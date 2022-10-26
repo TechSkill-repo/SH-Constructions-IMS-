@@ -15,6 +15,8 @@ import MaterialTable from "material-table";
 import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
+import { socket } from "../../../../services/socketService";
+
 function ReqForm() {
   const uniqueId = () => {
     var id = "id" + Math.random().toString(16).slice(2);
@@ -141,6 +143,7 @@ function ReqForm() {
     setSubmitDisabled(true);
     setShowSuccess(true);
 
+    socket.emit('clientCentralRequisition');
 
     items.map((item) => {
       requisition(item)
@@ -151,6 +154,7 @@ function ReqForm() {
           console.log(err);
         });
     });
+
 
     setTimeout(() => {
       window.location.href = "/requisition-form";
@@ -218,7 +222,7 @@ function ReqForm() {
 
   return (
     <div>
-      
+
       <Box
         component="form"
         sx={{
@@ -362,11 +366,11 @@ function ReqForm() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+          {showSuccess && (
+            <Alert severity="success" sx={{ my: 3 }}>
+              This is a success alert — check it out!
+            </Alert>
+          )}
           <Popup tableValues={items} />
           <Grid
             container

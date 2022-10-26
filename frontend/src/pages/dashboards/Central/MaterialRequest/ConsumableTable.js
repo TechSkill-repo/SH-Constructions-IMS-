@@ -9,6 +9,7 @@ import {
   issueConsumableMaterial,
 } from "../../../../services/issueService";
 import Alert from "@mui/material/Alert";
+import { socket } from "../../../../services/socketService";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
@@ -142,6 +143,7 @@ function ConsumableTable() {
                   .then((resp) => {
                     setApproved(true)
                     setMessage("Material Issued Successfully");
+                    socket.emit('clientCentralApproval');
                     setShowAlert(true);
                     setIsValid(true);
                     setTimeout(() => setShowAlert(false), 2000);

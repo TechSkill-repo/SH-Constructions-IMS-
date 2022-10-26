@@ -17,6 +17,8 @@ import Select from "@mui/material/Select";
 import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 import MaterialTable from "material-table";
+import { socket } from "../../../../services/socketService";
+
 
 function LoanRequest() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -222,6 +224,8 @@ function LoanRequest() {
           console.log(err);
         });
     });
+
+    socket.emit('clientSiteLoanRequest', user.storeId);
 
     setTimeout(() => {
       setShowSuccess(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
@@ -20,11 +20,22 @@ import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
 
+import { Box, Alert, IconButton, Collapse } from "@mui/material";
+
+import { Close } from "@material-ui/icons";
+import { remove } from "../../../../redux/reducers/siteReducer";
+import { useDispatch, useSelector } from "react-redux";
+
 const Divider = styled(MuiDivider)(spacing);
 
 const Typography = styled(MuiTypography)(spacing);
 
 function Default() {
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
+
+  const { elements } = useSelector(state => state.site);
+  const dispatch = useDispatch();
+
   return (
     // <React.Fragment>
     //   <Helmet title="Company Name" />
@@ -98,7 +109,37 @@ function Default() {
     //     </Grid>
     //   </Grid>
     // </React.Fragment>
-    <h1>Site store under construction</h1>
+    <div>
+      <div>
+        <Box sx={{ width: '100%' }} >
+          <Collapse in={true}>
+            {elements.map(element => {
+              return <Alert
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      dispatch(remove());
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {element}
+              </Alert>
+            })
+            }
+          </Collapse>
+
+        </Box>
+      </div>
+
+      <h1>Site store under construction</h1>
+    </div>
   );
 }
 

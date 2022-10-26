@@ -1,15 +1,10 @@
 const db = require('./db.controllers');
-const { io } = require('./socket.controllers');
 
 const requisition = async (req, res) => {
   const { storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location } = req.body;
 
   const docRef = db.collection("materials").doc("request").collection("items").doc();
   await docRef.set({ storeId, issue_slip_no, mcode, mname, mdescription, date, uom, category, quantity_req, incharge_name, site_location, issued: false });
-
-  io.on('connection', (socket) => {
-    socket.emit('siteRequisition', storeId);
-  });
 
   res.status(201).json({ "message": "Requisition successful" });
 };

@@ -20,6 +20,11 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
+import { Box, Alert, IconButton, Collapse } from "@mui/material";
+
+import { Close } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { remove } from "../../../../redux/reducers/centralReducer";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -28,6 +33,9 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const userRole = JSON.parse(userDetails);
+
+  const { elements } = useSelector(state => state.central);
+  const dispatch = useDispatch();
 
   return (
     <React.Fragment>
@@ -45,6 +53,32 @@ function Default() {
           <Actions />
         </Grid>
       </Grid>
+
+      <div>
+        <Box sx={{ width: '100%', marginTop: "6px" }} >
+          <Collapse in={true}>
+            {elements.map(element => {
+              return <Alert
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      dispatch(remove());
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {element}
+              </Alert >
+            })}
+          </Collapse >
+        </Box >
+      </div >
 
       <Divider my={6} />
 
@@ -73,10 +107,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-       
+
       </Grid>
       <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="RMBB2"
             chip="Love Gope"
@@ -100,10 +134,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-       
+
       </Grid>
       <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="SP#3,4"
             chip="Manoj Mishra"
@@ -127,10 +161,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        
+
       </Grid>
       <Grid container spacing={6}>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
             title="PALLET PLANT"
             chip="Bablu Panday"
@@ -154,9 +188,9 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-        
+
       </Grid>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 
