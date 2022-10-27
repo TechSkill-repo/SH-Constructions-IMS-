@@ -142,7 +142,7 @@ function ReqForm() {
     e.preventDefault();
     setShowSuccess(true);
     setSubmitDisabled(true);
-
+   
     items.map((item) => {
       requisition(item)
         .then((resp) => {
@@ -152,8 +152,9 @@ function ReqForm() {
           console.log(err);
         });
     });
-
+  
     socket.emit('clientSiteRequisition');
+    console.log("soo")
 
     setTimeout(() => {
       window.location.href = "/reqForm";

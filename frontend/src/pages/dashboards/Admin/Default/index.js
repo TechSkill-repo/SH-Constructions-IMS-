@@ -37,6 +37,7 @@ function Default() {
   const dispatch = useDispatch();
 
   const handleViewMore = () => setViewMore(!viewMore);
+  console.log("elements",elements)
 
   return (
     <React.Fragment>
@@ -59,7 +60,7 @@ function Default() {
 
       <div>
         <Box sx={{ width: '100%' }}>
-          <Collapse in={true}>
+         
             {elements.map((element, index) => {
               return <Alert
                 key={index}
@@ -69,7 +70,7 @@ function Default() {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      dispatch(remove())
+                      dispatch(remove(index))
                     }}
                   >
                     <Close fontSize="inherit" />
@@ -80,7 +81,7 @@ function Default() {
                 {element}
               </Alert>
             })}
-          </Collapse>
+         
         </Box>
       </div>
 
