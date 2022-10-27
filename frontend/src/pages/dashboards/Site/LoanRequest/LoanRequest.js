@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@mui/material/InputLabel";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { fetchDetails, getMcodes } from "../../../../services/materialService";
 import { requestLoan, getLoans } from "../../../../services/loanService";
@@ -53,6 +53,8 @@ function LoanRequest() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   useEffect(() => {
     async function fetch() {
@@ -214,6 +216,7 @@ function LoanRequest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
+    setSubmitDisabled(true);
 
     items.map((item) => {
       requestLoan(item)
@@ -235,11 +238,7 @@ function LoanRequest() {
 
   return (
     <div>
-      {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+     
       <Box
         component="form"
         sx={{
@@ -344,7 +343,9 @@ function LoanRequest() {
             variant="contained"
             size="medium"
             onClick={handleOpen}
-            style={{ width: "100%", maxWidth: "220px" }}
+            disabled={items.filter((item) => item.mcode === "" || item.requestedStoreId==="" || item.mquantity === "").length > 0}
+           
+            style={{ width: "100%", maxWidth: "220px",}}
           >
             Add Items
           </Button>
@@ -356,7 +357,13 @@ function LoanRequest() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+       
         <Box sx={style}>
+        {showSuccess && (
+        <Alert severity="success" sx={{ my: 3 }}>
+          This is a success alert — check it out!
+        </Alert>
+      )}
           <Popup tableValues={items} />
           <Grid
             container
@@ -367,6 +374,7 @@ function LoanRequest() {
               variant="contained"
               size="medium"
               onClick={handleSubmit}
+              disabled={submitDisabled}
               style={{ width: "100%", maxWidth: "220px" }}
             >
               Submit

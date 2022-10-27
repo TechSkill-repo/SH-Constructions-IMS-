@@ -85,7 +85,7 @@ const requsitionForm = {
 };
 
 const loanRequest = {
-  id: "Request A Lone",
+  id: "Request A Loan",
   path: "/loan-request",
   icon: <ShoppingCartIcon />,
   component: LoanRequest,
@@ -99,7 +99,7 @@ const approveLoan = {
   children: [
     {
       path: "/approve-loan",
-      name: "Stakes Lone",
+      name: "Stakes Loan",
       component: LoanApprove,
     },
     {

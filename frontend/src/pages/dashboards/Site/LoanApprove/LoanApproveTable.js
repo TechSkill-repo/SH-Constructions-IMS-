@@ -62,6 +62,7 @@ function LoanApproveTable() {
       ),
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
+   
   ];
 
   return (
