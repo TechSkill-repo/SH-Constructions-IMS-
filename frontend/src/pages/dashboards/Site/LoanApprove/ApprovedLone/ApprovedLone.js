@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getApprovedLoans } from "../../../../../services/loanService";
+import {
+  checkIsReturned,
+  getApprovedLoans,
+  loanReturn,
+} from "../../../../../services/loanService";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
@@ -8,6 +12,7 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@material-ui/core";
 import LoanApproveForm from "../LoanApproveForm";
+import { socket } from "../../../../../services/socketService";
 
 function ApprovedLone() {
   const [showForm, setShowForm] = useState(false);
@@ -18,47 +23,83 @@ function ApprovedLone() {
   useEffect(() => {
     getApprovedLoans(storeId, true)
       .then((data) => {
-        setItems(data.items);
+        let temp = data.items;
+
+        temp.map(async item => {
+          const data = await checkIsReturned(item.slip_no);
+          item.returned = data.returned;
+          // console.log(item);
+          return item;
+        });
+
+        setItems(temp);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  function getCurrentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
+  }
+
   const columns = [
-    { title: "Date", field: "lendDate", filterPlaceholder: "filter" },
-    { title: "Qty", field: "lendQuantity", filterPlaceholder: "filter" },
+    {
+      title: "Date",
+      field: "lendDate",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "Qty",
+      field: "lendQuantity",
+      filterPlaceholder: "filter",
+    },
     {
       title: "Location",
-      field: "storeId",
+      field: "requestedStoreId",
       filterPlaceholder: "filter",
-      render: (rowData) => (
+      render: (rowData) =>
+      (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.storeId}
+          {rowData.requestedStoreId}
         </span>
       ),
     },
-    { title: "M.Code", field: "mcode", filterPlaceholder: "filter" },
-    { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
+    {
+      title: "M.Code",
+      field: "mcode",
+      filterPlaceholder: "filter",
+    },
+    {
+      title: "M.Name",
+      field: "mname",
+      filterPlaceholder: "filter",
+    },
     {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
-      render: (rowData) => (
-        <span
-          style={{
-            color: `${rowData.category == "consumable" ? "red" : "green"}`,
-            fontWeight: "600",
-          }}
-        >
-          {rowData.category}
-        </span>
+      render: (rowData) =>
+      (<span
+        style={{
+          color: `${rowData.category == "consumable" ? "red" : "green"}`,
+          fontWeight: "600",
+        }}
+      >
+        {rowData.category}
+      </span>
       ),
     },
-    { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Condition", field: "condition", filterPlaceholder: "filter" },
-    { title: "Rtrn Date", field: "returnDate", filterPlaceholder: "filter" },
-    // { title: "Rtrn Cond", field: "returnCondition", filterPlaceholder: "filter" },
+    {
+      title: "U.O.M",
+      field: "uom",
+      filterPlaceholder: "filter",
+    },
   ];
 
   return (
@@ -102,6 +143,29 @@ function ApprovedLone() {
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
+          actions={[
+            {
+              icon: "checkbox",
+              tooltip: "Return",
+              onClick: async (event, rowData) => {
+                rowData.returnDate = getCurrentDate();
+
+                if (!rowData.returned) {
+                  loanReturn(rowData)
+                    .then((resp) => {
+                      console.log(resp);
+
+                      socket.emit('clientSiteLoanReturn', user.storeId);
+
+                      setTimeout(() => {
+                        window.location = '/loan-approval'
+                      }, 2000);
+                    })
+                    .catch((err) => console.log(err.response));
+                }
+              },
+            },
+          ]}
           columns={columns}
           data={items}
           onSelectionChange={(selectedRows) => console.log(selectedRows)}
@@ -129,8 +193,10 @@ function ApprovedLone() {
               disabled: rowData.age == null,
             }),
             columnsButton: true,
-            rowStyle: (data, index) =>
-              index % 2 === 0 ? { background: "#f5f5f5" } : null,
+            rowStyle: (data, index) => {
+              console.log(data);
+              return { background: index % 2 === 0 ? "#f5f5f5" : "", color: data.returned === true ? "red" : "black" }
+            },
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
           title="Approved Lone"

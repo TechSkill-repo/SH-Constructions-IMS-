@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 
 import {
   Avatar as MuiAvatar,
@@ -69,6 +70,9 @@ function NotificationsDropdown() {
   const ref = useRef(null);
   const [isOpen, setOpen] = useState(false);
 
+  const [showNotif, setShowNotif] = useState(false);
+  const [value, setValue] = useState("")
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -117,11 +121,11 @@ function NotificationsDropdown() {
               description="Aliquam ex eros, imperdiet vulputate hendrerit et"
               Icon={Bell}
             />
-            <Notification
-              title="New login"
-              description="Login from 192.186.1.1."
+            {showNotif && <Notification
+              title={value}
+              description="Requisition request"
               Icon={Home}
-            />
+            />}
           </List>
           <Box p={1} display="flex" justifyContent="center">
             <Button size="small" component={Link} to="#">

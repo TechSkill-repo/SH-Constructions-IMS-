@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-import { getLoans } from "../../../../services/loanService";
+import {
+  getLoans,
+  lendMaterial,
+  putMaterial,
+} from "../../../../services/loanService";
+import { FormField } from "../../../auth/Login.style";
+import { socket } from "../../../../services/socketService";
 
 function LoanReqTable() {
   const [items, setItems] = useState([]);
+  const [loneApproved, setLoneApproved] = useState(false);
+  const [loneDenied, setLoneDenied] = useState(false);
+  const [approved, setApproved] = useState(false);
+
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
 
@@ -21,11 +31,21 @@ function LoanReqTable() {
       });
   }, []);
 
+  function getCurrentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
+  }
+
   const columns = [
-    { title: "Date", field: "date", filterPlaceholder: "filter" },
+    // { title: "Slip.No", field: "slip_no", filterPlaceholder: "filter" },
+    // { title: "Date", field: "rqDate", filterPlaceholder: "filter" },
     {
       title: "Store.Location",
-      field: "storeId",
+      field: "receiverStoreId",
       filterPlaceholder: "filter",
     },
     { title: "M.Name", field: "mname", filterPlaceholder: "filter" },
@@ -47,9 +67,62 @@ function LoanReqTable() {
       filterPlaceholder: "filter",
     },
     {
-      title: "Condition",
-      field: "condition",
+      title: "Qty.App",
+      field: "lendQuantity",
       filterPlaceholder: "filter",
+    },
+    {
+      title: "Status",
+      filterPlaceholder: "filter",
+      render: (rowData) =>
+        rowData.lendQuantity?.length ? (
+          approved || rowData.issued ? (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgba(76,175,80,0.1)",
+                  color: "#4caf50",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Approved
+              </span>
+            </div>
+          ) : (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <span
+                style={{
+                  backgroundColor: "rgb(255, 244, 229)",
+                  color: "rgb(102, 60, 0)",
+                  fontWeight: "bold",
+                  border: "",
+                  borderRadius: "3px",
+                  padding: "5px 8px",
+                }}
+              >
+                Edited
+              </span>
+            </div>
+          )
+        ) : (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span
+              style={{
+                backgroundColor: "rgba(244,67,54,0.1)",
+                color: "#f44336",
+                fontWeight: "bold",
+                border: "",
+                borderRadius: "3px",
+                padding: "5px 8px",
+              }}
+            >
+              Pending
+            </span>
+          </div>
+        ),
     },
   ];
 
@@ -63,7 +136,7 @@ function LoanReqTable() {
       >
         <Grid item xs={11}>
           <Typography variant="h5" gutterBottom>
-            Lone Requests:
+            Loan Requests:
             <span style={{ fontWeight: "900", color: "#376fd0" }}>
               {" "}
               {storeId}{" "}
@@ -71,6 +144,16 @@ function LoanReqTable() {
           </Typography>
         </Grid>
       </Grid>
+      {loneDenied && (
+        <FormField style={{ marginBottom: "1.3em" }}>
+          <Alert severity="error">Loan Denied! 😕</Alert>
+        </FormField>
+      )}
+      {loneApproved && (
+        <FormField style={{ marginBottom: "1.3em" }}>
+          <Alert severity="success">Loan Request success! </Alert>
+        </FormField>
+      )}
       <Grid
         container
         spacing={2}
@@ -79,7 +162,72 @@ function LoanReqTable() {
       ></Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
+          actions={[
+            {
+              icon: "checkbox",
+              tooltip: "Approve",
+              onClick: async (event, rowData) => {
+                let issued = rowData.issued;
+                  setApproved(true);
+                if (rowData.lendQuantity?.length && !issued) {
+                  rowData.lendDate = getCurrentDate();
+                  rowData.returnCondition = "";
+                  rowData.condition = "";
+                  rowData.returnDate = "";
+
+                  lendMaterial(rowData)
+                    .then((resp) => {
+                      console.log(resp);
+                      console.log("here")
+                      socket.emit('clientSiteLoanApproval');
+                      setLoneApproved(true);
+                      setTimeout(() => setLoneApproved(false), 2000);
+                      window.location = '/loan-request-table';
+                    })
+                    .catch((err) => {
+                      console.log(err.response);
+                      if (err.response?.status === 403) {
+                        setLoneDenied(true);
+                        setTimeout(() => setLoneDenied(false), 2000);
+                      }
+                    });
+                }
+              },
+              color: "blue",
+            },
+          ]}
           columns={columns}
+          editable={{
+            onRowDelete: (selectedRow) =>
+              new Promise((resolve, reject) => {
+                const updatedData = [...tableData];
+                updatedData.splice(selectedRow.tableData.id, 1);
+                setTableData(updatedData);
+                setTimeout(() => resolve(), 1000);
+              }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                if (!oldData.lendQuantity?.length) {
+                  const dataUpdate = [...items];
+                  const index = oldData.tableData.id;
+                  dataUpdate[index] = newData;
+                  setItems([...dataUpdate]);
+
+                  newData.lendDate = getCurrentDate();
+                  newData.returnCondition = "";
+                  newData.condition = "";
+                  newData.returnDate = "";
+
+                  putMaterial(newData)
+                    .then((resp) => resolve())
+                    .catch((err) => console.log(err.response));
+
+                  // resolve();
+                } else {
+                  reject();
+                }
+              }),
+          }}
           data={items}
           onSelectionChange={(selectedRows) => console.log(selectedRows)}
           options={{
@@ -110,7 +258,7 @@ function LoanReqTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Lone Requests"
+          title="Loan Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

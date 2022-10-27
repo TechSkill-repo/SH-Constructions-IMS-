@@ -24,13 +24,13 @@ function ConsumablesTable() {
       field: "mdescription",
       filterPlaceholder: "filter",
     },
-    {
-      title: "Open.Stock",
-      field: "opening_stock",
-      filterPlaceholder: "filter",
-    },
+    // {
+    //   title: "Open.Stock",
+    //   field: "opening_stock",
+    //   filterPlaceholder: "filter",
+    // },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Date", field: "date", filterPlaceholder: "filter" },
+    // { title: "Date", field: "date", filterPlaceholder: "filter" },
     {
       title: "ToT.Received",
       field: "total_received",
@@ -45,28 +45,7 @@ function ConsumablesTable() {
 
   return (
     <MaterialTable
-      editable={{
-        onRowAdd: (newRow) =>
-          new Promise((resolve, reject) => {
-            setTableData([...tableData, newRow]);
-
-            setTimeout(() => resolve(), 500);
-          }),
-        onRowUpdate: (newRow, oldRow) =>
-          new Promise((resolve, reject) => {
-            const updatedData = [...tableData];
-            updatedData[oldRow.tableData.id] = newRow;
-            setTableData(updatedData);
-            setTimeout(() => resolve(), 500);
-          }),
-        onRowDelete: (selectedRow) =>
-          new Promise((resolve, reject) => {
-            const updatedData = [...tableData];
-            updatedData.splice(selectedRow.tableData.id, 1);
-            setTableData(updatedData);
-            setTimeout(() => resolve(), 1000);
-          }),
-      }}
+     
       columns={columns}
       data={items}
       onSelectionChange={(selectedRows) => console.log(selectedRows)}

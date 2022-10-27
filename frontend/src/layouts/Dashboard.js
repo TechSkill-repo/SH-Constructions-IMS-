@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components/macro";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/AppBar";
@@ -14,6 +14,21 @@ import {
 } from "@material-ui/core";
 
 import { isWidthUp } from "@material-ui/core/withWidth";
+import {
+  adminApproval,
+  centralStoreRequisition,
+  siteStoreRequisition,
+  centralStoreApproval,
+  siteLoanApproval,
+  siteLoanRequest,
+  siteLoanReturn
+} from "../services/socketService";
+
+import { useDispatch } from "react-redux";
+
+import { add as adminAdd } from "../redux/reducers/adminReducer";
+import { add as centralAdd } from "../redux/reducers/centralReducer";
+import { add as siteAdd } from "../redux/reducers/siteReducer";
 
 const drawerWidth = 258;
 
@@ -72,9 +87,52 @@ const MainContent = styled(Paper)`
 const Dashboard = ({ children, routes, width }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Admin
+    centralStoreRequisition(() => {
+      dispatch(adminAdd('Central Store Requisition'));
+    });
+
+    // Central
+    adminApproval(() => {
+      dispatch(centralAdd('Admin approval'));
+    });
+
+    siteStoreRequisition(() => {
+      dispatch(centralAdd('Site Requisition'));
+    });
+
+    // Site
+    centralStoreApproval(() => {
+      dispatch(siteAdd('Central Approval'));
+    });
+
+    siteLoanRequest((storeId) => {
+      if (storeId != user.storeId) {
+        dispatch(siteAdd('Site Loan Request'));
+      }
+    });
+
+    siteLoanApproval((storeId) => {
+      if (storeId != user.storeId) {
+        dispatch(siteAdd('Site Loan Approval'));
+      }
+    });
+
+    siteLoanReturn((storeId) => {
+      if (storeId != user.storeId) {
+        dispatch(siteAdd('Site Loan Return'));
+      }
+    });
+  }, []);
 
   return (
     <Root>

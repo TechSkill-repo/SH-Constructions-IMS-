@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import DateFnsUtils from "@date-io/date-fns";
 import "./App.css";
@@ -23,7 +22,7 @@ const jss = create({
 });
 
 function App() {
-  const theme = useSelector((state) => state.themeReducer);
+  const theme = { currentTheme: "DEFAULT" };
 
   return (
     <React.Fragment>

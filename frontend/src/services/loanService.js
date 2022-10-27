@@ -1,5 +1,5 @@
 import axios from "axios";
-import {HOST} from "../environments/env";
+import { HOST } from "../environments/env";
 
 export function requestLoan(material) {
   return new Promise((resolve, reject) => {
@@ -31,6 +31,17 @@ export function lendMaterial(material) {
   });
 }
 
+export const putMaterial = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios.put(HOST + '/loan/edit', material)
+      .then(resp => {
+        resolve(resp.data);
+      }).catch(err => {
+        reject(err);
+      });
+  });
+};
+
 export function getLoans(storeId) {
   return new Promise((resolve, reject) => {
     axios
@@ -56,5 +67,65 @@ export function getApprovedLoans(storeId, reverse = false) {
       .catch((err) => {
         reject(err);
       });
+  });
+}
+
+export function checkIsReturned(slip_no) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/loan/return/check?slip_no=" + slip_no)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+export function loanReturn(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/loan/return", material)
+      .then(response => {
+        if (response.status === 201) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+export function getLoanReturn(storeId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(HOST + "/loan/return?storeId=" + storeId)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+export function loanReturnApprove(material) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(HOST + "/loan/return/approve", material)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
   });
 }

@@ -34,7 +34,7 @@ function LoanApproveTable() {
       filterPlaceholder: "filter",
       render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
-          {rowData.storeId}
+          {rowData.receiverStoreId}
         </span>
       ),
     },
@@ -62,7 +62,7 @@ function LoanApproveTable() {
       ),
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-    { title: "Condition", field: "condition", filterPlaceholder: "filter" },
+   
   ];
 
   return (
@@ -137,7 +137,7 @@ function LoanApproveTable() {
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
-          title="Stakes Lone"
+          title="Stakes Loan"
           icons={{ Add: () => <AddIcon /> }}
         />
       </Box>

@@ -78,7 +78,7 @@ function LoanApproveForm() {
       onSubmit={handleSubmit}
     >
       <Typography textAlign="center" variant="h5" gutterBottom gutterLeft>
-        Lone Lending
+        Loan Lending
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>

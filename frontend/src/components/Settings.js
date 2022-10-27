@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components/macro";
 import { useDispatch, useSelector } from "react-redux";
-import { setTheme } from "../redux/actions/themeActions";
-import { THEMES } from "../constants";
 import { green, grey, indigo } from "@material-ui/core/colors";
 import { Link } from "react-router-dom";
 
@@ -20,6 +18,15 @@ import { Alert } from "@material-ui/lab";
 
 import { Palette as PaletteIcon } from "@material-ui/icons";
 
+const THEMES = {
+  DEFAULT: "DEFAULT",
+  DARK: "DARK",
+  LIGHT: "LIGHT",
+  BLUE: "BLUE",
+  GREEN: "GREEN",
+  INDIGO: "INDIGO",
+};
+
 const DemoButton = styled.div`
   cursor: pointer;
   background: ${(props) => props.theme.palette.background.paper};
@@ -33,9 +40,9 @@ const DemoButton = styled.div`
   position: relative;
   border: 1px solid
     ${(props) =>
-      !props.active
-        ? props.theme.palette.action.selected
-        : props.theme.palette.action.active};
+    !props.active
+      ? props.theme.palette.action.selected
+      : props.theme.palette.action.active};
 `;
 
 const DemoButtonInner = styled.div`
@@ -110,16 +117,16 @@ function Demo({ title, theme }) {
 
   return (
     <Grid item xs={6}>
-      <DemoButton
+      {/* <DemoButton
         active={theme === currentTheme.currentTheme}
         onClick={() => dispatch(setTheme(theme))}
       >
         <DemoButtonInner selectedTheme={theme} />
-      </DemoButton>
+  </DemoButton> */}
       <DemoTitle variant="subtitle2" gutterBottom>
         {title}
       </DemoTitle>
-    </Grid>
+    </Grid >
   );
 }
 

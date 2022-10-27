@@ -20,95 +20,34 @@ import {
   Users,
 } from "react-feather";
 
-// All pages that rely on 3rd party components (other than Material-UI) are
-// loaded asynchronously, to keep the initial JS bundle to a minimum size
-
-// Guards
-import AuthGuard from "../components/AuthGuard";
-
-// Auth components
-import SignIn from "../pages/auth/SignIn";
-import SignUp from "../pages/auth/SignUp";
-import ResetPassword from "../pages/auth/ResetPassword";
-import Page404 from "../pages/auth/Page404";
-import Page500 from "../pages/auth/Page500";
-
-// Components components
-import Accordion from "../pages/components/Accordion";
-import Alerts from "../pages/components/Alerts";
-import Avatars from "../pages/components/Avatars";
-import Badges from "../pages/components/Badges";
-import Buttons from "../pages/components/Buttons";
-import Cards from "../pages/components/Cards";
-import Chips from "../pages/components/Chips";
-import Dialogs from "../pages/components/Dialogs";
-import Lists from "../pages/components/Lists";
-import Menus from "../pages/components/Menus";
-import Pagination from "../pages/components/Pagination";
-import Progress from "../pages/components/Progress";
-import Snackbars from "../pages/components/Snackbars";
-import Tooltips from "../pages/components/Tooltips";
+import FireplaceIcon from "@mui/icons-material/Fireplace";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Admin/Default"));
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
-
-// Forms components
-import SelectionCtrls from "../pages/forms/SelectionControls";
-import Selects from "../pages/forms/Selects";
-import TextFields from "../pages/forms/TextFields";
-const Pickers = async(() => import("../pages/forms/Pickers"));
-const Dropzone = async(() => import("../pages/forms/Dropzone"));
-const Editors = async(() => import("../pages/forms/Editors"));
-const Formik = async(() => import("../pages/forms/Formik"));
-
-// Icons components
-import MaterialIcons from "../pages/icons/MaterialIcons";
-const FeatherIcons = async(() => import("../pages/icons/FeatherIcons"));
-
-// Pages components
-import Blank from "../pages/pages/Blank";
-import InvoiceDetails from "../pages/pages/InvoiceDetails";
-import InvoiceList from "../pages/pages/InvoiceList";
-import Orders from "../pages/pages/Orders";
-import Pricing from "../pages/pages/Pricing";
-import Settings from "../pages/pages/Settings";
-import Projects from "../pages/pages/Projects";
-import Chat from "../pages/pages/Chat";
-const Profile = async(() => import("../pages/pages/Profile"));
-const Tasks = async(() => import("../pages/pages/Tasks"));
-const Calendar = async(() => import("../pages/pages/Calendar"));
-
-// Tables components
-import SimpleTable from "../pages/tables/SimpleTable";
-import AdvancedTable from "../pages/tables/AdvancedTable";
-
-// Chart components
-const Chartjs = async(() => import("../pages/charts/Chartjs"));
-
-// Maps components
-const GoogleMaps = async(() => import("../pages/maps/GoogleMaps"));
-const VectorMaps = async(() => import("../pages/maps/VectorMaps"));
-
-// Documentation
-import Welcome from "../pages/docs/Welcome";
-import GettingStarted from "../pages/docs/GettingStarted";
-import EnvironmentVariables from "../pages/docs/EnvironmentVariables";
-import Deployment from "../pages/docs/Deployment";
-import Theming from "../pages/docs/Theming";
-import StateManagement from "../pages/docs/StateManagement";
-import APICalls from "../pages/docs/APICalls";
-import ESLintAndPrettier from "../pages/docs/ESLintAndPrettier";
-import Support from "../pages/docs/Support";
-import Changelog from "../pages/docs/Changelog";
-
-// Landing
-import Landing from "../pages/presentation/Landing";
-
-// Protected routes
-import ProtectedPage from "../pages/protected/ProtectedPage";
-import MaterialRequest from "../pages/dashboards/Central/MaterialRequest/MaterialRequest";
+import GridViewIcon from "@mui/icons-material/GridView";
+import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
+import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
+import MaterialAccepted from "../pages/dashboards/Admin/MaterialAccepted/MaterialAccepted";
+import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
+import ProductList from "../pages/dashboards/Central/ProductList/ProductList";
+import MaterialIssue from "../pages/dashboards/Central/MaterialIssue/MaterialIssue";
+import ImportContactsIcon from "@material-ui/icons/ImportContacts";
+import MIConsumable from "../pages/dashboards/Central/MaterialIssue/MIConsumable";
+import MINonConsumable from "../pages/dashboards/Central/MaterialIssue/MINonConsumable";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import MonitorStorLonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonConsumable";
+import MonitorStorLonNonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonNonConsumable";
+import Consumable from "../pages/dashboards/Admin/MonitorStorInventory/Consumable";
+import NonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/NonConsumable";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -125,108 +64,118 @@ const dashboardsRoutes = {
   ],
   component: null,
 };
-const projectsRoutes = {
-  id: "Admin Inventory",
-  path: "/analytics",
-  icon: <Briefcase />,
-  component: Analytics,
-  children: null,
-};
 
-const orderRoutes = {
-  id: "Material requests",
-  path: "/orders",
-  icon: <ShoppingCart />,
+const amount = {
+  id: "Account Details",
+  path: "/accounts",
+  icon: <AccountBalanceIcon />,
   component: null,
-  children: null,
-};
-
-const authRoutes = {
-  id: "Material Issue",
-  path: "/material-issue",
-  icon: <Users />,
-  children: null,
-  component: TextFields,
 };
 
 const consumables = {
   id: "Consumables Items",
-  path: "/material-issue",
-  icon: <Users />,
+  path: "/consumable",
+  icon: <EngineeringIcon />,
   children: null,
-  component: TextFields,
+  component: ConsumableTable,
 };
 
 const non_consumables = {
-  id: "Non-Consumables Items",
-  path: "/material-issue",
-  icon: <Users />,
+  id: "Non-Consumables",
+  path: "/non-consumable",
+  icon: <HandymanIcon />,
   children: null,
-  component: TextFields,
+  component: NonConsumableTable,
 };
 
-const componentsRoutes = {
+const criticalTools = {
   id: "Critical Tools",
   path: "/critical-tools",
-  icon: <Grid />,
+  icon: <FireplaceIcon />,
+  component: null,
+  component: CriticalTools,
+};
+
+const criticalTool = {
+  id: "Critical Tool",
+  path: "/critical-tool/:productId",
+  children: null,
+  component: CriticalTool,
+};
+
+const materialAccepted = {
+  id: "Monitor Materials",
+  path: "/material-accept",
+  icon: <Monitor />,
+  component: MaterialAccepted,
+};
+
+const monitorStoreLone= {
+  id: "Monitor Store Lone",
+  path: "/monitor-lone",
+  icon: <VolunteerActivismIcon />,
+  children: null,
+  component: MonitorLone,
+};
+
+const productList = {
+  id: "Product List",
+  path: "/product-list",
+  icon: <ImportContactsIcon />,
+  component: ProductList,
+  children: null,
+};
+
+const monitorStoreInventory = {
+  id: "Store Inventory",
+  path: "/store-inventory",
+  icon: <GridViewIcon />,
   children: [
     {
-      path: "/simpleTables",
-      name: "Tool 1",
-      component: SimpleTable,
+      path: "/store-inventory/consumabales",
+      name: "Consumables",
+      component: MonitorStorLonConsumable,
     },
-    {
-      path: "/simpleTables",
-      name: "Tool 2",
-      component: SimpleTable,
-    },
-    {
-      path: "/simpleTables",
-      name: "Tool 3",
-      component: SimpleTable,
-    },
+     {
+       path: "/store-inventory/non-consumables",
+      name: "Non-Consumables",
+      component: MonitorStorLonNonConsumable,
+   },
   ],
+};
+const monitor_Store_Inventory_Consumable = {
+  id: "store in inventory",
+  path: "/store-inventory/consumable/:storeId",
+  children: null,
+  component: Consumable,
+};
+
+const monitor_Store_Inventory_NonConsumable = {
+  id: "store in inventory",
+  path: "/store-inventory/non-consumable/:storeId",
+  children: null,
+  component: NonConsumable,
+};
+
+// const monitor_Store_Inventory = {
+//   id: "store in inventory",
+//   path: "/store-inventory/non-consumables/:storeId",
+//   children: null,
+//   component: NonConsumable,
+// };
+
+const details = {
+  id: "User Information's",
+  path: "/user-info",
+  icon: <ContactsIcon />,
+  component: "",
+};
+
+const materialDamaged = {
+  id: "Damage Materials",
+  path: "/damage-materials",
+  icon: <RemoveCircleOutlineIcon />,
   component: null,
-};
-
-const chartRoutes = {
-  id: "Monitor Inventory",
-  path: "/monitorInventory",
-  icon: <PieChart />,
-  component: Chartjs,
-  children: null,
-};
-
-const monitorInventory = {
-  id: "Store Inventory",
-  path: "/monitorInventory",
-  icon: <PieChart />,
-  component: Chartjs,
-  children: null,
-};
-
-const monitorStoreLone = {
-  id: "Monitor Store Lone",
-  path: "/monitorInventory",
-  icon: <PieChart />,
-  component: Chartjs,
-  children: null,
-};
-
-const profile = {
-  id: "Material Request",
-  path: "/monitorInventory",
-  icon: <PieChart />,
-  component: Chartjs,
-  children: null,
-};
-
-const notes = {
-  id: "Notes",
-  path: "/monitorInventory",
-  icon: <PieChart />,
-  component: Chartjs,
-  children: null,
 };
 
 const landingRoutes = {
@@ -234,50 +183,44 @@ const landingRoutes = {
   path: "/",
   header: "Docs",
   icon: <Monitor />,
-  component: Landing,
+  component: null,
   children: null,
-};
-
-// This route is only visible while signed in
-const protectedPageRoutes = {
-  id: "Private",
-  path: "/private",
-  component: ProtectedPage,
-  children: null,
-  guard: AuthGuard,
 };
 
 // Routes using the Dashboard layout
 export const dashboardLayoutRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
-  orderRoutes,
-
-  componentsRoutes,
-  chartRoutes,
+  amount,
+  criticalTools,
+  consumables,
+  non_consumables,
+  materialAccepted,
+  monitorStoreLone,
+  criticalTool,
+  productList,
+  monitorStoreInventory,
+  materialDamaged,
+  details,
+  monitor_Store_Inventory_Consumable,
+  monitor_Store_Inventory_NonConsumable,
 ];
 
 // Routes using the Auth layout
-export const authLayoutRoutes = [authRoutes];
 
 // Routes using the Presentation layout
 export const presentationLayoutRoutes = [landingRoutes];
 
-// Routes that are protected
-export const protectedRoutes = [protectedPageRoutes];
-
 // Routes visible in the sidebar
 export const sidebarRoutes = [
   dashboardsRoutes,
-  projectsRoutes,
-  orderRoutes,
+  amount,
   consumables,
   non_consumables,
-  monitorInventory,
-  authRoutes,
-  componentsRoutes,
-  chartRoutes,
+  materialAccepted,
+  criticalTools,
   monitorStoreLone,
-  profile,
-  notes,
+  productList,
+  monitorStoreInventory,
+  materialDamaged,
+  details,
 ];

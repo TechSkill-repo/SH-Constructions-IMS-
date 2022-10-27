@@ -12,6 +12,7 @@ import {
 import { spacing } from "@material-ui/system";
 
 import { green, red } from "@material-ui/core/colors";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 import Actions from "./Actions";
 import BarChart from "./BarChart";
@@ -19,6 +20,11 @@ import LineChart from "./LineChart";
 import DoughnutChart from "./DoughnutChart";
 import Stats from "./Stats";
 import Table from "./Table";
+import { Box, Alert, IconButton, Collapse } from "@mui/material";
+
+import { Close } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { remove } from "../../../../redux/reducers/centralReducer";
 
 const Divider = styled(MuiDivider)(spacing);
 
@@ -27,6 +33,11 @@ const Typography = styled(MuiTypography)(spacing);
 function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const userRole = JSON.parse(userDetails);
+
+  const { elements } = useSelector(state => state.central);
+  const dispatch = useDispatch();
+  console.log("elements",elements)
+
   return (
     <React.Fragment>
       <Helmet title="S.H Construction" />
@@ -44,77 +55,144 @@ function Default() {
         </Grid>
       </Grid>
 
+      <div>
+        <Box sx={{ width: '100%', marginTop: "6px" }} >
+       
+            {elements.map((element,index) => {
+              return <Alert
+              key={index}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      dispatch(remove(index));
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {element}
+              </Alert >
+            })}
+         
+        </Box >
+      </div >
+
       <Divider my={6} />
 
       <Grid container spacing={6}>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
-            title="Gloves"
-            amount="200"
-            chip="Today"
-            percentageText="On Stock"
+            title="Coke Plant"
+            chip="Muzaffar Iqbal"
+            percentageText="EC01"
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
-            title="Gloves"
-            amount="2"
-            chip="Annual"
-            percentageText="Low Stock"
+            title="RMM"
+            chip="Anurag"
+            percentageText="E22"
             percentagecolor={red[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
-            title="Order Compleated"
-            amount="24300"
-            chip="Yearly"
-            percentageText="+18%"
+            title="RMBB"
+            chip="Ramesh Sharma"
+            percentageText="E13"
             percentagecolor={green[500]}
           />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Stats
-            title="Pending Orders"
-            amount="45"
-            chip="Today"
-            percentageText="-9%"
-            percentagecolor={red[500]}
-          />
-        </Grid>
-      </Grid>
-      <div
-        style={{
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "50px",
-          color: "#233044",
-          fontSize: "25px",
-        }}
-      >
-        <h1>👷‍♂️</h1>
-        <h1>CentralStore Dashboard Under Construction 🛠</h1>
-      </div>
 
-      {/* <Grid container spacing={6}>
-        <Grid item xs={12} lg={8}>
-          <LineChart />
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <DoughnutChart />
-        </Grid>
       </Grid>
       <Grid container spacing={6}>
-        <Grid item xs={12} lg={4}>
-          <BarChart />
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="RMBB2"
+            chip="Love Gope"
+            percentageText="E17"
+            percentagecolor={red[500]}
+          />
         </Grid>
-        <Grid item xs={12} lg={8}>
-          <Table />
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="GBF"
+            chip="RK Srivastava"
+            percentageText="E27"
+            percentagecolor={green[500]}
+          />
         </Grid>
-      </Grid> */}
-    </React.Fragment>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="SP#1,2"
+            chip="Chandan Singh"
+            percentageText="E23"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+
+      </Grid>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="SP#3,4"
+            chip="Manoj Mishra"
+            percentageText="E15"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="MM"
+            chip="Hashim Khan"
+            percentageText="E24"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="LD#01"
+            chip="Prabhat Singh"
+            percentageText="E20"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+
+      </Grid>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="PALLET PLANT"
+            chip="Bablu Panday"
+            percentageText="E30"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="MRSPP"
+            chip="Santosh Panday"
+            percentageText="E28"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="Line Plant"
+            chip="Imteyaz Ahmed"
+            percentageText="I11"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+
+      </Grid>
+    </React.Fragment >
   );
 }
 
