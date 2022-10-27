@@ -11,7 +11,7 @@ import {
   Sliders,
   Users,
 } from "react-feather";
-
+import StorageIcon from "@mui/icons-material/Storage";
 import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -163,7 +163,7 @@ const criticalTool = {
 const allProducts = {
   id: "All Products",
   path: "/all-products",
-  icon: <ShoppingCart />,
+  icon: <StorageIcon />,
   component: Allproducts,
 };
 

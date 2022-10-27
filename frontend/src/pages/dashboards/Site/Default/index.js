@@ -35,6 +35,7 @@ function Default() {
 
   const { elements } = useSelector(state => state.site);
   const dispatch = useDispatch();
+  console.log("elements",elements)
 
   return (
     // <React.Fragment>
@@ -112,16 +113,17 @@ function Default() {
     <div>
       <div>
         <Box sx={{ width: '100%' }} >
-          <Collapse in={true}>
-            {elements.map(element => {
+         
+            {elements.map((element,index) => {
               return <Alert
+              key={index}
                 action={
                   <IconButton
                     aria-label="close"
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      dispatch(remove());
+                      dispatch(remove(index));
                     }}
                   >
                     <Close fontSize="inherit" />
@@ -133,7 +135,7 @@ function Default() {
               </Alert>
             })
             }
-          </Collapse>
+        
 
         </Box>
       </div>

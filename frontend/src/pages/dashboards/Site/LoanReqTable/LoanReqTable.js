@@ -16,6 +16,7 @@ function LoanReqTable() {
   const [items, setItems] = useState([]);
   const [loneApproved, setLoneApproved] = useState(false);
   const [loneDenied, setLoneDenied] = useState(false);
+  const [approved, setApproved] = useState(false);
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
   const storeId = user.storeId;
@@ -75,7 +76,7 @@ function LoanReqTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.lendQuantity?.length ? (
-          rowData.issued ? (
+          approved || rowData.issued ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{
@@ -167,7 +168,7 @@ function LoanReqTable() {
               tooltip: "Approve",
               onClick: async (event, rowData) => {
                 let issued = rowData.issued;
-
+                  setApproved(true);
                 if (rowData.lendQuantity?.length && !issued) {
                   rowData.lendDate = getCurrentDate();
                   rowData.returnCondition = "";
@@ -177,6 +178,7 @@ function LoanReqTable() {
                   lendMaterial(rowData)
                     .then((resp) => {
                       console.log(resp);
+                      console.log("here")
                       socket.emit('clientSiteLoanApproval');
                       setLoneApproved(true);
                       setTimeout(() => setLoneApproved(false), 2000);
@@ -217,10 +219,10 @@ function LoanReqTable() {
                   newData.returnDate = "";
 
                   putMaterial(newData)
-                    .then((resp) => console.log(resp))
+                    .then((resp) => resolve())
                     .catch((err) => console.log(err.response));
 
-                  resolve();
+                  // resolve();
                 } else {
                   reject();
                 }

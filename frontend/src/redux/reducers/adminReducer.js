@@ -8,8 +8,8 @@ const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        remove: (state) => {
-            state.elements = [];
+        remove: (state,{payload}) => {
+            state.elements = state.elements.filter((element, index) => index !== payload);
         },
         add: (state, { payload }) => {
             const text = payload;
