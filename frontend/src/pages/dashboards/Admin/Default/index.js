@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
-import { Button, Box, Alert, Snackbar, IconButton, Collapse } from "@mui/material";
+import {
+  Button,
+  Box,
+  Alert,
+  Snackbar,
+  IconButton,
+  Collapse,
+} from "@mui/material";
 
 import {
   Grid,
@@ -33,11 +40,11 @@ function Default() {
   const userRole = JSON.parse(userDetails);
   const [viewMore, setViewMore] = useState(false);
 
-  const { elements } = useSelector(state => state.admin);
+  const { elements } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   const handleViewMore = () => setViewMore(!viewMore);
-  console.log("elements",elements)
+  console.log("elements", elements);
 
   return (
     <React.Fragment>
@@ -59,10 +66,10 @@ function Default() {
       <Divider my={6} />
 
       <div>
-        <Box sx={{ width: '100%' }}>
-         
-            {elements.map((element, index) => {
-              return <Alert
+        <Box sx={{ width: "100%" }}>
+          {elements.map((element, index) => {
+            return (
+              <Alert
                 key={index}
                 action={
                   <IconButton
@@ -70,7 +77,7 @@ function Default() {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      dispatch(remove(index))
+                      dispatch(remove(index));
                     }}
                   >
                     <Close fontSize="inherit" />
@@ -80,8 +87,8 @@ function Default() {
               >
                 {element}
               </Alert>
-            })}
-         
+            );
+          })}
         </Box>
       </div>
 
@@ -110,11 +117,10 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-
       </Grid>
 
-      {
-        viewMore && <>
+      {viewMore && (
+        <>
           <Grid container spacing={6}>
             <Grid item xs={12} sm={12} md={6} lg={4} xl>
               <Stats
@@ -140,7 +146,6 @@ function Default() {
                 percentagecolor={green[500]}
               />
             </Grid>
-
           </Grid>
           <Grid container spacing={6}>
             <Grid item xs={12} sm={12} md={6} lg={4} xl>
@@ -167,7 +172,6 @@ function Default() {
                 percentagecolor={green[500]}
               />
             </Grid>
-
           </Grid>
           <Grid container spacing={6}>
             <Grid item xs={12} sm={12} md={6} lg={4} xl>
@@ -194,32 +198,20 @@ function Default() {
                 percentagecolor={green[500]}
               />
             </Grid>
-
           </Grid>
-
         </>
-
-      }
+      )}
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={handleViewMore} variant="contained" sx={{
-          marginTop: "20px"
-        }}>
+        <Button
+          onClick={handleViewMore}
+          variant="contained"
+          sx={{
+            marginTop: "20px",
+          }}
+        >
           {viewMore ? "View Less" : "View More"}
         </Button>
       </Box>
-      <div
-        style={{
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "50px",
-          color: "#233044",
-          fontSize: "25px",
-        }}
-      >
-        <h1>👷‍♂️</h1>
-        <h1>Admin Dashboard Under Construction 🛠</h1>
-      </div>
 
       <Grid container spacing={6}>
         <Grid item xs={12} lg={8}>
