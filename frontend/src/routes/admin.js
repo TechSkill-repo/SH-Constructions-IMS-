@@ -24,6 +24,7 @@ import FireplaceIcon from "@mui/icons-material/Fireplace";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Admin/Default"));
+const AccountDetails = async(() => import("../pages/dashboards/Admin/Default/AccountDetails"));
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -69,7 +70,7 @@ const amount = {
   id: "Account Details",
   path: "/accounts",
   icon: <AccountBalanceIcon />,
-  component: null,
+  component: AccountDetails,
 };
 
 const consumables = {

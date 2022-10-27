@@ -48,7 +48,7 @@ function Default() {
             S.H Construction {`${userRole.role}`} Dashboard
           </Typography>
           <Typography variant="h7" gutterBottom>
-            Welcome back, Lucy! We've missed you. 👋
+            Welcome back, Admin! 👋
           </Typography>
         </Grid>
         <Grid item>
@@ -57,7 +57,20 @@ function Default() {
       </Grid>
 
       <Divider my={6} />
-
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+{/* Same as */}
+<ToastContainer />
       <div>
         <Box sx={{ width: '100%' }}>
          
