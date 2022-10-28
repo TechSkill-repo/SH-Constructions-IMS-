@@ -12,13 +12,10 @@ function CriticalToolsTable({ productId }) {
         setItems(
           data.criticalTools.filter((item) => item.productId == productId)
         );
-      
       })
       .catch((err) => {
         console.log(err);
       });
-
-     
   }, []);
 
   const columns = [
@@ -98,7 +95,7 @@ function CriticalToolsTable({ productId }) {
           index % 2 === 0 ? { background: "#f5f5f5" } : null,
         headerStyle: { background: "#376fd0", color: "#fff" },
       }}
-      title={productId}
+      title="Critical Tool"
       icons={{ Add: () => <AddIcon /> }}
     />
   );
