@@ -12,10 +12,13 @@ function CriticalToolsTable({ productId }) {
         setItems(
           data.criticalTools.filter((item) => item.productId == productId)
         );
+      
       })
       .catch((err) => {
         console.log(err);
       });
+
+     
   }, []);
 
   const columns = [
@@ -76,7 +79,7 @@ function CriticalToolsTable({ productId }) {
         filtering: true,
         paging: true,
         pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
-        pageSize: 5,
+        pageSize: 10,
         paginationType: "stepped",
         showFirstLastPageButtons: false,
         paginationPosition: "both",
@@ -95,7 +98,7 @@ function CriticalToolsTable({ productId }) {
           index % 2 === 0 ? { background: "#f5f5f5" } : null,
         headerStyle: { background: "#376fd0", color: "#fff" },
       }}
-      title="Critical Tool"
+      title={productId}
       icons={{ Add: () => <AddIcon /> }}
     />
   );

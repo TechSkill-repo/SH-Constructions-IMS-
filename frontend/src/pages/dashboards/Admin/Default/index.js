@@ -55,7 +55,7 @@ function Default() {
             S.H Construction {`${userRole.role}`} Dashboard
           </Typography>
           <Typography variant="h7" gutterBottom>
-            Welcome back, Lucy! We've missed you. 👋
+            Welcome back, Admin! 👋
           </Typography>
         </Grid>
         <Grid item>
@@ -64,7 +64,7 @@ function Default() {
       </Grid>
 
       <Divider my={6} />
-
+     
       <div>
         <Box sx={{ width: "100%" }}>
           {elements.map((element, index) => {

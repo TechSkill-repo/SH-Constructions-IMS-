@@ -143,6 +143,13 @@ function ApprovedLone() {
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
+         localization={{
+       
+          header: {
+              actions: 'Approve'
+          },
+         
+      }}
           actions={[
             {
               icon: "checkbox",
@@ -178,7 +185,7 @@ function ApprovedLone() {
             filtering: true,
             paging: true,
             pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
-            pageSize: 5,
+            pageSize: 10,
             paginationType: "stepped",
             showFirstLastPageButtons: false,
             paginationPosition: "both",
