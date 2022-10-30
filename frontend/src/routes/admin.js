@@ -49,6 +49,7 @@ import MonitorStorLonConsumable from "../pages/dashboards/Admin/MonitorStorInven
 import MonitorStorLonNonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonNonConsumable";
 import Consumable from "../pages/dashboards/Admin/MonitorStorInventory/Consumable";
 import NonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/NonConsumable";
+import UserInfo from "../pages/dashboards/Admin/UserInfo/UserInfo";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -166,10 +167,10 @@ const monitor_Store_Inventory_NonConsumable = {
 // };
 
 const details = {
-  id: "User Information's",
+  id: "Users Information",
   path: "/user-info",
   icon: <ContactsIcon />,
-  component: "",
+  component: UserInfo,
 };
 
 const materialDamaged = {

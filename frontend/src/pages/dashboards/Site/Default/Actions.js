@@ -45,7 +45,9 @@ function Actions() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        Today: April 29
+         {
+          new Date().toLocaleDateString()
+        }
       </Button>
       <Menu
         id="simple-menu"

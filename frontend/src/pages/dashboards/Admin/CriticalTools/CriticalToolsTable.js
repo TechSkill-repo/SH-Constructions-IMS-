@@ -95,7 +95,7 @@ function CriticalToolsTable({ productId }) {
           index % 2 === 0 ? { background: "#f5f5f5" } : null,
         headerStyle: { background: "#376fd0", color: "#fff" },
       }}
-      title="Critical Tool"
+      title={productId}
       icons={{ Add: () => <AddIcon /> }}
     />
   );
