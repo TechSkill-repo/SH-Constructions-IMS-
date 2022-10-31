@@ -165,6 +165,13 @@ function AcceptNonConsumableTable() {
         </Grid>
       </div>
       <MaterialTable
+       localization={{
+       
+        header: {
+            actions: 'Accept'
+        },
+       
+    }}
         actions={[
           {
             icon: "checkbox",

@@ -97,9 +97,7 @@ const AppBarComponent = ({ onDrawerToggle }) => (
             </Search>
           </Grid>
           <Grid item xs />
-          <Grid>
-            <MessagesDropdown />
-          </Grid>
+          
           <Grid>
             <NotificationsDropdown />
           </Grid>

@@ -47,7 +47,7 @@ function Default() {
             S.H Construction {`${userRole.role}`} Dashboard
           </Typography>
           <Typography variant="h7" gutterBottom>
-            Welcome back, Lucy! We've missed you. 👋
+            Welcome back, Central! 👋
           </Typography>
         </Grid>
         <Grid item>

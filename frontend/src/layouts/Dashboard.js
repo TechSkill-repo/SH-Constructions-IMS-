@@ -30,6 +30,10 @@ import { add as adminAdd } from "../redux/reducers/adminReducer";
 import { add as centralAdd } from "../redux/reducers/centralReducer";
 import { add as siteAdd } from "../redux/reducers/siteReducer";
 
+import { ToastContainer , toast } from "react-toastify";
+// import toast from 'react-toastify/toast';
+import 'react-toastify/dist/ReactToastify.css';
+
 const drawerWidth = 258;
 
 const GlobalStyle = createGlobalStyle`
@@ -95,47 +99,184 @@ const Dashboard = ({ children, routes, width }) => {
 
   const dispatch = useDispatch();
 
+
+    const [admin, setAdmin] = useState(false);
+    const [central, setCentral] = useState(false);
+    const [site, setSite] = useState(false);
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
   useEffect(() => {
+    const sessionData = window.sessionStorage.getItem("user");
+    const role = JSON.parse(sessionData).role;
+    if(role === "Admin")
+     { setAdmin(true);
+      setCentral(false);
+      setSite(false);
+    }
+    if(role === "Central Store")
+     { setCentral(true);
+      
+      setAdmin(false);
+      setSite(false);
+    }
+    if(role === "Site Store")
+      {setSite(true);
+      setAdmin(false);
+      setCentral(false);}
+        
+      
+    
+
     // Admin
     centralStoreRequisition(() => {
+      console.log("Central Store Requisition");
       dispatch(adminAdd('Central Store Requisition'));
+      console.log("user",admin,role)
+      setAdmin(true);
+      if(role === "Admin")
+      {  toast.info('Central Store Requisition'
+        , {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      
+      console.log('Inside Centeral');
+    
+    }
+    
+    
+     
     });
 
     // Central
     adminApproval(() => {
       dispatch(centralAdd('Admin approval'));
+      
+      if(role === "Central Store")
+       { toast.success('Admin approval' , {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+       console.log('Inside Admin approval');
+         
+      }
     });
 
     siteStoreRequisition(() => {
       dispatch(centralAdd('Site Requisition'));
+      if(role === "Central Store")
+        toast.info('Site Requisition' , {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+
     });
 
     // Site
     centralStoreApproval(() => {
       dispatch(siteAdd('Central Approval'));
+      if(role === "Site Store")
+       toast.success('Central Approval' , {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+    
     });
 
     siteLoanRequest((storeId) => {
       if (storeId != user.storeId) {
         dispatch(siteAdd('Site Loan Request'));
+        if(role === "Site Store")
+        toast.info('Site Loan Request' , {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       }
     });
 
     siteLoanApproval((storeId) => {
       if (storeId != user.storeId) {
         dispatch(siteAdd('Site Loan Approval'));
+        if(role === "Site Store")
+        toast.success('Site Loan Approval' , {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+
       }
     });
 
     siteLoanReturn((storeId) => {
       if (storeId != user.storeId) {
         dispatch(siteAdd('Site Loan Return'));
+        if(role === "Site Store")
+        toast.info('Site Loan Return' , {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
       }
     });
   }, []);
 
   return (
     <Root>
+      <ToastContainer></ToastContainer>
       <CssBaseline />
       <GlobalStyle />
       <Drawer>
@@ -157,12 +298,15 @@ const Dashboard = ({ children, routes, width }) => {
       </Drawer>
       <AppContent>
         <Header onDrawerToggle={handleDrawerToggle} />
+        
+      {/* <ToastContainer ></ToastContainer> */}
         <MainContent p={isWidthUp("lg", width) ? 12 : 5}>
+          
           {children}
         </MainContent>
         <Footer />
       </AppContent>
-      <Settings />
+     
     </Root>
   );
 };

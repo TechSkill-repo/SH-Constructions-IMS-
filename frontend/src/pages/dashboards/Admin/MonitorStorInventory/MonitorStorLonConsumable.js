@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import Stats from "../Default/Stats";
-// import Stats from "./Stats";
+// import Stats from "../Default/Stats";
+import Stats from "./Stats";
 import { green, red } from "@material-ui/core/colors";
 import { Helmet } from "react-helmet-async";
 import Actions from "../Default/Actions";
@@ -31,7 +31,7 @@ function MonitorStorLonConsumable(props) {
       <Grid justify="space-between" container spacing={6}>
         <Grid item>
           <Typography variant="h3" gutterBottom>
-            Material Issue Consumable Items {props.title}
+            Stores Consumables Inventory
           </Typography>
         </Grid>
         <Grid item>

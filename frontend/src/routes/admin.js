@@ -24,14 +24,15 @@ import FireplaceIcon from "@mui/icons-material/Fireplace";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Admin/Default"));
+const AccountDetails = async(() => import("../pages/dashboards/Admin/Default/AccountDetails"));
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 import GridViewIcon from "@mui/icons-material/GridView";
 import ConsumableTable from "../pages/dashboards/Admin/MaterialRequest/ConsumableTable";
 import NonConsumableTable from "../pages/dashboards/Admin/MaterialRequest/NonConsumableTable";
 import MaterialAccepted from "../pages/dashboards/Admin/MaterialAccepted/MaterialAccepted";
-import CriticalTool from "../pages/dashboards/Central/CriticalTools/CriticalTools";
-import CriticalTools from "../pages/dashboards/Central/CriticalTools/CriticalTools";
+import CriticalTools from "../pages/dashboards/Admin/CriticalTools/CriticalTools";
+import CriticalTool from "../pages/dashboards/Admin/CriticalTools/CriticalTool";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import MonitorLone from "../pages/dashboards/Central/MonitorLone/MonitorLone";
 import ProductList from "../pages/dashboards/Central/ProductList/ProductList";
@@ -48,6 +49,7 @@ import MonitorStorLonConsumable from "../pages/dashboards/Admin/MonitorStorInven
 import MonitorStorLonNonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/MonitorStorLonNonConsumable";
 import Consumable from "../pages/dashboards/Admin/MonitorStorInventory/Consumable";
 import NonConsumable from "../pages/dashboards/Admin/MonitorStorInventory/NonConsumable";
+import UserInfo from "../pages/dashboards/Admin/UserInfo/UserInfo";
 
 const dashboardsRoutes = {
   id: "Dashboard",
@@ -69,7 +71,7 @@ const amount = {
   id: "Account Details",
   path: "/accounts",
   icon: <AccountBalanceIcon />,
-  component: null,
+  component: AccountDetails,
 };
 
 const consumables = {
@@ -165,10 +167,10 @@ const monitor_Store_Inventory_NonConsumable = {
 // };
 
 const details = {
-  id: "User Information's",
+  id: "Users Information",
   path: "/user-info",
   icon: <ContactsIcon />,
-  component: "",
+  component: UserInfo,
 };
 
 const materialDamaged = {

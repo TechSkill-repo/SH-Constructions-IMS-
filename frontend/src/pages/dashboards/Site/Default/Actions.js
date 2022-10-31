@@ -37,9 +37,7 @@ function Actions() {
       <SmallButton size="small" mr={2}>
         <LoopIcon />
       </SmallButton>
-      <SmallButton size="small" mr={2}>
-        <FilterListIcon />
-      </SmallButton>
+      
       <Button
         variant="contained"
         color="secondary"
@@ -47,7 +45,9 @@ function Actions() {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        Today: April 29
+         {
+          new Date().toLocaleDateString()
+        }
       </Button>
       <Menu
         id="simple-menu"

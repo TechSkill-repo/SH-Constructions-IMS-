@@ -124,6 +124,13 @@ function NonConsumableTable() {
       </div>
 
       <MaterialTable
+       localization={{
+       
+        header: {
+            actions: 'App Requests'
+        },
+       
+    }}
         actions={[
           {
             icon: "checkbox",
@@ -185,7 +192,7 @@ function NonConsumableTable() {
           filtering: true,
           paging: true,
           pageSizeOptions: [2, 5, 10, 20, 25, 50, 100],
-          pageSize: 5,
+          pageSize: 10,
           paginationType: "stepped",
           showFirstLastPageButtons: false,
           paginationPosition: "both",

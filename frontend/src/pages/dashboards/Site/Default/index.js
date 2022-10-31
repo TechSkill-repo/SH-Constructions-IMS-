@@ -139,8 +139,21 @@ function Default() {
 
         </Box>
       </div>
+      <Grid justify="space-between" container spacing={6}>
+        <Grid item>
+          <Typography variant="h3" gutterBottom>
+            S.H Construction Site Store Dashboard
+          </Typography>
+          <Typography variant="h7" gutterBottom>
+            Welcome back, Store! 👋
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Actions />
+        </Grid>
+      </Grid>
 
-      <h1>Site store under construction</h1>
+     
     </div>
   );
 }
