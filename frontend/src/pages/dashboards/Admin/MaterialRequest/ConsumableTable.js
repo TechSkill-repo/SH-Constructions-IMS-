@@ -10,6 +10,7 @@ import { Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { Grid } from "@material-ui/core";
 import { socket } from "../../../../services/socketService";
+import Box from "@mui/material/Box";
 
 function ConsumableTable() {
   const [items, setItems] = useState([]);
@@ -122,7 +123,9 @@ function ConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      <Box sx={{width:"90%"}}>
 
+     
       <MaterialTable
         localization={{
        
@@ -184,6 +187,7 @@ function ConsumableTable() {
         data={items}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
+          
           sorting: true,
           search: true,
           searchFieldAlignment: "right",
@@ -213,7 +217,9 @@ function ConsumableTable() {
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
+       
       />
+       </Box>
     </>
   );
 }

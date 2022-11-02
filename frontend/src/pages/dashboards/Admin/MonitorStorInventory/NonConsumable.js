@@ -3,9 +3,10 @@ import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
-import { Box } from "@material-ui/core";
+// import { Box } from "@material-ui/core";
 import { getMaterials } from "../../../../services/storeService";
 import { useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 function NonConsumable() {
   const [items, setItems] = useState([]);

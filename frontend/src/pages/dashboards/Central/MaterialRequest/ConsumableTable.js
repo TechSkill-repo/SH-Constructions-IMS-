@@ -11,6 +11,8 @@ import {
 import Alert from "@mui/material/Alert";
 import { socket } from "../../../../services/socketService";
 
+import Box from "@mui/material/Box";
+
 function ConsumableTable() {
   const [items, setItems] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
@@ -125,6 +127,9 @@ function ConsumableTable() {
           {message}
         </Alert>
       )}
+
+<Box sx={{width:"90%"}}>
+
       <MaterialTable
         localization={{
        
@@ -176,7 +181,7 @@ function ConsumableTable() {
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
             }),
-          onRowUpdate: (newData, oldData) =>
+            onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               if (!oldData.quantity_aprv?.length) {
                 const dataUpdate = [...items];
@@ -187,10 +192,10 @@ function ConsumableTable() {
                 newData.category = "consumable";
 
                 putMaterial(newData)
-                  .then((resp) => console.log(resp))
+                .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
 
-                resolve();
+                  resolve();
               } else {
                 reject();
               }
@@ -228,7 +233,8 @@ function ConsumableTable() {
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
-      />
+        />
+        </Box>
     </>
   );
 }

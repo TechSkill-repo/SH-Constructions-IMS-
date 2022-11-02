@@ -11,6 +11,8 @@ import { Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { Grid } from "@material-ui/core";
 
+import Box from "@mui/material/Box";
+
 function AcceptConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "consumable";
@@ -166,6 +168,9 @@ function AcceptConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      <Box sx={{width:"83%"}}>
+
+     
       <MaterialTable
        localization={{
        
@@ -257,6 +262,7 @@ function AcceptConsumableTable() {
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
       />
+       </Box>
     </>
   );
 }

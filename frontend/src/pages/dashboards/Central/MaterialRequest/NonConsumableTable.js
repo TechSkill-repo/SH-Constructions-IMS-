@@ -11,6 +11,8 @@ import {
 import Alert from "@mui/material/Alert";
 import { socket } from "../../../../services/socketService";
 
+import Box from "@mui/material/Box";
+
 
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
@@ -126,11 +128,15 @@ function NonConsumableTable() {
           {message}
         </Alert>
       )}
+
+      
+<Box sx={{width:"90%"}}>
+
       <MaterialTable
         localization={{
        
           header: {
-              actions: 'App Requests'
+            actions: 'App Requests'
           },
          
       }}
@@ -173,9 +179,9 @@ function NonConsumableTable() {
         columns={columns}
         editable={{
           onRowDelete: (selectedRow) =>
-            new Promise((resolve, reject) => {
-              const updatedData = [...tableData];
-              updatedData.splice(selectedRow.tableData.id, 1);
+          new Promise((resolve, reject) => {
+            const updatedData = [...tableData];
+            updatedData.splice(selectedRow.tableData.id, 1);
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
             }),
@@ -186,19 +192,19 @@ function NonConsumableTable() {
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
-
+                
                 newData.category = "non-consumable";
-
+                
                 putMaterial(newData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
 
-                resolve();
+                  resolve();
               } else {
                 reject();
               }
             }),
-        }}
+          }}
         data={items}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
@@ -226,12 +232,13 @@ function NonConsumableTable() {
           }),
           columnsButton: true,
           rowStyle: (data, index) =>
-            index % 2 === 0 ? { background: "#f5f5f5" } : null,
+          index % 2 === 0 ? { background: "#f5f5f5" } : null,
           headerStyle: { background: "#233044", color: "#fff" },
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
-      />
+        />
+        </Box>
     </>
   );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { getCriticalTools, putCriticalTools } from "../../../../services/criticalTools";
+import Box from "@mui/material/Box";
 
 function CriticalToolsTable({ productId }) {
   const [items, setItems] = useState([]);
@@ -35,6 +36,8 @@ function CriticalToolsTable({ productId }) {
   ];
 
   return (
+    <Box sx={{overflow:"scroll"}}>
+
     <MaterialTable
       editable={{
         onRowAdd: (newRow) =>
@@ -43,7 +46,7 @@ function CriticalToolsTable({ productId }) {
 
             setTimeout(() => resolve(), 500);
           }),
-        onRowUpdate: (newRow, oldRow) =>
+          onRowUpdate: (newRow, oldRow) =>
           new Promise((resolve, reject) => {
             const dataUpdate = [...items];
             const index = oldRow.tableData.id;
@@ -98,6 +101,7 @@ function CriticalToolsTable({ productId }) {
       title={productId}
       icons={{ Add: () => <AddIcon /> }}
     />
+        </Box>
   );
 }
 

@@ -405,7 +405,10 @@ function LoanRequest() {
         alignItems="center"
         style={{ justifyContent: "center" }}
       ></Grid>
-      <Box component="div" sx={{ mt: 2 }}>
+<Box >
+      <Box component="div" sx={{ mt: 2}}>
+        
+
         <MaterialTable
           columns={columns}
           data={data}
@@ -441,6 +444,7 @@ function LoanRequest() {
           title="Loan Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
+            </Box>
       </Box>
     </div>
   );

@@ -3,7 +3,9 @@ import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
 import { Alert, Typography } from "@mui/material";
 import { Grid } from "@material-ui/core";
-import { Box } from "@material-ui/core";
+// import { Box } from "@material-ui/core";
+
+import Box from "@mui/material/Box";
 import {
   getLoans,
   lendMaterial,
@@ -160,28 +162,31 @@ function LoanReqTable() {
         alignItems="center"
         style={{ justifyContent: "center" }}
       ></Grid>
+      
+<Box sx={{width:"95%"}}>
+
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
          localization={{
-       
-          header: {
-              actions: 'App. Requests'
-          },
+           
+           header: {
+             actions: 'App. Requests'
+            },
          
       }}
-          actions={[
+      actions={[
             {
               icon: "checkbox",
               tooltip: "Approve",
               onClick: async (event, rowData) => {
                 let issued = rowData.issued;
-                  setApproved(true);
+                setApproved(true);
                 if (rowData.lendQuantity?.length && !issued) {
                   rowData.lendDate = getCurrentDate();
                   rowData.returnCondition = "";
                   rowData.condition = "";
                   rowData.returnDate = "";
-
+                  
                   lendMaterial(rowData)
                     .then((resp) => {
                       console.log(resp);
@@ -224,12 +229,12 @@ function LoanReqTable() {
                   newData.returnCondition = "";
                   newData.condition = "";
                   newData.returnDate = "";
-
+                  
                   putMaterial(newData)
                     .then((resp) => resolve())
                     .catch((err) => console.log(err.response));
 
-                  // resolve();
+                    // resolve();
                 } else {
                   reject();
                 }
@@ -262,12 +267,13 @@ function LoanReqTable() {
             }),
             columnsButton: true,
             rowStyle: (data, index) =>
-              index % 2 === 0 ? { background: "#f5f5f5" } : null,
+            index % 2 === 0 ? { background: "#f5f5f5" } : null,
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}
           title="Loan Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
+          </Box>
       </Box>
     </>
   );

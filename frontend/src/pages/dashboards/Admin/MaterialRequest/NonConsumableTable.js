@@ -11,6 +11,8 @@ import Alert from "@mui/material/Alert";
 import { Grid, Typography } from "@material-ui/core";
 import { socket } from "../../../../services/socketService";
 
+import Box from "@mui/material/Box";
+
 function NonConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "non-consumable";
@@ -122,11 +124,12 @@ function NonConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      <Box sx={{width:"90%"}}>
 
       <MaterialTable
        localization={{
-       
-        header: {
+         
+         header: {
             actions: 'App Requests'
         },
        
@@ -139,7 +142,7 @@ function NonConsumableTable() {
               let issued = rowData.issued;
               if (rowData.quantity_aprv?.length && !issued) {
                 issueNonConsumableMaterial(rowData)
-                  .then((resp) => {
+                .then((resp) => {
                     setApproved(true);
                     setShowSuccess(true);
                     socket.emit('clientAdminApproval');
@@ -168,13 +171,13 @@ function NonConsumableTable() {
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
-
+                
                 newData.category = "non-consumable";
 
                 putMaterial(newData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
-
+                  
                 resolve();
               } else {
                 reject();
@@ -213,7 +216,8 @@ function NonConsumableTable() {
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
-      />
+        />
+        </Box>
     </>
   );
 }

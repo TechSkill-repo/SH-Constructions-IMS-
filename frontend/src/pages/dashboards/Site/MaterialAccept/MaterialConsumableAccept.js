@@ -11,6 +11,7 @@ import {
 } from "../../../../services/issueService";
 import Alert from "@mui/material/Alert";
 
+import Box from "@mui/material/Box";
 
 function MaterialConsumableAccept() {
   const [items, setItems] = useState([]);
@@ -169,13 +170,16 @@ function MaterialConsumableAccept() {
           {message}
         </Alert>
       )}
+      
+<Box sx={{width:"80%"}}>
+
       <MaterialTable
        localization={{
-       
+         
         header: {
             actions: 'Accept'
-        },
-       
+          },
+          
     }}
         actions={[
           {
@@ -193,7 +197,7 @@ function MaterialConsumableAccept() {
               });
               if (rowData.quantity_acpt?.length && !accepted) {
                 acceptConsumableMaterial(rowData)
-                  .then((resp) => {
+                .then((resp) => {
                     setApproved(true)
                     setMessage("Material Accepted Successfully");
                     setShowAlert(true);
@@ -215,7 +219,7 @@ function MaterialConsumableAccept() {
         columns={columns}
         editable={{
           onRowDelete: (selectedRow) =>
-            new Promise((resolve, reject) => {
+          new Promise((resolve, reject) => {
               const updatedData = [...tableData];
               updatedData.splice(selectedRow.tableData.id, 1);
               setTableData(updatedData);
@@ -228,26 +232,26 @@ function MaterialConsumableAccept() {
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
-
+                
                 newData.category = "consumable";
-
+                
                 putIssuedMaterial(newData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
-
-                resolve();
-              } else {
+                  
+                  resolve();
+                } else {
                 reject();
               }
             }),
-        }}
-        data={items}
-        onSelectionChange={(selectedRows) => console.log(selectedRows)}
-        options={{
-          sorting: true,
-          search: true,
-          searchFieldAlignment: "right",
-          searchAutoFocus: true,
+          }}
+          data={items}
+          onSelectionChange={(selectedRows) => console.log(selectedRows)}
+          options={{
+            sorting: true,
+            search: true,
+            searchFieldAlignment: "right",
+            searchAutoFocus: true,
           searchFieldVariant: "standard",
           filtering: true,
           paging: true,
@@ -271,9 +275,10 @@ function MaterialConsumableAccept() {
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
           headerStyle: { background: "#376fd0", color: "#fff" },
         }}
-        title="Material Issued"
+        title="Material Accept"
         icons={{ Add: () => <AddIcon /> }}
       />
+        </Box>
     </>
   );
 }

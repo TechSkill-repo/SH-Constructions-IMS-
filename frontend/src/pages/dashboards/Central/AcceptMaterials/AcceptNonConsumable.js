@@ -10,6 +10,8 @@ import AddIcon from "@material-ui/icons/Add";
 import Alert from "@mui/material/Alert";
 import { Grid, Typography } from "@material-ui/core";
 
+import Box from "@mui/material/Box";
+
 function AcceptNonConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "non-consumable";
@@ -164,13 +166,15 @@ function AcceptNonConsumableTable() {
           </Typography>
         </Grid>
       </div>
+      <Box sx={{width:"83%"}}>
+
       <MaterialTable
        localization={{
-       
-        header: {
-            actions: 'Accept'
+         
+         header: {
+           actions: 'Accept'
         },
-       
+        
     }}
         actions={[
           {
@@ -204,7 +208,7 @@ function AcceptNonConsumableTable() {
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
             }),
-          onRowUpdate: (newData, oldData) =>
+            onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               if (!oldData.quantity_acpt?.length) {
                 const dataUpdate = [...items];
@@ -213,7 +217,7 @@ function AcceptNonConsumableTable() {
                 setItems([...dataUpdate]);
 
                 newData.category = "non-consumable";
-
+                
                 putIssuedMaterial(newData)
                   .then((resp) => console.log(resp))
                   .catch((err) => console.log(err.response));
@@ -252,11 +256,12 @@ function AcceptNonConsumableTable() {
           columnsButton: true,
           rowStyle: (data, index) =>
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
-          headerStyle: { background: "#233044", color: "#fff" },
+            headerStyle: { background: "#233044", color: "#fff" },
         }}
         title="Material Requests"
         icons={{ Add: () => <AddIcon /> }}
-      />
+        />
+        </Box>
     </>
   );
 }

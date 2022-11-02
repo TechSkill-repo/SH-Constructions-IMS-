@@ -11,6 +11,8 @@ import {
 } from "../../../../services/issueService";
 import Alert from "@mui/material/Alert";
 
+import Box from "@mui/material/Box";
+
 
 function MaterialNonConsumableAccept() {
   const [items, setItems] = useState([]);
@@ -169,15 +171,20 @@ function MaterialNonConsumableAccept() {
           {message}
         </Alert>
       )}
+
+      
+<Box sx={{width:"80%"}}>
+
+
       <MaterialTable
        localization={{
        
-        header: {
+         header: {
             actions: 'Accept'
         },
        
-    }}
-        actions={[
+      }}
+      actions={[
           {
             icon: "checkbox",
             tooltip: "Approve",
@@ -221,14 +228,14 @@ function MaterialNonConsumableAccept() {
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
             }),
-          onRowUpdate: (newData, oldData) =>
+            onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               if (!oldData.quantity_acpt?.length) {
                 const dataUpdate = [...items];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setItems([...dataUpdate]);
-
+                
                 newData.category = "non-consumable";
 
                 putIssuedMaterial(newData)
@@ -271,9 +278,10 @@ function MaterialNonConsumableAccept() {
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
           headerStyle: { background: "#376fd0", color: "#fff" },
         }}
-        title="Material Issued"
+        title="Material Accept"
         icons={{ Add: () => <AddIcon /> }}
       />
+          </Box>
     </>
   );
 }
