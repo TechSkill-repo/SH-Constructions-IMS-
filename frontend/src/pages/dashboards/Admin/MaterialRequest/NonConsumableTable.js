@@ -15,7 +15,6 @@ function NonConsumableTable() {
   const [items, setItems] = useState([]);
   const category = "non-consumable";
   const [showSuccess, setShowSuccess] = useState(false);
-  const [approved, setApproved] = useState(false);
 
 
   useEffect(() => {
@@ -58,7 +57,7 @@ function NonConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          rowData.issued || approved ? (
+          rowData.issued ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{
@@ -140,7 +139,7 @@ function NonConsumableTable() {
               if (rowData.quantity_aprv?.length && !issued) {
                 issueNonConsumableMaterial(rowData)
                   .then((resp) => {
-                    setApproved(true);
+                    rowData.issued = true;
                     setShowSuccess(true);
                     socket.emit('clientAdminApproval');
                     console.log(resp);
