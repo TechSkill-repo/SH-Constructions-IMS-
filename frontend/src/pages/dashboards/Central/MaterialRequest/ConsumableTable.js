@@ -16,7 +16,6 @@ function ConsumableTable() {
   const [showAlert, setShowAlert] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const [message, setMessage] = useState("");
-  const [approved, setApproved] = useState(false);
 
   const { storeId } = useParams();
   const category = "consumable";
@@ -57,7 +56,7 @@ function ConsumableTable() {
       filterPlaceholder: "filter",
       render: (rowData) =>
         rowData.quantity_aprv?.length ? (
-          rowData.issued || approved ? (
+          rowData.issued ? (
             <div style={{ width: "100%", textAlign: "center" }}>
               <span
                 style={{
@@ -141,7 +140,7 @@ function ConsumableTable() {
               } else if (rowData.quantity_aprv?.length && !issued) {
                 issueConsumableMaterial(rowData)
                   .then((resp) => {
-                    setApproved(true)
+                    rowData.issued = true;
                     setMessage("Material Issued Successfully");
                     socket.emit('clientCentralApproval');
                     setShowAlert(true);
