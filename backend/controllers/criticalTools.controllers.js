@@ -61,7 +61,7 @@ const editCriticalTools = async (req, res) => {
     storeId
   } = req.body;
 
-  const query = db.collection("materials").doc("request").collection("items").where("storeId", "==", storeId);
+  const query = db.collection("critical-tools").where("serialNo", "==", serialNo);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
@@ -87,6 +87,25 @@ const editCriticalTools = async (req, res) => {
       res.status(200).json({ message: "Critical tools Edited" });
     }
   });
-}
+};
 
-module.exports = { postCriticalTools, getCriticalTools, editCriticalTools };
+const deleteCriticalTools = async () => {
+  const { serialNo } = req.body;
+
+  const query = db.collection("critical-tools").where("serialNo", "==", serialNo);
+  await query.get().then((querySnapshot) => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ message: "Material not found" });
+    } else {
+      querySnapshot.forEach(async (doc) => {
+        if (doc.data().category === category && doc.data().mcode === mcode) {
+          await db.collection("critical-tools").doc(doc.id).delete();
+        }
+      });
+
+      res.status(200).json({ message: "Critical tools Deleted" });
+    }
+  });
+};
+
+module.exports = { postCriticalTools, getCriticalTools, editCriticalTools, deleteCriticalTools };
