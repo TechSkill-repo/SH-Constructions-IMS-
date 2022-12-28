@@ -26,7 +26,8 @@ const getCriticalTools = () => {
 const putCriticalTools = (tool) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const resp = await axios.put(HOST + "/critical-tools", tool);
+      console.log(tool);
+      const resp = await axios.put(HOST + "/critical-tools/edit", tool);
       resolve(resp.data);
     } catch (err) {
       reject(err);

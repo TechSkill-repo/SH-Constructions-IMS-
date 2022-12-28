@@ -22,7 +22,7 @@ import {
   centralStoreApproval,
   siteLoanApproval,
   siteLoanRequest,
-  siteLoanReturn
+  siteLoanReturn,
 } from "../services/socketService";
 
 import { useDispatch } from "react-redux";
@@ -33,7 +33,7 @@ import { add as siteAdd } from "../redux/reducers/siteReducer";
 
 import { ToastContainer, toast } from "react-toastify";
 // import toast from 'react-toastify/toast';
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const drawerWidth = 258;
 
@@ -100,7 +100,6 @@ const Dashboard = ({ children, routes, width }) => {
 
   const dispatch = useDispatch();
 
-
   const [admin, setAdmin] = useState(false);
   const [central, setCentral] = useState(false);
   const [site, setSite] = useState(false);
@@ -125,16 +124,58 @@ const Dashboard = ({ children, routes, width }) => {
       setCentral(false);
     }
 
-
     // Admin
     centralStoreRequisition(() => {
       console.log("Central Store Requisition");
-      dispatch(adminAdd('Central Store Requisition'));
-      console.log("user", admin, role)
+      dispatch(adminAdd("Central Store Requisition"));
+      console.log("user", admin, role);
       setAdmin(true);
       if (role === "Admin") {
-        toast.info('Central Store Requisition'
-          , {
+        toast.info("Central Store Requisition", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        console.log("Inside Centeral");
+      }
+    });
+
+    // Central
+    adminApproval(() => {
+      dispatch(centralAdd("Admin approval"));
+
+      if (role === "Central Store") {
+        toast.success("Admin approval", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        console.log("Inside Admin approval");
+      }
+    });
+
+    centralStoreOverDue((details) => {
+      console.log("Overdue!!!!", details);
+      dispatch(
+        centralAdd(
+          `Overdue: Store- '${details?.storeId}', Make- '${details?.make}'`
+        )
+      );
+      if (role === "Central Store")
+        toast.info(
+          `Overdue: Store- '${details?.storeId}', Make- '${details?.make}'`,
+          {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -143,44 +184,14 @@ const Dashboard = ({ children, routes, width }) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
-          });
-
-        console.log('Inside Centeral');
-
-      }
-
-
-
-    });
-
-    // Central
-    adminApproval(() => {
-      dispatch(centralAdd('Admin approval'));
-
-      if (role === "Central Store") {
-        toast.success('Admin approval', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.log('Inside Admin approval');
-
-      }
-    });
-
-    centralStoreOverDue((details) => {
-      console.log("Overdue!!!!", details);
+          }
+        );
     });
 
     siteStoreRequisition(() => {
-      dispatch(centralAdd('Site Requisition'));
+      dispatch(centralAdd("Site Requisition"));
       if (role === "Central Store")
-        toast.info('Site Requisition', {
+        toast.info("Site Requisition", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -190,14 +201,13 @@ const Dashboard = ({ children, routes, width }) => {
           progress: undefined,
           theme: "colored",
         });
-
     });
 
     // Site
     centralStoreApproval(() => {
-      dispatch(siteAdd('Central Approval'));
+      dispatch(siteAdd("Central Approval"));
       if (role === "Site Store")
-        toast.success('Central Approval', {
+        toast.success("Central Approval", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -207,14 +217,13 @@ const Dashboard = ({ children, routes, width }) => {
           progress: undefined,
           theme: "colored",
         });
-
     });
 
     siteLoanRequest((storeId) => {
       if (storeId != user.storeId) {
-        dispatch(siteAdd('Site Loan Request'));
+        dispatch(siteAdd("Site Loan Request"));
         if (role === "Site Store")
-          toast.info('Site Loan Request', {
+          toast.info("Site Loan Request", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -229,9 +238,9 @@ const Dashboard = ({ children, routes, width }) => {
 
     siteLoanApproval((storeId) => {
       if (storeId != user.storeId) {
-        dispatch(siteAdd('Site Loan Approval'));
+        dispatch(siteAdd("Site Loan Approval"));
         if (role === "Site Store")
-          toast.success('Site Loan Approval', {
+          toast.success("Site Loan Approval", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -241,15 +250,14 @@ const Dashboard = ({ children, routes, width }) => {
             progress: undefined,
             theme: "colored",
           });
-
       }
     });
 
     siteLoanReturn((storeId) => {
       if (storeId != user.storeId) {
-        dispatch(siteAdd('Site Loan Return'));
+        dispatch(siteAdd("Site Loan Return"));
         if (role === "Site Store")
-          toast.info('Site Loan Return', {
+          toast.info("Site Loan Return", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -290,12 +298,10 @@ const Dashboard = ({ children, routes, width }) => {
 
         {/* <ToastContainer ></ToastContainer> */}
         <MainContent p={isWidthUp("lg", width) ? 12 : 5}>
-
           {children}
         </MainContent>
         <Footer />
       </AppContent>
-
     </Root>
   );
 };

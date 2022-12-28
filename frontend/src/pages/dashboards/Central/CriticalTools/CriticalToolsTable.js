@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { getCriticalTools, putCriticalTools } from "../../../../services/criticalTools";
+import {
+  getCriticalTools,
+  putCriticalTools,
+} from "../../../../services/criticalTools";
 
 function CriticalToolsTable({ productId }) {
   const [items, setItems] = useState([]);
@@ -12,13 +15,10 @@ function CriticalToolsTable({ productId }) {
         setItems(
           data.criticalTools.filter((item) => item.productId == productId)
         );
-      
       })
       .catch((err) => {
         console.log(err);
       });
-
-     
   }, []);
 
   const columns = [
@@ -54,7 +54,11 @@ function CriticalToolsTable({ productId }) {
             setItems([...dataUpdate]);
 
             putCriticalTools(newRow)
-              .then((resp) => console.log(resp))
+              .then((resp) => {
+                console.log(resp);
+                setTimeout(() => window.location.reload(), 1000);
+                // window.location.reload();
+              })
               .catch((err) => console.log(err.response));
 
             resolve();
