@@ -1,5 +1,6 @@
 const http = require('http');
 const { Server } = require('socket.io');
+const { dueDateNotifier } = require('./criticalTools.controllers');
 
 const server = http.createServer();
 const io = new Server(server, { cors: {} });
@@ -7,6 +8,9 @@ const io = new Server(server, { cors: {} });
 /* all socket events */
 io.on("connection", (socket) => {
     console.log('User connected');
+
+    // set due date prober
+    dueDateNotifier(io);
 
     socket.on('clientCentralRequisition', () => {
         io.emit('centralRequisition', null);
