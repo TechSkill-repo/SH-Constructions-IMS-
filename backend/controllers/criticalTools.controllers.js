@@ -67,7 +67,7 @@ const editCriticalTools = async (req, res) => {
       res.status(404).json({ message: "Material not found" });
     } else {
       querySnapshot.forEach(async (doc) => {
-        if (doc.data().category === category && doc.data().mcode === mcode) {
+        if (doc.data().mcode === mcode) {
           await db.collection("critical-tools").doc(doc.id).delete();
           await db.collection("critical-tools").doc(doc.id).set({
             mcode,
