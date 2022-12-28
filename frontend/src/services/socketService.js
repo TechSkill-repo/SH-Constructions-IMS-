@@ -6,6 +6,12 @@ socket.on('connect', () => {
   console.log("connect");
 });
 
+export function centralStoreOverDue(callback) {
+  socket.on('centralOverdue', (details) => {
+    callback(details);
+  });
+}
+
 export function centralStoreRequisition(callback) {
   socket.on('centralRequisition', () => {
     callback();
