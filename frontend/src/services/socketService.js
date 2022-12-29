@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
+import { HOST } from "../environments/env";
 
-export const socket = io('http://localhost:9091');
+export const socket = io(HOST);
 
 socket.on('connect', () => {
   console.log("connect");
