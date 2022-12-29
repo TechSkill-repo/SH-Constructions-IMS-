@@ -12,8 +12,12 @@ const issueRoute = require("./routes/issue.routes");
 const loanRoute = require("./routes/loan.routes");
 const criticalRoutes = require("./routes/criticaltools.routes");
 
+// socket
+const { Server } = require('socket.io');
+const { dueDateNotifier } = require('./utils/index.utils');
+
 const app = express();
-const { server } = require("./controllers/socket.controllers");
+// const { server } = require("./controllers/socket.controllers");
 const PORT = parseInt(process.env.PORT) || 9090;
 
 app.use(cors());
@@ -33,11 +37,51 @@ app.get("/", (req, res) => {
   res.send("Sh-constructions backend");
 });
 
-app.listen(PORT, () => {
+const appServer = app.listen(PORT, () => {
   console.log(`Server running at ${PORT}!`);
 });
 
-// socket server
-server.listen(PORT + 1, () => {
-  console.log(`Socket server running at ${PORT + 1}!`);
+const io = new Server(appServer, { cors: {} });
+
+/* all socket events */
+io.on("connection", (socket) => {
+  console.log('User connected');
+
+  // set due date prober
+  dueDateNotifier(io);
+
+  socket.on('clientCentralRequisition', () => {
+    io.emit('centralRequisition', null);
+    // console.log('centralRequisition');
+  });
+
+  socket.on('clientAdminApproval', () => {
+    io.emit('adminApproval', null);
+    // console.log('adminApproval');
+  });
+
+  socket.on('clientSiteRequisition', () => {
+    io.emit('siteRequisition', null);
+    // console.log('siteRequisition');
+  });
+
+  socket.on('clientCentralApproval', () => {
+    io.emit('centralApproval', null);
+    // console.log('centralApproval');
+  });
+
+  socket.on('clientSiteLoanRequest', (storeId) => {
+    io.emit('siteLoanRequest', storeId);
+    // console.log('siteLoanRequest');
+  });
+
+  socket.on('clientSiteLoanApproval', (storeId) => {
+    io.emit('siteLoanApproval', storeId);
+    // console.log('siteLoanApproval');
+  });
+
+  socket.on('clientSiteLoanReturn', (storeId) => {
+    io.emit('siteLoanReturn', storeId);
+    // console.log('siteLoanReturn');
+  });
 });
