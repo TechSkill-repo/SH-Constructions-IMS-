@@ -8,24 +8,21 @@ import { MenuItem, Typography } from "@material-ui/core";
 import { addMaterial } from "../../../../services/materialService";
 
 function ConsumablesForm() {
-
-
   const [mcode, setMcode] = useState("");
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
   const [uom, setUom] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // if (mname !== "" && uom != "" && currStock !== "" && totalReceived !== "") {
     setShowSuccess(true);
-    console.log("inside handle submit")
+    console.log("inside handle submit");
 
     addMaterial({
       mcode,
@@ -34,8 +31,9 @@ function ConsumablesForm() {
       price,
       uom,
       category,
-      brand
-    }).then((resp) => {
+      brand,
+    })
+      .then((resp) => {
         setShowSuccess(true);
         console.log(resp.data);
       })
@@ -48,7 +46,6 @@ function ConsumablesForm() {
       setShowSuccess(false);
       window.location.href = `/product-list`;
     }, 3000);
-  
   };
 
   const categoryValues = [
@@ -59,16 +56,43 @@ function ConsumablesForm() {
     {
       value: "non-consumable",
       label: "non-consumable",
-    }
+    },
   ];
 
   const brandValues = [
-  
+    {
+      value: "Elephant",
+      label: "Elephant",
+    },
+    {
+      value: "Keto",
+      label: "Keto",
+    },
+    {
+      value: "MSA",
+      label: "MSA",
+    },
+    { value: "Drager", label: "Drager" },
     {
       value: "Honeywel",
       label: "Honeywel",
     },
-   
+    {
+      value: "Honeywel",
+      label: "Honeywel",
+    },
+    {
+      value: "Makita",
+      label: "Makita",
+    },
+    {
+      value: "Kanex",
+      label: "Kanex",
+    },
+    {
+      value: "KPT",
+      label: "KPT",
+    },
     {
       value: "Safex",
       label: "Safex",
@@ -81,7 +105,11 @@ function ConsumablesForm() {
       value: "AllStar",
       labels: "All Star",
     },
-  ]
+    {
+      value: "Others",
+      labels: "Others",
+    },
+  ];
 
   return (
     <Box
@@ -93,23 +121,21 @@ function ConsumablesForm() {
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
-      
     >
       <Typography variant="h3" gutterBottom gutterLeft>
-         Add Product
+        Add Product
       </Typography>
       {showSuccess && (
         <Alert severity="success" sx={{ my: 3 }}>
           Item successfully Added — check it out!
         </Alert>
       )}
-      { showError && (
+      {showError && (
         <Alert severity="error" sx={{ my: 3 }}>
           Item cannot be added !
         </Alert>
       )}
       <Grid container spacing={2} alignItems="center" justifyContent="center">
-        
         <Grid item xs={6} md={6}>
           <TextField
             required
@@ -136,12 +162,8 @@ function ConsumablesForm() {
             }}
           />
         </Grid>
-
-        </Grid>
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
-
-
-      
+      </Grid>
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={6} md={6}>
           <TextField
             required
@@ -155,7 +177,7 @@ function ConsumablesForm() {
             }}
           />
         </Grid>
-        
+
         <Grid item xs={6} md={6}>
           <TextField
             required
@@ -169,11 +191,9 @@ function ConsumablesForm() {
             }}
           />
         </Grid>
-       
-        </Grid>
+      </Grid>
 
-
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={12} md={4}>
           <TextField
             id="U.O.M"
@@ -218,17 +238,16 @@ function ConsumablesForm() {
               setBrand(e.target.value);
             }}
           >
-            {categoryValues.map((option) => (
+            {brandValues.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
           </TextField>
         </Grid>
+      </Grid>
 
-        </Grid>
-       
-        {/* <Grid item xs={12}>
+      {/* <Grid item xs={12}>
           <TextField
             id="mdescription"
             label="Material Description"
@@ -240,7 +259,7 @@ function ConsumablesForm() {
           />
         </Grid> */}
 
-<Grid container spacing={2} alignItems="center" justifyContent="center">
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={12} md={3}>
           <Button
             variant="contained"
@@ -251,7 +270,7 @@ function ConsumablesForm() {
             Submit
           </Button>
         </Grid>
-        </Grid>
+      </Grid>
     </Box>
   );
 }

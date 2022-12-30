@@ -202,7 +202,7 @@ const requisitionForm = {
 };
 
 const productList = {
-  id: "Product List",
+  id: "Material List",
   path: "/product-list",
   icon: <ImportContactsIcon />,
   component: ProductList,

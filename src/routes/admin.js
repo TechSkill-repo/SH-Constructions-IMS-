@@ -24,7 +24,9 @@ import FireplaceIcon from "@mui/icons-material/Fireplace";
 
 // Dashboards components
 const Default = async(() => import("../pages/dashboards/Admin/Default"));
-const AccountDetails = async(() => import("../pages/dashboards/Admin/Default/AccountDetails"));
+const AccountDetails = async(() =>
+  import("../pages/dashboards/Admin/Default/AccountDetails")
+);
 const Analytics = async(() => import("../pages/dashboards/Admin/Analytics"));
 const SaaS = async(() => import("../pages/dashboards/SaaS"));
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -112,7 +114,7 @@ const materialAccepted = {
   component: MaterialAccepted,
 };
 
-const monitorStoreLone= {
+const monitorStoreLone = {
   id: "Monitor Store Lone",
   path: "/monitor-lone",
   icon: <VolunteerActivismIcon />,
@@ -121,7 +123,7 @@ const monitorStoreLone= {
 };
 
 const productList = {
-  id: "Product List",
+  id: "Material List",
   path: "/product-list",
   icon: <ImportContactsIcon />,
   component: ProductList,
@@ -138,11 +140,11 @@ const monitorStoreInventory = {
       name: "Consumables",
       component: MonitorStorLonConsumable,
     },
-     {
-       path: "/store-inventory/non-consumables",
+    {
+      path: "/store-inventory/non-consumables",
       name: "Non-Consumables",
       component: MonitorStorLonNonConsumable,
-   },
+    },
   ],
 };
 const monitor_Store_Inventory_Consumable = {
@@ -173,12 +175,12 @@ const details = {
   component: UserInfo,
 };
 
-const materialDamaged = {
-  id: "Damage Materials",
-  path: "/damage-materials",
-  icon: <RemoveCircleOutlineIcon />,
-  component: null,
-};
+// const materialDamaged = {
+//   id: "Damage Materials",
+//   path: "/damage-materials",
+//   icon: <RemoveCircleOutlineIcon />,
+//   component: null,
+// };
 
 const landingRoutes = {
   id: "Landing Page",
@@ -201,7 +203,7 @@ export const dashboardLayoutRoutes = [
   criticalTool,
   productList,
   monitorStoreInventory,
-  materialDamaged,
+  // materialDamaged,
   details,
   monitor_Store_Inventory_Consumable,
   monitor_Store_Inventory_NonConsumable,
@@ -223,6 +225,6 @@ export const sidebarRoutes = [
   monitorStoreLone,
   productList,
   monitorStoreInventory,
-  materialDamaged,
+  // materialDamaged,
   details,
 ];
