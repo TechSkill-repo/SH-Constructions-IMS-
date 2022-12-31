@@ -17,9 +17,9 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import MaterialTable from "material-table";
 import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
+import { Autocomplete } from "@mui/material";
 
 function MaterialIssue() {
-
   const uniqueId = () => {
     var id = "id" + Math.random().toString(16).slice(2);
     return id.substring(3, 8);
@@ -41,7 +41,7 @@ function MaterialIssue() {
   ]);
   const [mcodes, setMcodes] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
-  
+
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -132,6 +132,15 @@ function MaterialIssue() {
     ]);
   };
 
+  const handleChange = (values, v) => {
+    const event = {
+      target: {
+        name: "mcode",
+        value: values,
+      },
+    };
+    handleInputChange(v, event);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccess(true);
@@ -166,7 +175,6 @@ function MaterialIssue() {
 
   return (
     <div>
-      
       <Box
         component="form"
         sx={{
@@ -190,23 +198,24 @@ function MaterialIssue() {
               key={index.toString()}
             >
               <Grid item xs={12} md={3}>
-                <input style={{ display: "none" }} id="dummy" />
-                <TextField
-                  variant="outlined"
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
                   name="mcode"
-                  select
-                  label="Material Code"
-                  value={item.mcode}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                >
-                  {mcodes.map((mcode) => (
-                    <MenuItem key={mcode} value={mcode}>
-                      {mcode}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={mcodes}
+                  // sx={{ width: 300 }}
+                  // value={item.mcode}
+                  onChange={(e, values) => handleChange(values, item.slip_no)}
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Material Code"
+                      variant="outlined"
+                      // value={item.mcode}
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={12} md={3}>
                 <TextField
@@ -285,8 +294,15 @@ function MaterialIssue() {
             size="medium"
             onClick={handleOpen}
             style={{ width: "100%", maxWidth: "220px" }}
-            disabled={items.filter((item) => item.mcode === "" || item.mquantity === "" || item.empId === "" || item.empName === "").length > 0}
-            
+            disabled={
+              items.filter(
+                (item) =>
+                  item.mcode === "" ||
+                  item.mquantity === "" ||
+                  item.empId === "" ||
+                  item.empName === ""
+              ).length > 0
+            }
           >
             Add Items
           </Button>
@@ -335,11 +351,11 @@ function MaterialIssue() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          Material Issued Successfully!
-        </Alert>
-      )}
+          {showSuccess && (
+            <Alert severity="success" sx={{ my: 3 }}>
+              Material Issued Successfully!
+            </Alert>
+          )}
           <Popup tableValues={items} />
           <Grid
             container
