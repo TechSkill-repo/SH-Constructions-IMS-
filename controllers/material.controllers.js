@@ -22,8 +22,25 @@ const addMaterial = async (req, res) => {
   const docRef = db.collection("materials").doc("data").collection("items").doc();
   await docRef.set({ mcode, mname, mdescription, uom, category, price });
 
-  res.status(201).json({ "message": "Material detail created" });
-}
+  res.status(201).json({ "message": "Material details created" });
+};
+
+const editMaterial = async (req, res) => {
+  const { mcode, mname, mdescription, uom, category, price } = req.body;
+
+  const query = db.collection("materials").doc("data").collection("items").where("mcode", "==", mcode);
+  await query.get().then(querySnapshot => {
+    if (querySnapshot.empty) {
+      res.status(404).json({ "message": "Material not found" });
+    } else {
+      querySnapshot.forEach(async doc => {
+        await db.collection("materials").doc("data").collection("items").doc(doc.id).delete();
+        await db.collection("materials").doc("data").collection("items").doc(doc.id).set({ mcode, mname, mdescription, uom, category, price });
+      });
+      res.status(200).json({ "message": "Material details Edited" });
+    }
+  });
+};
 
 const getMaterials = async (req, res) => {
   const items = [];
@@ -177,4 +194,4 @@ const getNonConsumableTotalPrice = async (req, res) => {
   });
 }
 
-module.exports = { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial, getConsumableTotalPrice, getNonConsumableTotalPrice };
+module.exports = { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial, editMaterial, getConsumableTotalPrice, getNonConsumableTotalPrice };
