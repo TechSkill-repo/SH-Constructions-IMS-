@@ -1,6 +1,9 @@
 import MaterialTable from "material-table";
 import React, { useEffect, useState } from "react";
-import { getMaterials } from "../../../../services/materialService";
+import {
+  getMaterials,
+  putMaterial,
+} from "../../../../services/materialService";
 import AddIcon from "@material-ui/icons/Add";
 
 function ProductListTable() {
@@ -29,9 +32,6 @@ function ProductListTable() {
     { title: "Category", field: "category", filterPlaceholder: "filter" },
   ];
 
-
-
-  
   return (
     <div>
       <MaterialTable
@@ -44,10 +44,19 @@ function ProductListTable() {
             }),
           onRowUpdate: (newRow, oldRow) =>
             new Promise((resolve, reject) => {
-              const updatedData = [...tableData];
-              updatedData[oldRow.tableData.id] = newRow;
-              setTableData(updatedData);
-              setTimeout(() => resolve(), 500);
+              // const updatedData = [...tableData];
+              // updatedData[oldRow.tableData.id] = newRow;
+              // setTableData(updatedData);
+              console.log(newRow);
+              putMaterial(newRow)
+                .then((resp) => {
+                  console.log(resp);
+                  // setTimeout(() => window.location.reload(), 1000);
+                  // window.location.reload();
+                })
+                .catch((err) => console.log(err.response));
+
+              resolve();
             }),
           onRowDelete: (selectedRow) =>
             new Promise((resolve, reject) => {

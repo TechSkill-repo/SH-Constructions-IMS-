@@ -6,8 +6,23 @@ const addMaterial = (material) => {
     return axios
       .post(HOST + "/material/add", material)
       .then((resp) => {
-        if (resp.status === 201)
-          resolve(resp.data);
+        if (resp.status === 201) resolve(resp.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+const putMaterial = (material) => {
+  console.log(material, "material");
+  return new Promise((resolve, reject) => {
+    return axios
+      .put(HOST + "/material/edit", {
+        params: material,
+      })
+      .then((resp) => {
+        resolve(resp.data);
       })
       .catch((err) => {
         reject(err);
@@ -67,7 +82,6 @@ const getRequests = () => {
   });
 };
 
-
 const getConsumableTotalPrice = (storeId) => {
   return new Promise((resolve, reject) => {
     return axios
@@ -94,4 +108,13 @@ const getNonConsumableTotalPrice = (storeId) => {
   });
 };
 
-export { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial, getConsumableTotalPrice, getNonConsumableTotalPrice };
+export {
+  fetchDetails,
+  getMcodes,
+  getRequests,
+  getMaterials,
+  addMaterial,
+  getConsumableTotalPrice,
+  getNonConsumableTotalPrice,
+  putMaterial,
+};
