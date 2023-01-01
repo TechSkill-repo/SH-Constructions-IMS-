@@ -25,8 +25,8 @@ import { Login } from "../pages/auth/Login";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react';
 import { adminStore, adminPersistor } from "../redux/store/adminStore";
-import { centralStore } from "../redux/store/centralStore";
-import { siteStore } from "../redux/store/siteStore";
+import { centralStore, centralPersistor } from "../redux/store/centralStore";
+import { siteStore, sitePersistor } from "../redux/store/siteStore";
 
 const childRoutes = (Layout, routes) =>
   routes.map(({ component: Component, guard, children, path }, index) => {
@@ -87,8 +87,10 @@ const checkUserType = (sessionData) => {
       return (
         <Switch>
           <Provider store={centralStore}>
-            {childRoutes(DashboardLayout, dL2)}
-            {childRoutes(PresentationLayout, pL2)}
+            <PersistGate persistor={centralPersistor}>
+              {childRoutes(DashboardLayout, dL2)}
+              {childRoutes(PresentationLayout, pL2)}
+            </PersistGate>
           </Provider>
         </Switch>
       );
@@ -96,9 +98,11 @@ const checkUserType = (sessionData) => {
       return (
         <Switch>
           <Provider store={siteStore}>
-            {childRoutes(DashboardLayout, dL3)}
-            {childRoutes(AuthLayout, aL3)}
-            {childRoutes(PresentationLayout, pL3)}
+            <PersistGate persistor={sitePersistor}>
+              {childRoutes(DashboardLayout, dL3)}
+              {childRoutes(AuthLayout, aL3)}
+              {childRoutes(PresentationLayout, pL3)}
+            </PersistGate>
           </Provider>
         </Switch>
       )
