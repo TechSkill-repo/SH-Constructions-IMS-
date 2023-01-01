@@ -126,12 +126,12 @@ function NonConsumableTable() {
       )}
       <MaterialTable
         localization={{
-       
+
           header: {
-              actions: 'App Requests'
+            actions: 'App Requests'
           },
-         
-      }}
+
+        }}
         actions={[
           {
             icon: "checkbox",
@@ -151,7 +151,7 @@ function NonConsumableTable() {
                   .then((resp) => {
                     rowData.issued = true;
                     setMessage("Material Issued Successfully");
-                    socket.emit('clientCentralApproval');
+                    socket.emit('clientCentralApproval', rowData.mname);
                     setShowAlert(true);
                     setIsValid(true);
                     setTimeout(() => setShowAlert(false), 2000);

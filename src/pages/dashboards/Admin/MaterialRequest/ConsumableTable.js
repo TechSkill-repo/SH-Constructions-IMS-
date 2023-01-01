@@ -124,12 +124,12 @@ function ConsumableTable() {
 
       <MaterialTable
         localization={{
-       
+
           header: {
-              actions: 'App Requests'
+            actions: 'App Requests'
           },
-         
-      }}
+
+        }}
         actions={[
           {
             icon: "checkbox",
@@ -141,7 +141,7 @@ function ConsumableTable() {
                   .then((resp) => {
                     rowData.issued = true;
                     setShowSuccess(true);
-                    socket.emit('clientAdminApproval');
+                    socket.emit('clientAdminApproval', rowData.mname);
                     console.log(resp);
                     window.location = '/consumable';
                   })

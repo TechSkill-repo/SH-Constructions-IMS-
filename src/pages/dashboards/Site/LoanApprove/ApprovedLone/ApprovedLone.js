@@ -143,13 +143,13 @@ function ApprovedLone() {
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
-         localization={{
-       
-          header: {
+          localization={{
+
+            header: {
               actions: 'Approve'
-          },
-         
-      }}
+            },
+
+          }}
           actions={[
             {
               icon: "checkbox",
@@ -162,7 +162,7 @@ function ApprovedLone() {
                     .then((resp) => {
                       console.log(resp);
 
-                      socket.emit('clientSiteLoanReturn', user.storeId);
+                      socket.emit('clientSiteLoanReturn', { storeId: user.storeId, mname: rowData.mname });
 
                       setTimeout(() => {
                         window.location = '/loan-approval'

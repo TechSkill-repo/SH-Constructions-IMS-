@@ -14,43 +14,43 @@ export function centralStoreOverDue(callback) {
 }
 
 export function centralStoreRequisition(callback) {
-  socket.on('centralRequisition', () => {
-    callback();
+  socket.on('centralRequisition', (mname) => {
+    callback(mname);
   });
 }
 
 export function adminApproval(callback) {
-  socket.on('adminApproval', () => {
-    callback();
+  socket.on('adminApproval', (mname) => {
+    callback(mname);
   });
 }
 
 export function siteStoreRequisition(callback) {
-  socket.on('siteRequisition', () => {
-    callback();
+  socket.on('siteRequisition', (mname) => {
+    callback(mname);
   });
 }
 
 export function centralStoreApproval(callback) {
-  socket.on('centralApproval', () => {
-    callback();
+  socket.on('centralApproval', (mname) => {
+    callback(mname);
   });
 }
 
 export function siteLoanRequest(callback) {
-  socket.on('siteLoanRequest', (storeId) => {
-    callback(storeId);
+  socket.on('siteLoanRequest', ({ storeId, mname }) => {
+    callback({ storeId, mname });
   });
 }
 
 export function siteLoanApproval(callback) {
-  socket.on('siteLoanApproval', (storeId) => {
-    callback(storeId);
+  socket.on('siteLoanApproval', ({ storeId, mname }) => {
+    callback({ storeId, mname });
   });
 }
 
 export function siteLoanReturn(callback) {
-  socket.on('siteLoanReturn', (storeId) => {
-    callback(storeId);
+  socket.on('siteLoanReturn', ({ storeId, mname }) => {
+    callback({ storeId, mname });
   });
 }

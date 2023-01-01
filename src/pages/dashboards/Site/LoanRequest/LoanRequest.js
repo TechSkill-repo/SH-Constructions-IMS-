@@ -231,13 +231,12 @@ function LoanRequest() {
       requestLoan(item)
         .then((resp) => {
           console.log(resp);
+          socket.emit('clientSiteLoanRequest', { storeId: user.storeId, mname: item.mname });
         })
         .catch((err) => {
           console.log(err);
         });
     });
-
-    socket.emit("clientSiteLoanRequest", user.storeId);
 
     setTimeout(() => {
       setShowSuccess(false);

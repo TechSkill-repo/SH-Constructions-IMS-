@@ -155,14 +155,14 @@ function ReqForm() {
       requisition(item)
         .then((resp) => {
           console.log(resp.data);
+          socket.emit('clientSiteRequisition', item.mname);
         })
         .catch((err) => {
           console.log(err);
         });
     });
-
-    socket.emit("clientSiteRequisition");
-    console.log("soo");
+    
+    console.log("soo")
 
     setTimeout(() => {
       window.location.href = "/reqForm";
