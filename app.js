@@ -50,38 +50,38 @@ io.on("connection", (socket) => {
   // set due date prober
   dueDateNotifier(io);
 
-  socket.on('clientCentralRequisition', () => {
-    io.emit('centralRequisition', null);
+  socket.on('clientCentralRequisition', (mname) => {
+    io.emit('centralRequisition', mname);
     // console.log('centralRequisition');
   });
 
-  socket.on('clientAdminApproval', () => {
-    io.emit('adminApproval', null);
+  socket.on('clientAdminApproval', (mname) => {
+    io.emit('adminApproval', mname);
     // console.log('adminApproval');
   });
 
-  socket.on('clientSiteRequisition', () => {
-    io.emit('siteRequisition', null);
+  socket.on('clientSiteRequisition', (mname) => {
+    io.emit('siteRequisition', mname);
     // console.log('siteRequisition');
   });
 
-  socket.on('clientCentralApproval', () => {
-    io.emit('centralApproval', null);
+  socket.on('clientCentralApproval', (mname) => {
+    io.emit('centralApproval', mname);
     // console.log('centralApproval');
   });
 
-  socket.on('clientSiteLoanRequest', (storeId) => {
-    io.emit('siteLoanRequest', storeId);
+  socket.on('clientSiteLoanRequest', ({ storeId, mname }) => {
+    io.emit('siteLoanRequest', { storeId, mname });
     // console.log('siteLoanRequest');
   });
 
-  socket.on('clientSiteLoanApproval', (storeId) => {
-    io.emit('siteLoanApproval', storeId);
+  socket.on('clientSiteLoanApproval', ({ storeId, mname }) => {
+    io.emit('siteLoanApproval', { storeId, mname });
     // console.log('siteLoanApproval');
   });
 
-  socket.on('clientSiteLoanReturn', (storeId) => {
-    io.emit('siteLoanReturn', storeId);
+  socket.on('clientSiteLoanReturn', ({ storeId, mname }) => {
+    io.emit('siteLoanReturn', { storeId, mname });
     // console.log('siteLoanReturn');
   });
 });
