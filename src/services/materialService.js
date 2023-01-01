@@ -18,9 +18,7 @@ const putMaterial = (material) => {
   console.log(material, "material");
   return new Promise((resolve, reject) => {
     return axios
-      .put(HOST + "/material/edit", {
-        params: material,
-      })
+      .put(HOST + "/material/edit", material)
       .then((resp) => {
         resolve(resp.data);
       })

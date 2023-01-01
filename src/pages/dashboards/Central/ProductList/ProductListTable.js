@@ -51,8 +51,8 @@ function ProductListTable() {
               putMaterial(newRow)
                 .then((resp) => {
                   console.log(resp);
-                  // setTimeout(() => window.location.reload(), 1000);
-                  // window.location.reload();
+                  setTimeout(() => window.location.reload(), 1000);
+                  //  window.location.reload();
                 })
                 .catch((err) => console.log(err.response));
 
