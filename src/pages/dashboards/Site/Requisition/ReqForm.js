@@ -15,6 +15,7 @@ import MaterialTable from "material-table";
 import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 import { socket } from "../../../../services/socketService";
+import { Autocomplete } from "@mui/material";
 
 function ReqForm() {
   const uniqueId = () => {
@@ -62,7 +63,6 @@ function ReqForm() {
   };
 
   useEffect(() => {
-
     async function fetch() {
       await getMaterial(storeId)
         .then((data) => {
@@ -87,7 +87,15 @@ function ReqForm() {
 
     return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
   }
-
+  const handleChange = (values, v) => {
+    const event = {
+      target: {
+        name: "mcode",
+        value: values,
+      },
+    };
+    handleInputChange(v, event);
+  };
   const handleInputChange = (issue_slip_no, event) => {
     const newItems = items.map((i) => {
       if (issue_slip_no === i.issue_slip_no) {
@@ -153,7 +161,7 @@ function ReqForm() {
           console.log(err);
         });
     });
-
+    
     console.log("soo")
 
     setTimeout(() => {
@@ -222,7 +230,6 @@ function ReqForm() {
 
   return (
     <div>
-
       <Box
         component="form"
         sx={{
@@ -246,23 +253,26 @@ function ReqForm() {
               key={index.toString()}
             >
               <Grid item xs={12} md={5}>
-                <input style={{ display: "none" }} id="dummy" />
-                <TextField
-                  variant="outlined"
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
                   name="mcode"
-                  select
-                  label="Material Code"
-                  value={item.mcode}
-                  onChange={(e) => {
-                    handleInputChange(item.issue_slip_no, e);
-                  }}
-                >
-                  {mcodes.map((mcode) => (
-                    <MenuItem key={mcode} value={mcode}>
-                      {mcode}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={mcodes}
+                  // sx={{ width: 300 }}
+                  // value={item.mcode}
+                  onChange={(e, values) =>
+                    handleChange(values, item.issue_slip_no)
+                  }
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Material Code"
+                      variant="outlined"
+                      // value={item.mcode}
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={12} md={5}>
                 <TextField
@@ -314,7 +324,11 @@ function ReqForm() {
           <Button
             variant="contained"
             color="primary"
-            disabled={items.filter((item) => item.mcode === "" || item.quantity_req === "").length > 0}
+            disabled={
+              items.filter(
+                (item) => item.mcode === "" || item.quantity_req === ""
+              ).length > 0
+            }
             size="medium"
             onClick={handleOpen}
             style={{ width: "100%", maxWidth: "220px" }}

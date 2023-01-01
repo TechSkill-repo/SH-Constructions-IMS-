@@ -18,7 +18,7 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 import MaterialTable from "material-table";
 import { socket } from "../../../../services/socketService";
-
+import { Autocomplete } from "@mui/material";
 
 function LoanRequest() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -162,6 +162,15 @@ function LoanRequest() {
         ),
     },
   ];
+  const handleChange = (values, v) => {
+    const event = {
+      target: {
+        name: "mcode",
+        value: values,
+      },
+    };
+    handleInputChange(v, event);
+  };
 
   const handleInputChange = (slip_no, event) => {
     const newItems = items.map((i) => {
@@ -229,7 +238,6 @@ function LoanRequest() {
         });
     });
 
-
     setTimeout(() => {
       setShowSuccess(false);
       window.location.href = "/loan-request";
@@ -238,7 +246,6 @@ function LoanRequest() {
 
   return (
     <div>
-
       <Box
         component="form"
         sx={{
@@ -262,23 +269,24 @@ function LoanRequest() {
               key={index.toString()}
             >
               <Grid item xs={12} md={4}>
-                <input style={{ display: "none" }} id="dummy" />
-                <TextField
-                  variant="outlined"
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
                   name="mcode"
-                  select
-                  label="Material Code"
-                  value={item.mcode}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                >
-                  {mcodes.map((mcode) => (
-                    <MenuItem key={mcode} value={mcode}>
-                      {mcode}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={mcodes}
+                  // sx={{ width: 300 }}
+                  // value={item.mcode}
+                  onChange={(e, values) => handleChange(values, item.slip_no)}
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Material Code"
+                      variant="outlined"
+                      // value={item.mcode}
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
@@ -343,9 +351,15 @@ function LoanRequest() {
             variant="contained"
             size="medium"
             onClick={handleOpen}
-            disabled={items.filter((item) => item.mcode === "" || item.requestedStoreId === "" || item.mquantity === "").length > 0}
-
-            style={{ width: "100%", maxWidth: "220px", }}
+            disabled={
+              items.filter(
+                (item) =>
+                  item.mcode === "" ||
+                  item.requestedStoreId === "" ||
+                  item.mquantity === ""
+              ).length > 0
+            }
+            style={{ width: "100%", maxWidth: "220px" }}
           >
             Add Items
           </Button>
@@ -357,7 +371,6 @@ function LoanRequest() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-
         <Box sx={style}>
           {showSuccess && (
             <Alert severity="success" sx={{ my: 3 }}>
@@ -405,7 +418,10 @@ function LoanRequest() {
         alignItems="center"
         style={{ justifyContent: "center" }}
       ></Grid>
-      <Box component="div" sx={{ mt: 2 }}>
+<Box >
+      <Box component="div" sx={{ mt: 2}}>
+        
+
         <MaterialTable
           columns={columns}
           data={data}
@@ -441,6 +457,7 @@ function LoanRequest() {
           title="Loan Requests"
           icons={{ Add: () => <AddIcon /> }}
         />
+            </Box>
       </Box>
     </div>
   );

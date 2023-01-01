@@ -16,6 +16,7 @@ import Popup from "./Popup";
 import Modal from "@mui/material/Modal";
 
 import { socket } from "../../../../services/socketService";
+import { Autocomplete } from "@mui/material";
 
 function ReqForm() {
   const uniqueId = () => {
@@ -44,8 +45,8 @@ function ReqForm() {
   ]);
   const [mcodes, setMcodes] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
-
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -87,13 +88,22 @@ function ReqForm() {
 
     return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
   }
-
+  const handleChange = (values, v) => {
+    const event = {
+      target: {
+        name: "mcode",
+        value: values,
+      },
+    };
+    handleInputChange(v, event);
+  };
   const handleInputChange = (slip_no, event) => {
     const newItems = items.map((i) => {
       if (slip_no === i.slip_no) {
         i[event.target.name] = event.target.value;
 
         if (event.target.name === "mcode") {
+          console.log(event.target.name, "mcode");
           fetchDetails(event.target.value)
             .then((data) => {
               const { mname, mdescription, uom, category } = data.item;
@@ -153,7 +163,6 @@ function ReqForm() {
           console.log(err);
         });
     });
-
 
     setTimeout(() => {
       window.location.href = "/requisition-form";
@@ -221,7 +230,6 @@ function ReqForm() {
 
   return (
     <div>
-
       <Box
         component="form"
         sx={{
@@ -245,23 +253,24 @@ function ReqForm() {
               key={index.toString()}
             >
               <Grid item xs={12} md={5}>
-                <input style={{ display: "none" }} id="dummy" />
-                <TextField
-                  variant="outlined"
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
                   name="mcode"
-                  select
-                  label="Material Code"
-                  value={item.mcode}
-                  onChange={(e) => {
-                    handleInputChange(item.slip_no, e);
-                  }}
-                >
-                  {mcodes.map((mcode) => (
-                    <MenuItem key={mcode} value={mcode}>
-                      {mcode}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  options={mcodes}
+                  // sx={{ width: 300 }}
+                  // value={item.mcode}
+                  onChange={(e, values) => handleChange(values, item.slip_no)}
+                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Material Code"
+                      variant="outlined"
+                      // value={item.mcode}
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={12} md={5}>
                 <TextField
@@ -314,7 +323,11 @@ function ReqForm() {
             variant="contained"
             size="medium"
             onClick={handleOpen}
-            disabled={items.filter((item) => item.mcode === "" || item.quantity_req === "").length > 0}
+            disabled={
+              items.filter(
+                (item) => item.mcode === "" || item.quantity_req === ""
+              ).length > 0
+            }
             color="primary"
             style={{ width: "100%", maxWidth: "220px" }}
           >
