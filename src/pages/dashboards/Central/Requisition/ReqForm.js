@@ -143,11 +143,10 @@ function ReqForm() {
     setSubmitDisabled(true);
     setShowSuccess(true);
 
-    socket.emit('clientCentralRequisition');
-
     items.map((item) => {
       requisition(item)
         .then((resp) => {
+          socket.emit('clientCentralRequisition', item.mname);
           console.log(resp.data);
         })
         .catch((err) => {

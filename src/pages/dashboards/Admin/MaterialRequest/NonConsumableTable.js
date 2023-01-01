@@ -123,13 +123,13 @@ function NonConsumableTable() {
       </div>
 
       <MaterialTable
-       localization={{
-       
-        header: {
+        localization={{
+
+          header: {
             actions: 'App Requests'
-        },
-       
-    }}
+          },
+
+        }}
         actions={[
           {
             icon: "checkbox",
@@ -141,7 +141,7 @@ function NonConsumableTable() {
                   .then((resp) => {
                     rowData.issued = true;
                     setShowSuccess(true);
-                    socket.emit('clientAdminApproval');
+                    socket.emit('clientAdminApproval', rowData.mname);
                     console.log(resp);
                     window.location = '/non-consumable';
                   })

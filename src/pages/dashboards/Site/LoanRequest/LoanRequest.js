@@ -53,7 +53,7 @@ function LoanRequest() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
   useEffect(() => {
@@ -222,13 +222,13 @@ function LoanRequest() {
       requestLoan(item)
         .then((resp) => {
           console.log(resp);
+          socket.emit('clientSiteLoanRequest', { storeId: user.storeId, mname: item.mname });
         })
         .catch((err) => {
           console.log(err);
         });
     });
 
-    socket.emit('clientSiteLoanRequest', user.storeId);
 
     setTimeout(() => {
       setShowSuccess(false);
@@ -238,7 +238,7 @@ function LoanRequest() {
 
   return (
     <div>
-     
+
       <Box
         component="form"
         sx={{
@@ -343,9 +343,9 @@ function LoanRequest() {
             variant="contained"
             size="medium"
             onClick={handleOpen}
-            disabled={items.filter((item) => item.mcode === "" || item.requestedStoreId==="" || item.mquantity === "").length > 0}
-           
-            style={{ width: "100%", maxWidth: "220px",}}
+            disabled={items.filter((item) => item.mcode === "" || item.requestedStoreId === "" || item.mquantity === "").length > 0}
+
+            style={{ width: "100%", maxWidth: "220px", }}
           >
             Add Items
           </Button>
@@ -357,13 +357,13 @@ function LoanRequest() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-       
+
         <Box sx={style}>
-        {showSuccess && (
-        <Alert severity="success" sx={{ my: 3 }}>
-          This is a success alert — check it out!
-        </Alert>
-      )}
+          {showSuccess && (
+            <Alert severity="success" sx={{ my: 3 }}>
+              This is a success alert — check it out!
+            </Alert>
+          )}
           <Popup tableValues={items} />
           <Grid
             container

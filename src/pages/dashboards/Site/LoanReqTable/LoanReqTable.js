@@ -162,20 +162,20 @@ function LoanReqTable() {
       ></Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
-         localization={{
-       
-          header: {
+          localization={{
+
+            header: {
               actions: 'App. Requests'
-          },
-         
-      }}
+            },
+
+          }}
           actions={[
             {
               icon: "checkbox",
               tooltip: "Approve",
               onClick: async (event, rowData) => {
                 let issued = rowData.issued;
-                  setApproved(true);
+                setApproved(true);
                 if (rowData.lendQuantity?.length && !issued) {
                   rowData.lendDate = getCurrentDate();
                   rowData.returnCondition = "";
@@ -186,7 +186,7 @@ function LoanReqTable() {
                     .then((resp) => {
                       console.log(resp);
                       console.log("here")
-                      socket.emit('clientSiteLoanApproval');
+                      socket.emit('clientSiteLoanApproval', { storeId: user.storeId, mname: rowData.mname });
                       setLoneApproved(true);
                       setTimeout(() => setLoneApproved(false), 2000);
                       window.location = '/loan-request-table';

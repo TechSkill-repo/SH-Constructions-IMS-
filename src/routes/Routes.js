@@ -23,7 +23,8 @@ import AuthLayout from "../layouts/Auth";
 import PresentationLayout from "../layouts/Presentation";
 import { Login } from "../pages/auth/Login";
 import { Provider } from "react-redux";
-import { adminStore } from "../redux/store/adminStore";
+import { PersistGate } from 'redux-persist/integration/react';
+import { adminStore, adminPersistor } from "../redux/store/adminStore";
 import { centralStore } from "../redux/store/centralStore";
 import { siteStore } from "../redux/store/siteStore";
 
@@ -75,8 +76,10 @@ const checkUserType = (sessionData) => {
       return (
         <Switch>
           <Provider store={adminStore}>
-            {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
-            {childRoutes(PresentationLayout, presentationLayoutRoutes)}
+            <PersistGate persistor={adminPersistor}>
+              {childRoutes(DashboardLayout, dashboardLayoutRoutes)}
+              {childRoutes(PresentationLayout, presentationLayoutRoutes)}
+            </PersistGate>
           </Provider>
         </Switch>
       );

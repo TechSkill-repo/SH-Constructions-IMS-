@@ -125,13 +125,13 @@ const Dashboard = ({ children, routes, width }) => {
     }
 
     // Admin
-    centralStoreRequisition(() => {
-      console.log("Central Store Requisition");
-      dispatch(adminAdd("Central Store Requisition"));
+    centralStoreRequisition((mname) => {
+      console.log("Central Store Requisition, Material: " + mname);
+      dispatch(adminAdd("Central Store Requisition, Material: " + mname));
       console.log("user", admin, role);
       setAdmin(true);
       if (role === "Admin") {
-        toast.info("Central Store Requisition", {
+        toast.info("Central Store Requisition, Material: " + mname, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -147,11 +147,11 @@ const Dashboard = ({ children, routes, width }) => {
     });
 
     // Central
-    adminApproval(() => {
-      dispatch(centralAdd("Admin approval"));
+    adminApproval((mname) => {
+      dispatch(centralAdd("Admin approval, Material: " + mname));
 
       if (role === "Central Store") {
-        toast.success("Admin approval", {
+        toast.success("Admin approval, Material: " + mname, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -188,10 +188,10 @@ const Dashboard = ({ children, routes, width }) => {
         );
     });
 
-    siteStoreRequisition(() => {
-      dispatch(centralAdd("Site Requisition"));
+    siteStoreRequisition((mname) => {
+      dispatch(centralAdd("Site Requisition, Material: " + mname));
       if (role === "Central Store")
-        toast.info("Site Requisition", {
+        toast.info("Site Requisition, Material: " + mname, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -204,10 +204,10 @@ const Dashboard = ({ children, routes, width }) => {
     });
 
     // Site
-    centralStoreApproval(() => {
-      dispatch(siteAdd("Central Approval"));
+    centralStoreApproval((mname) => {
+      dispatch(siteAdd("Central Approval, Material: " + mname));
       if (role === "Site Store")
-        toast.success("Central Approval", {
+        toast.success("Central Approval, Material: " + mname, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -219,9 +219,9 @@ const Dashboard = ({ children, routes, width }) => {
         });
     });
 
-    siteLoanRequest((storeId) => {
+    siteLoanRequest(({ storeId, mname }) => {
       if (storeId != user.storeId) {
-        dispatch(siteAdd("Site Loan Request"));
+        dispatch(siteAdd("Site Loan Request, Material: " + mname));
         if (role === "Site Store")
           toast.info("Site Loan Request", {
             position: "top-right",
@@ -236,11 +236,11 @@ const Dashboard = ({ children, routes, width }) => {
       }
     });
 
-    siteLoanApproval((storeId) => {
+    siteLoanApproval(({ storeId, mname }) => {
       if (storeId != user.storeId) {
-        dispatch(siteAdd("Site Loan Approval"));
+        dispatch(siteAdd("Site Loan Approval, Material: " + mname));
         if (role === "Site Store")
-          toast.success("Site Loan Approval", {
+          toast.success("Site Loan Approval, Material: " + mname, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -253,11 +253,11 @@ const Dashboard = ({ children, routes, width }) => {
       }
     });
 
-    siteLoanReturn((storeId) => {
+    siteLoanReturn(({ storeId, mname }) => {
       if (storeId != user.storeId) {
-        dispatch(siteAdd("Site Loan Return"));
+        dispatch(siteAdd("Site Loan Return, Material: " + mname));
         if (role === "Site Store")
-          toast.info("Site Loan Return", {
+          toast.info("Site Loan Return, Material: " + mname, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
