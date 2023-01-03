@@ -11,7 +11,7 @@ import { Divider as MuiDivider } from "@material-ui/core";
 import { Link, Router, useLocation } from "react-router-dom";
 
 const Divider = styled(MuiDivider)(spacing);
- 
+
 function useQuery() {
   const { search } = useLocation();
 
@@ -43,7 +43,10 @@ function MonitorStorLonNonConsumable(props) {
 
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/EC01">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/EC01"
+          >
             <Stats
               title="EC01"
               amount="Coke Plant"
@@ -55,7 +58,10 @@ function MonitorStorLonNonConsumable(props) {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E22">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E22"
+          >
             <Stats
               title="E22"
               amount="RMM"
@@ -66,7 +72,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E13">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E13"
+          >
             <Stats
               title="E13"
               amount="RMBB"
@@ -77,7 +86,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E17">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E17"
+          >
             <Stats
               title="E17"
               amount="RMBB2"
@@ -90,7 +102,10 @@ function MonitorStorLonNonConsumable(props) {
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E27">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E27"
+          >
             <Stats
               title="E27"
               amount="GBF"
@@ -101,7 +116,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E15">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E15"
+          >
             <Stats
               title="E15"
               amount="SP#3,4"
@@ -112,7 +130,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E23">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E23"
+          >
             <Stats
               title="E23"
               amount="SP#1,2"
@@ -123,7 +144,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E24">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E24"
+          >
             <Stats
               title="E24"
               amount="MM"
@@ -136,7 +160,10 @@ function MonitorStorLonNonConsumable(props) {
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E20">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E20"
+          >
             <Stats
               title="E20"
               amount="LD#01"
@@ -147,7 +174,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E30">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E30"
+          >
             <Stats
               title="E30"
               amount="PALLET PLANT"
@@ -158,7 +188,10 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/E28">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/E28"
+          >
             <Stats
               title="E28"
               amount="MRSPP"
@@ -169,10 +202,13 @@ function MonitorStorLonNonConsumable(props) {
           </Link>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={3} xl>
-          <Link style={{ textDecoration: "none" }} to="/store-inventory/non-consumable/I11">
+          <Link
+            style={{ textDecoration: "none" }}
+            to="/store-inventory/non-consumable/I11"
+          >
             <Stats
               title="I11"
-              amount="LINE PLANT"
+              amount="LIME PLNT"
               chip="Imteyaz Ahmed"
               percentageText="I11"
               percentagecolor={red[500]}

@@ -103,7 +103,7 @@ function ConsumablesForm({ productId }) {
     },
     {
       value: "ILL",
-      label: "LINE PLANT",
+      label: "LIME PLNT",
     },
   ];
 

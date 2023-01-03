@@ -170,7 +170,7 @@ function Consumable(props) {
           <Link style={{ textDecoration: "none" }} to="/consumables-table/I11">
             <Stats
               title="I11"
-              amountC="LINE PLANT"
+              amountC="LIME PLNT"
               chip="Imteyaz Ahmed"
               percentageText="I11"
               percentagecolor={red[500]}

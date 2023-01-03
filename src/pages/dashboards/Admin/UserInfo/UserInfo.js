@@ -90,7 +90,7 @@ function UserInfo() {
       password: "1234567890",
     },
     {
-      shop: "Line Plant",
+      shop: "LIME PLNT",
       shopId: "I11",
       name: "Intiyaz Ahmed Khan",
       email: "linePlant#1@shc.com",

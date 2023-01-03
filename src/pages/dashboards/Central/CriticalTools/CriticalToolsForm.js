@@ -9,7 +9,7 @@ import { postCriticalTools } from "../../../../services/criticalTools";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 function ConsumablesForm({ productId }) {
   const [storeId, setStoreId] = useState("");
@@ -104,7 +104,7 @@ function ConsumablesForm({ productId }) {
     },
     {
       value: "ILL",
-      label: "LINE PLANT",
+      label: "LIME PLNT",
     },
   ];
 
@@ -264,47 +264,36 @@ function ConsumablesForm({ productId }) {
         </Grid>
         <Grid item xs={12} md={6}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DesktopDatePicker
-           label="Entry Date"
-          inputFormat="MM/DD/YYYY"
-          value={entryDate}
-          color="success"
-        
-          onChange={(newValue) => {
+            <DesktopDatePicker
+              label="Entry Date"
+              inputFormat="MM/DD/YYYY"
+              value={entryDate}
+              color="success"
+              onChange={(newValue) => {
+                let d = new Date(newValue.$d);
+                d = d.toLocaleDateString();
 
-            let d = new Date(newValue.$d);
-            d=d.toLocaleDateString()
-
-            setEntryDate(prev=>d);
-            
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-           
+                setEntryDate((prev) => d);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
           </LocalizationProvider>
         </Grid>
         <Grid item xs={12} md={6}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DesktopDatePicker
-           label="Due Date"
-          inputFormat="MM/DD/YYYY"
-          value={dueDate}
-          color="success"
-        
-          onChange={(newValue) => {
+            <DesktopDatePicker
+              label="Due Date"
+              inputFormat="MM/DD/YYYY"
+              value={dueDate}
+              color="success"
+              onChange={(newValue) => {
+                let d = new Date(newValue.$d);
+                d = d.toLocaleDateString();
 
-            let d = new Date(newValue.$d);
-            d=d.toLocaleDateString()
-
-            setDueDate(prev=>d);
-           
-           
-            
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-           
-          
+                setDueDate((prev) => d);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
           </LocalizationProvider>
         </Grid>
         {/* <Grid item xs={12}>

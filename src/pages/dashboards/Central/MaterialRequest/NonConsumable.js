@@ -195,7 +195,7 @@ function NonConsumable() {
           >
             <Stats
               title="I11"
-              amountNC="LINE PLANT"
+              amountNC="LIME PLNT"
               chip="Imteyaz Ahmed"
               percentageText="I11"
               percentagecolor={red[500]}

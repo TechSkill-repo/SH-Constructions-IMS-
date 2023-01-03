@@ -34,9 +34,9 @@ function Default() {
   const userDetails = window.sessionStorage.getItem("user");
   const userRole = JSON.parse(userDetails);
 
-  const { elements } = useSelector(state => state.central);
+  const { elements } = useSelector((state) => state.central);
   const dispatch = useDispatch();
-  console.log("elements",elements)
+  console.log("elements", elements);
 
   return (
     <React.Fragment>
@@ -56,11 +56,11 @@ function Default() {
       </Grid>
 
       <div>
-        <Box sx={{ width: '100%', marginTop: "6px" }} >
-       
-            {elements.map((element,index) => {
-              return <Alert
-              key={index}
+        <Box sx={{ width: "100%", marginTop: "6px" }}>
+          {elements.map((element, index) => {
+            return (
+              <Alert
+                key={index}
                 action={
                   <IconButton
                     aria-label="close"
@@ -76,11 +76,11 @@ function Default() {
                 sx={{ mb: 2 }}
               >
                 {element}
-              </Alert >
-            })}
-         
-        </Box >
-      </div >
+              </Alert>
+            );
+          })}
+        </Box>
+      </div>
 
       <Divider my={6} />
 
@@ -109,7 +109,6 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl>
@@ -136,7 +135,6 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl>
@@ -163,7 +161,6 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-
       </Grid>
       <Grid container spacing={6}>
         <Grid item xs={12} sm={12} md={6} lg={4} xl>
@@ -184,15 +181,14 @@ function Default() {
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={4} xl>
           <Stats
-            title="Line Plant"
+            title="LIME PLNT"
             chip="Imteyaz Ahmed"
             percentageText="I11"
             percentagecolor={green[500]}
           />
         </Grid>
-
       </Grid>
-    </React.Fragment >
+    </React.Fragment>
   );
 }
 

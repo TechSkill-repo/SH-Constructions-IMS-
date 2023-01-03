@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 
 import { Helmet } from "react-helmet-async";
-import { Button, Box, Alert, Snackbar, IconButton, Collapse } from "@mui/material";
+import {
+  Button,
+  Box,
+  Alert,
+  Snackbar,
+  IconButton,
+  Collapse,
+} from "@mui/material";
 
 import {
   Grid,
@@ -33,11 +40,11 @@ function Default() {
   const userRole = JSON.parse(userDetails);
   const [viewMore, setViewMore] = useState(false);
 
-  const { elements } = useSelector(state => state.admin);
+  const { elements } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   const handleViewMore = () => setViewMore(!viewMore);
-  console.log("elements",elements)
+  console.log("elements", elements);
 
   return (
     <React.Fragment>
@@ -59,10 +66,10 @@ function Default() {
       <Divider my={6} />
 
       <div>
-        <Box sx={{ width: '100%' }}>
-         
-            {elements.map((element, index) => {
-              return <Alert
+        <Box sx={{ width: "100%" }}>
+          {elements.map((element, index) => {
+            return (
+              <Alert
                 key={index}
                 action={
                   <IconButton
@@ -70,7 +77,7 @@ function Default() {
                     color="inherit"
                     size="small"
                     onClick={() => {
-                      dispatch(remove(index))
+                      dispatch(remove(index));
                     }}
                   >
                     <Close fontSize="inherit" />
@@ -80,8 +87,8 @@ function Default() {
               >
                 {element}
               </Alert>
-            })}
-         
+            );
+          })}
         </Box>
       </div>
 
@@ -110,96 +117,86 @@ function Default() {
             percentagecolor={green[500]}
           />
         </Grid>
-
       </Grid>
 
-      
-          <Grid container spacing={6}>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="RMBB2"
-                chip="Love Gope"
-                percentageText="E17"
-                percentagecolor={red[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="GBF"
-                chip="RK Srivastava"
-                percentageText="E27"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="SP#1,2"
-                chip="Chandan Singh"
-                percentageText="E23"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-
-          </Grid>
-          <Grid container spacing={6}>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="SP#3,4"
-                chip="Manoj Mishra"
-                percentageText="E15"
-                percentagecolor={red[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="MM"
-                chip="Hashim Khan"
-                percentageText="E24"
-                percentagecolor={red[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="LD#01"
-                chip="Prabhat Singh"
-                percentageText="E20"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-
-          </Grid>
-          <Grid container spacing={6}>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="PALLET PLANT"
-                chip="Bablu Panday"
-                percentageText="E30"
-                percentagecolor={red[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="MRSPP"
-                chip="Santosh Panday"
-                percentageText="E28"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl>
-              <Stats
-                title="Line Plant"
-                chip="Imteyaz Ahmed"
-                percentageText="I11"
-                percentagecolor={green[500]}
-              />
-            </Grid>
-
-          </Grid>
-
-        
-
-      
-     
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="RMBB2"
+            chip="Love Gope"
+            percentageText="E17"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="GBF"
+            chip="RK Srivastava"
+            percentageText="E27"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="SP#1,2"
+            chip="Chandan Singh"
+            percentageText="E23"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="SP#3,4"
+            chip="Manoj Mishra"
+            percentageText="E15"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="MM"
+            chip="Hashim Khan"
+            percentageText="E24"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="LD#01"
+            chip="Prabhat Singh"
+            percentageText="E20"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={6}>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="PALLET PLANT"
+            chip="Bablu Panday"
+            percentageText="E30"
+            percentagecolor={red[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="MRSPP"
+            chip="Santosh Panday"
+            percentageText="E28"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={4} xl>
+          <Stats
+            title="LIME PLNT"
+            chip="Imteyaz Ahmed"
+            percentageText="I11"
+            percentagecolor={green[500]}
+          />
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }
