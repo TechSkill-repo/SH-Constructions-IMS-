@@ -7,40 +7,39 @@ import Button from "@mui/material/Button";
 import { Typography } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@material-ui/icons/Add";
-import Box from "@mui/material/Box"; 
+import Box from "@mui/material/Box";
 
 function ProductList() {
-  
-  const [showForm , setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   return (
     <>
-    <Grid container spacing={4} alignItems="center" justifyContent="center">
-      <Grid item xs={11}>
-        <Typography variant="h3" gutterBottom gutterLeft>
-          Products List
-        </Typography>
+      <Grid container spacing={4} alignItems="center" justifyContent="center">
+        <Grid item xs={11}>
+          <Typography variant="h3" gutterBottom gutterLeft>
+            Products List
+          </Typography>
+        </Grid>
+        <Grid item xs={1}>
+          <Button
+            variant="contained"
+            size="medium"
+            onClick={() => {
+              setShowForm(!showForm);
+            }}
+          >
+            {showForm ? <CloseIcon /> : <AddIcon />}
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={1}>
-        <Button
-          variant="contained"
-          size="medium"
-          onClick={() => {
-            setShowForm(!showForm);
-          }}
-        >
-          {showForm ? <CloseIcon /> : <AddIcon />}
-        </Button>
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid item xs={12}>
+          {showForm && <ProductListForm />}
+        </Grid>
       </Grid>
-    </Grid>
-    <Grid container spacing={2} alignItems="center" justifyContent="center">
-      <Grid item xs={9}>
-        {showForm && <ProductListForm/>}
-      </Grid>
-    </Grid>
-    <Box component="div" sx={{ mt: 2 }}>
-      <ProductListTable/>
-    </Box>
-  </>
+      <Box component="div" sx={{ mt: 2 }}>
+        <ProductListTable />
+      </Box>
+    </>
   );
 }
 
