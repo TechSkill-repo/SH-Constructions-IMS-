@@ -62,7 +62,6 @@ function LoanApproveTable() {
       ),
     },
     { title: "U.O.M", field: "uom", filterPlaceholder: "filter" },
-   
   ];
 
   return (
@@ -100,7 +99,7 @@ function LoanApproveTable() {
         alignItems="center"
         style={{ justifyContent: "center" }}
       >
-        <Grid item xs={9} justifyContent="center">
+        <Grid item xs={12} justifyContent="center">
           {showForm && <LoanApproveForm storeId={storeId} />}
         </Grid>
       </Grid>

@@ -34,7 +34,7 @@ function CriticalTool() {
         </Grid>
       </Grid>
       <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           {showForm && <CriticalToolsForm productId={productId} />}
         </Grid>
       </Grid>

@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Typography } from "@material-ui/core";
 import NonConsumableTable from "./NonConsumableTable";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@material-ui/icons/Add";
 import Box from "@mui/material/Box";
 
@@ -14,7 +14,7 @@ function NonConsumable() {
   return (
     <>
       <Grid container spacing={4} alignItems="center" justifyContent="center">
-        <Grid item xs={11} >
+        <Grid item xs={11}>
           <Typography variant="h3" gutterBottom gutterLeft>
             Non-Consumable Items Inventory
           </Typography>
@@ -32,12 +32,11 @@ function NonConsumable() {
         </Grid>
       </Grid>
       <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           {showForm && <NonConsumableForm />}
         </Grid>
       </Grid>
-      <Box component="div"
-        sx={{ mt: 2 }}>
+      <Box component="div" sx={{ mt: 2 }}>
         <NonConsumableTable />
       </Box>
     </>

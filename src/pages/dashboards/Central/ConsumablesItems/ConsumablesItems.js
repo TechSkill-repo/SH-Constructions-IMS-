@@ -32,7 +32,7 @@ function ConsumablesItems() {
         </Grid>
       </Grid>
       <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           {showForm && <ConsumablesForm />}
         </Grid>
       </Grid>

@@ -25,7 +25,7 @@ function ApprovedLone() {
       .then((data) => {
         let temp = data.items;
 
-        temp.map(async item => {
+        temp.map(async (item) => {
           const data = await checkIsReturned(item.slip_no);
           item.returned = data.returned;
           // console.log(item);
@@ -63,8 +63,7 @@ function ApprovedLone() {
       title: "Location",
       field: "requestedStoreId",
       filterPlaceholder: "filter",
-      render: (rowData) =>
-      (
+      render: (rowData) => (
         <span style={{ color: "green", fontWeight: "600" }}>
           {rowData.requestedStoreId}
         </span>
@@ -84,15 +83,15 @@ function ApprovedLone() {
       title: "Category",
       field: "category",
       filterPlaceholder: "filter",
-      render: (rowData) =>
-      (<span
-        style={{
-          color: `${rowData.category == "consumable" ? "red" : "green"}`,
-          fontWeight: "600",
-        }}
-      >
-        {rowData.category}
-      </span>
+      render: (rowData) => (
+        <span
+          style={{
+            color: `${rowData.category == "consumable" ? "red" : "green"}`,
+            fontWeight: "600",
+          }}
+        >
+          {rowData.category}
+        </span>
       ),
     },
     {
@@ -137,18 +136,16 @@ function ApprovedLone() {
         alignItems="center"
         style={{ justifyContent: "center" }}
       >
-        <Grid item xs={9} justifyContent="center">
+        <Grid item xs={12} justifyContent="center">
           {showForm && <LoanApproveForm storeId={storeId} />}
         </Grid>
       </Grid>
       <Box component="div" sx={{ mt: 2 }}>
         <MaterialTable
           localization={{
-
             header: {
-              actions: 'Approve'
+              actions: "Approve",
             },
-
           }}
           actions={[
             {
@@ -162,10 +159,13 @@ function ApprovedLone() {
                     .then((resp) => {
                       console.log(resp);
 
-                      socket.emit('clientSiteLoanReturn', { storeId: user.storeId, mname: rowData.mname });
+                      socket.emit("clientSiteLoanReturn", {
+                        storeId: user.storeId,
+                        mname: rowData.mname,
+                      });
 
                       setTimeout(() => {
-                        window.location = '/loan-approval'
+                        window.location = "/loan-approval";
                       }, 2000);
                     })
                     .catch((err) => console.log(err.response));
@@ -202,7 +202,10 @@ function ApprovedLone() {
             columnsButton: true,
             rowStyle: (data, index) => {
               console.log(data);
-              return { background: index % 2 === 0 ? "#f5f5f5" : "", color: data.returned === true ? "red" : "black" }
+              return {
+                background: index % 2 === 0 ? "#f5f5f5" : "",
+                color: data.returned === true ? "red" : "black",
+              };
             },
             headerStyle: { background: "#376fd0", color: "#fff" },
           }}

@@ -51,9 +51,14 @@ function MIConsumableTable() {
       field: "mquantity",
       filterPlaceholder: "filter",
       render: (rowData) => {
-        if (rowData.mquantity != rowData.quantity_aprv) return <span style={{ color: "red", fontWeight: "bold" }}>{rowData.mquantity}</span>;
+        if (rowData.mquantity != rowData.quantity_aprv)
+          return (
+            <span style={{ color: "red", fontWeight: "bold" }}>
+              {rowData.mquantity}
+            </span>
+          );
         else return rowData.mquantity;
-      }
+      },
     },
   ];
 
@@ -92,7 +97,7 @@ function MIConsumableTable() {
         alignItems="center"
         style={{ justifyContent: "center" }}
       >
-        <Grid item xs={9} justifyContent="center">
+        <Grid item xs={12} justifyContent="center">
           {showForm && <MIConsumableForm storeId={storeId} />}
         </Grid>
       </Grid>
