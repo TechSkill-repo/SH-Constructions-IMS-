@@ -106,6 +106,33 @@ const getNonConsumableTotalPrice = (storeId) => {
   });
 };
 
+// debug only: SITE STORE add in inventory
+const addSiteConsumable = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .post(HOST + "/material/debug/add/consumable", material)
+      .then((resp) => {
+        if (resp.status === 201) resolve(resp.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+const addSiteNonConsumable = (material) => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .post(HOST + "/material/debug/add/non-consumable", material)
+      .then((resp) => {
+        if (resp.status === 201) resolve(resp.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 export {
   fetchDetails,
   getMcodes,
@@ -115,4 +142,6 @@ export {
   getConsumableTotalPrice,
   getNonConsumableTotalPrice,
   putMaterial,
+  addSiteConsumable,
+  addSiteNonConsumable
 };

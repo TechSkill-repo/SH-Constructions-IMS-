@@ -1,10 +1,143 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import AddIcon from "@material-ui/icons/Add";
-import { Typography } from "@mui/material";
-import { Grid } from "@material-ui/core";
+import { Autocomplete, Typography } from "@mui/material";
+import { Grid, Select } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { getMaterials } from "../../../../services/storeService";
+
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { addSiteConsumable, getMcodes, fetchDetails } from "../../../../services/materialService";
+
+function ConsumablesForm() {
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
+
+  const storeId = user.storeId;
+  const [mcode, setMcode] = useState("");
+  const [mname, setMname] = useState("");
+  const [mdescription, setMdescription] = useState("");
+  const [date, setDate] = useState(getCurrentDate());
+  const [uom, setUom] = useState("");
+  const [category, setCategory] = useState("");
+  const [quantity_req, setQuantity_req] = useState("");
+
+  const [mcodes, setMcodes] = useState([]);
+
+  useEffect(() => {
+    async function fetch() {
+      await getMcodes()
+        .then((data) => setMcodes(data.codes))
+        .catch((err) => console.log(err));
+    }
+    fetch();
+  }, []);
+
+  function getCurrentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`;
+  }
+
+  const handleInputChange = async (event) => {
+    setMcode(event.target.value);
+
+    try {
+      const data = await fetchDetails(event.target.value);
+
+      const { _mname, _mdescription, _uom, _category } = data.item;
+      setMname(_mname);
+      setMdescription(_mdescription);
+      setUom(_uom);
+      setCategory(_category);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleSubmit = () => {
+    addSiteConsumable({ mcode, mname, mdescription, uom, category, storeId, date, mquantity: quantity_req })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setTimeout(() => {
+      window.navigation.navigate(window.location.href);
+    }, 3000);
+  };
+
+  return (
+    <div>
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "100%" },
+          "&.MuiBox-root": { background: "#fff", p: 3, borderRadius: 3 },
+        }}
+        noValidate
+        autoComplete="off"
+        // onSubmit={handleSubmit}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="h3">Add form</Typography>
+        <Grid
+          container
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid item xs={12} md={5}>
+            <Select
+              style={{ width: "300px" }}
+              name="mcode"
+              value={mcode}
+              onChange={(e) => {
+                handleInputChange(e)
+              }}
+            >
+              {mcodes.map(mc => <option value={mc}>{mc}</option>)}
+            </Select>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <TextField
+              variant="outlined"
+              name="quantity_req"
+              label="Quantity Request"
+              type="text"
+              value={quantity_req}
+              onChange={(e) =>
+                setQuantity_req(e.target.value)
+              }
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          justifyContent="center"
+          style={{ margin: "2em auto 0" }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={mcode === "" || quantity_req === ""}
+            size="medium"
+            style={{ width: "100%", maxWidth: "220px" }}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </Grid>
+      </Box>
+    </div>
+  );
+}
 
 function Consumable() {
   const [items, setItems] = useState([]);
@@ -47,6 +180,7 @@ function Consumable() {
 
   return (
     <>
+      <ConsumablesForm />
       <Grid
         container
         spacing={2}
