@@ -194,4 +194,47 @@ const getNonConsumableTotalPrice = async (req, res) => {
   });
 }
 
-module.exports = { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial, editMaterial, getConsumableTotalPrice, getNonConsumableTotalPrice };
+// debug only: material add feature for SITE STORE consumable and non-consumable inventory
+const addSiteConsumable = (req, res) => {
+  const { mcode, date, mname, mdescription, uom, mquantity, storeId } = req.body;
+
+  let query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+  query.get().then(async querySnapshot => {
+    if (querySnapshot.empty) {
+      const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
+      await docRef2.set({ storeId, mcode, date, mname, mdescription, uom, mquantity, category: "consumable" });
+    } else {
+      querySnapshot.forEach(async doc => {
+        const data = doc.data();
+        data.mquantity = "" + (parseInt(data.mquantity) + parseInt(mquantity));
+        await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+        await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+      })
+    }
+
+    res.status(201).json({ "message": "Material Added" });
+  });
+};
+
+const addSiteNonConsumable = (req, res) => {
+  const { mcode, date, mname, mdescription, uom, mquantity, storeId } = req.body;
+
+  let query = db.collection("stores").doc(storeId).collection("items").where("mcode", "==", mcode);
+  query.get().then(async querySnapshot => {
+    if (querySnapshot.empty) {
+      const docRef2 = db.collection("stores").doc(storeId).collection("items").doc();
+      await docRef2.set({ storeId, mcode, date, mname, mdescription, uom, mquantity, category: "non-consumable" });
+    } else {
+      querySnapshot.forEach(async doc => {
+        const data = doc.data();
+        data.mquantity = "" + (parseInt(data.mquantity) + parseInt(mquantity));
+        await db.collection("stores").doc(storeId).collection("items").doc(doc.id).delete();
+        await db.collection("stores").doc(storeId).collection("items").doc(doc.id).set(data);
+      })
+    }
+
+    res.status(201).json({ "message": "Material Added" });
+  });
+};
+
+module.exports = { fetchDetails, getMcodes, getRequests, getMaterials, addMaterial, editMaterial, getConsumableTotalPrice, getNonConsumableTotalPrice, addSiteConsumable, addSiteNonConsumable };

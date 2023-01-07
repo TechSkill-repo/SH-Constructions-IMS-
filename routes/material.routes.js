@@ -10,4 +10,8 @@ router.put("/edit", materialControllers.editMaterial);
 router.get("/total/consumable", materialControllers.getConsumableTotalPrice);
 router.get("/total/non-consumable", materialControllers.getNonConsumableTotalPrice);
 
+// debug only: SITE STORE material add route
+router.post("/debug/add/consumable", materialControllers.addSiteConsumable);
+router.post("/debug/add/non-consumable", materialControllers.addSiteNonConsumable);
+
 module.exports = router;
