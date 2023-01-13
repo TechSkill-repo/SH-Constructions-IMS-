@@ -48,11 +48,11 @@ function NonConsumablesForm() {
     try {
       const data = await fetchDetails(event.target.value);
 
-      const { _mname, _mdescription, _uom, _category } = data.item;
-      setMname(_mname);
-      setMdescription(_mdescription);
-      setUom(_uom);
-      setCategory(_category);
+      const { mname, mdescription, uom, category } = data.item;
+      setMname(mname);
+      setMdescription(mdescription);
+      setUom(uom);
+      setCategory(category);
     } catch (err) {
       console.log(err);
     }
