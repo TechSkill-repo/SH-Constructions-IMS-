@@ -247,19 +247,13 @@ function ConsumablesForm({ productId }) {
             // required
             id="make"
             select
-            label="Make"
+            label="Makes"
             type="text"
             value={make}
             onChange={(e) => {
               setMake(e.target.value);
             }}
-          >
-            {makers.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          ></TextField>
         </Grid>
         <Grid item xs={12} md={6}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>

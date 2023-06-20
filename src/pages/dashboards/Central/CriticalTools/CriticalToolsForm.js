@@ -247,23 +247,17 @@ function ConsumablesForm({ productId }) {
           <TextField
             // required
             id="make"
-            select
             label="Make"
             type="text"
             value={make}
+            // error={error && serialNo == "" ? true : false}
             onChange={(e) => {
               setMake(e.target.value);
             }}
-          >
-            {makers.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               label="Entry Date"
               inputFormat="MM/DD/YYYY"
@@ -277,10 +271,21 @@ function ConsumablesForm({ productId }) {
               }}
               renderInput={(params) => <TextField {...params} />}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
+          <TextField
+            // required
+            id="entryDate"
+            label="Entry Date"
+            type="date"
+            value={entryDate}
+            // error={error && serialNo == "" ? true : false}
+            onChange={(e) => {
+              setEntryDate(e.target.value);
+            }}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               label="Due Date"
               inputFormat="MM/DD/YYYY"
@@ -294,7 +299,18 @@ function ConsumablesForm({ productId }) {
               }}
               renderInput={(params) => <TextField {...params} />}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
+          <TextField
+            // required
+            id="entryDate"
+            label="Due Date"
+            type="date"
+            value={dueDate}
+            // error={error && serialNo == "" ? true : false}
+            onChange={(e) => {
+              setDueDate(e.target.value);
+            }}
+          />
         </Grid>
         {/* <Grid item xs={12}>
           <TextField
