@@ -35,6 +35,8 @@ function CriticalToolsTable({ productId }) {
     { title: "Make", field: "make", filterPlaceholder: "filter" },
     { title: "Serial no.", field: "serialNo", filterPlaceholder: "filter" },
     { title: "Due Date", field: "dueDate", filterPlaceholder: "filter" },
+    {title: "M.Desc", field: "mDescription", filterPlaceholder: "filter"},
+    { title: "Remarks", field: "remarks", filterPlaceholder: "filter" },
   ];
 
   return (
