@@ -11,7 +11,9 @@ const postCriticalTools = async (req, res) => {
     serialNo,
     dueDate,
     productId,
-    storeId
+    notificationDate,
+    remarks,
+    storeId,
   } = req.body;
 
   const docRef = db.collection("critical-tools").doc();
@@ -26,7 +28,9 @@ const postCriticalTools = async (req, res) => {
     serialNo,
     dueDate,
     productId,
-    storeId
+    notificationDate,
+    remarks,
+    storeId,
   });
 
   res.status(201).json({ message: "Post Successful" });
@@ -58,10 +62,14 @@ const editCriticalTools = async (req, res) => {
     serialNo,
     dueDate,
     productId,
-    storeId
+    storeId,
+    notificationDate,
+    remarks,
   } = req.body;
 
-  const query = db.collection("critical-tools").where("serialNo", "==", serialNo);
+  const query = db
+    .collection("critical-tools")
+    .where("serialNo", "==", serialNo);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
@@ -79,8 +87,10 @@ const editCriticalTools = async (req, res) => {
             serialNo,
             dueDate,
             productId,
-            storeId
-          })
+            storeId,
+            notificationDate,
+            remarks,
+          });
         }
       });
 
@@ -92,7 +102,9 @@ const editCriticalTools = async (req, res) => {
 const deleteCriticalTools = async () => {
   const { serialNo } = req.body;
 
-  const query = db.collection("critical-tools").where("serialNo", "==", serialNo);
+  const query = db
+    .collection("critical-tools")
+    .where("serialNo", "==", serialNo);
   await query.get().then((querySnapshot) => {
     if (querySnapshot.empty) {
       res.status(404).json({ message: "Material not found" });
@@ -108,4 +120,9 @@ const deleteCriticalTools = async () => {
   });
 };
 
-module.exports = { postCriticalTools, getCriticalTools, editCriticalTools, deleteCriticalTools };
+module.exports = {
+  postCriticalTools,
+  getCriticalTools,
+  editCriticalTools,
+  deleteCriticalTools,
+};

@@ -8,7 +8,10 @@ const {
   Timestamp,
   FieldValue,
 } = require("firebase-admin/firestore");
-// const serviceAccount = require("./serviceKey.json");
+
+const dotenv = require("dotenv");
+dotenv.config();
+
 const serviceAccount = JSON.parse(process.env.SERVICE_KEY);
 
 initializeApp({
