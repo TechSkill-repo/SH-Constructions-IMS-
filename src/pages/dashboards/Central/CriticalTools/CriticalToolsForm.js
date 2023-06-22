@@ -16,12 +16,14 @@ function ConsumablesForm({ productId }) {
   const [mcode, setMcode] = useState("");
   const [mname, setMname] = useState("");
   const [mdescription, setMdescription] = useState("");
+  const [remarks, setRemarks] = useState("");
   const [entryDate, setEntryDate] = useState("");
   const [uom, setUom] = useState("");
   const [make, setMake] = useState("");
   const [serialNo, setserialNo] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [notificationDate, setNotificationDate] = useState("");
   // const [error, showError] = useState(false);
 
   const handleSubmit = (e) => {
@@ -40,6 +42,8 @@ function ConsumablesForm({ productId }) {
       make,
       serialNo,
       dueDate,
+      remarks,
+      notificationDate,
     })
       .then((resp) => {
         console.log(resp.data);
@@ -235,13 +239,7 @@ function ConsumablesForm({ productId }) {
             onChange={(e) => {
               setStoreId(e.target.value);
             }}
-          >
-            {storeLocation.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          ></TextField>
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
@@ -312,7 +310,47 @@ function ConsumablesForm({ productId }) {
             }}
           />
         </Grid>
-        {/* <Grid item xs={12}>
+
+        <Grid item xs={12} md={6}>
+          <TextField
+            id="remarks"
+            label="Remarks"
+            type="text"
+            value={remarks}
+            onChange={(e) => {
+              setRemarks(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DesktopDatePicker
+              label="Notification Date"
+              inputFormat="DD/MM/YYYY"
+              value={notificationDate}
+              color="success"
+              onChange={(newValue) => {
+                let d = new Date(newValue.$d);
+                d = d.toLocaleDateString();
+
+                setNotificationDate((prev) => d);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider> */}
+          <TextField
+            // required
+            id="notificationDate"
+            label="Notification Date"
+            type="date"
+            value={notificationDate}
+            // error={error && serialNo == "" ? true : false}
+            onChange={(e) => {
+              setNotificationDate(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             id="mdescription"
             label="Material Description"
@@ -322,7 +360,7 @@ function ConsumablesForm({ productId }) {
               setMdescription(e.target.value);
             }}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12} md={3}>
           <Button
             variant="contained"
