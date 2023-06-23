@@ -232,7 +232,6 @@ function ConsumablesForm({ productId }) {
           /> */}
           <TextField
             id="storeId"
-            select
             label="Site Location"
             type="text"
             value={storeId}
