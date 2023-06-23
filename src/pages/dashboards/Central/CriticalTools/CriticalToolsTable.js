@@ -34,6 +34,7 @@ function CriticalToolsTable({ productId }) {
     { title: "Store Location", field: "storeId", filterPlaceholder: "storeId" },
     { title: "Make", field: "make", filterPlaceholder: "filter" },
     { title: "Serial no.", field: "serialNo", filterPlaceholder: "filter" },
+    { title: "Notify", field: "notificationDate", filterPlaceholder: "filter" },
     { title: "Due Date", field: "dueDate", filterPlaceholder: "filter" },
     { title: "M.Desc", field: "mdescription", filterPlaceholder: "filter" },
     { title: "Remarks", field: "remarks", filterPlaceholder: "filter" },
